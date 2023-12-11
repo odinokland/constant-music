@@ -1,10 +1,8 @@
 package com.odinokland.endlessmusic.mixin;
 
-import com.mojang.serialization.Codec;
 import com.odinokland.endlessmusic.EndlessMusicConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.ConfigHolder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.network.chat.CommonComponents;
@@ -12,9 +10,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.SoundOptionsScreen;
-import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Overwrite;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
@@ -25,7 +21,7 @@ import java.util.Arrays;
 @Mixin(SoundOptionsScreen.class)
 public class SoundOptionsScreenMixin extends OptionsSubScreen {
     public SoundOptionsScreenMixin(Screen parent, Options options, Component text) {
-        super(parent, options, Component.translatable("Poo"));
+        super(parent, options, text);
     }
 
     @Inject(method = "getAllSoundOptionsExceptMaster", at = @At("RETURN"), cancellable = true)
@@ -34,10 +30,10 @@ public class SoundOptionsScreenMixin extends OptionsSubScreen {
         EndlessMusicConfig config = holder.getConfig();
         OptionInstance<?>[] defaultOptions = cir.getReturnValue();
 
-        OptionInstance<Integer> seconds = new OptionInstance("endlessmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
+        OptionInstance<Integer> seconds = new OptionInstance<Integer>("endlessmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
             return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : Component.translatable("endlessmusic.option.time", new Object[]{integer});
         }, new OptionInstance.IntRange(0, 200), config.timer, (integer) -> {
-            config.timer = (int) integer;
+            config.timer = Integer.parseInt(integer.toString());
             holder.setConfig(config);
             holder.save();
         });

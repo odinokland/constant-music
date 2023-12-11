@@ -91,3 +91,25 @@ publishing {
         // Add repositories to publish to here.
     }
 }
+
+// CurseForgeGradle
+//task publishCurseForgeFabric(type: net.darkhax.curseforgegradle.TaskPublishCurseForge) {
+//
+//    apiToken = findProperty('curseforge_token')
+//
+//    // The main file to upload
+//    def mainFile = upload(949032, jar)
+//    mainFile.releaseType = 'alpha'
+//    mainFile.changelog = 'This is a test file. Please ignore it. The mod does nothing.'
+//    mainFile.changelogType = 'markdown'
+//    mainFile.addIncompatibility('bookshelf')
+//
+//    // The sources JAR
+//    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+//    sourcesFile.changelog = file('changelog.md')
+//
+//    // The JavaDoc JAR
+//    def javadocFile = mainFile.withAdditionalFile(javadocJar)
+//    javadocFile.changelog = 'This is a test JavaDoc file!'
+//    javadocFile.displayName = "JavaDoc - ${version}"
+//}
