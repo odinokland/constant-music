@@ -1,0 +1,6 @@
+{
+  "text.autoconfig.endlessmusic.title": "Endless Music Config",
+  "text.autoconfig.endlessmusic.option.timer": "Time (in seconds) between two tracks.",
+  "endlessmusic.debug.timer": "Time until next music: %s ticks.",
+  "endlessmusic.debug.music": "Current music: %s"
+}
