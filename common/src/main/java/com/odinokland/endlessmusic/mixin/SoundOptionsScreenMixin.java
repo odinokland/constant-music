@@ -1,8 +1,6 @@
 package com.odinokland.endlessmusic.mixin;
 
-import com.odinokland.endlessmusic.EndlessMusicConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.ConfigHolder;
+import com.odinokland.endlessmusic.EndlessMusic;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.network.chat.CommonComponents;
@@ -15,9 +13,6 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import java.awt.*;
-import java.util.Arrays;
-
 @Mixin(SoundOptionsScreen.class)
 public class SoundOptionsScreenMixin extends OptionsSubScreen {
     public SoundOptionsScreenMixin(Screen parent, Options options, Component text) {
@@ -26,16 +21,12 @@ public class SoundOptionsScreenMixin extends OptionsSubScreen {
 
     @Inject(method = "getAllSoundOptionsExceptMaster", at = @At("RETURN"), cancellable = true)
     protected void onGetAllOptions(CallbackInfoReturnable<OptionInstance<?>[]> cir) {
-        ConfigHolder<EndlessMusicConfig> holder = AutoConfig.getConfigHolder(EndlessMusicConfig.class);
-        EndlessMusicConfig config = holder.getConfig();
         OptionInstance<?>[] defaultOptions = cir.getReturnValue();
 
         OptionInstance<Integer> seconds = new OptionInstance<Integer>("endlessmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
             return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : Component.translatable("endlessmusic.option.time", new Object[]{integer});
-        }, new OptionInstance.IntRange(0, 200), config.timer, (integer) -> {
-            config.timer = Integer.parseInt(integer.toString());
-            holder.setConfig(config);
-            holder.save();
+        }, new OptionInstance.IntRange(0, 200), EndlessMusic.getTimer(), (integer) -> {
+            EndlessMusic.setTimer(Integer.parseInt(integer.toString()));
         });
 
         OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];

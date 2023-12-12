@@ -35,6 +35,7 @@ configurations {
 
 repositories {
     maven { url "https://maven.shedaniel.me/" }
+    mavenCentral()
 }
 
 dependencies {
@@ -46,6 +47,10 @@ dependencies {
     shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
 
     modImplementation("me.shedaniel.cloth:cloth-config-forge:12.0.111")
+
+    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
+    include 'com.moandjiezana.toml:toml4j:0.7.2'
+    forgeRuntimeLibrary 'com.moandjiezana.toml:toml4j:0.7.2'
 }
 
 processResources {
@@ -107,12 +112,13 @@ tasks.register('publishCurseForgeForge', TaskPublishCurseForge) {
     debugMode = false
 
     // The main file to upload
-    def mainFile = upload(949032, jar)
+    def mainFile = upload(949032, remapJar)
     mainFile.releaseType = 'release'
     mainFile.changelog = file('../changelog.md')
+    mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Forge")
     mainFile.displayName = "[Forge 1.20+] v${project.mod_version}"
-    mainFile.addGameVersion('1.20.1', '1.20.2')
+    mainFile.addGameVersion('1.20.1', '1.20.2', '1.20.3', '1.20.4')
     mainFile.addRequirement('architectury-api')
     mainFile.addOptional('cloth-config')
 
