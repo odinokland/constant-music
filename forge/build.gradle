@@ -1,5 +1,11 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+}
+
+base {
+    archivesName = rootProject.archives_base_name + "-forge"
 }
 
 architectury {
@@ -93,4 +99,32 @@ publishing {
     repositories {
         // Add repositories to publish to here.
     }
+}
+
+tasks.register('publishCurseForgeFabric', TaskPublishCurseForge) {
+
+    apiToken = findProperty('curseforge_token')
+    debugMode = false
+
+    // The main file to upload
+    def mainFile = upload(949032, jar)
+    mainFile.releaseType = 'release'
+    mainFile.changelog = file('../changelog.md')
+    mainFile.addModLoader("Forge")
+    mainFile.displayName = "[Forge 1.20+] v${project.mod_version}"
+    mainFile.addGameVersion(9990, 10236)
+    mainFile.addRequirement('architectury-api')
+    mainFile.addOptional('cloth-config')
+
+    // The sources JAR
+//    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+//    sourcesFile.changelog = file('../changelog.md')
+//    sourcesFile.addRequirement('fabric-api')
+//    sourcesFile.addRequirement('architectury-api')
+//    sourcesFile.addOptional('cloth-config')
+
+    // The JavaDoc JAR
+//    def javadocFile = mainFile.withAdditionalFile(javadocJar)
+//    javadocFile.changelog = 'This is a test JavaDoc file!'
+//    javadocFile.displayName = "JavaDoc - ${version}"
 }

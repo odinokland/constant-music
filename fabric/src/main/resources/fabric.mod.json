@@ -8,8 +8,8 @@
     "${mod_author}"
   ],
   "contact": {
-    "homepage": "https://fabricmc.net/",
-    "sources": "https://github.com/FabricMC/fabric-example-mod"
+    "homepage": "https://curseforge.com/minecraft/mc-mods/endless-music",
+    "sources": "https://github.com/odinokland/endless-music"
   },
   "license": "${mod_license}",
   "icon": "icon.png",
