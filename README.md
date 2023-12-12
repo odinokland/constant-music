@@ -1,7 +1,8 @@
 # Endless Music
 
 [![GitHub issues](https://img.shields.io/github/issues/odinokland/endless-music?style=flat-square)](https://github.com/odinokland/endless-music/issues)
-[![](http://cf.way2muchnoise.eu/endless_music.svg?badge_style=flat)](https://www.curseforge.com/minecraft/mc-mods/endless-music)
+[![GitHub license](https://img.shields.io/github/license/odinokland/endless-music?color=0690ff&style=flat-square)](https://github.com/odinokland/endless-music/blob/main/LICENSE.md)
+[![](https://cf.way2muchnoise.eu/endless-music.svg?badge_style=flat)](https://www.curseforge.com/minecraft/mc-mods/endless-music)
 
 Endless Music is a Minecraft Fabric & Forge mod currently developed for the latest Minecraft version.
 
