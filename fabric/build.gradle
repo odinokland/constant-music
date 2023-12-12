@@ -110,7 +110,7 @@ tasks.register('publishCurseForgeFabric', TaskPublishCurseForge) {
     mainFile.changelog = file('../changelog.md')
     mainFile.addModLoader("Fabric")
     mainFile.displayName = "[Fabric 1.20+] v${project.mod_version}"
-    mainFile.addGameVersion(9990, 10236)
+    mainFile.addGameVersion('1.20.1', '1.20.2')
     mainFile.addRequirement('fabric-api')
     mainFile.addRequirement('architectury-api')
     mainFile.addOptional('cloth-config')
