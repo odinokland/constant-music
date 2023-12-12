@@ -101,7 +101,7 @@ publishing {
     }
 }
 
-tasks.register('publishCurseForgeFabric', TaskPublishCurseForge) {
+tasks.register('publishCurseForgeForge', TaskPublishCurseForge) {
 
     apiToken = findProperty('curseforge_token')
     debugMode = false
@@ -112,7 +112,7 @@ tasks.register('publishCurseForgeFabric', TaskPublishCurseForge) {
     mainFile.changelog = file('../changelog.md')
     mainFile.addModLoader("Forge")
     mainFile.displayName = "[Forge 1.20+] v${project.mod_version}"
-    mainFile.addGameVersion(9990, 10236)
+    mainFile.addGameVersion('1.20.1', '1.20.2')
     mainFile.addRequirement('architectury-api')
     mainFile.addOptional('cloth-config')
 
