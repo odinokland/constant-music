@@ -26,6 +26,7 @@ configurations {
 }
 
 repositories {
+    mavenCentral()
     maven { url "https://maven.shedaniel.me/" }
     maven { url "https://maven.terraformersmc.com/" }
 }
@@ -43,6 +44,8 @@ dependencies {
         exclude(group: "net.fabricmc.fabric-api")
     }
     modImplementation("com.terraformersmc:modmenu:7.2.2")
+    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
+    include 'com.moandjiezana.toml:toml4j:0.7.2'
 }
 
 processResources {
@@ -105,12 +108,13 @@ tasks.register('publishCurseForgeFabric', TaskPublishCurseForge) {
     debugMode = false
 
     // The main file to upload
-    def mainFile = upload(949032, jar)
+    def mainFile = upload(949032, remapJar)
     mainFile.releaseType = 'release'
     mainFile.changelog = file('../changelog.md')
+    mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Fabric")
     mainFile.displayName = "[Fabric 1.20+] v${project.mod_version}"
-    mainFile.addGameVersion('1.20.1', '1.20.2')
+    mainFile.addGameVersion('1.20.1', '1.20.2', '1.20.3', '1.20.4')
     mainFile.addRequirement('fabric-api')
     mainFile.addRequirement('architectury-api')
     mainFile.addOptional('cloth-config')
