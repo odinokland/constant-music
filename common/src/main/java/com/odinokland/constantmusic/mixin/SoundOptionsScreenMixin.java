@@ -1,6 +1,6 @@
-package com.odinokland.endlessmusic.mixin;
+package com.odinokland.constantmusic.mixin;
 
-import com.odinokland.endlessmusic.EndlessMusic;
+import com.odinokland.constantmusic.ConstantMusic;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.network.chat.CommonComponents;
@@ -23,10 +23,10 @@ public class SoundOptionsScreenMixin extends OptionsSubScreen {
     protected void onGetAllOptions(CallbackInfoReturnable<OptionInstance<?>[]> cir) {
         OptionInstance<?>[] defaultOptions = cir.getReturnValue();
 
-        OptionInstance<Integer> seconds = new OptionInstance<Integer>("endlessmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
-            return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : Component.translatable("endlessmusic.option.time", new Object[]{integer});
-        }, new OptionInstance.IntRange(0, 200), EndlessMusic.getTimer(), (integer) -> {
-            EndlessMusic.setTimer(Integer.parseInt(integer.toString()));
+        OptionInstance<Integer> seconds = new OptionInstance<Integer>("constantmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
+            return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : Component.translatable("constantmusic.option.time", new Object[]{integer});
+        }, new OptionInstance.IntRange(0, 200), ConstantMusic.getTimer(), (integer) -> {
+            ConstantMusic.setTimer(Integer.parseInt(integer.toString()));
         });
 
         OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];

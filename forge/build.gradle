@@ -20,8 +20,8 @@ loom {
         convertAccessWideners = true
         extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
 
-        mixinConfig "endlessmusic-common.mixins.json"
-        mixinConfig "endlessmusic.mixins.json"
+        mixinConfig "constantmusic-common.mixins.json"
+        mixinConfig "constantmusic.mixins.json"
     }
 }
 
@@ -106,7 +106,7 @@ publishing {
     }
 }
 
-tasks.register('publishCurseForgeForge', TaskPublishCurseForge) {
+tasks.register('publishCurseforgeForge', TaskPublishCurseForge) {
 
     apiToken = findProperty('curseforge_token')
     debugMode = false
