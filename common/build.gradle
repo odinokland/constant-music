@@ -3,7 +3,7 @@ architectury {
 }
 
 loom {
-    accessWidenerPath = file("src/main/resources/endlessmusic.accesswidener")
+    accessWidenerPath = file("src/main/resources/constantmusic.accesswidener")
 }
 
 repositories {

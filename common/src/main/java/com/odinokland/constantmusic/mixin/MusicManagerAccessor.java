@@ -1,4 +1,4 @@
-package com.odinokland.endlessmusic.mixin;
+package com.odinokland.constantmusic.mixin;
 
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.MusicManager;

@@ -1,6 +1,6 @@
 {
   "required": true,
-  "package": "com.odinokland.endlessmusic.mixin.fabric",
+  "package": "com.odinokland.constantmusic.mixin.fabric",
   "compatibilityLevel": "JAVA_20",
   "minVersion": "0.8",
   "client": [

@@ -1,7 +1,7 @@
-package com.odinokland.endlessmusic;
+package com.odinokland.constantmusic;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
-import com.odinokland.endlessmusic.mixin.MusicManagerAccessor;
+import com.odinokland.constantmusic.mixin.MusicManagerAccessor;
 import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -12,10 +12,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-public class EndlessMusic {
+public class ConstantMusic {
 
-    public static final String MODID = "endlessmusic";
-    public static final Path configFile = Paths.get(Platform.getConfigFolder().toString(), EndlessMusic.MODID + ".toml");
+    public static final String MODID = "constantmusic";
+    public static final Path configFile = Paths.get(Platform.getConfigFolder().toString(), ConstantMusic.MODID + ".toml");
     private static boolean manualConfigInitialized = false;
     private static int timer = 0;
 
@@ -36,7 +36,7 @@ public class EndlessMusic {
 
     public static int getTimer() {
         if(isClothConfigLoaded())
-            return EndlessMusicConfig.getConfig().timer;
+            return ConstantMusicConfig.getConfig().timer;
         if (!manualConfigInitialized) {
             try {
                 timer =  readValue();
@@ -50,7 +50,7 @@ public class EndlessMusic {
 
     public static void setTimer(int value) {
         if(isClothConfigLoaded()) {
-            EndlessMusicConfig.setTimer(value);
+            ConstantMusicConfig.setTimer(value);
         } else {
             writeValue(value);
             timer = value;
@@ -62,9 +62,9 @@ public class EndlessMusic {
         if(manager instanceof MusicManagerAccessor accessor) {
             SoundInstance currentMusic = accessor.getCurrentMusic();
             if(currentMusic == null)
-                texts.add(Component.translatable("endlessmusic.debug.timer", accessor.getTimer()).getString());
+                texts.add(Component.translatable("constantmusic.debug.timer", accessor.getTimer()).getString());
             else
-                texts.add(Component.translatable("endlessmusic.debug.music", currentMusic.getLocation()).getString());
+                texts.add(Component.translatable("constantmusic.debug.music", currentMusic.getLocation()).getString());
         }
     }
 }

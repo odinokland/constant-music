@@ -1,12 +1,9 @@
 {
   "required": true,
-  "package": "com.odinokland.endlessmusic.mixin",
+  "package": "com.odinokland.constantmusic.mixin.fabric",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8",
   "client": [
-    "MusicManagerAccessor",
-    "MusicManagerMixin",
-    "SoundOptionsScreenMixin"
   ],
   "mixins": [
   ],
