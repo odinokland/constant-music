@@ -1,9 +1,9 @@
-package com.odinokland.endlessmusic.forge;
+package com.odinokland.constantmusic.forge;
 
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
-import com.odinokland.endlessmusic.EndlessMusic;
-import com.odinokland.endlessmusic.EndlessMusicConfig;
+import com.odinokland.constantmusic.ConstantMusic;
+import com.odinokland.constantmusic.ConstantMusicConfig;
 import me.shedaniel.autoconfig.AutoConfig;
 import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.minecraftforge.api.distmarker.Dist;
@@ -19,12 +19,12 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod(EndlessMusic.MODID)
-public class EndlessMusicImpl {
+@Mod(ConstantMusic.MODID)
+public class ConstantMusicImpl {
 
-    public EndlessMusicImpl() {
+    public ConstantMusicImpl() {
         ModLoadingContext.get().registerExtensionPoint(IExtensionPoint.DisplayTest.class, () -> new IExtensionPoint.DisplayTest(() -> IExtensionPoint.DisplayTest.IGNORESERVERONLY, (a, b) -> true));
-        if(EndlessMusic.isClothConfigLoaded())
+        if(ConstantMusic.isClothConfigLoaded())
             DistExecutor.safeRunWhenOn(Dist.CLIENT, () -> ClientHandler::setupConfig);
     }
 
@@ -33,7 +33,7 @@ public class EndlessMusicImpl {
     }
 
     public static int readValue() {
-        Toml toml = new Toml().read(new File(EndlessMusic.configFile.toString()));
+        Toml toml = new Toml().read(new File(ConstantMusic.configFile.toString()));
         return toml.getLong("timer").intValue();
     }
 
@@ -42,7 +42,7 @@ public class EndlessMusicImpl {
         try {
             Map<String, Object> map = new HashMap<String, Object>();
             map.put("timer", value);
-            tomlWriter.write(map, new File(EndlessMusic.configFile.toString()));
+            tomlWriter.write(map, new File(ConstantMusic.configFile.toString()));
         } catch (IOException e) {
             // throw new RuntimeException(e);
         }

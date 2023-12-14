@@ -13,28 +13,28 @@ ${mod_description}
 '''
 logoFile = "icon.png"
 
-[[dependencies.endlessmusic]]
+[[dependencies.constantmusic]]
 modId = "forge"
 mandatory = true
 versionRange = "[47,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.endlessmusic]]
+[[dependencies.constantmusic]]
 modId = "minecraft"
 mandatory = true
 versionRange = "[1.20.1,)"
 ordering = "NONE"
 side = "BOTH"
 
-[[dependencies.endlessmusic]]
+[[dependencies.constantmusic]]
 modId = "architectury"
 mandatory = true
 versionRange = "[9.1.12,)"
 ordering = "AFTER"
 side = "BOTH"
 
-[[dependencies.endlessmusic]]
+[[dependencies.constantmusic]]
 modId = "cloth_config"
 mandatory = false
 versionRange = "[11.1.106,)"

@@ -1,6 +1,6 @@
-package com.odinokland.endlessmusic.mixin;
+package com.odinokland.constantmusic.mixin;
 
-import com.odinokland.endlessmusic.EndlessMusic;
+import com.odinokland.constantmusic.ConstantMusic;
 import net.minecraft.client.sounds.MusicManager;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 public class MusicManagerMixin {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 1))
-    private int endlessmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
-        return Math.min(nextSongDelay, EndlessMusic.getTimer() * 20);
+    private int constantmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
+        return Math.min(nextSongDelay, ConstantMusic.getTimer() * 20);
     }
 }

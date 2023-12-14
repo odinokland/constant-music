@@ -8,22 +8,22 @@
     "${mod_author}"
   ],
   "contact": {
-    "homepage": "https://curseforge.com/minecraft/mc-mods/endless-music",
-    "sources": "https://github.com/odinokland/endless-music"
+    "homepage": "https://curseforge.com/minecraft/mc-mods/constant-music",
+    "sources": "https://github.com/odinokland/constant-music"
   },
   "license": "${mod_license}",
   "icon": "icon.png",
   "environment": "*",
   "entrypoints": {
     "client": [
-      "com.odinokland.endlessmusic.fabric.EndlessMusicImpl"
+      "com.odinokland.constantmusic.fabric.ConstantMusicImpl"
     ],
     "modmenu": [
-      "com.odinokland.endlessmusic.fabric.EndlessMusicModMenuIntegration"
+      "com.odinokland.constantmusic.fabric.ConstantMusicModMenuIntegration"
     ]
   },
   "mixins": [
-    "endlessmusic-common.mixins.json"
+    "constantmusic-common.mixins.json"
   ],
   "depends": {
     "fabric": "*",

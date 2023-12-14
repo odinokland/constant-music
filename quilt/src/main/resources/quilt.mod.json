@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "mixin": [
-    "endlessmusic.mixins.json",
-    "endlessmusic-common.mixins.json"
+    "constantmusic.mixins.json",
+    "constantmusic-common.mixins.json"
   ],
   "quilt_loader": {
     "group": "${group}",
@@ -17,12 +17,12 @@
       "contact": {
         "sources": "https://github.com/architectury/architectury-templates"
       },
-      "icon": "assets/endlessmusic/icon.png"
+      "icon": "assets/constantmusic/icon.png"
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
       "init": [
-        "net.endlessmusic.quilt.EndlessMusicImpl"
+        "net.constantmusic.quilt.ConstantMusicImpl"
       ]
     },
     "depends": [
