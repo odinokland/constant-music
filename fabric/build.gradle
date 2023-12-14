@@ -2,6 +2,7 @@ import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
     id "com.github.johnrengelman.shadow" version "7.1.2"
+    id "com.modrinth.minotaur" version "2.+"
 }
 
 base {
@@ -101,6 +102,25 @@ publishing {
     }
 }
 
+modrinth {
+    token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
+    projectId = "constant-music" // This can be the project ID or the slug. Either will work!
+    versionName = "[Fabric 1.20+] v${project.mod_version}"
+    uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    gameVersions = ['1.20.1', '1.20.2', '1.20.3', '1.20.4'] // Must be an array, even with only one version
+    loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
+    syncBodyFrom = rootProject.file("README.md").text
+    changelog = file('../changelog.md').text
+    dependencies { // A special DSL for creating dependencies
+        // scope.type
+        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
+        // The type can either be `project` or `version`
+        required.project "fabric-api" // Creates a new required dependency on Fabric API
+        required.project "architectury-api" // Creates a new required dependency on Fabric API
+        optional.project "cloth-config"
+    }
+}
+
 // CurseForgeGradle
 tasks.register('publishCurseforgeFabric', TaskPublishCurseForge) {
 
@@ -131,3 +151,5 @@ tasks.register('publishCurseforgeFabric', TaskPublishCurseForge) {
 //    javadocFile.changelog = 'This is a test JavaDoc file!'
 //    javadocFile.displayName = "JavaDoc - ${version}"
 }
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)

@@ -1,13 +1,14 @@
+<!-- modrinth_exclude.start -->
 # Constant Music
 
 [![GitHub issues](https://img.shields.io/github/issues/odinokland/constant-music?style=flat-square)](https://github.com/odinokland/constant-music/issues)
 [![GitHub license](https://img.shields.io/github/license/odinokland/constant-music?color=0690ff&style=flat-square)](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
-[![](https://cf.way2muchnoise.eu/constant-music.svg?badge_style=flat)](https://www.curseforge.com/minecraft/mc-mods/constant-music)
+[![](https://cf.way2muchnoise.eu/constant-music.svg?badge_style=flat&q=2)](https://www.curseforge.com/minecraft/mc-mods/constant-music)
 
 Constant Music is a Minecraft Fabric & Forge mod currently developed for the latest Minecraft version.
 
 Initially based off the Infinite Music mod, this mod removes the random timer between two ambiance music tracks in Minecraft versions greater than 1.20.
-
+<!-- modrinth_exclude.end -->
 Never be stuck in silence again!
 ================================
 
@@ -31,7 +32,7 @@ And lastly, there is a config file created in the Minecraft folder that can edit
 ## Dependencies
 
 This mod requires the [Architectuary API](https://modrinth.com/mod/architectury-api) mod and if you are using the Fabric mod loader, the [Fabric API](https://modrinth.com/mod/fabric-api) mod.
-
+<!-- modrinth_exclude.start -->
 ## License
 
 This mod is under the [GNU LESSER GENERAL PUBLIC LICENSE](https://www.curseforge.com/project/949032/license)
@@ -41,3 +42,5 @@ Feel free to use this mod in any modpack.
 ## Download
 
 Download this mod on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/constant-music)
+
+<!-- modrinth_exclude.end -->
