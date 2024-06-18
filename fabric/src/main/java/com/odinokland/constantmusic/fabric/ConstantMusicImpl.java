@@ -2,7 +2,6 @@ package com.odinokland.constantmusic.fabric;
 
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
-import dev.architectury.event.events.client.ClientGuiEvent;
 import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.ConstantMusicConfig;
 import me.shedaniel.autoconfig.AutoConfig;
@@ -12,6 +11,7 @@ import net.fabricmc.loader.api.FabricLoader;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -21,7 +21,6 @@ public class ConstantMusicImpl implements ClientModInitializer {
     public void onInitializeClient() {
         if(ConstantMusic.isClothConfigLoaded())
             AutoConfig.register(ConstantMusicConfig.class, Toml4jConfigSerializer::new);
-        ClientGuiEvent.DEBUG_TEXT_LEFT.register(ConstantMusic::addDebugText);
     }
 
     public static boolean isClothConfigLoaded() {
@@ -42,5 +41,9 @@ public class ConstantMusicImpl implements ClientModInitializer {
         } catch (IOException e) {
             // throw new RuntimeException(e);
         }
+    }
+
+    public static Path getConfigFolder() {
+        return FabricLoader.getInstance().getConfigDir().toAbsolutePath().normalize();
     }
 }
