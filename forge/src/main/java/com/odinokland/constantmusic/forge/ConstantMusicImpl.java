@@ -3,19 +3,17 @@ package com.odinokland.constantmusic.forge;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import com.odinokland.constantmusic.ConstantMusic;
-import com.odinokland.constantmusic.ConstantMusicConfig;
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.fml.DistExecutor;
 import net.minecraftforge.fml.IExtensionPoint;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.IExtensionPoint;
+import net.minecraftforge.fml.loading.FMLPaths;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -46,5 +44,9 @@ public class ConstantMusicImpl {
         } catch (IOException e) {
             // throw new RuntimeException(e);
         }
+    }
+
+    public static Path getConfigFolder() {
+        return FMLPaths.CONFIGDIR.get();
     }
 }

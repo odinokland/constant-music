@@ -120,7 +120,6 @@ modrinth {
         // scope.type
         // The scope can be `required`, `optional`, `incompatible`, or `embedded`
         // The type can either be `project` or `version`
-        required.project "architectury-api" // Creates a new required dependency on Fabric API
         optional.project "cloth-config"
     }
 }
@@ -138,7 +137,6 @@ tasks.register('publishCurseforgeForge', TaskPublishCurseForge) {
     mainFile.addModLoader("Forge")
     mainFile.displayName = "[Forge 1.20+] v${project.mod_version}"
     mainFile.addGameVersion('1.20.1', '1.20.2', '1.20.3', '1.20.4')
-    mainFile.addRequirement('architectury-api')
     mainFile.addOptional('cloth-config')
 
     // The sources JAR

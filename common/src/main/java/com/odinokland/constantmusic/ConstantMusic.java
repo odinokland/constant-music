@@ -2,7 +2,6 @@ package com.odinokland.constantmusic;
 
 import dev.architectury.injectables.annotations.ExpectPlatform;
 import com.odinokland.constantmusic.mixin.MusicManagerAccessor;
-import dev.architectury.platform.Platform;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.client.sounds.MusicManager;
@@ -15,7 +14,7 @@ import java.util.List;
 public class ConstantMusic {
 
     public static final String MODID = "constantmusic";
-    public static final Path configFile = Paths.get(Platform.getConfigFolder().toString(), ConstantMusic.MODID + ".toml");
+    public static final Path configFile = Paths.get(ConstantMusic.getConfigFolder().toString(), ConstantMusic.MODID + ".toml");
     private static boolean manualConfigInitialized = false;
     private static int timer = 0;
 
@@ -31,6 +30,11 @@ public class ConstantMusic {
 
     @ExpectPlatform
     public static void writeValue(int value) {
+        throw new RuntimeException();
+    }
+
+    @ExpectPlatform
+    public static Path getConfigFolder() {
         throw new RuntimeException();
     }
 
