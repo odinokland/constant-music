@@ -4,6 +4,10 @@ pluginManagement {
         mavenCentral()
         maven { url "https://maven.shedaniel.me/" }
         maven { url "https://maven.terraformersmc.com/releases/" }
+        maven {
+            name = 'Quilt'
+            url = 'https://maven.quiltmc.org/repository/release'
+        }
         exclusiveContent {
             forRepository {
                 maven {
@@ -51,3 +55,5 @@ include('common')
 include('fabric')
 include('neoforge')
 include('forge')
+include('quilt')
+

@@ -12,7 +12,7 @@
         "sources": "https://github.com/odinokland/constant-music",
         "issues": "https://github.com/odinokland/constant-music/issues"
     },
-    "license": "${license}",
+    "license": "${license_identifier}",
     "icon": "${mod_id}.png",
     "environment": "*",
     "entrypoints": {
