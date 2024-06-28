@@ -1,113 +1,54 @@
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'multiloader-loader'
+    id 'fabric-loom'
     id "com.modrinth.minotaur" version "2.+"
 }
-
-base {
-    archivesName = rootProject.archives_base_name + "-fabric"
-}
-
-architectury {
-    platformSetupLoomIde()
-    fabric()
+dependencies {
+    minecraft "com.mojang:minecraft:${minecraft_version}"
+    mappings loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${parchment_minecraft}:${parchment_version}@zip")
+    }
+    modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
+    modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
+    modApi("me.shedaniel.cloth:cloth-config-fabric:15.0.127") {
+        exclude(group: "net.fabricmc.fabric-api")
+    }
+    modImplementation("com.terraformersmc:modmenu:11.0.1")
 }
 
 loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
-}
-
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentFabric.extendsFrom common
-}
-
-repositories {
-    mavenCentral()
-    maven { url "https://maven.shedaniel.me/" }
-    maven { url "https://maven.terraformersmc.com/" }
-}
-
-dependencies {
-    modImplementation "net.fabricmc:fabric-loader:${rootProject.fabric_loader_version}"
-    modApi "net.fabricmc.fabric-api:fabric-api:${rootProject.fabric_api_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-fabric:${rootProject.architectury_version}"
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionFabric")) { transitive false }
-
-    modApi("me.shedaniel.cloth:cloth-config-fabric:12.0.111") {
-        exclude(group: "net.fabricmc.fabric-api")
+    def aw = project(':common').file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWidenerPath.set(aw)
     }
-    modImplementation("com.terraformersmc:modmenu:7.2.2")
-    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
-    include 'com.moandjiezana.toml:toml4j:0.7.2'
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("fabric.mod.json") {
-        expand "version": project.version,
-                "mod_version": project.mod_version,
-                "mod_license": project.mod_license,
-                "mod_id": project.mod_id,
-                "mod_title": project.mod_title,
-                "mod_author": project.mod_author,
-                "mod_description": project.mod_description
+    mixin {
+        defaultRefmapName.set("${mod_id}.refmap.json")
     }
-}
-
-shadowJar {
-    exclude "architectury.common.json"
-
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier = "dev-shadow"
-}
-
-remapJar {
-    injectAccessWidener = true
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-}
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
-}
-
-publishing {
-    publications {
-        mavenFabric(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
-            from components.java
+    runs {
+        client {
+            client()
+            setConfigName('Fabric Client')
+            ideConfigGenerated(true)
+            runDir('runs/client')
         }
-    }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
+        server {
+            server()
+            setConfigName('Fabric Server')
+            ideConfigGenerated(true)
+            runDir('runs/server')
+        }
     }
 }
 
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
-    versionName = "[Fabric 1.20+] v${project.mod_version}"
+    versionName = "[Fabric 1.21+] v${project.version}"
     uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    gameVersions = ['1.20.1', '1.20.2', '1.20.3', '1.20.4'] // Must be an array, even with only one version
+    gameVersions = ['1.21'] // Must be an array, even with only one version
     loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
     changelog = file('../changelog.md').text
@@ -132,8 +73,8 @@ tasks.register('publishCurseforgeFabric', TaskPublishCurseForge) {
     mainFile.changelog = file('../changelog.md')
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Fabric")
-    mainFile.displayName = "[Fabric 1.20+] v${project.mod_version}"
-    mainFile.addGameVersion('1.20.1', '1.20.2', '1.20.3', '1.20.4')
+    mainFile.displayName = "[Fabric 1.21+] v${project.version}"
+    mainFile.addGameVersion('1.21')
     mainFile.addRequirement('fabric-api')
     mainFile.addOptional('cloth-config')
 

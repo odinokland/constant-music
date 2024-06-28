@@ -1,118 +1,110 @@
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
 plugins {
-    id "com.github.johnrengelman.shadow" version "7.1.2"
+    id 'multiloader-loader'
+    id 'idea'
+    id 'eclipse'
+    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
     id "com.modrinth.minotaur" version "2.+"
 }
-
 base {
-    archivesName = rootProject.archives_base_name + "-forge"
+    archivesName = "${mod_name}-forge-${minecraft_version}"
+}
+mixin {
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
 }
 
-architectury {
-    platformSetupLoomIde()
-    forge()
-}
+minecraft {
+    version(minecraft_version)
+    def aw = file("src/main/resources/${mod_id}.accesswidener")
+    if(aw.exists()){
+        accessWideners(aw)
+    }
 
-loom {
-    accessWidenerPath = project(":common").loom.accessWidenerPath
+    mappings channel: 'official', version: minecraft_version
 
-    forge {
-        convertAccessWideners = true
-        extraAccessWideners.add loom.accessWidenerPath.get().asFile.name
+    copyIdeResources = true //Calls processResources when in dev
 
-        mixinConfig "constantmusic-common.mixins.json"
-        mixinConfig "constantmusic.mixins.json"
+    reobf = false // Forge 1.20.6+ uses official mappings at runtime, so we shouldn't reobf from official to SRG
+
+    // Automatically enable forge AccessTransformers if the file exists
+    // This location is hardcoded in Forge and can not be changed.
+    // https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformer = at
+    }
+
+    runs {
+        client {
+            workingDirectory file('runs/client')
+            ideaModule "${rootProject.name}.${project.name}.main"
+            taskName 'Client'
+            mods {
+                modClientRun {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory file('runs/server')
+            ideaModule "${rootProject.name}.${project.name}.main"
+            taskName 'Server'
+            mods {
+                modServerRun {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory file('runs/data')
+            ideaModule "${rootProject.name}.${project.name}.main"
+            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            taskName 'Data'
+            mods {
+                modDataRun {
+                    source sourceSets.main
+                }
+            }
+        }
     }
 }
 
-configurations {
-    common
-    shadowCommon // Don't use shadow from the shadow plugin since it *excludes* files.
-    compileClasspath.extendsFrom common
-    runtimeClasspath.extendsFrom common
-    developmentForge.extendsFrom common
-}
-
-repositories {
-    maven { url "https://maven.shedaniel.me/" }
-    mavenCentral()
-}
+sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    forge "net.minecraftforge:forge:${rootProject.forge_version}"
-    // Remove the next line if you don't want to depend on the API
-    modApi "dev.architectury:architectury-forge:${rootProject.architectury_version}"
-
-    common(project(path: ":common", configuration: "namedElements")) { transitive false }
-    shadowCommon(project(path: ":common", configuration: "transformProductionForge")) { transitive = false }
-
-    modImplementation("me.shedaniel.cloth:cloth-config-forge:12.0.111")
-
-    implementation 'com.moandjiezana.toml:toml4j:0.7.2'
-    include 'com.moandjiezana.toml:toml4j:0.7.2'
-    forgeRuntimeLibrary 'com.moandjiezana.toml:toml4j:0.7.2'
-}
-
-processResources {
-    inputs.property "version", project.version
-
-    filesMatching("META-INF/mods.toml") {
-        expand  "version": project.version,
-                "mod_version": project.mod_version,
-                "mod_license": project.mod_license,
-                "mod_id": project.mod_id,
-                "mod_title": project.mod_title,
-                "mod_author": project.mod_author,
-                "mod_description": project.mod_description
-    }
-}
-
-shadowJar {
-    exclude "fabric.mod.json"
-    exclude "architectury.common.json"
-
-    configurations = [project.configurations.shadowCommon]
-    archiveClassifier = "dev-shadow"
-}
-
-remapJar {
-    input.set shadowJar.archiveFile
-    dependsOn shadowJar
-}
-
-sourcesJar {
-    def commonSources = project(":common").sourcesJar
-    dependsOn commonSources
-    from commonSources.archiveFile.map { zipTree(it) }
-}
-
-components.java {
-    withVariantsFromConfiguration(project.configurations.shadowRuntimeElements) {
-        skip()
-    }
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
+    jarJar(group: 'com.moandjiezana.toml', name: 'toml4j', version: '[0.7.0,0.7.5)')
+    api(fg.deobf("me.shedaniel.cloth:cloth-config-forge:13.0.121"))
 }
 
 publishing {
     publications {
-        mavenForge(MavenPublication) {
-            artifactId = rootProject.archives_base_name + "-" + project.name
-            from components.java
+        mavenJava(MavenPublication) {
+            fg.component(it)
         }
     }
-
-    // See https://docs.gradle.org/current/userguide/publishing_maven.html for information on how to set up publishing.
-    repositories {
-        // Add repositories to publish to here.
-    }
 }
+
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
+}
+
 
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
-    versionName = "[Forge 1.20+] v${project.mod_version}"
-    uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    gameVersions = ['1.20.1', '1.20.2', '1.20.3', '1.20.4'] // Must be an array, even with only one version
+    versionName = "[Forge 1.21+] v${project.version}"
+    uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    gameVersions = ['1.21'] // Must be an array, even with only one version
     loaders = ["forge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
     changelog = file('../changelog.md').text
@@ -130,13 +122,13 @@ tasks.register('publishCurseforgeForge', TaskPublishCurseForge) {
     debugMode = false
 
     // The main file to upload
-    def mainFile = upload(949032, remapJar)
+    def mainFile = upload(949032, jar)
     mainFile.releaseType = 'release'
     mainFile.changelog = file('../changelog.md')
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Forge")
-    mainFile.displayName = "[Forge 1.20+] v${project.mod_version}"
-    mainFile.addGameVersion('1.20.1', '1.20.2', '1.20.3', '1.20.4')
+    mainFile.displayName = "[Forge 1.21+] v${project.version}"
+    mainFile.addGameVersion('1.21')
     mainFile.addOptional('cloth-config')
 
     // The sources JAR

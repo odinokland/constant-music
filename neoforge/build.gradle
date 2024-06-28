@@ -1,0 +1,92 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
+plugins {
+    id 'multiloader-loader'
+    id 'net.neoforged.moddev'
+    id "com.modrinth.minotaur" version "2.+"
+}
+dependencies {
+    api("me.shedaniel.cloth:cloth-config-neoforge:15.0.127")
+}
+
+neoForge {
+    version = neoforge_version
+    // Automatically enable neoforge AccessTransformers if the file exists
+    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    if (at.exists()) {
+        accessTransformers.add(at.absolutePath)
+    }
+    parchment {
+        minecraftVersion = parchment_minecraft
+        mappingsVersion = parchment_version
+    }
+    runs {
+        configureEach {
+            systemProperty('neoforge.enabledGameTestNamespaces', mod_id)
+            ideName = "NeoForge ${it.name.capitalize()} (${project.path})" // Unify the run config names with fabric
+        }
+        client {
+            client()
+        }
+        data {
+            data()
+        }
+        server {
+            server()
+        }
+    }
+    mods {
+        "${mod_id}" {
+            sourceSet sourceSets.main
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+modrinth {
+    token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
+    projectId = "constant-music" // This can be the project ID or the slug. Either will work!
+    versionName = "[NeoForge 1.21+] v${project.version}"
+    uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    gameVersions = ['1.21'] // Must be an array, even with only one version
+    loaders = ["neoforge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
+    syncBodyFrom = rootProject.file("README.md").text
+    changelog = file('../changelog.md').text
+    dependencies { // A special DSL for creating dependencies
+        // scope.type
+        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
+        // The type can either be `project` or `version`
+        optional.project "cloth-config"
+    }
+}
+
+tasks.register('publishCurseforgeForge', TaskPublishCurseForge) {
+
+    apiToken = findProperty('curseforge_token')
+    debugMode = false
+
+    // The main file to upload
+    def mainFile = upload(949032, jar)
+    mainFile.releaseType = 'release'
+    mainFile.changelog = file('../changelog.md')
+    mainFile.changelogType = 'markdown'
+    mainFile.addModLoader("Forge")
+    mainFile.displayName = "[Forge 1.21+] v${project.version}"
+    mainFile.addGameVersion('1.21')
+    mainFile.addOptional('cloth-config')
+
+    // The sources JAR
+//    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+//    sourcesFile.changelog = file('../changelog.md')
+//    sourcesFile.addRequirement('fabric-api')
+//    sourcesFile.addRequirement('architectury-api')
+//    sourcesFile.addOptional('cloth-config')
+
+    // The JavaDoc JAR
+//    def javadocFile = mainFile.withAdditionalFile(javadocJar)
+//    javadocFile.changelog = 'This is a test JavaDoc file!'
+//    javadocFile.displayName = "JavaDoc - ${version}"
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
