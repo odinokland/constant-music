@@ -4,5 +4,6 @@
   "constantmusic.debug.timer": "Time until next music: %s ticks.",
   "constantmusic.debug.music": "Current music: %s",
   "constantmusic.option": "Music Delay",
-  "constantmusic.option.time": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
+  "constantmusic.option.seconds": "%s seconds between tracks"
 }

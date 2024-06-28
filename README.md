@@ -15,7 +15,7 @@ Never be stuck in silence again!
 
 Minecraft has some of the most wonderful music. Atmospheric and ambience. However, there are times when you'll find yourself in silence, with only the sounds of mobs and breaking blocks keeping you company. This mod aims to fix that. With Constant Music, you can reduce or completely eliminate the amount of delay Minecraft adds between playing background tracks. It defaults to 0 seconds, which results in the next track playing immediately. But feel free to set it higher if you desire!
 
-## Versions for both Fabric and Forge
+## Versions for Fabric, Forge and NeoForge
 
 
 The amount of time between tracks is easy to configure and can be done so in multiple locations. First, there is a slider in the "Music & Sounds Options" screen:
