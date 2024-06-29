@@ -45,6 +45,10 @@ repositories {
     maven { url "https://maven.terraformersmc.com/releases/" }
 }
 
+dependencies {
+    implementation 'org.jetbrains:annotations:24.1.0'
+}
+
 // Declare capabilities on the outgoing configurations.
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
@@ -77,7 +81,8 @@ jar {
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.jar.archiveVersion,
                 'Implementation-Vendor' : mod_author,
-                'Built-On-Minecraft'    : minecraft_version
+                'Built-On-Minecraft'    : minecraft_version,
+                'MixinConfigs'          : "${mod_id}.mixins.json,${mod_id}.${project.name}.mixins.json",
         ])
     }
 }
@@ -102,7 +107,11 @@ processResources {
             'neoforge_version'             : neoforge_version,
             'neoforge_loader_version_range': neoforge_loader_version_range,
             'credits'                      : credits,
-            'java_version'                 : java_version
+            'java_version'                 : java_version,
+            'pack_format_number'           : pack_format_number,
+            'homepage'                     : homepage,
+            'issues'                       : issues,
+            'sources'                      : sources,
     ]
 
     filesMatching(['pack.mcmeta', 'fabric.mod.json', 'quilt.mod.json', 'META-INF/mods.toml', 'META-INF/neoforge.mods.toml', '*.mixins.json']) {

@@ -1,33 +1,28 @@
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
-buildscript {
-    dependencies {
-        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
-    }
-}
-
 plugins {
     id 'multiloader-loader'
-    id 'idea'
-    id 'eclipse'
-    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
-    id 'org.spongepowered.mixin' version '0.7.+'
-    id "com.modrinth.minotaur" version "2.+"
+    id 'net.minecraftforge.gradle' version '[6.0,6.2)'
+    id 'org.spongepowered.mixin'
+    id 'net.darkhax.curseforgegradle'
+    id "com.modrinth.minotaur"
 }
 
-apply plugin: 'org.spongepowered.mixin'
+mixin {
+    add(sourceSets.main, "${mod_id}.refmap.json")
+
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
+}
+
+jarJar.enable()
+build.dependsOn tasks.jarJar
 
 base {
     archivesName = "${mod_id}-${project.name}-${minecraft_version}"
 }
 
 minecraft {
-    version(minecraft_version)
-    def aw = file("src/main/resources/${mod_id}.accesswidener")
-    if(aw.exists()){
-        accessWideners(aw)
-    }
-
     mappings channel: 'official', version: minecraft_version
 
     copyIdeResources = true //Calls processResources when in dev
@@ -85,7 +80,6 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-    jarJar(group: 'com.moandjiezana.toml', name: 'toml4j', version: '[0.7.0,0.7.5)')
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.6"))
     implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.6")) {
         jarJar.ranged(it, "[0.3.6,)")
@@ -100,24 +94,13 @@ publishing {
     }
 }
 
-sourceSets.each {
-    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
-    it.output.resourcesDir = dir
-    it.java.destinationDirectory = dir
-}
-
-mixin {
-    add sourceSets.main, "${mod_id}.refmap.json"
-    config("${mod_id}.mixins.json")
-    config("${mod_id}.forge.mixins.json")
-}
-
 
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
     versionName = "[Forge 1.21+] v${project.version}"
-    uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    uploadFile = jar.outputs.getFiles().asPath.replace(".jar", "-all.jar") // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    versionType = project.modrinth_release_type
     gameVersions = ['1.21'] // Must be an array, even with only one version
     loaders = ["forge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
@@ -129,14 +112,16 @@ modrinth {
     }
 }
 
-tasks.register('publishCurseforgeForge', TaskPublishCurseForge) {
-
+tasks.register('curseforgeRelease', TaskPublishCurseForge) {
+    dependsOn('build')
+    description = 'Publishes the Forge build to CurseForge.'
+    group = 'publishing'
     apiToken = findProperty('curseforge_token')
     debugMode = false
 
     // The main file to upload
-    def mainFile = upload(949032, jar)
-    mainFile.releaseType = 'release'
+    def mainFile = upload(curseforge_project_id, jar.outputs.getFiles().asPath.replace(".jar", "-all.jar"))
+    mainFile.releaseType = curseforge_release_type
     mainFile.changelog = file('../changelog.md')
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Forge")
