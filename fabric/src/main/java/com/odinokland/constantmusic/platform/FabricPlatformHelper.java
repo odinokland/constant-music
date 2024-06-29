@@ -25,11 +25,6 @@ public class FabricPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public boolean isClothConfigLoaded() {
-        return FabricLoader.getInstance().isModLoaded("cloth-config");
-    }
-
-    @Override
     public Path getConfigFolder() {
         return FabricLoader.getInstance().getConfigDir();
     }

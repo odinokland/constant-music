@@ -1,19 +1,30 @@
 package com.odinokland.constantmusic;
 
-
-import me.shedaniel.autoconfig.AutoConfig;
-import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
+import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+/**
+ * The type Client handler.
+ */
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ClientHandler {
-    public static void setupConfig() {
-        AutoConfig.register(ConstantMusicConfig.class, Toml4jConfigSerializer::new);
+
+    /**
+     * On fml client setup event.
+     *
+     * @param event the event
+     */
+    @SubscribeEvent
+    public static void onFMLClientSetupEvent(FMLClientSetupEvent event) {
         ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
-                new ConfigScreenHandler.ConfigScreenFactory((client, parent) -> AutoConfig.getConfigScreen(ConstantMusicConfig.class, parent).get())
+                new ConfigScreenHandler.ConfigScreenFactory((client, parent) -> new ConstantMusicConfigScreen(parent))
         );
     }
+
+
 }

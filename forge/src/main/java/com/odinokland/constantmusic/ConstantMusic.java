@@ -1,20 +1,20 @@
 package com.odinokland.constantmusic;
 
-import com.moandjiezana.toml.Toml;
+import com.odinokland.constantmusic.platform.Services;
 import net.minecraftforge.fml.common.Mod;
 
+/**
+ * The type Constant music.
+ */
 @Mod(Constants.MOD_ID)
 public class ConstantMusic {
 
+    /**
+     * Instantiates a new Constant music.
+     */
     public ConstantMusic() {
-
-        // This method is invoked by the Forge mod loader when it is ready
-        // to load your mod. You can access Forge and Common code in this
-        // project.
-
         // Use Forge to bootstrap the Common mod.
-        Constants.LOG.info("Hello Forge world!");
+        Constants.LOG.info("HELLO FROM " + Services.PLATFORM.getPlatformName());
         CommonClass.init();
-        Toml toml = new Toml();
     }
 }

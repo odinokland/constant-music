@@ -30,10 +30,3 @@ mandatory = true
 versionRange = "${minecraft_version_range}"
 ordering = "NONE"
 side = "BOTH"
-
-[[dependencies.constantmusic]]
-modId = "cloth_config"
-mandatory = false
-versionRange = "[11.1.106,)"
-ordering = "AFTER"
-side = "BOTH"

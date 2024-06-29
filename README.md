@@ -22,7 +22,7 @@ The amount of time between tracks is easy to configure and can be done so in mul
 
 ![Figure 1](https://raw.github.com/odinokland/constant-music/main/images/EndlessMusic1.png "Figure 1")
 
-Second, if you're using a mod menu and have [Cloth Config API](https://modrinth.com/mod/cloth-config) installed, there is a mod config screen with the same slider *(Currently only available in Fabric and NeoForge)*:
+Second, there is a mod config screen with the same slider accessible through the mod menu. If you're using Fabric, it's only available with [ModMenu](https://modrinth.com/mod/modmenu) installed:
 
 ![Figure 2](https://raw.github.com/odinokland/constant-music/main/images/EndlessMusic2.png "Figure 2")
 
