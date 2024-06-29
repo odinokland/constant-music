@@ -27,33 +27,56 @@ import static com.moandjiezana.toml.ValueWriters.WRITERS;
  * </code></pre>
  */
 public class TomlWriter {
-  
+
+  /**
+   * The type Builder.
+   */
   public static class Builder {
     private int keyIndentation;
     private int tableIndentation;
     private int arrayDelimiterPadding = 0;
     private TimeZone timeZone = TimeZone.getTimeZone("UTC");
     private boolean showFractionalSeconds = false;
-    
+
+    /**
+     * Indent values by builder.
+     *
+     * @param spaces the spaces
+     * @return the builder
+     */
     public Builder indentValuesBy(int spaces) {
       this.keyIndentation = spaces;
       
       return this;
     }
 
+    /**
+     * Indent tables by builder.
+     *
+     * @param spaces the spaces
+     * @return the builder
+     */
     public Builder indentTablesBy(int spaces) {
       this.tableIndentation = spaces;
       
       return this;
     }
-    
+
+    /**
+     * Time zone builder.
+     *
+     * @param timeZone the time zone
+     * @return builder
+     */
     public Builder timeZone(TimeZone timeZone) {
       this.timeZone = timeZone;
       
       return this;
     }
-    
+
     /**
+     * Pad array delimiters by builder.
+     *
      * @param spaces number of spaces to put between opening square bracket and first item and between closing square bracket and last item
      * @return this TomlWriter.Builder instance
      */
@@ -62,11 +85,21 @@ public class TomlWriter {
       
       return this;
     }
-    
+
+    /**
+     * Build toml writer.
+     *
+     * @return the toml writer
+     */
     public TomlWriter build() {
       return new TomlWriter(keyIndentation, tableIndentation, arrayDelimiterPadding, timeZone, showFractionalSeconds);
     }
 
+    /**
+     * Show fractional seconds builder.
+     *
+     * @return the builder
+     */
     public Builder showFractionalSeconds() {
       this.showFractionalSeconds = true;
       return this;
@@ -108,7 +141,7 @@ public class TomlWriter {
   /**
    * Write an Object in TOML to a {@link File}. Output is encoded as UTF-8.
    *
-   * @param from the object to be written
+   * @param from   the object to be written
    * @param target the File to which the TOML will be written
    * @throws IOException if any file operations fail
    */
@@ -124,7 +157,7 @@ public class TomlWriter {
   /**
    * Write an Object in TOML to a {@link OutputStream}. Output is encoded as UTF-8.
    *
-   * @param from the object to be written
+   * @param from   the object to be written
    * @param target the OutputStream to which the TOML will be written. The stream is NOT closed after being written to.
    * @throws IOException if target.write() fails
    */
@@ -137,10 +170,9 @@ public class TomlWriter {
   /**
    * Write an Object in TOML to a {@link Writer}. You MUST ensure that the {@link Writer}s's encoding is set to UTF-8 for the TOML to be valid.
    *
-   * @param from the object to be written. Can be a Map or a custom type. Must not be null.
+   * @param from   the object to be written. Can be a Map or a custom type. Must not be null.
    * @param target the Writer to which TOML will be written. The Writer is not closed.
    * @throws IOException if target.write() fails
-   * @throws IllegalArgumentException if from is of an invalid type
    */
   public void write(Object from, Writer target) throws IOException {
     ValueWriter valueWriter = WRITERS.findWriterFor(from);

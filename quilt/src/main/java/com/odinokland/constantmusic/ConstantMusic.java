@@ -1,8 +1,6 @@
 package com.odinokland.constantmusic;
 
 import com.odinokland.constantmusic.platform.Services;
-//import me.shedaniel.autoconfig.AutoConfig;
-//import me.shedaniel.autoconfig.serializer.Toml4jConfigSerializer;
 import net.minecraft.network.chat.Component;
 import org.quiltmc.loader.api.ModContainer;
 import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
@@ -23,7 +21,7 @@ public class ConstantMusic implements ModInitializer, ClientModInitializer {
         Component.translatable(Constants.MOD_ID + ".option").toString();
         Constants.LOG.info("Hello Fabric world!" + Component.translatable(Constants.MOD_ID + ".option"));
         if(Services.PLATFORM.isClothConfigLoaded()) {
-            //AutoConfig.register(ConstantMusicConfig.class, Toml4jConfigSerializer::new);
+
         }
         CommonClass.init();
     }

@@ -13,9 +13,6 @@ dependencies {
     }
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modApi("me.shedaniel.cloth:cloth-config-fabric:15.0.127") {
-        exclude(group: "net.fabricmc.fabric-api")
-    }
     modImplementation("com.terraformersmc:modmenu:11.0.1")
 }
 
@@ -76,14 +73,13 @@ tasks.register('publishCurseforgeFabric', TaskPublishCurseForge) {
     mainFile.displayName = "[Fabric 1.21+] v${project.version}"
     mainFile.addGameVersion('1.21')
     mainFile.addRequirement('fabric-api')
-    mainFile.addOptional('cloth-config')
+    mainFile.addOptional('modmenu')
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
 //    sourcesFile.changelog = file('../changelog.md')
 //    sourcesFile.addRequirement('fabric-api')
-//    sourcesFile.addRequirement('architectury-api')
-//    sourcesFile.addOptional('cloth-config')
+
 
     // The JavaDoc JAR
 //    def javadocFile = mainFile.withAdditionalFile(javadocJar)

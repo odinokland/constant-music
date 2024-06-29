@@ -2,6 +2,9 @@ package com.odinokland.constantmusic.platform.services;
 
 import java.nio.file.Path;
 
+/**
+ * The interface Platform helper.
+ */
 public interface IPlatformHelper {
 
     /**
@@ -35,13 +38,6 @@ public interface IPlatformHelper {
 
         return isDevelopmentEnvironment() ? "development" : "production";
     }
-
-    /**
-     * Check if the cloth-config mod is loaded for the environment
-     *
-     * @return True if config is loaded
-     */
-    boolean isClothConfigLoaded();
 
     /**
      * Gets the path to the config folder
