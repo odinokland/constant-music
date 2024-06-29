@@ -34,7 +34,7 @@
         "java": ">=${java_version}"
     },
     "suggests": {
-
+        "modmenu": ">=11.0.0"
     }
 }
   

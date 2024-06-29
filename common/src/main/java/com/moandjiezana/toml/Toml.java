@@ -12,7 +12,7 @@ import java.util.*;
  * <p>All getters can fall back to default values if they have been provided as a constructor argument.
  * Getters for simple values (String, Date, etc.) will return null if no matching key exists.
  * {@link #getList(String)}, {@link #getTable(String)} and {@link #getTables(String)} return empty values if there is no matching key.</p>
- * 
+ *
  * <p>All read methods throw an {@link IllegalStateException} if the TOML is incorrect.</p>
  *
  * <p>Example usage:</p>
@@ -23,7 +23,6 @@ import java.util.*;
  * Long port2 = toml.getTable("server").getLong("ip");
  * MyConfig config = toml.to(MyConfig.class);
  * </code></pre>
- *
  */
 public class Toml {
   
@@ -40,6 +39,8 @@ public class Toml {
   }
 
   /**
+   * Instantiates a new Toml.
+   *
    * @param defaults fallback values used when the requested key or table is not present in the TOML source that has been read.
    */
   public Toml(Toml defaults) {
@@ -104,7 +105,7 @@ public class Toml {
   /**
    * Populates the current Toml instance with values from otherToml.
    *
-   * @param otherToml 
+   * @param otherToml the other toml
    * @return this instance
    */
   public Toml read(Toml otherToml) {
@@ -131,27 +132,55 @@ public class Toml {
     return this;
   }
 
+  /**
+   * Gets string.
+   *
+   * @param key the key
+   * @return the string
+   */
   public String getString(String key) {
     return (String) get(key);
   }
 
+  /**
+   * Gets string.
+   *
+   * @param key          the key
+   * @param defaultValue the default value
+   * @return the string
+   */
   public String getString(String key, String defaultValue) {
     String val = getString(key);
     return val == null ? defaultValue : val;
   }
 
+  /**
+   * Gets long.
+   *
+   * @param key the key
+   * @return the long
+   */
   public Long getLong(String key) {
     return (Long) get(key);
   }
 
+  /**
+   * Gets long.
+   *
+   * @param key          the key
+   * @param defaultValue the default value
+   * @return the long
+   */
   public Long getLong(String key, Long defaultValue) {
     Long val = getLong(key);
     return val == null ? defaultValue : val;
   }
 
   /**
-   * @param key a TOML key
+   * Gets list.
+   *
    * @param <T> type of list items
+   * @param key a TOML key
    * @return <code>null</code> if the key is not found
    */
   public <T> List<T> getList(String key) {
@@ -162,9 +191,11 @@ public class Toml {
   }
 
   /**
-   * @param key a TOML key
+   * Gets list.
+   *
+   * @param <T>          type of list items
+   * @param key          a TOML key
    * @param defaultValue a list of default values
-   * @param <T> type of list items
    * @return <code>null</code> is the key is not found
    */
   public <T> List<T> getList(String key, List<T> defaultValue) {
@@ -173,34 +204,75 @@ public class Toml {
     return list != null ? list : defaultValue;
   }
 
+  /**
+   * Gets boolean.
+   *
+   * @param key the key
+   * @return the boolean
+   */
   public Boolean getBoolean(String key) {
     return (Boolean) get(key);
   }
 
+  /**
+   * Gets boolean.
+   *
+   * @param key          the key
+   * @param defaultValue the default value
+   * @return the boolean
+   */
   public Boolean getBoolean(String key, Boolean defaultValue) {
     Boolean val = getBoolean(key);
     return val == null ? defaultValue : val;
   }
 
+  /**
+   * Gets date.
+   *
+   * @param key the key
+   * @return the date
+   */
   public Date getDate(String key) {
     return (Date) get(key);
   }
 
+  /**
+   * Gets date.
+   *
+   * @param key          the key
+   * @param defaultValue the default value
+   * @return the date
+   */
   public Date getDate(String key, Date defaultValue) {
     Date val = getDate(key);
     return val == null ? defaultValue : val;
   }
 
+  /**
+   * Gets double.
+   *
+   * @param key the key
+   * @return the double
+   */
   public Double getDouble(String key) {
     return (Double) get(key);
   }
 
+  /**
+   * Gets double.
+   *
+   * @param key          the key
+   * @param defaultValue the default value
+   * @return the double
+   */
   public Double getDouble(String key, Double defaultValue) {
     Double val = getDouble(key);
     return val == null ? defaultValue : val;
   }
 
   /**
+   * Gets table.
+   *
    * @param key A table name, not including square brackets.
    * @return A new Toml instance or <code>null</code> if no value is found for key.
    */
@@ -212,6 +284,8 @@ public class Toml {
   }
 
   /**
+   * Gets tables.
+   *
    * @param key Name of array of tables, not including square brackets.
    * @return A {@link List} of Toml instances or <code>null</code> if no value is found for key.
    */
@@ -233,6 +307,8 @@ public class Toml {
   }
 
   /**
+   * Contains boolean.
+   *
    * @param key a key name, can be compound (eg. a.b.c)
    * @return true if key is present
    */
@@ -241,6 +317,8 @@ public class Toml {
   }
 
   /**
+   * Contains primitive boolean.
+   *
    * @param key a key name, can be compound (eg. a.b.c)
    * @return true if key is present and is a primitive
    */
@@ -251,6 +329,8 @@ public class Toml {
   }
 
   /**
+   * Contains table boolean.
+   *
    * @param key a key name, can be compound (eg. a.b.c)
    * @return true if key is present and is a table
    */
@@ -261,6 +341,8 @@ public class Toml {
   }
 
   /**
+   * Contains table array boolean.
+   *
    * @param key a key name, can be compound (eg. a.b.c)
    * @return true if key is present and is a table array
    */
@@ -270,15 +352,20 @@ public class Toml {
     return object != null && (object instanceof List);
   }
 
+  /**
+   * Is empty boolean.
+   *
+   * @return the boolean
+   */
   public boolean isEmpty() {
     return values.isEmpty();
   }
 
   /**
    * <p>
-   *  Populates an instance of targetClass with the values of this Toml instance.
-   *  The target's field names must match keys or tables.
-   *  Keys not present in targetClass will be ignored.
+   * Populates an instance of targetClass with the values of this Toml instance.
+   * The target's field names must match keys or tables.
+   * Keys not present in targetClass will be ignored.
    * </p>
    *
    * <p>Tables are recursively converted to custom classes or to {@link Map Map&lt;String, Object&gt;}.</p>
@@ -295,8 +382,8 @@ public class Toml {
    *  <li>Table -&gt; Custom class, {@link Map Map&lt;String, Object&gt;}</li>
    * </ul>
    *
+   * @param <T>         type of targetClass.
    * @param targetClass Class to deserialize TOML to.
-   * @param <T> type of targetClass.
    * @return A new instance of targetClass.
    */
   public <T> T to(Class<T> targetClass) {
@@ -309,6 +396,11 @@ public class Toml {
     return DEFAULT_GSON.fromJson(json, targetClass);
   }
 
+  /**
+   * To map map.
+   *
+   * @return the map
+   */
   public Map<String, Object> toMap() {
     HashMap<String, Object> valuesCopy = new HashMap<String, Object>(values);
     
@@ -322,8 +414,10 @@ public class Toml {
 
     return valuesCopy;
   }
-  
+
   /**
+   * Entry set set.
+   *
    * @return a {@link Set} of Map.Entry instances. Modifications to the {@link Set} are not reflected in this Toml instance. Entries are immutable, so {@link Map.Entry#setValue(Object)} throws an UnsupportedOperationException.
    */
   public Set<Map.Entry<String,Object>> entrySet() {

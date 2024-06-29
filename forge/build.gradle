@@ -1,19 +1,24 @@
 import net.darkhax.curseforgegradle.TaskPublishCurseForge
 
+buildscript {
+    dependencies {
+        classpath 'org.spongepowered:mixingradle:0.7-SNAPSHOT'
+    }
+}
+
 plugins {
     id 'multiloader-loader'
     id 'idea'
     id 'eclipse'
     id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
-    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
+    id 'org.spongepowered.mixin' version '0.7.+'
     id "com.modrinth.minotaur" version "2.+"
 }
+
+apply plugin: 'org.spongepowered.mixin'
+
 base {
-    archivesName = "${mod_name}-forge-${minecraft_version}"
-}
-mixin {
-    config("${mod_id}.mixins.json")
-    config("${mod_id}.forge.mixins.json")
+    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
 }
 
 minecraft {
@@ -81,7 +86,10 @@ dependencies {
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
     jarJar(group: 'com.moandjiezana.toml', name: 'toml4j', version: '[0.7.0,0.7.5)')
-    api(fg.deobf("me.shedaniel.cloth:cloth-config-forge:13.0.121"))
+    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.6"))
+    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.6")) {
+        jarJar.ranged(it, "[0.3.6,)")
+    }
 }
 
 publishing {
@@ -98,6 +106,12 @@ sourceSets.each {
     it.java.destinationDirectory = dir
 }
 
+mixin {
+    add sourceSets.main, "${mod_id}.refmap.json"
+    config("${mod_id}.mixins.json")
+    config("${mod_id}.forge.mixins.json")
+}
+
 
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
@@ -112,7 +126,6 @@ modrinth {
         // scope.type
         // The scope can be `required`, `optional`, `incompatible`, or `embedded`
         // The type can either be `project` or `version`
-        optional.project "cloth-config"
     }
 }
 
@@ -129,14 +142,12 @@ tasks.register('publishCurseforgeForge', TaskPublishCurseForge) {
     mainFile.addModLoader("Forge")
     mainFile.displayName = "[Forge 1.21+] v${project.version}"
     mainFile.addGameVersion('1.21')
-    mainFile.addOptional('cloth-config')
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
 //    sourcesFile.changelog = file('../changelog.md')
 //    sourcesFile.addRequirement('fabric-api')
 //    sourcesFile.addRequirement('architectury-api')
-//    sourcesFile.addOptional('cloth-config')
 
     // The JavaDoc JAR
 //    def javadocFile = mainFile.withAdditionalFile(javadocJar)

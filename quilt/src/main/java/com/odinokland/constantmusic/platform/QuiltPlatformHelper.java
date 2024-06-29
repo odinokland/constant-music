@@ -25,11 +25,6 @@ public class QuiltPlatformHelper implements IPlatformHelper {
     }
 
     @Override
-    public boolean isClothConfigLoaded() {
-        return QuiltLoader.isModLoaded("cloth-config");
-    }
-
-    @Override
     public Path getConfigFolder() {
         return QuiltLoader.getConfigDir();
     }

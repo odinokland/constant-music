@@ -1,6 +1,5 @@
 package com.odinokland.constantmusic;
 
-
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 
@@ -14,8 +13,6 @@ public class ConstantMusic {
         // project.
 
         // Use NeoForge to bootstrap the Common mod.
-        Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
-
     }
 }

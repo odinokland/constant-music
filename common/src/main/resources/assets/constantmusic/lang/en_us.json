@@ -1,6 +1,6 @@
 {
-  "text.autoconfig.constantmusic.title": "Constant Music Config",
-  "text.autoconfig.constantmusic.option.timer": "Time (in seconds) between two tracks.",
+  "constantmusic.title": "Constant Music Config",
+  "constantmusic.option.timer": "Set the time delay between music tracks.",
   "constantmusic.debug.timer": "Time until next music: %s ticks.",
   "constantmusic.debug.music": "Current music: %s",
   "constantmusic.option": "Music Delay",
