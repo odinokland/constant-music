@@ -1,23 +1,21 @@
 plugins {
     id 'multiloader-common'
-    id 'net.neoforged.moddev'
+    id 'org.spongepowered.gradle.vanilla' version '0.2.1-SNAPSHOT'
 }
 
-neoForge {
-    neoFormVersion = neo_form_version
-    // Automatically enable AccessTransformers if the file exists
-    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
-    if (at.exists()) {
-        accessTransformers.add(at.absolutePath)
-    }
-    parchment {
-        minecraftVersion = parchment_minecraft
-        mappingsVersion = parchment_version
+base {
+    archivesName = "${mod_id}-common-${minecraft_version}"
+}
+
+minecraft {
+    version(minecraft_version)
+    def aw = file("src/main/resources/${mod_id}.accesswidener")
+    if (aw.exists()) {
+        accessWideners(aw)
     }
 }
 
 dependencies {
-    //implementation group: 'com.moandjiezana.toml', name: 'toml4j', version: '0.7.2'
     compileOnly group: 'org.spongepowered', name: 'mixin', version: '0.8.5'
     // fabric and neoforge both bundle mixinextras, so it is safe to use it in common
     compileOnly group: 'io.github.llamalad7', name: 'mixinextras-common', version: '0.3.5'
@@ -33,10 +31,22 @@ configurations {
         canBeResolved = false
         canBeConsumed = true
     }
+    commonGeneratedResources {
+        canBeResolved = false
+        canBeConsumed = true
+    }
+}
+
+sourceSets {
+    generated {
+        resources {
+            srcDir 'src/generated/resources'
+        }
+    }
 }
 
 artifacts {
     commonJava sourceSets.main.java.sourceDirectories.singleFile
     commonResources sourceSets.main.resources.sourceDirectories.singleFile
+    commonGeneratedResources sourceSets.generated.resources.sourceDirectories.singleFile
 }
-
