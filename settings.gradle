@@ -2,9 +2,17 @@ pluginManagement {
     repositories {
         gradlePluginPortal()
         mavenCentral()
-        maven {
-            name = 'Quilt'
-            url = 'https://maven.quiltmc.org/repository/release'
+        exclusiveContent {
+            forRepository {
+                maven {
+                    name = 'Quilt'
+                    url = 'https://maven.quiltmc.org/repository/release'
+                }
+            }
+            filter {
+                includeGroupAndSubgroups('org.quiltmc')
+
+            }
         }
         exclusiveContent {
             forRepository {

@@ -14,7 +14,7 @@ public class ConstantMusic {
      */
     public ConstantMusic() {
         // Use Forge to bootstrap the Common mod.
-        Constants.LOG.info("HELLO FROM " + Services.PLATFORM.getPlatformName());
+        // Constants.LOG.info("HELLO FROM " + Services.PLATFORM.getPlatformName());
         CommonClass.init();
     }
 }

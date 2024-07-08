@@ -18,7 +18,7 @@ public class SoundOptionsScreenMixin {
      * Instantiates a new Sound options screen mixin.
      */
     public SoundOptionsScreenMixin() {
-        Constants.LOG.info("Sound Options screen loaded");
+        // Constants.LOG.info("Sound Options screen loaded");
     }
 
     /**

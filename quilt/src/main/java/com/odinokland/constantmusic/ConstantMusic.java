@@ -18,8 +18,7 @@ public class ConstantMusic implements ModInitializer, ClientModInitializer {
 
     @Override
     public void onInitializeClient(ModContainer mod) {
-        Component.translatable(Constants.MOD_ID + ".option").toString();
-        Constants.LOG.info("Hello Fabric world!" + Component.translatable(Constants.MOD_ID + ".option"));
+        //Constants.LOG.info("Hello Fabric world!" + Component.translatable(Constants.MOD_ID + ".option"));
         CommonClass.init();
     }
 }
