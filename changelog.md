@@ -1,4 +1,6 @@
-## 1.0.2
+## 1.0.3
+* Removed debug code polluting the logs.
+* ## 1.0.2
 * Added support for Minecraft 1.21
 * Updated options text to display delay time in minutes and seconds
 * Removed Architectury API as a dependencry
