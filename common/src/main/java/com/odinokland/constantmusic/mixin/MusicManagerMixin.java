@@ -17,7 +17,6 @@ public class MusicManagerMixin {
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 1))
     private int constantmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
-        Constants.LOG.info("REMOVING TIIIIIIICK");
         return Math.min(nextSongDelay, CommonClass.getTimer() * 20);
     }
 }
