@@ -38,13 +38,15 @@ loom {
     }
 }
 
+def supportedMinecraftVersions = game_versions.split(',') as List<String>
+
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
     versionName = "[Quilt ${minecraft_version}+] v${project.version}"
     versionType = project.modrinth_release_type
     uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    gameVersions = ["${minecraft_version}"] // Must be an array, even with only one version
+    gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
     loaders = ["quilt"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
     changelog = file('../changelog.md').text
@@ -52,7 +54,7 @@ modrinth {
         // scope.type
         // The scope can be `required`, `optional`, `incompatible`, or `embedded`
         // The type can either be `project` or `version`
-        required.project "fabric-api" // Creates a new required dependency on Fabric API
+        required.project "quilted_fabric_api" // Creates a new required dependency on Fabric API
         optional.project "cloth-config"
     }
 }
@@ -74,8 +76,8 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Quilt")
     mainFile.displayName = "[quilt ${minecraft_version}+] v${project.version}"
-    mainFile.addGameVersion('${minecraft_version}')
-    mainFile.addRequirement('fabric-api')
+    supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
+    mainFile.addRequirement('quilted_fabric_api')
     mainFile.addOptional('modmenu')
 
     // The sources JAR

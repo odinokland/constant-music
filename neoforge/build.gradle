@@ -76,13 +76,15 @@ dependencies {
     implementation "net.neoforged:neoforge:${neoforge_version}"
 }
 
+def supportedMinecraftVersions = game_versions.split(',') as List<String>
+
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
     versionName = "[NeoForge ${minecraft_version}+] v${project.version}"
     versionType = project.modrinth_release_type
     uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    gameVersions = ["${minecraft_version}"] // Must be an array, even with only one version
+    gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
     loaders = ["neoforge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
     changelog = file('../changelog.md').text
@@ -106,7 +108,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("NeoForge")
     mainFile.displayName = "[NeoForge ${minecraft_version}+] v${project.version}"
-    mainFile.addGameVersion("${minecraft_version}")
+    supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
