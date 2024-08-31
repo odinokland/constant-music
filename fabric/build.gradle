@@ -38,13 +38,15 @@ loom {
     }
 }
 
+def supportedMinecraftVersions = game_versions.split(',') as List<String>
+
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
     versionName = "[Fabric 1.21+] v${project.version}"
     versionType = project.modrinth_release_type
     uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    gameVersions = ['1.21'] // Must be an array, even with only one version
+    gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
     loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
     changelog = file('../changelog.md').text
@@ -74,7 +76,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Fabric")
     mainFile.displayName = "[Fabric 1.21+] v${project.version}"
-    mainFile.addGameVersion('1.21')
+    supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
     mainFile.addRequirement('fabric-api')
     mainFile.addOptional('modmenu')
 
