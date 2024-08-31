@@ -75,7 +75,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.changelog = file('../changelog.md')
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Quilt")
-    mainFile.displayName = "[quilt ${minecraft_version}+] v${project.version}"
+    mainFile.displayName = "[Quilt ${minecraft_version}+] v${project.version}"
     supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
     mainFile.addRequirement('qsl')
     mainFile.addOptional('modmenu')
