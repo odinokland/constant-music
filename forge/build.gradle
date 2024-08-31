@@ -128,6 +128,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.addModLoader("Forge")
     mainFile.displayName = "[Forge ${minecraft_version}+] v${project.version}"
     supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
+    mainFile.addEnvironment('Client')
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)

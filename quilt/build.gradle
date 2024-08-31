@@ -54,7 +54,7 @@ modrinth {
         // scope.type
         // The scope can be `required`, `optional`, `incompatible`, or `embedded`
         // The type can either be `project` or `version`
-        required.project "quilted_fabric_api" // Creates a new required dependency on Fabric API
+        required.project "qsl" // Creates a new required dependency on Fabric API
         optional.project "cloth-config"
     }
 }
@@ -77,8 +77,9 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.addModLoader("Quilt")
     mainFile.displayName = "[quilt ${minecraft_version}+] v${project.version}"
     supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
-    mainFile.addRequirement('quilted_fabric_api')
+    mainFile.addRequirement('qsl')
     mainFile.addOptional('modmenu')
+    mainFile.addEnvironment('Client')
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
