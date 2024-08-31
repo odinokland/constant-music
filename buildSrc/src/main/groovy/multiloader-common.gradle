@@ -98,6 +98,8 @@ processResources {
             'forge_version'                : forge_version,
             'forge_loader_version_range'   : forge_loader_version_range,
             'forge_version_range'          : forge_version_range,
+            'quilt_loader_version'         : quilt_loader_version,
+            'quilted_fabric_api_version'   : quilted_fabric_api_version,
             'mod_name'                     : mod_name,
             'mod_author'                   : mod_author,
             'mod_id'                       : mod_id,
