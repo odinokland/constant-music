@@ -79,6 +79,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
     mainFile.addRequirement('fabric-api')
     mainFile.addOptional('modmenu')
+    mainFile.addEnvironment('Client')
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
