@@ -8,9 +8,9 @@
         "${mod_author}"
     ],
     "contact": {
-        "homepage": "https://curseforge.com/minecraft/mc-mods/constant-music",
-        "sources": "https://github.com/odinokland/constant-music",
-        "issues": "https://github.com/odinokland/constant-music/issues"
+        "homepage": "${homepage}",
+        "sources": "${sources}",
+        "issues": "${issues}"
     },
     "license": "${license_identifier}",
     "icon": "${mod_id}.png",
@@ -30,7 +30,7 @@
     "depends": {
         "fabricloader": ">=${fabric_loader_version}",
         "fabric-api": "*",
-        "minecraft": "${minecraft_version}",
+        "minecraft": "~${minecraft_version}",
         "java": ">=${java_version}"
     },
     "suggests": {

@@ -11,25 +11,30 @@
         "${mod_author}": "Owner"
       },
       "contact": {
-        "homepage": "https://curseforge.com/minecraft/mc-mods/constant-music",
-        "sources": "https://github.com/odinokland/constant-music",
-        "issues": "https://github.com/odinokland/constant-music/issues"
+        "homepage": "${homepage}",
+        "sources": "${sources}",
+        "issues": "${issues}"
       },
       "icon": "${mod_id}.png",
       "license": "${license_identifier}"
     },
     "intermediate_mappings": "net.fabricmc:intermediary",
     "entrypoints": {
-      "main": "com.odinokland.constantmusic.ConstantMusic"
+      "main": "com.odinokland.constantmusic.ConstantMusic",
+      "modmenu": "com.odinokland.constantmusic.ConstantMusicModMenuIntegration"
     },
     "depends": [
       {
         "id": "quilt_loader",
-        "versions": ">=0.19.1"
+        "versions": ">=${quilt_loader_version}"
+      },
+      {
+        "id": "quilted_fabric_api",
+        "versions": ">=${quilted_fabric_api_version}"
       },
       {
         "id": "minecraft",
-        "versions": ">=1.20"
+        "versions": "~${minecraft_version}"
       }
     ]
   },
