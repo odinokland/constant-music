@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform;
 
 import com.odinokland.constantmusic.platform.services.IPlatformHelper;
-import org.quiltmc.loader.api.QuiltLoader;
+import net.fabricmc.loader.api.FabricLoader;
 
 import java.nio.file.Path;
 
@@ -9,23 +9,23 @@ public class QuiltPlatformHelper implements IPlatformHelper {
 
     @Override
     public String getPlatformName() {
-        return "Fabric";
+        return "Quilt";
     }
 
     @Override
     public boolean isModLoaded(String modId) {
 
-        return QuiltLoader.isModLoaded(modId);
+        return FabricLoader.getInstance().isModLoaded(modId);
     }
 
     @Override
     public boolean isDevelopmentEnvironment() {
 
-        return QuiltLoader.isDevelopmentEnvironment();
+        return FabricLoader.getInstance().isDevelopmentEnvironment();
     }
 
     @Override
     public Path getConfigFolder() {
-        return QuiltLoader.getConfigDir();
+        return FabricLoader.getInstance().getConfigDir();
     }
 }

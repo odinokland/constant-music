@@ -1,24 +1,22 @@
 package com.odinokland.constantmusic;
 
-import com.odinokland.constantmusic.platform.Services;
-import net.minecraft.network.chat.Component;
-import org.quiltmc.loader.api.ModContainer;
-import org.quiltmc.qsl.base.api.entrypoint.ModInitializer;
-import org.quiltmc.qsl.base.api.entrypoint.client.ClientModInitializer;
+import net.fabricmc.api.ClientModInitializer;
+import net.fabricmc.api.ModInitializer;
 
 public class ConstantMusic implements ModInitializer, ClientModInitializer {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
-    }
-
     @Override
-    public void onInitialize(ModContainer mod) {
+    public void onInitializeClient() {
 
     }
-
     @Override
-    public void onInitializeClient(ModContainer mod) {
-        //Constants.LOG.info("Hello Fabric world!" + Component.translatable(Constants.MOD_ID + ".option"));
+    public void onInitialize() {
+
+        // This method is invoked by the Fabric mod loader when it is ready
+        // to load your mod. You can access Fabric and Common code in this
+        // project.
+
+        // Use Fabric to bootstrap the Common mod.
+        //Constants.LOG.info("Hello Fabric world!");
         CommonClass.init();
     }
 }
