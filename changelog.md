@@ -1,3 +1,5 @@
+## 1.0.4
+* Added support for 1.21.1 and a Quilt specific release
 ## 1.0.3
 * Removed debug code polluting the logs.
 * ## 1.0.2

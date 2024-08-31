@@ -77,8 +77,7 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    //minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-    minecraft "net.minecraftforge:forge:1.21.1-52.0.8"
+    minecraft "net.minecraftforge:forge:${forge_version}"
     annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
     implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
     compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.6"))
@@ -95,6 +94,7 @@ publishing {
     }
 }
 
+def supportedMinecraftVersions = game_versions.split(',') as List<String>
 
 modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
@@ -102,7 +102,7 @@ modrinth {
     versionName = "[Forge ${minecraft_version}+] v${project.version}"
     uploadFile = jar.outputs.getFiles().asPath.replace(".jar", "-all.jar") // With Loom, this MUST be set to `remapJar` instead of `jar`!
     versionType = project.modrinth_release_type
-    gameVersions = ["${minecraft_version}"] // Must be an array, even with only one version
+    gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
     loaders = ["forge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
     syncBodyFrom = rootProject.file("README.md").text
     changelog = file('../changelog.md').text
@@ -127,7 +127,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     mainFile.changelogType = 'markdown'
     mainFile.addModLoader("Forge")
     mainFile.displayName = "[Forge ${minecraft_version}+] v${project.version}"
-    mainFile.addGameVersion("${minecraft_version}")
+    supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
 
     // The sources JAR
 //    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
