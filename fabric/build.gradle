@@ -11,7 +11,7 @@ dependencies {
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${fabric_loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${fabric_version}"
-    modImplementation("com.terraformersmc:modmenu:11.0.1")
+    modImplementation("com.terraformersmc:modmenu:9.0.0")
 }
 
 loom {
