@@ -1,13 +1,11 @@
-import net.darkhax.curseforgegradle.TaskPublishCurseForge
-
 plugins {
     id 'multiloader-loader'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
-    id 'org.spongepowered.mixin'
-    id 'net.darkhax.curseforgegradle'
-    id "com.modrinth.minotaur"
+    id 'org.spongepowered.mixin' version '0.7-SNAPSHOT'
 }
-
+base {
+    archivesName = "${mod_name}-forge-${minecraft_version}"
+}
 mixin {
     add(sourceSets.main, "${mod_id}.refmap.json")
 
@@ -15,19 +13,10 @@ mixin {
     config("${mod_id}.forge.mixins.json")
 }
 
-jarJar.enable()
-build.dependsOn tasks.jarJar
-
-base {
-    archivesName = "${mod_id}-${project.name}-${minecraft_version}"
-}
-
 minecraft {
     mappings channel: 'official', version: minecraft_version
 
     copyIdeResources = true //Calls processResources when in dev
-
-    //reobf = false // Forge 1.20.6+ uses official mappings at runtime, so we shouldn't reobf from official to SRG
 
     // Automatically enable forge AccessTransformers if the file exists
     // This location is hardcoded in Forge and can not be changed.
@@ -77,14 +66,11 @@ minecraft {
 sourceSets.main.resources.srcDir 'src/generated/resources'
 
 dependencies {
-    minecraft "net.minecraftforge:forge:${forge_version}"
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
-    implementation('net.sf.jopt-simple:jopt-simple:5.0.4') { version { strictly '5.0.4' } }
-    compileOnly(annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.6"))
-    implementation(jarJar("io.github.llamalad7:mixinextras-forge:0.3.6")) {
-        jarJar.ranged(it, "[0.3.6,)")
-    }
+    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+    annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
 }
+
+jar.finalizedBy('reobfJar')
 
 publishing {
     publications {
@@ -94,52 +80,8 @@ publishing {
     }
 }
 
-def supportedMinecraftVersions = game_versions.split(',') as List<String>
-
-modrinth {
-    token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
-    projectId = "constant-music" // This can be the project ID or the slug. Either will work!
-    versionName = "[Forge ${minecraft_version}+] v${project.version}"
-    uploadFile = jar.outputs.getFiles().asPath.replace(".jar", "-all.jar") // With Loom, this MUST be set to `remapJar` instead of `jar`!
-    versionType = project.modrinth_release_type
-    gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
-    loaders = ["forge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
-    syncBodyFrom = rootProject.file("README.md").text
-    changelog = file('../changelog.md').text
-    dependencies { // A special DSL for creating dependencies
-        // scope.type
-        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
-        // The type can either be `project` or `version`
-    }
+sourceSets.each {
+    def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
+    it.output.resourcesDir = dir
+    it.java.destinationDirectory = dir
 }
-
-tasks.register('curseforgeRelease', TaskPublishCurseForge) {
-    dependsOn('build')
-    description = 'Publishes the Forge build to CurseForge.'
-    group = 'publishing'
-    apiToken = findProperty('curseforge_token')
-    debugMode = false
-
-    // The main file to upload
-    def mainFile = upload(curseforge_project_id, jar.outputs.getFiles().asPath.replace(".jar", "-all.jar"))
-    mainFile.releaseType = curseforge_release_type
-    mainFile.changelog = file('../changelog.md')
-    mainFile.changelogType = 'markdown'
-    mainFile.addModLoader("Forge")
-    mainFile.displayName = "[Forge ${minecraft_version}+] v${project.version}"
-    supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
-    mainFile.addEnvironment('Client')
-
-    // The sources JAR
-//    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
-//    sourcesFile.changelog = file('../changelog.md')
-//    sourcesFile.addRequirement('fabric-api')
-//    sourcesFile.addRequirement('architectury-api')
-
-    // The JavaDoc JAR
-//    def javadocFile = mainFile.withAdditionalFile(javadocJar)
-//    javadocFile.changelog = 'This is a test JavaDoc file!'
-//    javadocFile.displayName = "JavaDoc - ${version}"
-}
-
-tasks.modrinth.dependsOn(tasks.modrinthSyncBody)

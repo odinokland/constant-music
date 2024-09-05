@@ -29,13 +29,13 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     }
 
     public void addBig(OptionInstance<?> optionInstance) {
-        this.addEntry(OptionsList.OptionEntry.big(this.minecraft.options, optionInstance, this.screen));
+        this.addEntry(OptionEntry.big(this.minecraft.options, optionInstance, this.screen));
     }
 
     public void addSmall(OptionInstance<?>... optionInstances) {
         for (int i = 0; i < optionInstances.length; i += 2) {
             OptionInstance<?> optionInstance = i < optionInstances.length - 1 ? optionInstances[i + 1] : null;
-            this.addEntry(OptionsList.OptionEntry.small(this.minecraft.options, optionInstances[i], optionInstance, this.screen));
+            this.addEntry(OptionEntry.small(this.minecraft.options, optionInstances[i], optionInstance, this.screen));
         }
     }
 
@@ -46,7 +46,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     }
 
     public void addSmall(AbstractWidget abstractWidget, AbstractWidget abstractWidget2) {
-        this.addEntry(OptionsList.Entry.small(abstractWidget, abstractWidget2, this.screen));
+        this.addEntry(Entry.small(abstractWidget, abstractWidget2, this.screen));
     }
 
     @Override
@@ -55,8 +55,8 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     }
 
     public AbstractWidget findOption(OptionInstance<?> optionInstance) {
-        for (OptionsList.Entry entry : this.children()) {
-            if (entry instanceof OptionsList.OptionEntry optionEntry) {
+        for (Entry entry : this.children()) {
+            if (entry instanceof OptionEntry optionEntry) {
                 AbstractWidget abstractWidget = (AbstractWidget)optionEntry.options.get(optionInstance);
                 if (abstractWidget != null) {
                     return abstractWidget;
@@ -68,7 +68,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     }
 
     public Optional<GuiEventListener> getMouseOver(double d, double e) {
-        for (OptionsList.Entry entry : this.children()) {
+        for (Entry entry : this.children()) {
             for (GuiEventListener guiEventListener : entry.children()) {
                 if (guiEventListener.isMouseOver(d, e)) {
                     return Optional.of(guiEventListener);
@@ -79,7 +79,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
         return Optional.empty();
     }
 
-    protected static class Entry extends ContainerObjectSelectionList.Entry<OptionsList.Entry> {
+    protected static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
         private final List<AbstractWidget> children;
         private final Screen screen;
         private static final int X_OFFSET = 160;
@@ -89,14 +89,14 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
             this.screen = screen;
         }
 
-        public static OptionsList.Entry big(List<AbstractWidget> list, Screen screen) {
-            return new OptionsList.Entry(list, screen);
+        public static Entry big(List<AbstractWidget> list, Screen screen) {
+            return new Entry(list, screen);
         }
 
-        public static OptionsList.Entry small(AbstractWidget abstractWidget, AbstractWidget abstractWidget2, Screen screen) {
+        public static Entry small(AbstractWidget abstractWidget, AbstractWidget abstractWidget2, Screen screen) {
             return abstractWidget2 == null
-                    ? new OptionsList.Entry(ImmutableList.of(abstractWidget), screen)
-                    : new OptionsList.Entry(ImmutableList.of(abstractWidget, abstractWidget2), screen);
+                    ? new Entry(ImmutableList.of(abstractWidget), screen)
+                    : new Entry(ImmutableList.of(abstractWidget, abstractWidget2), screen);
         }
 
         @Override
@@ -122,7 +122,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
         }
     }
 
-    protected static class OptionEntry extends OptionsList.Entry {
+    protected static class OptionEntry extends Entry {
         final Map<OptionInstance<?>, AbstractWidget> options;
 
         private OptionEntry(Map<OptionInstance<?>, AbstractWidget> map, Screen screen) {
@@ -130,17 +130,17 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
             this.options = map;
         }
 
-        public static OptionsList.OptionEntry big(Options options, OptionInstance<?> optionInstance, Screen screen) {
-            return new OptionsList.OptionEntry(ImmutableMap.of(optionInstance, optionInstance.createButton(options, 0, 0, BIG_BUTTON_WIDTH)), screen);
+        public static OptionEntry big(Options options, OptionInstance<?> optionInstance, Screen screen) {
+            return new OptionEntry(ImmutableMap.of(optionInstance, optionInstance.createButton(options, 0, 0, BIG_BUTTON_WIDTH)), screen);
         }
 
-        public static OptionsList.OptionEntry small(
+        public static OptionEntry small(
                 Options options, OptionInstance<?> optionInstance, OptionInstance<?> optionInstance2, Screen screen
         ) {
             AbstractWidget abstractWidget = optionInstance.createButton(options, 0, 0, SMALL_BUTTON_WIDTH);
             return optionInstance2 == null
-                    ? new OptionsList.OptionEntry(ImmutableMap.of(optionInstance, abstractWidget), screen)
-                    : new OptionsList.OptionEntry(ImmutableMap.of(optionInstance, abstractWidget, optionInstance2, optionInstance2.createButton(options, 0, 0, SMALL_BUTTON_WIDTH)), screen);
+                    ? new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget), screen)
+                    : new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget, optionInstance2, optionInstance2.createButton(options, 0, 0, SMALL_BUTTON_WIDTH)), screen);
         }
     }
 }

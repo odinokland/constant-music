@@ -1,7 +1,6 @@
 package com.odinokland.constantmusic.mixin;
 
 import com.odinokland.constantmusic.CommonClass;
-import com.odinokland.constantmusic.Constants;
 import net.minecraft.client.sounds.MusicManager;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;

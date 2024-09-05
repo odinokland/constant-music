@@ -23,20 +23,7 @@ repositories {
                 url = 'https://repo.spongepowered.org/repository/maven-public'
             }
         }
-        filter { includeGroupAndSubgroups('org.spongepowered') }
-    }
-    exclusiveContent {
-        forRepositories(
-                maven {
-                    name = 'ParchmentMC'
-                    url = 'https://maven.parchmentmc.org/'
-                },
-                maven {
-                    name = "NeoForge"
-                    url = 'https://maven.neoforged.net/releases'
-                }
-        )
-        filter { includeGroup('org.parchmentmc.data') }
+        filter { includeGroupAndSubgroups("org.spongepowered") }
     }
     maven {
         name = 'BlameJared'
@@ -53,7 +40,6 @@ dependencies {
 // Read more about capabilities here: https://docs.gradle.org/current/userguide/component_capabilities.html#sec:declaring-additional-capabilities-for-a-local-component
 ['apiElements', 'runtimeElements', 'sourcesElements', 'javadocElements'].each { variant ->
     configurations."$variant".outgoing {
-        capability("$group:${base.archivesName.get()}:$version")
         capability("$group:$mod_id-${project.name}-${minecraft_version}:$version")
         capability("$group:$mod_id:$version")
     }
@@ -63,13 +49,13 @@ dependencies {
 }
 
 sourcesJar {
-    from(rootProject.file('LICENSE')) {
+    from(rootProject.file("LICENSE")) {
         rename { "${it}_${mod_name}" }
     }
 }
 
 jar {
-    from(rootProject.file('LICENSE')) {
+    from(rootProject.file("LICENSE")) {
         rename { "${it}_${mod_name}" }
     }
 
@@ -81,8 +67,7 @@ jar {
                 'Implementation-Title'  : project.name,
                 'Implementation-Version': project.jar.archiveVersion,
                 'Implementation-Vendor' : mod_author,
-                'Built-On-Minecraft'    : minecraft_version,
-                'MixinConfigs'          : "${mod_id}.mixins.json,${mod_id}.${project.name}.mixins.json",
+                'Built-On-Minecraft'    : minecraft_version
         ])
     }
 }
@@ -108,8 +93,8 @@ processResources {
             'license_identifier'           : license_identifier,
             'description'                  : project.description,
             'neoforge_version'             : neoforge_version,
-            'neoforge_loader_version_range': neoforge_loader_version_range,
             'neoforge_version_range'       : neoforge_version_range,
+            'neoforge_loader_version_range': neoforge_loader_version_range,
             'credits'                      : credits,
             'java_version'                 : java_version,
             'pack_format_number'           : pack_format_number,
@@ -133,7 +118,7 @@ publishing {
     }
     repositories {
         maven {
-            url System.getenv('local_maven_url')
+            url System.getenv("local_maven_url")
         }
     }
 }

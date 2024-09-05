@@ -2,13 +2,12 @@
   "required": true,
   "minVersion": "0.8",
   "package": "com.odinokland.constantmusic.mixin",
-  "compatibilityLevel": "JAVA_8",
-  "refmap": "constantmusic.refmap.json",
-  "mixins": [
-
-  ],
+  "refmap": "${mod_id}.refmap.json",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [],
   "client": [
   ],
+  "server": [],
   "injectors": {
     "defaultRequire": 1
   }
