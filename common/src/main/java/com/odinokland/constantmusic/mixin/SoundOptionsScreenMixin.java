@@ -3,7 +3,7 @@ package com.odinokland.constantmusic.mixin;
 import com.odinokland.constantmusic.CommonClass;
 import com.odinokland.constantmusic.Constants;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.gui.screens.options.SoundOptionsScreen;
+import net.minecraft.client.gui.screens.SoundOptionsScreen;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
