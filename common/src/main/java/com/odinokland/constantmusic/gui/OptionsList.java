@@ -23,7 +23,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
     private final Screen screen;
 
     public OptionsList(Minecraft minecraft, int width, int height, int headerHeight,int footerHeight, Screen screen) {
-        super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
+        super(minecraft, width, height, headerHeight, height - headerHeight - footerHeight, DEFAULT_ITEM_HEIGHT);
         this.centerListVertically = false;
         this.screen = screen;
     }
