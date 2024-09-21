@@ -60,6 +60,6 @@ rootProject.name = 'constant-music'
 include("common")
 include("fabric")
 include("forge")
-include("neoforge")
+//include("neoforge")
 include("quilt")
 

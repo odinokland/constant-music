@@ -2,15 +2,16 @@ package com.odinokland.constantmusic.gui;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
 import net.minecraft.client.gui.narration.NarratableEntry;
 import net.minecraft.client.gui.screens.Screen;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.List;
 import java.util.Map;
@@ -100,24 +101,25 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
         }
 
         @Override
-        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+        public void render(@NotNull PoseStack guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
             int p = 0;
             int q = this.screen.width / 2 - 155;
 
             for (AbstractWidget abstractWidget : this.children) {
-                abstractWidget.setPosition(q + p, j);
+                abstractWidget.x = q + p;
+                abstractWidget.y = j;
                 abstractWidget.render(guiGraphics, n, o, f);
                 p += X_OFFSET;
             }
         }
 
         @Override
-        public List<? extends GuiEventListener> children() {
+        public @NotNull List<? extends GuiEventListener> children() {
             return this.children;
         }
 
         @Override
-        public List<? extends NarratableEntry> narratables() {
+        public @NotNull List<? extends NarratableEntry> narratables() {
             return this.children;
         }
     }

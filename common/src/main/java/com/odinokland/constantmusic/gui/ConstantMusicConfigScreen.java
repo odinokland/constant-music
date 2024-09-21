@@ -1,8 +1,8 @@
 package com.odinokland.constantmusic.gui;
 
+import com.mojang.blaze3d.vertex.PoseStack;
 import com.odinokland.constantmusic.CommonClass;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
@@ -35,9 +35,9 @@ public class ConstantMusicConfigScreen extends Screen {
     public void init() {
         this.list = this.addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height, 32, 32, this));
         this.addOptions();
-        this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
+        this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (Button button) -> {
             this.minecraft.setScreen(this.parent);
-        }).bounds(this.width / 2 - 100, this.height - 27, 200, 20).build());
+        }));
     }
     /**
      * Add options.
@@ -49,8 +49,8 @@ public class ConstantMusicConfigScreen extends Screen {
         }
     }
 
-    public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
+    public void render(@NotNull PoseStack gui, int i, int j, float f) {
         super.render(gui, i, j, f);
-        gui.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
+        drawCenteredString(gui, this.font, this.title, this.width / 2, 20, 16777215);
     }
 }
