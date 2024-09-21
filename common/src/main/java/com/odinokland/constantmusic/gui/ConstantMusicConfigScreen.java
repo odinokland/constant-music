@@ -39,6 +39,7 @@ public class ConstantMusicConfigScreen extends Screen {
             this.minecraft.setScreen(this.parent);
         }));
     }
+
     /**
      * Add options.
      */
