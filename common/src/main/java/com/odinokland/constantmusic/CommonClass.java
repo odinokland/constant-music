@@ -56,7 +56,7 @@ public class CommonClass {
         // the platform specific approach.
         if (Services.PLATFORM.isModLoaded(Constants.MOD_ID)) {
 
-            Constants.LOG.info("Hello to CONSTANT MUSIC");
+            //Constants.LOG.info("Hello to CONSTANT MUSIC");
         }
     }
 
