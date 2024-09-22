@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Continuous Music Configurations",
+  "constantmusic.option.timer": "Setteth the tempus delayeth betwixt ballads.",
+  "constantmusic.option": "Music delayeth",
+  "constantmusic.option.minutes_and_seconds": "%s minutia %s seconds 'twixt ballads",
+  "constantmusic.option.seconds": "%s seconds 'twixt ballads"
+}
