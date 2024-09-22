@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Ciągłe ustawienia muzyki",
+  "constantmusic.option.timer": "Ustaw opóźnienie czasowe między utworami.",
+  "constantmusic.option": "Opóźnienie muzyki",
+  "constantmusic.option.minutes_and_seconds": "%s minut %s sekund między utworami",
+  "constantmusic.option.seconds": "%s sekund między utworami"
+}
