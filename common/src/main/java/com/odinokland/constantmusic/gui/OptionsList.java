@@ -2,10 +2,10 @@ package com.odinokland.constantmusic.gui;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -100,13 +100,13 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
         }
 
         @Override
-        public void render(GuiGraphics guiGraphics, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
+        public void render(PoseStack poseStack, int i, int j, int k, int l, int m, int n, int o, boolean bl, float f) {
             int p = 0;
             int q = this.screen.width / 2 - 155;
 
             for (AbstractWidget abstractWidget : this.children) {
                 abstractWidget.setPosition(q + p, j);
-                abstractWidget.render(guiGraphics, n, o, f);
+                abstractWidget.render(poseStack, n, o, f);
                 p += X_OFFSET;
             }
         }
