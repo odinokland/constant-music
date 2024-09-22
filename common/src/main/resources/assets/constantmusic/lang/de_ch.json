@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Kontinuierliche Musikeinstellungen",
+  "constantmusic.option.timer": "Legen Sie die Zeitverzögerung zwischen Musiktiteln fest.",
+  "constantmusic.option": "Musikverzögerung",
+  "constantmusic.option.minutes_and_seconds": "%s Minuten %s Sekunden zwischen Tracks",
+  "constantmusic.option.seconds": "%s Sekunden zwischen Tracks"
+}
