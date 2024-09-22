@@ -7,6 +7,9 @@ import org.spongepowered.asm.mixin.gen.Invoker;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * The type Sound source mixin.
+ */
 @Mixin(SoundSource.class)
 @Unique
 public class SoundSourceMixin {
@@ -17,6 +20,14 @@ public class SoundSourceMixin {
 
     private static final SoundSource MUSIC_DELAY = soundSourceExpansion$addVariant("MUSIC_DELAY", "music_delay");
 
+    /**
+     * Sound source expansion invoke init sound source.
+     *
+     * @param internalName the internal name
+     * @param internalId   the internal id
+     * @param name         the name
+     * @return the sound source
+     */
     @Invoker("<init>")
     public static SoundSource soundSourceExpansion$invokeInit(String internalName, int internalId, String name) {
         throw new AssertionError();

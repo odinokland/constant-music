@@ -18,12 +18,24 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 
+/**
+ * The type Volume slider mixin.
+ */
 @Mixin(VolumeSlider.class)
 public class VolumeSliderMixin extends AbstractOptionSliderButton {
     @Shadow
     @Final
     private SoundSource source;
 
+    /**
+     * Instantiates a new Volume slider mixin.
+     *
+     * @param minecraft the minecraft
+     * @param x         the x
+     * @param y         the y
+     * @param source    the source
+     * @param width     the width
+     */
     protected VolumeSliderMixin(Minecraft minecraft, int x, int y, SoundSource source, int width) {
         super(minecraft.options, x, y, width, 20, (double) minecraft.options.getSoundSourceVolume(source));
     }
@@ -35,6 +47,9 @@ public class VolumeSliderMixin extends AbstractOptionSliderButton {
         }
     }
 
+    /**
+     * Sets value from config.
+     */
     @Unique
     protected void setValueFromConfig() {
         this.value = toSliderValue((Integer) CommonClass.getTimer());
@@ -51,17 +66,33 @@ public class VolumeSliderMixin extends AbstractOptionSliderButton {
     private static int maxInclusive() {
         return CommonClass.MAX_TIMER;
     }
+
+    /**
+     * To slider value double.
+     *
+     * @param integer the integer
+     * @return the double
+     */
     @Unique
     protected double toSliderValue(Integer integer) {
         return (double) Mth.map((float)integer.intValue(), (float) minInclusive(), (float) maxInclusive(), 0.0F, 1.0F);
     }
 
+    /**
+     * From slider value integer.
+     *
+     * @param d the d
+     * @return the integer
+     */
     @Unique
     protected Integer fromSliderValue(double d) {
         return Mth.floor(Mth.map(d, 0.0, 1.0, (double) minInclusive(), (double) maxInclusive()));
     }
+
     /**
+     * On update message.
      *
+     * @param ci the ci
      */
     @Inject(method = "updateMessage", at = @At("HEAD"), cancellable = true)
     protected void onUpdateMessage(CallbackInfo ci) {
@@ -75,7 +106,9 @@ public class VolumeSliderMixin extends AbstractOptionSliderButton {
     }
 
     /**
+     * On apply value.
      *
+     * @param ci the ci
      */
     @Inject(method = "applyValue", at = @At("HEAD"), cancellable = true)
     protected void onApplyValue(CallbackInfo ci) {

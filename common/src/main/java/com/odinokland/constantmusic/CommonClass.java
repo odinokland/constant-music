@@ -31,12 +31,15 @@ public class CommonClass {
     private static boolean manualConfigInitialized = false;
     private static int timer = 0;
 
+    /**
+     * The constant MAX_TIMER.
+     */
     public static int MAX_TIMER = 600;
 
     /**
      * Init.
      */
-    // The loader specific projects are able to import and use any code from the common project. This allows you to
+// The loader specific projects are able to import and use any code from the common project. This allows you to
     // write the majority of your code here and load it from your loader specific projects. This example has some
     // code that gets invoked by the entry point of the loader specific projects.
     public static void init() {
