@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Ajustes de música continua",
+  "constantmusic.option.timer": "Establezca el retraso de tiempo entre canciones.",
+  "constantmusic.option": "Retraso de música",
+  "constantmusic.option.minutes_and_seconds": "%s minutos %s segundos entre canciones",
+  "constantmusic.option.seconds": "%s segundos entre canciones"
+}
