@@ -1,6 +1,10 @@
+import net.darkhax.curseforgegradle.TaskPublishCurseForge
+
 plugins {
     id 'multiloader-loader'
     id 'fabric-loom' version '1.6-SNAPSHOT'
+    id 'net.darkhax.curseforgegradle'
+    id "com.modrinth.minotaur"
 }
 dependencies {
     minecraft "com.mojang:minecraft:${minecraft_version}"
@@ -33,3 +37,60 @@ loom {
         }
     }
 }
+
+def supportedMinecraftVersions = game_versions.split(',') as List<String>
+
+modrinth {
+    token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
+    projectId = "constant-music" // This can be the project ID or the slug. Either will work!
+    versionName = "[Fabric ${minecraft_version}+] v${project.version}"
+    versionType = project.modrinth_release_type
+    uploadFile = remapJar // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
+    loaders = ["fabric"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
+    syncBodyFrom = rootProject.file("README.md").text
+    changelog = file('../changelog.md').text
+    dependencies { // A special DSL for creating dependencies
+        // scope.type
+        // The scope can be `required`, `optional`, `incompatible`, or `embedded`
+        // The type can either be `project` or `version`
+        required.project "fabric-api" // Creates a new required dependency on Fabric API
+        optional.project "cloth-config"
+    }
+}
+
+
+
+// CurseForgeGradle
+tasks.register('curseforgeRelease', TaskPublishCurseForge) {
+    dependsOn('build')
+    apiToken = findProperty('curseforge_token')
+    description = 'Publishes the NeoForge build to CurseForge.'
+    group = 'publishing'
+    debugMode = false
+
+    // The main file to upload
+    def mainFile = upload(curseforge_project_id, remapJar)
+    mainFile.releaseType = curseforge_release_type
+    mainFile.changelog = file('../changelog.md')
+    mainFile.changelogType = 'markdown'
+    mainFile.addModLoader("Fabric")
+    mainFile.displayName = "[Fabric ${minecraft_version}+] v${project.version}"
+    supportedMinecraftVersions.each {mainFile.addGameVersion(it.trim())}
+    mainFile.addRequirement('fabric-api')
+    mainFile.addOptional('modmenu')
+    mainFile.addEnvironment('Client')
+
+    // The sources JAR
+//    def sourcesFile = mainFile.withAdditionalFile(sourcesJar)
+//    sourcesFile.changelog = file('../changelog.md')
+//    sourcesFile.addRequirement('fabric-api')
+
+
+    // The JavaDoc JAR
+//    def javadocFile = mainFile.withAdditionalFile(javadocJar)
+//    javadocFile.changelog = 'This is a test JavaDoc file!'
+//    javadocFile.displayName = "JavaDoc - ${version}"
+}
+
+tasks.modrinth.dependsOn(tasks.modrinthSyncBody)
