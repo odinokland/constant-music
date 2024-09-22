@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Folyamatos zenei beállítások",
+  "constantmusic.option.timer": "Állítsa be a zeneszámok közötti késleltetést.",
+  "constantmusic.option": "Zenei késleltetés",
+  "constantmusic.option.minutes_and_seconds": "%s perc %s másodperc a dalok között",
+  "constantmusic.option.seconds": "%s másodperc a dalok között"
+}

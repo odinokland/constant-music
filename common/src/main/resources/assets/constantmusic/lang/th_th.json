@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "การตั้งค่าเพลงต่อเนื่อง",
+  "constantmusic.option.timer": "ตั้งค่าระยะเวลาหน่วงระหว่างเพลง",
+  "constantmusic.option": "ดีเลย์เพลง",
+  "constantmusic.option.minutes_and_seconds": "%s นาที %s วินาทีระหว่างเพลง",
+  "constantmusic.option.seconds": "%s วินาทีระหว่างเพลง"
+}

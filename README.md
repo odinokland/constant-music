@@ -32,6 +32,11 @@ And lastly, there is a config file created in the Minecraft folder that can edit
 ## Dependencies
 
 This mod requires the [Fabric API](https://modrinth.com/mod/fabric-api) mod if you are using the Fabric mod loader.
+
+## Languages
+
+Rudimentary language support has been provided by machine translations. Translators and native speakers can help improve the translations at [Constant Music's Crowdin Project](https://crowdin.com/project/constant-music).
+
 <!-- modrinth_exclude.start -->
 ## License
 

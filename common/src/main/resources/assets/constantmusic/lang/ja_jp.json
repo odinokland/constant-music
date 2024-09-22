@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "音楽の連続設定",
+  "constantmusic.option.timer": "曲間の遅延時間を設定します。",
+  "constantmusic.option": "音楽の遅延",
+  "constantmusic.option.minutes_and_seconds": "曲間の間隔は %s 分 %s 秒",
+  "constantmusic.option.seconds": "曲間の間隔は %s 秒"
+}

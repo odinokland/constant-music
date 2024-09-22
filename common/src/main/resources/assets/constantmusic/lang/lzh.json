@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "连续音乐设置",
+  "constantmusic.option.timer": "设置音乐之间的时间延迟。",
+  "constantmusic.option": "音乐延迟",
+  "constantmusic.option.minutes_and_seconds": "曲目之间%s 分钟 %s 秒",
+  "constantmusic.option.seconds": "曲目之间%s 秒"
+}
