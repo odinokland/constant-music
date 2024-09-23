@@ -94,7 +94,7 @@ modrinth {
     token = findProperty("modrinth_token") // Remember to have the MODRINTH_TOKEN environment variable set or else this will fail - just make sure it stays private!
     projectId = "constant-music" // This can be the project ID or the slug. Either will work!
     versionName = "[Forge ${minecraft_version}+] v${project.version}"
-    uploadFile = jar.outputs.getFiles().asPath.replace(".jar", "-all.jar") // With Loom, this MUST be set to `remapJar` instead of `jar`!
+    uploadFile = jar // With Loom, this MUST be set to `remapJar` instead of `jar`!
     versionType = project.modrinth_release_type
     gameVersions = supportedMinecraftVersions // Must be an array, even with only one version
     loaders = ["forge"] // Must also be an array - no need to specify this if you're using Loom or ForgeGradle
@@ -115,7 +115,7 @@ tasks.register('curseforgeRelease', TaskPublishCurseForge) {
     debugMode = false
 
     // The main file to upload
-    def mainFile = upload(curseforge_project_id, jar.outputs.getFiles().asPath.replace(".jar", "-all.jar"))
+    def mainFile = upload(curseforge_project_id, jar)
     mainFile.releaseType = curseforge_release_type
     mainFile.changelog = file('../changelog.md')
     mainFile.changelogType = 'markdown'
