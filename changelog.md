@@ -1,4 +1,4 @@
-## 1.0.4
+## 1.0.5
 * Added language translations for options
 * Added support for earlier 1.20+ and 1.19+ releases
 ## 1.0.4
