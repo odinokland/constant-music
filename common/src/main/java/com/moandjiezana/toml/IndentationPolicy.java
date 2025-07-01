@@ -1,7 +1,5 @@
 package com.moandjiezana.toml;
 
-import com.moandjiezana.toml.TomlWriter;
-
 /**
  * Controls how a {@link TomlWriter} indents tables and key/value pairs.
  *

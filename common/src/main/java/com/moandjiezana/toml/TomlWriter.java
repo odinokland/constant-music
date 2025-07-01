@@ -107,7 +107,7 @@ public class TomlWriter {
   }
 
   private final IndentationPolicy indentationPolicy;
-  private final com.moandjiezana.toml.DatePolicy datePolicy;
+  private final DatePolicy datePolicy;
 
   /**
    * Creates a TomlWriter instance.
@@ -118,7 +118,7 @@ public class TomlWriter {
   
   private TomlWriter(int keyIndentation, int tableIndentation, int arrayDelimiterPadding, TimeZone timeZone, boolean showFractionalSeconds) {
     this.indentationPolicy = new IndentationPolicy(keyIndentation, tableIndentation, arrayDelimiterPadding);
-    this.datePolicy = new com.moandjiezana.toml.DatePolicy(timeZone, showFractionalSeconds);
+    this.datePolicy = new DatePolicy(timeZone, showFractionalSeconds);
   }
 
   /**

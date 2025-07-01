@@ -3,7 +3,7 @@ package com.moandjiezana.toml;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-class BooleanValueReaderWriter implements com.moandjiezana.toml.ValueReader, ValueWriter {
+class BooleanValueReaderWriter implements ValueReader, ValueWriter {
   
   static final BooleanValueReaderWriter BOOLEAN_VALUE_READER_WRITER = new BooleanValueReaderWriter(); 
 

@@ -3,7 +3,7 @@ package com.moandjiezana.toml;
 import java.util.concurrent.atomic.AtomicInteger;
 
 
-class LiteralStringValueReader implements com.moandjiezana.toml.ValueReader {
+class LiteralStringValueReader implements ValueReader {
 
   static final LiteralStringValueReader LITERAL_STRING_VALUE_READER = new LiteralStringValueReader();
   

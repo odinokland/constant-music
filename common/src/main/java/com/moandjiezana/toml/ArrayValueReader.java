@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.moandjiezana.toml.ValueReaders.VALUE_READERS;
 
-class ArrayValueReader implements com.moandjiezana.toml.ValueReader {
+class ArrayValueReader implements ValueReader {
 
   static final ArrayValueReader ARRAY_VALUE_READER = new ArrayValueReader();
 

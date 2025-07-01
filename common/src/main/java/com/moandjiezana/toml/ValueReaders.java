@@ -18,7 +18,7 @@ class ValueReaders {
   
   Object convert(String value, AtomicInteger index, Context context) {
     String substring = value.substring(index.get());
-    for (com.moandjiezana.toml.ValueReader valueParser : READERS) {
+    for (ValueReader valueParser : READERS) {
       if (valueParser.canRead(substring)) {
         return valueParser.read(value, index, context);
       }
@@ -31,7 +31,7 @@ class ValueReaders {
   
   private ValueReaders() {}
   
-  private static final com.moandjiezana.toml.ValueReader[] READERS = {
+  private static final ValueReader[] READERS = {
     MULTILINE_STRING_VALUE_READER, MULTILINE_LITERAL_STRING_VALUE_READER, LITERAL_STRING_VALUE_READER, STRING_VALUE_READER_WRITER, DATE_VALUE_READER_WRITER, NUMBER_VALUE_READER_WRITER, BOOLEAN_VALUE_READER_WRITER, ARRAY_VALUE_READER, INLINE_TABLE_VALUE_READER
   };
 }
