@@ -2,7 +2,7 @@ package com.moandjiezana.toml;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-class MultilineStringValueReader implements com.moandjiezana.toml.ValueReader {
+class MultilineStringValueReader implements ValueReader {
 
   static final MultilineStringValueReader MULTILINE_STRING_VALUE_READER = new MultilineStringValueReader();
 
@@ -44,8 +44,8 @@ class MultilineStringValueReader implements com.moandjiezana.toml.ValueReader {
 
     s = s.substring(startIndex, endIndex);
     s = s.replaceAll("\\\\\\s+", "");
-    s = com.moandjiezana.toml.StringValueReaderWriter.STRING_VALUE_READER_WRITER.replaceUnicodeCharacters(s);
-    s = com.moandjiezana.toml.StringValueReaderWriter.STRING_VALUE_READER_WRITER.replaceSpecialCharacters(s);
+    s = StringValueReaderWriter.STRING_VALUE_READER_WRITER.replaceUnicodeCharacters(s);
+    s = StringValueReaderWriter.STRING_VALUE_READER_WRITER.replaceSpecialCharacters(s);
 
     return s;
   }

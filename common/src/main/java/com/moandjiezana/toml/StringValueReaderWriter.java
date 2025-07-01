@@ -6,7 +6,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-class StringValueReaderWriter implements com.moandjiezana.toml.ValueReader, ValueWriter {
+class StringValueReaderWriter implements ValueReader, ValueWriter {
   
   static final StringValueReaderWriter STRING_VALUE_READER_WRITER = new StringValueReaderWriter();
   private static final Pattern UNICODE_REGEX = Pattern.compile("\\\\[uU](.{4})");

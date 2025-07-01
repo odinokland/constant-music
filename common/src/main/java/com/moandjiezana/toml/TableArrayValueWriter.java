@@ -4,8 +4,8 @@ import java.util.Collection;
 
 import static com.moandjiezana.toml.ValueWriters.WRITERS;
 
-class TableArrayValueWriter extends com.moandjiezana.toml.ArrayValueWriter {
-  static final com.moandjiezana.toml.ValueWriter TABLE_ARRAY_VALUE_WRITER = new TableArrayValueWriter();
+class TableArrayValueWriter extends ArrayValueWriter {
+  static final ValueWriter TABLE_ARRAY_VALUE_WRITER = new TableArrayValueWriter();
 
   @Override
   public boolean canWrite(Object value) {
@@ -13,10 +13,10 @@ class TableArrayValueWriter extends com.moandjiezana.toml.ArrayValueWriter {
   }
 
   @Override
-  public void write(Object from, com.moandjiezana.toml.WriterContext context) {
+  public void write(Object from, WriterContext context) {
     Collection<?> values = normalize(from);
 
-    com.moandjiezana.toml.WriterContext subContext = context.pushTableFromArray();
+    WriterContext subContext = context.pushTableFromArray();
 
     for (Object value : values) {
       WRITERS.findWriterFor(value).write(value, subContext);

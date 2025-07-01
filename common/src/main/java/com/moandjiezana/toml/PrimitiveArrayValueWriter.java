@@ -4,7 +4,7 @@ import java.util.Collection;
 
 import static com.moandjiezana.toml.ValueWriters.WRITERS;
 
-class PrimitiveArrayValueWriter extends com.moandjiezana.toml.ArrayValueWriter {
+class PrimitiveArrayValueWriter extends ArrayValueWriter {
   static final ValueWriter PRIMITIVE_ARRAY_VALUE_WRITER = new PrimitiveArrayValueWriter();
 
   @Override
@@ -13,7 +13,7 @@ class PrimitiveArrayValueWriter extends com.moandjiezana.toml.ArrayValueWriter {
   }
 
   @Override
-  public void write(Object o, com.moandjiezana.toml.WriterContext context) {
+  public void write(Object o, WriterContext context) {
     Collection<?> values = normalize(o);
 
     context.write('[');

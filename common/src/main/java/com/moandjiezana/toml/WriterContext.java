@@ -12,10 +12,10 @@ class WriterContext {
   private final String currentTableIndent;
   private final String currentFieldIndent;
   private final Writer output;
-  private final com.moandjiezana.toml.IndentationPolicy indentationPolicy;
-  private final com.moandjiezana.toml.DatePolicy datePolicy;
+  private final IndentationPolicy indentationPolicy;
+  private final DatePolicy datePolicy;
 
-  WriterContext(com.moandjiezana.toml.IndentationPolicy indentationPolicy, com.moandjiezana.toml.DatePolicy datePolicy, Writer output) {
+  WriterContext(IndentationPolicy indentationPolicy, DatePolicy datePolicy, Writer output) {
     this("", "", output, indentationPolicy, datePolicy);
   }
 
@@ -105,7 +105,7 @@ class WriterContext {
     }
   }
   
-  com.moandjiezana.toml.DatePolicy getDatePolicy() {
+  DatePolicy getDatePolicy() {
     return datePolicy;
   }
 
@@ -123,7 +123,7 @@ class WriterContext {
     return key.isEmpty() ? arrayKey : key + "." + arrayKey;
   }
 
-  private String growIndent(com.moandjiezana.toml.IndentationPolicy indentationPolicy) {
+  private String growIndent(IndentationPolicy indentationPolicy) {
     return currentTableIndent + fillStringWithSpaces(indentationPolicy.getTableIndent());
   }
 
@@ -134,7 +134,7 @@ class WriterContext {
     return new String(chars);
   }
 
-  private WriterContext(String key, String tableIndent, Writer output, com.moandjiezana.toml.IndentationPolicy indentationPolicy, com.moandjiezana.toml.DatePolicy datePolicy) {
+  private WriterContext(String key, String tableIndent, Writer output, IndentationPolicy indentationPolicy, DatePolicy datePolicy) {
     this.key = key;
     this.output = output;
     this.indentationPolicy = indentationPolicy;
