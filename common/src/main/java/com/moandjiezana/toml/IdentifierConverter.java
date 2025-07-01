@@ -6,7 +6,7 @@ class IdentifierConverter {
   
   static final IdentifierConverter IDENTIFIER_CONVERTER = new IdentifierConverter();
 
-  com.moandjiezana.toml.Identifier convert(String s, AtomicInteger index, com.moandjiezana.toml.Context context) {
+  Identifier convert(String s, AtomicInteger index, Context context) {
     boolean quoted = false;
     StringBuilder name = new StringBuilder();
     boolean terminated = false;
@@ -52,10 +52,10 @@ class IdentifierConverter {
         context.errors.invalidKey(name.toString(), context.line.get());
       }
       
-      return com.moandjiezana.toml.Identifier.INVALID;
+      return Identifier.INVALID;
     }
     
-    return com.moandjiezana.toml.Identifier.from(name.toString(), context);
+    return Identifier.from(name.toString(), context);
   }
   
   private IdentifierConverter() {}

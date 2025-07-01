@@ -2,7 +2,7 @@ package com.moandjiezana.toml;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
-class MultilineLiteralStringValueReader implements com.moandjiezana.toml.ValueReader {
+class MultilineLiteralStringValueReader implements ValueReader {
   
   static final MultilineLiteralStringValueReader MULTILINE_LITERAL_STRING_VALUE_READER = new MultilineLiteralStringValueReader(); 
   

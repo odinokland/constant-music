@@ -3,17 +3,17 @@ package com.moandjiezana.toml;
 import java.util.concurrent.atomic.AtomicInteger;
 
 class Context {
-  final com.moandjiezana.toml.Identifier identifier;
+  final Identifier identifier;
   final AtomicInteger line;
-  final com.moandjiezana.toml.Results.Errors errors;
+  final Results.Errors errors;
   
-  public Context(com.moandjiezana.toml.Identifier identifier, AtomicInteger line, com.moandjiezana.toml.Results.Errors errors) {
+  public Context(Identifier identifier, AtomicInteger line, Results.Errors errors) {
     this.identifier = identifier;
     this.line = line;
     this.errors = errors;
   }
 
-  public Context with(com.moandjiezana.toml.Identifier identifier) {
+  public Context with(Identifier identifier) {
     return new Context(identifier, line, errors);
   }
 }

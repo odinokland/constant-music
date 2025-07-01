@@ -55,7 +55,7 @@ class Results {
         .append(key);
     }
     
-    void invalidTextAfterIdentifier(com.moandjiezana.toml.Identifier identifier, char text, int line) {
+    void invalidTextAfterIdentifier(Identifier identifier, char text, int line) {
       sb.append("Invalid text after key ")
         .append(identifier.getName())
         .append(" on line ")
@@ -124,23 +124,23 @@ class Results {
   
   final Errors errors = new Errors();
   private final Set<String> tables = new HashSet<String>();
-  private final Deque<com.moandjiezana.toml.Container> stack = new ArrayDeque<com.moandjiezana.toml.Container>();
+  private final Deque<Container> stack = new ArrayDeque<Container>();
 
   Results() {
-    stack.push(new com.moandjiezana.toml.Container.Table(""));
+    stack.push(new Container.Table(""));
   }
 
   void addValue(String key, Object value, AtomicInteger line) {
-    com.moandjiezana.toml.Container currentTable = stack.peek();
+    Container currentTable = stack.peek();
     
     if (value instanceof Map) {
       String path = getInlineTablePath(key);
       if (path == null) {
         startTable(key, line);
       } else if (path.isEmpty()) {
-        startTables(com.moandjiezana.toml.Identifier.from(key, null), line);
+        startTables(Identifier.from(key, null), line);
       } else {
-        startTables(com.moandjiezana.toml.Identifier.from(path, null), line);
+        startTables(Identifier.from(path, null), line);
       }
       @SuppressWarnings("unchecked")
       Map<String, Object> valueMap = (Map<String, Object>) value;
@@ -151,7 +151,7 @@ class Results {
     } else if (currentTable.accepts(key)) {
       currentTable.put(key, value);
     } else {
-      if (currentTable.get(key) instanceof com.moandjiezana.toml.Container) {
+      if (currentTable.get(key) instanceof Container) {
         errors.keyDuplicatesTable(key, line);
       } else {
         errors.duplicateKey(key, line != null ? line.get() : -1);
@@ -159,7 +159,7 @@ class Results {
     }
   }
 
-  void startTableArray(com.moandjiezana.toml.Identifier identifier, AtomicInteger line) {
+  void startTableArray(Identifier identifier, AtomicInteger line) {
     String tableName = identifier.getBareName();
     while (stack.size() > 1) {
       stack.pop();
@@ -168,28 +168,28 @@ class Results {
     Keys.Key[] tableParts = Keys.split(tableName);
     for (int i = 0; i < tableParts.length; i++) {
       String tablePart = tableParts[i].name;
-      com.moandjiezana.toml.Container currentContainer = stack.peek();
+      Container currentContainer = stack.peek();
 
-      if (currentContainer.get(tablePart) instanceof com.moandjiezana.toml.Container.TableArray) {
-        com.moandjiezana.toml.Container.TableArray currentTableArray = (com.moandjiezana.toml.Container.TableArray) currentContainer.get(tablePart);
+      if (currentContainer.get(tablePart) instanceof Container.TableArray) {
+        Container.TableArray currentTableArray = (Container.TableArray) currentContainer.get(tablePart);
         stack.push(currentTableArray);
 
         if (i == tableParts.length - 1) {
-          currentTableArray.put(tablePart, new com.moandjiezana.toml.Container.Table());
+          currentTableArray.put(tablePart, new Container.Table());
         }
 
         stack.push(currentTableArray.getCurrent());
         currentContainer = stack.peek();
-      } else if (currentContainer.get(tablePart) instanceof com.moandjiezana.toml.Container.Table && i < tableParts.length - 1) {
-        com.moandjiezana.toml.Container nextTable = (com.moandjiezana.toml.Container) currentContainer.get(tablePart);
+      } else if (currentContainer.get(tablePart) instanceof Container.Table && i < tableParts.length - 1) {
+        Container nextTable = (Container) currentContainer.get(tablePart);
         stack.push(nextTable);
       } else if (currentContainer.accepts(tablePart)) {
-        com.moandjiezana.toml.Container newContainer = i == tableParts.length - 1 ? new com.moandjiezana.toml.Container.TableArray() : new com.moandjiezana.toml.Container.Table();
+        Container newContainer = i == tableParts.length - 1 ? new Container.TableArray() : new Container.Table();
         addValue(tablePart, newContainer, line);
         stack.push(newContainer);
 
-        if (newContainer instanceof com.moandjiezana.toml.Container.TableArray) {
-          stack.push(((com.moandjiezana.toml.Container.TableArray) newContainer).getCurrent());
+        if (newContainer instanceof Container.TableArray) {
+          stack.push(((Container.TableArray) newContainer).getCurrent());
         }
       } else {
         errors.duplicateTable(tableName, line.get());
@@ -198,7 +198,7 @@ class Results {
     }
   }
 
-  void startTables(com.moandjiezana.toml.Identifier id, AtomicInteger line) {
+  void startTables(Identifier id, AtomicInteger line) {
     String tableName = id.getBareName();
     
     while (stack.size() > 1) {
@@ -208,16 +208,16 @@ class Results {
     Keys.Key[] tableParts = Keys.split(tableName);
     for (int i = 0; i < tableParts.length; i++) {
       String tablePart = tableParts[i].name;
-      com.moandjiezana.toml.Container currentContainer = stack.peek();
-      if (currentContainer.get(tablePart) instanceof com.moandjiezana.toml.Container) {
-        com.moandjiezana.toml.Container nextTable = (com.moandjiezana.toml.Container) currentContainer.get(tablePart);
+      Container currentContainer = stack.peek();
+      if (currentContainer.get(tablePart) instanceof Container) {
+        Container nextTable = (Container) currentContainer.get(tablePart);
         if (i == tableParts.length - 1 && !nextTable.isImplicit()) {
           errors.duplicateTable(tableName, line.get());
           return;
         }
         stack.push(nextTable);
-        if (stack.peek() instanceof com.moandjiezana.toml.Container.TableArray) {
-          stack.push(((com.moandjiezana.toml.Container.TableArray) stack.peek()).getCurrent());
+        if (stack.peek() instanceof Container.TableArray) {
+          stack.push(((Container.TableArray) stack.peek()).getCurrent());
         }
       } else if (currentContainer.accepts(tablePart)) {
         startTable(tablePart, i < tableParts.length - 1, line);
@@ -232,22 +232,22 @@ class Results {
    * Warning: After this method has been called, this instance is no longer usable.
    */
   Map<String, Object> consume() {
-    com.moandjiezana.toml.Container values = stack.getLast();
+    Container values = stack.getLast();
     stack.clear();
 
-    return ((com.moandjiezana.toml.Container.Table) values).consume();
+    return ((Container.Table) values).consume();
   }
 
-  private com.moandjiezana.toml.Container startTable(String tableName, AtomicInteger line) {
-    com.moandjiezana.toml.Container newTable = new com.moandjiezana.toml.Container.Table(tableName);
+  private Container startTable(String tableName, AtomicInteger line) {
+    Container newTable = new Container.Table(tableName);
     addValue(tableName, newTable, line);
     stack.push(newTable);
 
     return newTable;
   }
 
-  private com.moandjiezana.toml.Container startTable(String tableName, boolean implicit, AtomicInteger line) {
-    com.moandjiezana.toml.Container newTable = new com.moandjiezana.toml.Container.Table(tableName, implicit);
+  private Container startTable(String tableName, boolean implicit, AtomicInteger line) {
+    Container newTable = new Container.Table(tableName, implicit);
     addValue(tableName, newTable, line);
     stack.push(newTable);
 
@@ -255,16 +255,16 @@ class Results {
   }
   
   private String getInlineTablePath(String key) {
-    Iterator<com.moandjiezana.toml.Container> descendingIterator = stack.descendingIterator();
+    Iterator<Container> descendingIterator = stack.descendingIterator();
     StringBuilder sb = new StringBuilder();
     
     while (descendingIterator.hasNext()) {
-      com.moandjiezana.toml.Container next = descendingIterator.next();
-      if (next instanceof com.moandjiezana.toml.Container.TableArray) {
+      Container next = descendingIterator.next();
+      if (next instanceof Container.TableArray) {
         return null;
       }
       
-      com.moandjiezana.toml.Container.Table table = (com.moandjiezana.toml.Container.Table) next;
+      Container.Table table = (Container.Table) next;
       
       if (table.name == null) {
         break;

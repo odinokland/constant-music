@@ -1,40 +1,43 @@
 {
-    "schemaVersion": 1,
-    "id": "${mod_id}",
-    "version": "${version}",
-    "name": "${mod_name}",
-    "description": "${description}",
-    "authors": [
-        "${mod_author}"
-    ],
-    "contact": {
-        "homepage": "${homepage}",
-        "sources": "${sources}",
-        "issues": "${issues}"
-    },
-    "license": "${license_identifier}",
-    "icon": "${mod_id}.png",
-    "environment": "*",
-    "entrypoints": {
-        "main": [
-            "com.odinokland.constantmusic.ConstantMusic"
-        ],
-        "modmenu": [
-            "com.odinokland.constantmusic.ConstantMusicModMenuIntegration"
-        ]
-    },
-    "mixins": [
-        "${mod_id}.mixins.json",
-        "${mod_id}.fabric.mixins.json"
-    ],
-    "depends": {
-        "fabricloader": ">=${fabric_loader_version}",
-        "fabric-api": "*",
-        "minecraft": "~${minecraft_version}",
-        "java": ">=${java_version}"
-    },
-    "suggests": {
-        "modmenu": ">=11.0.0"
-    }
+	"schemaVersion": 1,
+	"id": "${modId}",
+	"version": "${modVersion}",
+	"name": "${modName}",
+	"description": "${modDescription}",
+	"authors": [
+		"${modAuthor}"
+	],
+	"contact": {
+		"homepage": "${modHomepage}",
+		"sources": "${modSources}",
+		"issues": "${modIssues}"
+	},
+	"license": "${modLicense}",
+	"icon": "${modId}.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"com.odinokland.constantmusic.fabric.ConstantMusicFabric"
+		],
+		"preLaunch": [
+			"com.llamalad7.mixinextras.MixinExtrasBootstrap::init"
+		],
+		"modmenu": [
+			"com.odinokland.constantmusic.fabric.ConstantMusicModMenuIntegration"
+		]
+	},
+	"mixins": [
+		"${modId}.common.mixins.json",
+		"${modId}.fabric.mixins.json"
+	],
+	"accessWidener": "${modId}.accesswidener",
+	"depends": {
+		"minecraft": ">=${minMinecraftVersion}-",
+		"fabricloader": "*",
+		"fabric": "*",
+		"java": ">=${javaVersion}"
+	},
+	"suggests": {
+		"modmenu": ">=11.0.0"
+	}
 }
-  
