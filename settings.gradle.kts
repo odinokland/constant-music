@@ -1,3 +1,8 @@
+val isCi = System.getenv("CI") == "true"
+gradle.startParameter.isParallelProjectExecutionEnabled = !isCi
+gradle.startParameter.isBuildCacheEnabled = !isCi
+gradle.startParameter.isConfigureOnDemand = !isCi
+
 pluginManagement {
 	repositories {
 		gradlePluginPortal()
@@ -5,8 +10,8 @@ pluginManagement {
 		maven("https://maven.fabricmc.net/")
 		maven("https://maven.neoforged.net/releases/")
 		maven("https://maven.minecraftforge.net")
-		maven("https://maven.kikugie.dev/snapshots")
 		maven("https://maven.kikugie.dev/releases")
+		maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
 		exclusiveContent {
 			forRepository {
 				maven("https://repo.spongepowered.org/repository/maven-public") { name = "Sponge" }
@@ -17,7 +22,7 @@ pluginManagement {
 }
 
 plugins {
-	id("dev.kikugie.stonecutter") version "0.6.1"
+	id("dev.kikugie.stonecutter") version "0.7"
 	id("org.gradle.toolchains.foojay-resolver-convention") version "0.8.0"
 }
 

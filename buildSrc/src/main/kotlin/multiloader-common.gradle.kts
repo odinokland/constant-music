@@ -4,7 +4,7 @@ plugins {
 	id("java-library")
 }
 
-version = "${loader}-${commonMod.version}+mc${stonecutterBuild.current.version}"
+version = "${loader}-+mc"
 
 base {
 	archivesName = commonMod.id
@@ -75,4 +75,8 @@ tasks {
 
 		inputs.properties(expandProps)
 	}
+}
+
+tasks.named("processResources") {
+	dependsOn(":common:${commonMod.propOrNull("minecraft_version")}:stonecutterGenerate")
 }
