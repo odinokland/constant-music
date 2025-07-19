@@ -21,7 +21,7 @@ dependencies {
 		}
 	})
 
-    compileOnly("org.spongepowered:mixin:0.8.5")
+    compileOnly("org.spongepowered:mixin:0.8.7")
 
     "io.github.llamalad7:mixinextras-common:0.3.5".let {
         compileOnly(it)
