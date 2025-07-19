@@ -3,7 +3,7 @@
   "minVersion": "0.8",
   "package": "com.odinokland.constantmusic.common.mixin",
   "refmap": "${modId}.refmap.json",
-  "compatibilityLevel": "JAVA_${javaVersion}",
+  "compatibilityLevel": "JAVA_${javaCompatibilityVersion}",
   "mixins": [],
   "client": [
 	  "MusicManagerAccessor",

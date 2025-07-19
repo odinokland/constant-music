@@ -41,8 +41,11 @@ repositories {
 tasks {
 
 	processResources {
+		val chosenJavaVersion = commonMod.propOrNull("java.version")
+		val compatibilityVersion = commonMod.propOrNull("java.compatibility_version") ?: chosenJavaVersion
 		val expandProps = mapOf(
-			"javaVersion" to commonMod.propOrNull("java.version"),
+			"javaVersion" to chosenJavaVersion,
+			"javaCompatibilityVersion" to compatibilityVersion,
 			"modId" to commonMod.id,
 			"modName" to commonMod.name,
 			"modVersion" to commonMod.version,
