@@ -38,7 +38,7 @@ minecraft {
 dependencies {
 	// Required dependencies
 	minecraft("net.minecraftforge:forge:${commonMod.mc}-${commonMod.dep("forge")}")
-	annotationProcessor("org.spongepowered:mixin:0.8.5-SNAPSHOT:processor")
+	annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
 
 	// Forge's hack fix
 	implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
