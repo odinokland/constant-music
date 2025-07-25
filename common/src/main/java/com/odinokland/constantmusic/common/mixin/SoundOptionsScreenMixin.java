@@ -1,8 +1,13 @@
 package com.odinokland.constantmusic.common.mixin;
 
 import com.odinokland.constantmusic.common.CommonClass;
+import com.odinokland.constantmusic.common.Constants;
 import net.minecraft.client.OptionInstance;
+//? if >= 1.21 {
 import net.minecraft.client.gui.screens.options.SoundOptionsScreen;
+//?} else {
+/*import net.minecraft.client.gui.screens.SoundOptionsScreen;
+*///?}
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -17,7 +22,7 @@ public class SoundOptionsScreenMixin {
      * Instantiates a new Sound options screen mixin.
      */
     public SoundOptionsScreenMixin() {
-        // Constants.LOG.info("Sound Options screen loaded");
+        Constants.LOG.info("Sound Options screen loaded");
     }
 
     /**

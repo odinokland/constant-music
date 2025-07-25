@@ -1,18 +1,24 @@
 package com.odinokland.constantmusic.common.gui;
 
 import com.odinokland.constantmusic.common.CommonClass;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
-import net.minecraft.client.gui.components.AbstractWidget;
+import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.components.Button;
+//? if >=1.21 {
 import net.minecraft.client.gui.components.StringWidget;
 import net.minecraft.client.gui.layouts.HeaderAndFooterLayout;
 import net.minecraft.client.gui.layouts.LayoutSettings;
 import net.minecraft.client.gui.layouts.LinearLayout;
-import net.minecraft.client.gui.screens.Screen;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.components.AbstractWidget;
+//?} else {
+/*import net.minecraft.client.gui.GuiGraphics;
+import org.jetbrains.annotations.NotNull;
+*///?}
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * The type Constant music config screen.
@@ -23,11 +29,13 @@ public class ConstantMusicConfigScreen extends Screen {
      * The List.
      */
     @Nullable
-    protected ConfigOptionsList list;
+    protected OptionsList list;
+	//? if >=1.21 {
     /**
      * The Layout.
      */
     public final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
+	//?}
 
     /**
      * Instantiates a new Constant music config screen.
@@ -41,6 +49,7 @@ public class ConstantMusicConfigScreen extends Screen {
 
     @Override
     public void init() {
+		//? if >=1.21 {
         this.addTitle();
         this.addContents();
         this.addFooter();
@@ -48,9 +57,27 @@ public class ConstantMusicConfigScreen extends Screen {
             AbstractWidget abstractwidget = this.addRenderableWidget(t);
         });
         this.repositionElements();
+		//?} else {
+		/*this.list = this.addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height, 32, 32, this));
+		this.addOptions();
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
+			this.minecraft.setScreen(this.parent);
+		}).bounds(this.width / 2 - 100, this.height - 27, 200, 20).build());
+		*///?}
     }
 
-    /**
+	/**
+	 * Add options.
+	 */
+	protected void addOptions() {
+		OptionInstance<?>[] options = new OptionInstance[]{CommonClass.getConfigOption()};
+		if (this.list != null) {
+			this.list.addSmall(options);
+		}
+	}
+
+	//? if >=1.21 {
+	/**
      * Add title.
      */
     protected void addTitle() {
@@ -64,18 +91,8 @@ public class ConstantMusicConfigScreen extends Screen {
      * Add contents.
      */
     protected void addContents() {
-        this.list = this.layout.addToContents(new ConfigOptionsList(this.minecraft, this.width, this));
+        this.list = this.layout.addToContents(new OptionsList(this.minecraft, this.width, this));
         this.addOptions();
-    }
-
-    /**
-     * Add options.
-     */
-    protected void addOptions() {
-        OptionInstance<?>[] options = new OptionInstance[]{CommonClass.getConfigOption()};
-        if (this.list != null) {
-            this.list.addSmall(options);
-        }
     }
 
     /**
@@ -94,4 +111,10 @@ public class ConstantMusicConfigScreen extends Screen {
             this.list.updateSize(this.width, this.layout);
         }
     }
+	//?} else {
+	/*public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
+		super.render(gui, i, j, f);
+		gui.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
+	}
+	*///?}
 }
