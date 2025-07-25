@@ -1,3 +1,4 @@
+//? if >= 1.21 {
 package com.odinokland.constantmusic.common.gui;
 
 import com.google.common.collect.ImmutableList;
@@ -26,6 +27,8 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
     private static final int DEFAULT_ITEM_HEIGHT = 25;
     private final ConstantMusicConfigScreen screen;
 
+
+	// diff
     /**
      * Instantiates a new Config options list.
      *
@@ -188,6 +191,7 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
             return new OptionEntry(ImmutableMap.of(pOption, pOption.createButton(pOptions, 0, 0, 310)), pScreen);
         }
 
+		// diff
         /**
          * Small config options list . option entry.
          *
@@ -203,3 +207,4 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
         }
     }
 }
+//?}
