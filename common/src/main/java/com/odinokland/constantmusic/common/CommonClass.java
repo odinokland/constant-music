@@ -36,6 +36,11 @@ public class CommonClass {
     private static boolean manualConfigInitialized = false;
     private static int timer = 0;
 
+	/**
+	 * The constant MAX_TIMER.
+	 */
+	public static int MAX_TIMER = 600;
+
     /**
      * Init.
      */
