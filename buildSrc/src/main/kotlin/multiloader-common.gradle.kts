@@ -43,6 +43,7 @@ tasks {
 	processResources {
 		val chosenJavaVersion = commonMod.propOrNull("java.version")
 		val compatibilityVersion = commonMod.propOrNull("java.compatibility_version") ?: chosenJavaVersion
+		val forgeMajorVersion: String? = commonMod.depOrNull("forge")?.substringBefore('.')
 		val expandProps = mapOf(
 			"javaVersion" to chosenJavaVersion,
 			"javaCompatibilityVersion" to compatibilityVersion,
@@ -63,7 +64,9 @@ tasks {
 			"fabricLoaderVersion" to commonMod.depOrNull("fabric-loader"),
 			"fabricApiVersion" to commonMod.depOrNull("fabric-api"),
 			"forgeVersion" to commonMod.depOrNull("forge"),
+			"forgeMajorVersion" to forgeMajorVersion,
 			"neoForgeVersion" to commonMod.depOrNull("neoforge"),
+			"modMenuVersion" to commonMod.depOrNull("modmenu"),
 		).filterValues { it?.isNotEmpty() == true }.mapValues { (_, v) -> v!! }
 
 		val jsonExpandProps = expandProps.mapValues { (_, v) -> v.replace("\n", "\\\\n") }
