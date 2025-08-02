@@ -5,7 +5,11 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import net.minecraft.client.gui.GuiGraphics;
+//? if >1.19.3 {
+/*import net.minecraft.client.gui.GuiGraphics;
+*///?} else {
+import com.mojang.blaze3d.vertex.PoseStack;
+//?}
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -26,20 +30,20 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	private final Screen screen;
 
 	//? if >=1.21 {
-	/**
+	/*/^*
 	 * Instantiates a new Config options list.
 	 *
 	 * @param mc     the mc
 	 * @param width  the width
 	 * @param screen the screen
-	 */
+	 ^/
 	public OptionsList(Minecraft mc, int width, ConstantMusicConfigScreen screen) {
 		super(mc, width, screen.layout.getContentHeight(), screen.layout.getHeaderHeight(), DEFAULT_ITEM_HEIGHT);
 		this.centerListVertically = false;
 		this.screen = screen;
 	}
-	//?} else {
-	/*/^*
+	*///?} else {
+	/**
 	 * Instantiates a new Options list.
 	 *
 	 * @param minecraft    the minecraft
@@ -48,13 +52,17 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	 * @param headerHeight the header height
 	 * @param footerHeight the footer height
 	 * @param screen       the screen
-	 ^/
+	 */
 	public OptionsList(Minecraft minecraft, int width, int height, int headerHeight,int footerHeight, Screen screen) {
-		super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
+		//? if >=1.20.4 {
+		/*super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
+		*///?} else {
+		super(minecraft, width, height, headerHeight, height - headerHeight - footerHeight, DEFAULT_ITEM_HEIGHT);
+		//?}
 		this.centerListVertically = false;
 		this.screen = screen;
 	}
-	*///?}
+	//?}
 
 	/**
 	 * Add big.
@@ -187,7 +195,11 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 		//diff
 		@Override
 		public void render(
-			GuiGraphics guiGraphics,
+			//? if >1.19.3 {
+			/*GuiGraphics gui,
+			*///?} else {
+			PoseStack gui,
+			//?}
 			int index,
 			int top,
 			int left,
@@ -203,7 +215,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 
 			for (AbstractWidget abstractWidget : this.children) {
 				abstractWidget.setPosition(q + p, top);
-				abstractWidget.render(guiGraphics, mouseX, mouseY, partialTick);
+				abstractWidget.render(gui, mouseX, mouseY, partialTick);
 				p += X_OFFSET;
 			}
 		}
@@ -258,16 +270,16 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 			Options options, OptionInstance<?> optionInstance, OptionInstance<?> optionInstance2, Screen screen
 		) {
 			//? >=1.21 {
-			AbstractWidget abstractWidget = optionInstance.createButton(options);
+			/*AbstractWidget abstractWidget = optionInstance.createButton(options);
 			return  optionInstance2 == null
 				? new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget), screen)
 				: new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget, optionInstance2, optionInstance2.createButton(options)), screen);
-			//?} else {
-			/*AbstractWidget abstractWidget = optionInstance.createButton(options, 0, 0, SMALL_BUTTON_WIDTH);
+			*///?} else {
+			AbstractWidget abstractWidget = optionInstance.createButton(options, 0, 0, SMALL_BUTTON_WIDTH);
 			return optionInstance2 == null
 				? new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget), screen)
 				: new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget, optionInstance2, optionInstance2.createButton(options, 0, 0, SMALL_BUTTON_WIDTH)), screen);
-			*///?}
+			//?}
 		}
 	}
 }

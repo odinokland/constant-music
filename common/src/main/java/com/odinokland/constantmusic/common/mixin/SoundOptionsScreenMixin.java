@@ -4,10 +4,10 @@ import com.odinokland.constantmusic.common.CommonClass;
 import com.odinokland.constantmusic.common.Constants;
 import net.minecraft.client.OptionInstance;
 //? if >= 1.21 {
-import net.minecraft.client.gui.screens.options.SoundOptionsScreen;
-//?} else {
-/*import net.minecraft.client.gui.screens.SoundOptionsScreen;
-*///?}
+/*import net.minecraft.client.gui.screens.options.SoundOptionsScreen;
+*///?} else {
+import net.minecraft.client.gui.screens.SoundOptionsScreen;
+//?}
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

@@ -1,4 +1,4 @@
-<!-- modrinth_exclude.start -->
+ <!-- modrinth_exclude.start -->
 # Constant Music
 
 [![GitHub issues](https://img.shields.io/github/issues/odinokland/constant-music?style=flat-square)](https://github.com/odinokland/constant-music/issues)
