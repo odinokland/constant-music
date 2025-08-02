@@ -38,6 +38,6 @@
 		"java": ">=${javaVersion}"
 	},
 	"suggests": {
-		"modmenu": ">=11.0.0"
+		"modmenu": ">=${modMenuVersion}"
 	}
 }
