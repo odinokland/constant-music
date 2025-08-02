@@ -1,5 +1,5 @@
 //? if <1.20.6 {
-package com.odinokland.constantmusic.neoforge;
+/*package com.odinokland.constantmusic.neoforge;
 
 import com.odinokland.constantmusic.common.Constants;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -63,4 +63,4 @@ public class Config
 			.collect(Collectors.toSet());
 	}
 }
-//?}
+*///?}

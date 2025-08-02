@@ -6,10 +6,10 @@ import com.odinokland.constantmusic.common.Constants;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 //? if < 1.20.6 {
-import com.odinokland.constantmusic.common.gui.ConstantMusicConfigScreen;
+/*import com.odinokland.constantmusic.common.gui.ConstantMusicConfigScreen;
 import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.client.ConfigScreenHandler;
-//?}
+*///?}
 
 @Mod(Constants.MOD_ID)
 public class ConstantMusicNeoForge {
@@ -23,9 +23,9 @@ public class ConstantMusicNeoForge {
 		// Use NeoForge to bootstrap the Common mod.
 		CommonClass.init();
 		//? if < 1.20.6 {
-		ModLoadingContext.get().registerExtensionPoint(
+		/*ModLoadingContext.get().registerExtensionPoint(
 			ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory(
 				(minecraft, parent) -> new ConstantMusicConfigScreen(parent)));
-		//?}
+		*///?}
 	}
 }

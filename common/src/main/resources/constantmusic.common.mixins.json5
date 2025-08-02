@@ -8,6 +8,10 @@
   "client": [
 	  "MusicManagerAccessor",
 	  "MusicManagerMixin",
+	  //? if <1.19.3 {
+	  /*"SoundSourceMixin",
+	  "VolumeSliderMixin",
+	  *///?}
 	  "SoundOptionsScreenMixin"
   ],
   "server": [],

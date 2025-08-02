@@ -1,5 +1,5 @@
 //? if >= 1.21 {
-/*package com.odinokland.constantmusic.common.gui;
+package com.odinokland.constantmusic.common.gui;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
@@ -19,9 +19,9 @@ import java.util.List;
 import java.util.Map;
 
 
-/^*
+/**
  * The type Config options list.
- ^/
+ */
 public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptionsList.Entry> {
     private static final int BIG_BUTTON_WIDTH = 310;
     private static final int DEFAULT_ITEM_HEIGHT = 25;
@@ -29,33 +29,33 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
 
 
 	// diff
-    /^*
+    /**
      * Instantiates a new Config options list.
      *
      * @param mc     the mc
      * @param width  the width
      * @param screen the screen
-     ^/
+     */
     public ConfigOptionsList(Minecraft mc, int width, ConstantMusicConfigScreen screen) {
         super(mc, width, screen.layout.getContentHeight(), screen.layout.getHeaderHeight(), DEFAULT_ITEM_HEIGHT);
         this.centerListVertically = false;
         this.screen = screen;
     }
 
-    /^*
+    /**
      * Add big.
      *
      * @param option the option
-     ^/
+     */
     public void addBig(OptionInstance<?> option) {
         this.addEntry(OptionEntry.big(this.minecraft.options, option, this.screen));
     }
 
-    /^*
+    /**
      * Add small.
      *
      * @param options the options
-     ^/
+     */
     public void addSmall(OptionInstance<?>... options) {
         for (int i = 0; i < options.length; i += 2) {
             OptionInstance<?> optioninstance = i < options.length - 1 ? options[i + 1] : null;
@@ -63,23 +63,23 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
         }
     }
 
-    /^*
+    /**
      * Add small.
      *
      * @param options the options
-     ^/
+     */
     public void addSmall(List<AbstractWidget> options) {
         for (int i = 0; i < options.size(); i += 2) {
             this.addSmall(options.get(i), i < options.size() - 1 ? options.get(i + 1) : null);
         }
     }
 
-    /^*
+    /**
      * Add small.
      *
      * @param left  the left
      * @param right the right
-     ^/
+     */
     public void addSmall(AbstractWidget left, AbstractWidget right) {
         this.addEntry(Entry.small(left, right, this.screen));
     }
@@ -89,44 +89,44 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
         return BIG_BUTTON_WIDTH;
     }
 
-    /^*
+    /**
      * The type Entry.
-     ^/
+     */
     protected static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
         private final List<AbstractWidget> children;
         private final Screen screen;
         private static final int X_OFFSET = 160;
 
-        /^*
+        /**
          * Instantiates a new Entry.
          *
          * @param pChildren the p children
          * @param pScreen   the p screen
-         ^/
+         */
         Entry(List<AbstractWidget> pChildren, Screen pScreen) {
             this.children = ImmutableList.copyOf(pChildren);
             this.screen = pScreen;
         }
 
-        /^*
+        /**
          * Big config options list . entry.
          *
          * @param pOptions the p options
          * @param pScreen  the p screen
          * @return the config options list . entry
-         ^/
+         */
         public static Entry big(List<AbstractWidget> pOptions, Screen pScreen) {
             return new Entry(pOptions, pScreen);
         }
 
-        /^*
+        /**
          * Small config options list . entry.
          *
          * @param pLeftOption  the p left option
          * @param pRightOption the p right option
          * @param pScreen      the p screen
          * @return the config options list . entry
-         ^/
+         */
         public static Entry small(AbstractWidget pLeftOption, AbstractWidget pRightOption, Screen pScreen) {
             return pRightOption == null ? new Entry(ImmutableList.of(pLeftOption), pScreen) : new Entry(ImmutableList.of(pLeftOption, pRightOption), pScreen);
         }
@@ -165,13 +165,13 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
         }
     }
 
-    /^*
+    /**
      * The type Option entry.
-     ^/
+     */
     protected static class OptionEntry extends Entry {
-        /^*
+        /**
          * The Options.
-         ^/
+         */
         final Map<OptionInstance<?>, AbstractWidget> options;
 
         private OptionEntry(Map<OptionInstance<?>, AbstractWidget> pOptions, ConstantMusicConfigScreen pScreen) {
@@ -179,20 +179,20 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
             this.options = pOptions;
         }
 
-        /^*
+        /**
          * Big config options list . option entry.
          *
          * @param pOptions the p options
          * @param pOption  the p option
          * @param pScreen  the p screen
          * @return the config options list . option entry
-         ^/
+         */
         public static OptionEntry big(Options pOptions, OptionInstance<?> pOption, ConstantMusicConfigScreen pScreen) {
             return new OptionEntry(ImmutableMap.of(pOption, pOption.createButton(pOptions, 0, 0, 310)), pScreen);
         }
 
 		// diff
-        /^*
+        /**
          * Small config options list . option entry.
          *
          * @param pOptions     the p options
@@ -200,11 +200,11 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
          * @param pRightOption the p right option
          * @param pScreen      the p screen
          * @return the config options list . option entry
-         ^/
+         */
         public static OptionEntry small(Options pOptions, OptionInstance<?> pLeftOption, OptionInstance<?> pRightOption, ConstantMusicConfigScreen pScreen) {
             AbstractWidget abstractwidget = pLeftOption.createButton(pOptions);
             return pRightOption == null ? new OptionEntry(ImmutableMap.of(pLeftOption, abstractwidget), pScreen) : new OptionEntry(ImmutableMap.of(pLeftOption, abstractwidget, pRightOption, pRightOption.createButton(pOptions)), pScreen);
         }
     }
 }
-*///?}
+//?}

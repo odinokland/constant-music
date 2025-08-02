@@ -41,6 +41,7 @@ repositories {
 tasks {
 
 	processResources {
+		duplicatesStrategy = DuplicatesStrategy.INHERIT
 		val chosenJavaVersion = commonMod.propOrNull("java.version")
 		val compatibilityVersion = commonMod.propOrNull("java.compatibility_version") ?: chosenJavaVersion
 		val forgeMajorVersion: String? = commonMod.depOrNull("forge")?.substringBefore('.')
@@ -75,7 +76,7 @@ tasks {
 				expand(expandProps)
 			}
 
-		filesMatching(listOf("pack.mcmeta", "fabric.mod.json", "*.mixins.json")) {
+		filesMatching(listOf("pack.mcmeta", "fabric.mod.json", "*.mixins.json*")) {
 			expand(jsonExpandProps)
 		}
 
