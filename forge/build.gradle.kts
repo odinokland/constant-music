@@ -26,6 +26,9 @@ minecraft {
 			workingDirectory(file("run"))
 			ideaModule("${rootProject.name}.${loader}.${project.name}.main")
 			taskName("Client")
+			//? if >=1.21.6 {
+			property("eventbus.api.strictRuntimeChecks", "true")
+			//? }
 			mods {
 				create(commonMod.id) {
 					source(sourceSets.main.get())
@@ -39,7 +42,9 @@ dependencies {
 	// Required dependencies
 	minecraft("net.minecraftforge:forge:${commonMod.mc}-${commonMod.dep("forge")}")
 	annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
-
+	//? if >= 1.21.6 {
+	annotationProcessor("net.minecraftforge:eventbus-validator:7.0-beta.7")
+	// }
 	// Forge's hack fix
 	implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
 }
@@ -68,6 +73,14 @@ tasks {
 
 	register("ideaSyncTask", Copy::class) {
 		dependsOn("genIntellijRuns")
+	}
+}
+
+// IntelliJ no longer downloads javadocs and sources by default, this tells Gradle to force IntelliJ to do it.
+idea {
+	module {
+		isDownloadJavadoc = true
+		isDownloadSources = true
 	}
 }
 
