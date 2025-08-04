@@ -84,3 +84,11 @@ tasks {
 tasks.named("createMinecraftArtifacts") {
 	dependsOn(":neoforge:${commonMod.propOrNull("minecraft_version")}:stonecutterGenerate")
 }
+
+// IntelliJ no longer downloads javadocs and sources by default, this tells Gradle to force IntelliJ to do it.
+idea {
+	module {
+		isDownloadJavadoc = true
+		isDownloadSources = true
+	}
+}

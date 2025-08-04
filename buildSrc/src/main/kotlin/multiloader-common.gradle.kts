@@ -32,10 +32,10 @@ repositories {
 			includeGroup("maven.modrinth")
 		}
 	}
-	maven("https://maven.resourcefulbees.com/repository/maven-public/") { name = "ResourcefulBees" }
 	maven("https://maven.terraformersmc.com/releases/") { name = "TerraformersMC" }
 	maven("https://maven.quiltmc.org/repository/release")
 	maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
+	maven("https://nexus.velocitypowered.com/repository/maven-public")
 }
 
 tasks {
