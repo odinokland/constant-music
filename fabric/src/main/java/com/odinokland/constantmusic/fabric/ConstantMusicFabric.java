@@ -10,8 +10,7 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 public class ConstantMusicFabric implements ModInitializer, ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-		ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register((client, world) -> JukeboxTrackerUtility.clearJukeboxes());
-		ClientTickEvents.END_CLIENT_TICK.register(client -> JukeboxTrackerUtility.checkJukeboxesInRange(client));
+
 	}
 	@Override
 	public void onInitialize() {
@@ -23,5 +22,7 @@ public class ConstantMusicFabric implements ModInitializer, ClientModInitializer
 		// Use Fabric to bootstrap the Common mod.
 		//Constants.LOG.info("Hello Fabric world!");
 		CommonClass.init();
+		ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register((client, world) -> JukeboxTrackerUtility.clearJukeboxes());
+		ClientTickEvents.END_CLIENT_TICK.register(JukeboxTrackerUtility::checkJukeboxesInRange);
 	}
 }
