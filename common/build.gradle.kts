@@ -52,3 +52,18 @@ artifacts {
 		}
 	}
 }
+// IntelliJ no longer downloads javadocs and sources by default, this tells Gradle to force IntelliJ to do it.
+idea {
+	module {
+		isDownloadJavadoc = true
+		isDownloadSources = true
+	}
+}
+stonecutter {
+	constants.match(
+		loader.toString(),
+		"fabric",   // != "loader" -> false
+		"neoforge", // == "loader" -> true
+		"forge",    // != "loader" -> false
+	)
+}
