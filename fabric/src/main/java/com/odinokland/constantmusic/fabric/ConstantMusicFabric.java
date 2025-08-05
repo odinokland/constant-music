@@ -1,13 +1,17 @@
 package com.odinokland.constantmusic.fabric;
 
 import com.odinokland.constantmusic.common.CommonClass;
+import com.odinokland.constantmusic.common.util.JukeboxTrackerUtility;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 
 public class ConstantMusicFabric implements ModInitializer, ClientModInitializer {
 	@Override
 	public void onInitializeClient() {
-
+		ClientWorldEvents.AFTER_CLIENT_WORLD_CHANGE.register((client, world) -> JukeboxTrackerUtility.clearJukeboxes());
+		ClientTickEvents.END_CLIENT_TICK.register(client -> JukeboxTrackerUtility.checkJukeboxesInRange(client));
 	}
 	@Override
 	public void onInitialize() {

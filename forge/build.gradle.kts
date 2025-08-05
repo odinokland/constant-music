@@ -42,6 +42,10 @@ dependencies {
 	// Required dependencies
 	minecraft("net.minecraftforge:forge:${commonMod.mc}-${commonMod.dep("forge")}")
 	annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
+	annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0")?.let { compileOnly(it) }
+	jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")?.let { implementation(it) }.let {
+		jarJar.ranged(it, "[0.5.0,)")
+	}
 	//? if >= 1.21.6 {
 	annotationProcessor("net.minecraftforge:eventbus-validator:7.0-beta.7")
 	// }
