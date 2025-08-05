@@ -2,16 +2,20 @@ package com.odinokland.constantmusic.forge;
 
 import com.odinokland.constantmusic.common.Constants;
 import com.odinokland.constantmusic.common.gui.ConstantMusicConfigScreen;
+import com.odinokland.constantmusic.common.util.JukeboxTrackerUtility;
+import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
-//? if > 1.21.6 {
-/*import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
-*///?} else {
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-//?}
+//? if >=1.21.6 {
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+//?} else {
+/*import net.minecraftforge.eventbus.api.SubscribeEvent;
+*///?}
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
+import net.minecraftforge.event.TickEvent;
+import net.minecraftforge.event.level.LevelEvent;
 
 /**
  * The type Client handler.
@@ -32,5 +36,14 @@ public class ClientHandler {
         );
     }
 
+	@SubscribeEvent
+	public static void onClientTick(TickEvent.ClientTickEvent.Post event) {
+		Minecraft client = Minecraft.getInstance();
+		JukeboxTrackerUtility.checkJukeboxesInRange(client);
+	}
 
+	@SubscribeEvent
+	public static void onLevelUnload(LevelEvent.Unload event) {
+		JukeboxTrackerUtility.clearJukeboxes();
+	}
 }
