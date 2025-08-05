@@ -20,7 +20,7 @@ import net.minecraftforge.event.level.LevelEvent;
 /**
  * The type Client handler.
  */
-@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MOD_ID)
 public class ClientHandler {
 
     /**

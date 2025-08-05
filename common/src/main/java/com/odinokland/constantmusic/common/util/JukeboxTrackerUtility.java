@@ -1,5 +1,6 @@
 package com.odinokland.constantmusic.common.util;
 
+import com.odinokland.constantmusic.common.Constants;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.client.Minecraft;
@@ -29,16 +30,21 @@ public class JukeboxTrackerUtility {
 	}
 
 	public static void checkJukeboxesInRange(Minecraft client) {
-		if (client.player != null && !jukeboxes.isEmpty()) {
+		if (client.player != null &&  !jukeboxes.isEmpty()) {
+			// int hasJukeboxInRange = 0;
+			// int hasNoJukeboxInRange = 0;
 			for (Object2BooleanMap.Entry<BlockPos> jukebox : jukeboxes.object2BooleanEntrySet()) {
 				BlockPos pos = jukebox.getKey();
 				if (client.player.distanceToSqr(pos.getX(), pos.getY(), pos.getZ()) > 4096) {
 					jukeboxes.put(pos, false);
+					//hasNoJukeboxInRange++;
 				} else {
 					jukeboxes.put(pos, true);
+					//hasJukeboxInRange++;
 					client.getMusicManager().stopPlaying();
 				}
 			}
+			//Constants.LOG.info("Jukeboxes in range: " + hasJukeboxInRange + ", no jukeboxes in range: " + hasNoJukeboxInRange);
 		}
 	}
 }
