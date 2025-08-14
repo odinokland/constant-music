@@ -1,11 +1,11 @@
 plugins {
     id("dev.kikugie.stonecutter")
 
-    id("net.neoforged.moddev") version "2.0.96" apply false
+    id("net.neoforged.moddev") version "2.0.107" apply false
     id("fabric-loom") version "1.10-SNAPSHOT" apply false
 }
 
-stonecutter active "1.21.6" /* [SC] DO NOT EDIT */
+stonecutter active "1.21" /* [SC] DO NOT EDIT */
 
 stonecutter {
 

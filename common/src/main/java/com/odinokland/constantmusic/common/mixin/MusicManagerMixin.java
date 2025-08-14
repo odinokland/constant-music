@@ -10,7 +10,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 //? if > 1.21.1
-import net.minecraft.client.sounds.MusicInfo;
+/*import net.minecraft.client.sounds.MusicInfo;*/
 
 /**
  * The type Music manager mixin.
@@ -26,7 +26,7 @@ public class MusicManagerMixin {
 
 
 	//? if <= 1.21.1 {
-	/*@WrapWithCondition(
+	@WrapWithCondition(
 		method = "tick",
 		at = @At(
 			value = "INVOKE",
@@ -36,10 +36,10 @@ public class MusicManagerMixin {
 	private boolean dontPlayIfJukeboxInRange(MusicManager instance, Music music) {
 		return JukeboxTrackerUtility.noJukeboxesInRange();
 	}
-	*///?}
+	//?}
 
 	//? if > 1.21.1 {
-    @WrapWithCondition(
+    /*@WrapWithCondition(
             method = "tick",
             at = @At(
                     value = "INVOKE",
@@ -49,5 +49,5 @@ public class MusicManagerMixin {
     private boolean dontPlayIfJukeboxInRange(MusicManager instance, MusicInfo music) {
         return JukeboxTrackerUtility.noJukeboxesInRange();
     }
-    //?}
+    *///?}
 }
