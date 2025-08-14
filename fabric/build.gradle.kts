@@ -15,6 +15,7 @@ dependencies {
 
 	modImplementation("net.fabricmc:fabric-loader:${commonMod.dep("fabric-loader")}")
 	modApi("net.fabricmc.fabric-api:fabric-api:${commonMod.dep("fabric-api")}+${commonMod.mc}")
+	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:0.5.0")!!)!!)
 
 	// Optional dependencies
 	modImplementation("com.terraformersmc:modmenu:${commonMod.dep("modmenu")}")

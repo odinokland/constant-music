@@ -2,73 +2,43 @@ import net.neoforged.moddevgradle.dsl.NeoForgeExtension as NeoForge
 import net.neoforged.moddevgradle.legacyforge.dsl.LegacyForgeExtension as LegacyForge
 
 plugins {
+	`java-library`
+	idea
 	`multiloader-loader`
 	id("dev.kikugie.j52j") version "2.0"
+	id("net.neoforged.moddev")
 }
 
-var configBlock: Any? = null
-
-if (stonecutter.eval(stonecutter.current.version, ">=1.20.2")) {
-	apply(plugin = "net.neoforged.moddev")
-
-	extensions.configure(NeoForge::class) {
-		enable {
-			version = commonMod.dep("neoforge")
-		}
-		accessTransformers.from(project.file("../../src/main/resources/META-INF/accesstransformer.cfg").absolutePath)
-
-		runs {
-			register("client") {
-				client()
-				ideName = "NeoForge Client (${project.path})"
-			}
-		}
-
-		parchment {
-			commonMod.depOrNull("parchment")?.let {
-				mappingsVersion = it
-				minecraftVersion = commonMod.mc
-			}
-		}
-
-		mods {
-			register(commonMod.id) {
-				sourceSet(sourceSets.main.get())
-			}
-		}
-	}
-} else {
-	apply(plugin ="net.neoforged.moddev.legacyforge")
-
-	extensions.configure(LegacyForge::class) {
-
+neoForge{
+	enable {
 		version = commonMod.dep("neoforge")
-		//accessTransformers.from(project.file("../../src/main/resources/META-INF/accesstransformer.cfg").absolutePath)
+	}
+	accessTransformers.from(project.file("../../src/main/resources/META-INF/accesstransformer.cfg").absolutePath)
 
-		runs {
-			register("client") {
-				client()
-				ideName = "NeoForge Client (${project.path})"
-			}
-		}
-
-		parchment {
-			commonMod.depOrNull("parchment")?.let {
-				mappingsVersion = it
-				minecraftVersion = commonMod.mc
-			}
-		}
-
-		mods {
-			register(commonMod.id) {
-				sourceSet(sourceSets.main.get())
-			}
+	runs {
+		register("client") {
+			client()
+			ideName = "NeoForge Client (${project.path})"
 		}
 	}
+
+	parchment {
+		commonMod.depOrNull("parchment")?.let {
+			mappingsVersion = it
+			minecraftVersion = commonMod.mc
+		}
+	}
+
+	mods {
+		register(commonMod.id) {
+			sourceSet(sourceSets.main.get())
+		}
+	}
+
 }
 
 dependencies {
-
+	jarJar("io.github.llamalad7:mixinextras-neoforge:0.5.0")?.let { implementation(it) }
 }
 
 sourceSets.main {

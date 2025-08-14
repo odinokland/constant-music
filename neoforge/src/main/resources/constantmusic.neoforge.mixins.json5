@@ -1,6 +1,6 @@
 {
 	"required": true,
-	"package": "com.odinokland.constantmusic.fabric.mixin",
+	"package": "com.odinokland.constantmusic.neoforge.mixin",
 	"refmap": "${modId}.refmap.json",
 	"compatibilityLevel": "JAVA_${javaCompatibilityVersion}",
 	"minVersion": "0.8",
@@ -8,6 +8,8 @@
 		"defaultRequire": 1
 	},
 	"mixins": [
-
+		//? if < 1.21 {
+		/*"LevelRendererNeoForgeMixin"
+		*///?}
 	]
 }

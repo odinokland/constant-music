@@ -23,7 +23,7 @@ dependencies {
 
     compileOnly("org.spongepowered:mixin:0.8.7")
 
-    "io.github.llamalad7:mixinextras-common:0.3.5".let {
+    "io.github.llamalad7:mixinextras-common:0.5.0".let {
         compileOnly(it)
         annotationProcessor(it)
     }
@@ -58,12 +58,4 @@ idea {
 		isDownloadJavadoc = true
 		isDownloadSources = true
 	}
-}
-stonecutter {
-	constants.match(
-		loader.toString(),
-		"fabric",   // != "loader" -> false
-		"neoforge", // == "loader" -> true
-		"forge",    // != "loader" -> false
-	)
 }
