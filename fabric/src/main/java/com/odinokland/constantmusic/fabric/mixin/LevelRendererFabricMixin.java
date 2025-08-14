@@ -1,4 +1,4 @@
-package com.odinokland.constantmusic.common.mixin;
+package com.odinokland.constantmusic.fabric.mixin;
 
 import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
@@ -8,7 +8,6 @@ import com.odinokland.constantmusic.common.util.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
 //? if >=1.21.6 {
 /*import net.minecraft.client.renderer.LevelEventHandler;
-import net.minecraft.world.level.Level;
 *///?} else {
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
@@ -17,26 +16,20 @@ import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.Nullable;
 //?}
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-//? if >= 1.21 {
-import net.minecraft.world.item.JukeboxSong;
-//?}
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Map;
 
 //? if >=1.21.6 {
 /*@Mixin(LevelEventHandler.class)
-*///?} else {
+ *///?} else {
 @Mixin(LevelRenderer.class)
 //?}
-public class LevelRendererMixin {
-	//? if >=1.21.6 {
-	/*@Shadow @Final private Level level;
-	*///?} else {
+public class LevelRendererFabricMixin
+{
+	//? if <1.21.6 {
 	@Shadow @Nullable private ClientLevel level;
 	//?}
 	//? if < 1.21 {
@@ -44,19 +37,7 @@ public class LevelRendererMixin {
 	*///?}
 	@Shadow @Final private Minecraft minecraft;
 
-	//? if >=1.21 {
-	@WrapMethod(method = "playJukeboxSong")
-	private void onJukeboxPlay(Holder<JukeboxSong> song, BlockPos pos, Operation<Void> original) {
-		original.call(song, pos);
-		JukeboxTrackerUtility.onJukeboxPlay(level, minecraft, pos);
-	}
-
-	@WrapMethod(method = "stopJukeboxSong")
-	private void onJukeboxStop(BlockPos pos, Operation<Void> original) {
-		original.call(pos);
-		JukeboxTrackerUtility.onJukeboxStop(pos);
-	}
-	//?} else {
+	//? if <1.21 {
 	/*@WrapMethod(method="playStreamingMusic")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);

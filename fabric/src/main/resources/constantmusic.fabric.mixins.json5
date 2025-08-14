@@ -1,0 +1,18 @@
+{
+  "required": true,
+  "package": "com.odinokland.constantmusic.fabric.mixin",
+  "refmap": "${modId}.refmap.json",
+  "compatibilityLevel": "JAVA_${javaCompatibilityVersion}",
+  "minVersion": "0.8",
+  "injectors": {
+    "defaultRequire": 1
+  },
+  "mixins": [
+  ],
+  "client": [
+	  "LevelRendererFabricMixin",
+    //? if <1.21.6 {
+	  "MinecraftClientMixin"
+    //?}
+  ]
+}
