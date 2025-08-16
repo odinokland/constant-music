@@ -1,6 +1,7 @@
 package com.odinokland.constantmusic.forge.mixin;
 
-import com.google.common.collect.Maps;
+//? if < 1.21 {
+/*import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.odinokland.constantmusic.common.Constants;
@@ -20,8 +21,10 @@ import javax.annotation.Nullable;
 import java.util.Map;
 
 @Mixin(LevelRenderer.class)
+*///?}
 public class LevelRendererForgeMixin {
-	@Shadow @Nullable private ClientLevel level;
+	//? if < 1.21 {
+	/*@Shadow @Nullable private ClientLevel level;
 	@Shadow @Final private Minecraft minecraft;
 
 	private final Map<BlockPos, SoundInstance> playingRecords = Maps.newHashMap();
@@ -45,4 +48,5 @@ public class LevelRendererForgeMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
+	*///?}
 }

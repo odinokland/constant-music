@@ -4,7 +4,7 @@ plugins {
 	id("java-library")
 }
 
-version = "${loader}-+mc"
+version = "${loader}-${commonMod.version}+mc"
 
 base {
 	archivesName = commonMod.id
