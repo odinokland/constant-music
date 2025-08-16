@@ -12,7 +12,7 @@
   "client": [
 	  "LevelRendererFabricMixin",
     //? if <1.21.6 {
-	  "MinecraftClientMixin"
-    //?}
+	  /*"MinecraftClientMixin"
+    *///?}
   ]
 }

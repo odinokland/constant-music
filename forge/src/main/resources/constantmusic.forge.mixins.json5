@@ -5,6 +5,9 @@
   "compatibilityLevel": "JAVA_${javaCompatibilityVersion}",
   "mixins": [],
   "client": [
+	  //? if < 1.21 {
+	  /*"LevelRendererForgeMixin"
+	  *///?}
   ],
   "server": [],
   "injectors": {

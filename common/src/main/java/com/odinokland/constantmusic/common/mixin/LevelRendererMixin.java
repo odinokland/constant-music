@@ -7,15 +7,15 @@ import com.odinokland.constantmusic.common.Constants;
 import com.odinokland.constantmusic.common.util.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
 //? if >=1.21.6 {
-/*import net.minecraft.client.renderer.LevelEventHandler;
+import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.world.level.Level;
-*///?} else {
-import net.minecraft.client.multiplayer.ClientLevel;
+//?} else {
+/*import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.resources.sounds.SoundInstance;
 import net.minecraft.sounds.SoundEvent;
 import org.jetbrains.annotations.Nullable;
-//?}
+*///?}
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 //? if >= 1.21 {
@@ -29,16 +29,16 @@ import org.spongepowered.asm.mixin.injection.At;
 import java.util.Map;
 
 //? if >=1.21.6 {
-/*@Mixin(LevelEventHandler.class)
-*///?} else {
-@Mixin(LevelRenderer.class)
-//?}
+@Mixin(LevelEventHandler.class)
+//?} else {
+/*@Mixin(LevelRenderer.class)
+*///?}
 public class LevelRendererMixin {
 	//? if >=1.21.6 {
-	/*@Shadow @Final private Level level;
-	*///?} else {
-	@Shadow @Nullable private ClientLevel level;
-	//?}
+	@Shadow @Final private Level level;
+	//?} else {
+	/*@Shadow @Nullable private ClientLevel level;
+	*///?}
 	//? if < 1.21 {
 	/*private final Map<BlockPos, SoundInstance> playingRecords = Maps.newHashMap();
 	*///?}

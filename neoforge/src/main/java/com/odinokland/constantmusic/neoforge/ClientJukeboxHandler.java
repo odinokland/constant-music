@@ -16,12 +16,12 @@ import net.neoforged.neoforge.event.level.LevelEvent;
 
 
 //? if >= 1.21.6 {
-/*@Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-*///?} else if >= 1.20.6 {
 @Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
+//?} else if >= 1.20.6 {
+/*@Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.GAME)
-//?} else {
+*///?} else {
 /*@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 *///?}
 public class ClientJukeboxHandler {
