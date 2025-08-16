@@ -5,6 +5,14 @@ plugins {
 	id("dev.kikugie.j52j") version "2.0"
 }
 
+java {
+	withSourcesJar()
+	val java = if (stonecutter.eval(stonecutterBuild.current.version, ">=1.20.5"))
+		JavaVersion.VERSION_21 else JavaVersion.VERSION_17
+	targetCompatibility = java
+	sourceCompatibility = java
+}
+
 minecraft {
 	mappings("official", commonMod.mc)
 
@@ -26,9 +34,10 @@ minecraft {
 			workingDirectory(file("run"))
 			ideaModule("${rootProject.name}.${loader}.${project.name}.main")
 			taskName("Client")
-			//? if >=1.21.6 {
-			property("eventbus.api.strictRuntimeChecks", "true")
-			//? }
+			if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
+				property("eventbus.api.strictRuntimeChecks", "true")
+			}
+
 			mods {
 				create(commonMod.id) {
 					source(sourceSets.main.get())
@@ -46,9 +55,9 @@ dependencies {
 	jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")?.let { implementation(it) }.let {
 		jarJar.ranged(it, "[0.5.0,)")
 	}
-	//? if >= 1.21.6 {
+	if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
 	annotationProcessor("net.minecraftforge:eventbus-validator:7.0-beta.7")
-	// }
+	}
 	// Forge's hack fix
 	implementation("net.sf.jopt-simple:jopt-simple:5.0.4") { version { strictly("5.0.4") } }
 }
