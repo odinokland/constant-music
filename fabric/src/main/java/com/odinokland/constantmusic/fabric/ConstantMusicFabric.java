@@ -6,10 +6,10 @@ import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 //? if >=1.21.6 {
-/*import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
-*///?} else {
-import com.odinokland.constantmusic.fabric.client.event.ClientWorldEvents;
-//?}
+import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
+//?} else {
+/*import com.odinokland.constantmusic.fabric.client.event.ClientWorldEvents;
+*///?}
 
 public class ConstantMusicFabric implements ModInitializer, ClientModInitializer {
 	@Override

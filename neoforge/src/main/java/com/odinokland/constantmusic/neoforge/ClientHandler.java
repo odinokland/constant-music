@@ -20,30 +20,30 @@ import net.neoforged.neoforge.client.ConfigScreenHandler;
 *///?}
 
 //? if >= 1.21.6 {
-/*@Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
-@EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
-*///?} else if >= 1.20.6 {
 @Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
+@EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
+//?} else if >= 1.20.6 {
+/*@Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = Constants.MOD_ID, bus = EventBusSubscriber.Bus.MOD)
-//?} else {
+*///?} else {
 /*@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 *///?}
 public class  ClientHandler {
 	//? if >= 1.21.6 {
-	/*public  ClientHandler(ModContainer modContainer) {
+	public  ClientHandler(ModContainer modContainer) {
 		modContainer.registerExtensionPoint(IConfigScreenFactory.class, (Supplier<IConfigScreenFactory>) ClientConfigHelper::new);
 	}
-	*///?}
+	//?}
 	//? if < 1.21.6 {
-    @SubscribeEvent
+    /*@SubscribeEvent
     public static void onFMLClientSetupEvent(FMLClientSetupEvent event) {
 		//? if >= 1.20.6 {
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, ClientConfigHelper::new);
 		//?} else {
-		/*ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
+		/^ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () -> {
 			return new ConfigScreenHandler.ConfigScreenFactory((minecraft, parent) -> new ConstantMusicConfigScreen(parent));
 		});
-		*///?}
+		^///?}
     }
-	//?}
+	*///?}
 }
