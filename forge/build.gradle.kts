@@ -44,6 +44,34 @@ minecraft {
 				}
 			}
 		}
+		create("gameTestServer") {
+			workingDirectory(file("run"))
+			ideaModule("${rootProject.name}.${loader}.${project.name}.main")
+			taskName("Test")
+			if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
+				property("eventbus.api.strictRuntimeChecks", "true")
+			}
+			// Recommended logging data for a userdev environment
+			// The markers can be added/remove as needed separated by commas.
+			// "SCAN": For mods scan.
+			// "REGISTRIES": For firing of registry events.
+			// "REGISTRYDUMP": For getting the contents of all registries.
+			property("forge.logging.markers", "REGISTRIES")
+
+			// Recommended logging level for the console
+			// You can set various levels here.
+			// Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+			property("forge.logging.console.level", "debug")
+
+			// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+			property("forge.enabledGameTestNamespaces", commonMod.id)
+
+			mods {
+				create(commonMod.id) {
+					source(sourceSets.main.get())
+				}
+			}
+		}
 	}
 }
 
