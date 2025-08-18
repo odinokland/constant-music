@@ -49,6 +49,9 @@ tasks {
 	processResources {
 		exclude("${mod.id}.accesswidener")
 	}
+	jar {
+		archiveFileName.set("${commonMod.id}-neoforge-${commonMod.version}+mc${commonMod.mc}.jar")
+	}
 }
 
 tasks.named("createMinecraftArtifacts") {
