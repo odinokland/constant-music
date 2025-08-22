@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-//? if > 1.21.1
+//? if > 1.21.3
 import net.minecraft.client.sounds.MusicInfo;
 
 /**
@@ -25,7 +25,7 @@ public class MusicManagerMixin {
     }
 
 
-	//? if <= 1.21.1 {
+	//? if <= 1.21.3 {
 	/*@WrapWithCondition(
 		method = "tick",
 		at = @At(
@@ -38,7 +38,7 @@ public class MusicManagerMixin {
 	}
 	*///?}
 
-	//? if > 1.21.1 {
+	//? if > 1.21.3 {
     @WrapWithCondition(
             method = "tick",
             at = @At(

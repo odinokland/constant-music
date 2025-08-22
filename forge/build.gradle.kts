@@ -5,6 +5,11 @@ plugins {
 	id("dev.kikugie.j52j") version "2.0"
 }
 
+// Ensure the ForgeGradle Jar-in-Jar extension is enabled in Kotlin DSL
+extensions.configure<net.minecraftforge.gradle.userdev.jarjar.JarJarProjectExtension>("jarJar") {
+	enable()
+}
+
 java {
 	withSourcesJar()
 	val java = if (stonecutter.eval(stonecutterBuild.current.version, ">=1.20.5"))
@@ -44,34 +49,34 @@ minecraft {
 				}
 			}
 		}
-		create("gameTestServer") {
-			workingDirectory(file("run"))
-			ideaModule("${rootProject.name}.${loader}.${project.name}.main")
-			taskName("Test")
-			if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
-				property("eventbus.api.strictRuntimeChecks", "true")
-			}
-			// Recommended logging data for a userdev environment
-			// The markers can be added/remove as needed separated by commas.
-			// "SCAN": For mods scan.
-			// "REGISTRIES": For firing of registry events.
-			// "REGISTRYDUMP": For getting the contents of all registries.
-			property("forge.logging.markers", "REGISTRIES")
-
-			// Recommended logging level for the console
-			// You can set various levels here.
-			// Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
-			property("forge.logging.console.level", "debug")
-
-			// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
-			property("forge.enabledGameTestNamespaces", commonMod.id)
-
-			mods {
-				create(commonMod.id) {
-					source(sourceSets.main.get())
-				}
-			}
-		}
+//		create("gameTestServer") {
+//			workingDirectory(file("run"))
+//			ideaModule("${rootProject.name}.${loader}.${project.name}.main")
+//			taskName("Test")
+//			if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
+//				property("eventbus.api.strictRuntimeChecks", "true")
+//			}
+//			// Recommended logging data for a userdev environment
+//			// The markers can be added/remove as needed separated by commas.
+//			// "SCAN": For mods scan.
+//			// "REGISTRIES": For firing of registry events.
+//			// "REGISTRYDUMP": For getting the contents of all registries.
+//			property("forge.logging.markers", "REGISTRIES")
+//
+//			// Recommended logging level for the console
+//			// You can set various levels here.
+//			// Please read: https://stackoverflow.com/questions/2031163/when-to-use-the-different-log-levels
+//			property("forge.logging.console.level", "debug")
+//
+//			// Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
+//			property("forge.enabledGameTestNamespaces", commonMod.id)
+//
+//			mods {
+//				create(commonMod.id) {
+//					source(sourceSets.main.get())
+//				}
+//			}
+//		}
 	}
 }
 
@@ -79,10 +84,25 @@ dependencies {
 	// Required dependencies
 	minecraft("net.minecraftforge:forge:${commonMod.mc}-${commonMod.dep("forge")}")
 	annotationProcessor("org.spongepowered:mixin:0.8.7:processor")
-	annotationProcessor("io.github.llamalad7:mixinextras-common:0.5.0")?.let { compileOnly(it) }
-	jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")?.let { implementation(it) }.let {
-		jarJar.ranged(it, "[0.5.0,)")
+	compileOnly("io.github.llamalad7:mixinextras-common:0.5.0") {
+		annotationProcessor(this)
 	}
+
+	runtimeOnly("io.github.llamalad7:mixinextras-forge:0.5.0")
+	// Include Guava in the final jar via jar-in-jar:
+	// 1) Create the dependency on the jarJar configuration
+	val mixinExtras = jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")
+	// 2) Attach version range to the SAME dependency instance
+	if (mixinExtras != null) {
+		jarJar
+			.ranged(mixinExtras, "[0.5.0,)")
+		// 3) Put it on a normal configuration so your mod can compile/run against it
+		implementation(mixinExtras)
+	}
+
+
+
+
 	if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
 	annotationProcessor("net.minecraftforge:eventbus-validator:7.0-beta.7")
 	}
@@ -91,20 +111,14 @@ dependencies {
 }
 
 mixin {
+	//add(sourceSets.main.get(), "${commonMod.id}.common.refmap.json")
 	config("${commonMod.id}.common.mixins.json")
 	config("${commonMod.id}.forge.mixins.json")
 }
 
 sourceSets.main {
-	ext.set("refMap", "${commonMod.id}.refmap.json")
+	ext.set("refMap", "${commonMod.id}.common.refmap.json")
 	resources.srcDir("src/generated/resources")
-}
-
-sourceSets.forEach {
-	val dir = layout.buildDirectory.dir("sourcesSets/${it.name}")
-	it.output.setResourcesDir(dir)
-	it.java.destinationDirectory.set(dir)
-
 }
 
 tasks {
@@ -114,6 +128,23 @@ tasks {
 
 	register("ideaSyncTask", Copy::class) {
 		dependsOn("genIntellijRuns")
+	}
+
+	jar {
+		manifest.attributes(
+			"Specification-Title" to commonMod.id,
+			"Specification-Vendor" to commonMod.author,
+			"Specification-Version" to 1,
+			"Implementation-Title" to commonMod.name,
+			"Implementation-Version" to commonMod.version,
+			"Implementation-Vendor" to commonMod.author,
+			"MixinConfigs" to "constantmusic.common.mixins.json,constantmusic.forge.mixins.json"
+		)
+		archiveClassifier.set("thin")
+	}
+
+	named<org.gradle.jvm.tasks.Jar>("jarJar") {
+		archiveClassifier.set("")
 	}
 }
 
@@ -132,3 +163,19 @@ idea {
 //		}
 //	}
 //}
+
+sourceSets.forEach {
+	val dir = layout.buildDirectory.dir("sourcesSets/${it.name}")
+	it.output.setResourcesDir(dir)
+	it.java.destinationDirectory.set(dir)
+
+}
+
+
+artifacts {
+	archives(tasks.named("jarJar"))
+	archives(tasks.named("jar"))
+//	add("archives", tasks.named<org.gradle.jvm.tasks.Jar>("jarJar"))
+//	archives(tasks.named("jarJar"))
+}
+
