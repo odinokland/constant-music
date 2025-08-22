@@ -6,7 +6,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.odinokland.constantmusic.common.Constants;
 import com.odinokland.constantmusic.common.util.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
-//? if >=1.21.6 {
+//? if >=1.21.2 {
 import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.world.level.Level;
 //?} else {
@@ -28,13 +28,13 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Map;
 
-//? if >=1.21.6 {
+//? if >=1.21.2 {
 @Mixin(LevelEventHandler.class)
 //?} else {
 /*@Mixin(LevelRenderer.class)
 *///?}
 public class LevelRendererMixin {
-	//? if >=1.21.6 {
+	//? if >=1.21.2 {
 	@Shadow @Final private Level level;
 	//?} else {
 	/*@Shadow @Nullable private ClientLevel level;
