@@ -49,7 +49,7 @@ stonecutter {
 
 	create(rootProject) {
 		versions(*uniqueVersions.toTypedArray())
-		vcsVersion = "1.21.6"
+		vcsVersion = "1.21.8"
 
 		dists.forEach { (branchName, branchVersions) ->
 			branch(branchName) {

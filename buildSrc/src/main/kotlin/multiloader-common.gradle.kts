@@ -41,7 +41,7 @@ repositories {
 tasks {
 
 	processResources {
-		duplicatesStrategy = DuplicatesStrategy.INHERIT
+		//duplicatesStrategy = DuplicatesStrategy.INHERIT
 		val chosenJavaVersion = commonMod.propOrNull("java.version")
 		val compatibilityVersion = commonMod.propOrNull("java.compatibility_version") ?: chosenJavaVersion
 		val forgeMajorVersion: String? = commonMod.depOrNull("forge")?.substringBefore('.')
@@ -65,6 +65,7 @@ tasks {
 			"fabricLoaderVersion" to commonMod.depOrNull("fabric-loader"),
 			"fabricApiVersion" to commonMod.depOrNull("fabric-api"),
 			"forgeVersion" to commonMod.depOrNull("forge"),
+			"minForgeVersion" to commonMod.depOrNull("min-forge-version"),
 			"forgeMajorVersion" to forgeMajorVersion,
 			"neoForgeVersion" to commonMod.depOrNull("neoforge"),
 			"modMenuVersion" to commonMod.depOrNull("modmenu"),
