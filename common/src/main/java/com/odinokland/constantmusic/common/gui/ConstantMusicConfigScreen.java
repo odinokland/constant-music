@@ -11,7 +11,7 @@ import net.minecraft.client.gui.layouts.LayoutSettings;
 import net.minecraft.client.gui.layouts.LinearLayout;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
-//?} else if >1.19.3 {
+//?} else if >1.19.4 {
 /*import net.minecraft.client.gui.GuiGraphics;
 import org.jetbrains.annotations.NotNull;
 *///?} else {
@@ -119,7 +119,7 @@ public class ConstantMusicConfigScreen extends Screen {
             this.list.updateSize(this.width, this.layout);
         }
     }
-	//?} else if >1.19.3 {
+	//?} else if >1.19.4 {
 	/*public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
 		super.render(gui, i, j, f);
 		gui.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);

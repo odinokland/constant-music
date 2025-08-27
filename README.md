@@ -5,7 +5,7 @@
 [![GitHub license](https://img.shields.io/github/license/odinokland/constant-music?color=0690ff&style=flat-square)](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
 [![](https://cf.way2muchnoise.eu/constant-music.svg?badge_style=flat&q=2)](https://www.curseforge.com/minecraft/mc-mods/constant-music)
 
-Constant Music is a Minecraft Fabric & Forge mod currently developed for the latest Minecraft version.
+Constant Music is a Minecraft Fabric, Forge & NeoForge mod currently developed for the latest Minecraft version.
 
 Initially based off the Infinite Music mod, this mod removes the random timer between two ambiance music tracks in Minecraft versions greater than 1.20.
 <!-- modrinth_exclude.end -->
@@ -37,15 +37,13 @@ This mod requires the [Fabric API](https://modrinth.com/mod/fabric-api) mod if y
 
 Rudimentary language support has been provided by machine translations. Translators and native speakers can help improve the translations at [Constant Music's Crowdin Project](https://crowdin.com/project/constant-music).
 
-<!-- modrinth_exclude.start -->
+## Alternative Mods
+
+If you are looking for a mod that does the same thing but with a few more advanced features, such as skipping tracks and a now playing widget, check out Simple Music Control:
+* [Simple Music Control on Curseforge](https://www.curseforge.com/minecraft/mc-mods/simple-music-control) 
+* [Simple Music Control on Modrinth](https://modrinth.com/mod/simple-music-control).
 ## License
 
-This mod is under the [GNU LESSER GENERAL PUBLIC LICENSE](https://www.curseforge.com/project/949032/license)
+This mod is under the [GNU LESSER GENERAL PUBLIC LICENSE](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
 
 Feel free to use this mod in any modpack.
-
-## Download
-
-Download this mod on [CurseForge](https://www.curseforge.com/minecraft/mc-mods/constant-music)
-
-<!-- modrinth_exclude.end -->
