@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-//? if >1.19.3 {
+//? if >1.19.4 {
 import net.minecraft.client.gui.GuiGraphics;
 //?} else {
 /*import com.mojang.blaze3d.vertex.PoseStack;
@@ -54,7 +54,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	 * @param screen       the screen
 	 ^/
 	public OptionsList(Minecraft minecraft, int width, int height, int headerHeight,int footerHeight, Screen screen) {
-		//? if >=1.20.4 {
+		//? if >=1.20.3 {
 		super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
 		//?} else {
 		/^super(minecraft, width, height, headerHeight, height - headerHeight - footerHeight, DEFAULT_ITEM_HEIGHT);
@@ -195,7 +195,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 
 		@Override
 		public void render(
-			//? if >1.19.3 {
+			//? if >1.19.4 {
 			GuiGraphics gui,
 			//?} else {
 			/*PoseStack gui,

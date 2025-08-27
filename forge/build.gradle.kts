@@ -1,7 +1,7 @@
 plugins {
 	`multiloader-loader`
 	id("net.minecraftforge.gradle") version "[6.0.24,6.2)"
-	id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
+	id("org.spongepowered.mixin") version "0.7.+"
 	id("dev.kikugie.j52j") version "2.0"
 }
 
@@ -22,8 +22,11 @@ minecraft {
 	mappings("official", commonMod.mc)
 
 	copyIdeResources = true //Calls processResources when in dev
-
-	reobf = false // Forge 1.20.6+ uses official mappings at runtime, so we shouldn"t reobf from official to SRG
+	if (stonecutter.eval(stonecutterBuild.current.version, ">=1.20.6")) {
+		reobf = false // Forge 1.20.6+ uses official mappings at runtime, so we shouldn't reobf from official to SRG
+	} else {
+		reobf = true
+	}
 
 	// Automatically enable forge AccessTransformers if the file exists
 	// This location is hardcoded in Forge and can not be changed.
@@ -111,13 +114,13 @@ dependencies {
 }
 
 mixin {
-	//add(sourceSets.main.get(), "${commonMod.id}.common.refmap.json")
+	add(sourceSets.main.get(), "constantmusic.refmap.json")
 	config("${commonMod.id}.common.mixins.json")
 	config("${commonMod.id}.forge.mixins.json")
 }
 
 sourceSets.main {
-	ext.set("refMap", "${commonMod.id}.common.refmap.json")
+	//ext.set("refMap", "constantmusic.refmap.json")
 	resources.srcDir("src/generated/resources")
 }
 
@@ -138,7 +141,7 @@ tasks {
 			"Implementation-Title" to commonMod.name,
 			"Implementation-Version" to commonMod.version,
 			"Implementation-Vendor" to commonMod.author,
-			"MixinConfigs" to "constantmusic.common.mixins.json,constantmusic.forge.mixins.json"
+			"MixinConfigs" to "${commonMod.id}.common.mixins.json,${commonMod.id}.forge.mixins.json"
 		)
 		archiveClassifier.set("thin")
 	}
@@ -175,7 +178,5 @@ sourceSets.forEach {
 artifacts {
 	archives(tasks.named("jarJar"))
 	archives(tasks.named("jar"))
-//	add("archives", tasks.named<org.gradle.jvm.tasks.Jar>("jarJar"))
-//	archives(tasks.named("jarJar"))
 }
 
