@@ -13,7 +13,7 @@ jobs:
     build:
         runs-on: ubuntu-latest
         name: Run build
-        timeout-minutes: 45
+        timeout-minutes: 60
 
         steps:
             -   name: "Checkout repository"
