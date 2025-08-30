@@ -11,7 +11,7 @@ on:
 
 jobs:
     build:
-        runs-on: self-hosted
+        runs-on: ubuntu-latest
         name: Run build
         timeout-minutes: 60
 
@@ -38,8 +38,17 @@ jobs:
                 id: gradle-properties
                 run: ./.github/scripts/parse-gradle-properties.sh
 
-            -   name: "Run build"
-                run: ./gradlew build --debug --info --stacktrace
+            -   name: "Run build (with heartbeat)"
+                shell: bash
+                run: |
+                    ./gradlew build --info &
+                    GRADLE_PID=$!
+                    (while kill -0 $GRADLE_PID 2> /dev/null; do echo "Still building..."; sleep 60; done) &
+                    WAITER_PID=$!
+                    wait $GRADLE_PID
+                    BUILD_RESULT=$?
+                    kill $WAITER_PID
+                    exit $BUILD_RESULT
 
             -   name: "Prepare artifacts (Unix)"
                 if: runner.os != 'Windows'
