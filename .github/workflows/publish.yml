@@ -67,7 +67,7 @@ jobs:
 
             -   name: "Generate matrix for the publish job"
                 id: set-matrix
-                run: ./.github/scripts/generate-publish-matrix.sh "${{ inputs.mod_loaders }}" "${{ inputs.versions }}" ${{ vars.CURSEFORGE_FABRIC_PROJECT_ID }} ${{ vars.CURSEFORGE_FORGE_PROJECT_ID }} ${{ vars.MODRINTH_FABRIC_PROJECT_ID }} ${{ vars.MODRINTH_FORGE_PROJECT_ID }}
+                run: ./.github/scripts/generate-publish-matrix.sh "${{ inputs.mod_loaders }}" "${{ inputs.versions }}" ${{ vars.CURSEFORGE_PROJECT_ID }} ${{ vars.MODRINTH_PROJECT_ID }}
 
     publish:
         runs-on: ubuntu-latest
