@@ -50,11 +50,38 @@ jobs:
                 if: runner.os == 'Windows'
                 shell: cmd
                 run: |
-                    if not exist artifacts mkdir artifacts
-                    for /f "delims=" %%F in ('dir /b /s ".\*\versions\*\build\libs\*.jar"') do (
-                        echo %%~nxF | findstr /i /c:"-common" /c:"-sources" /c:"-thin" >nul
-                        if errorlevel 1 copy "%%F" "artifacts" >nul
+                    @echo off
+                    setlocal enabledelayedexpansion
+                    
+                    set "ROOT_DIR=%cd%"
+                    set "TARGET_DIR=%ROOT_DIR%\artifacts"
+                    
+                    REM Create artifacts directory
+                    if not exist "!TARGET_DIR!" (
+                        mkdir "!TARGET_DIR!"
                     )
+                    
+                    REM Find all 'versions' directories recursively
+                    for /d /r "%ROOT_DIR%" %%D in (versions) do (
+                        REM Search for .jar files under each versions\*\build\libs directory
+                        for /r "%%D" %%F in (*.jar) do (
+                            set "file=%%~nxF"
+                            set "fullpath=%%F"
+                    
+                            REM Check for correct directory pattern
+                            echo "%%F" | findstr /R /I "\\versions\\[^\\]*\\build\\libs\\.*\.jar" >nul
+                            if !errorlevel! == 0 (
+                                REM Exclude jars with -common, -sources, -thin
+                                echo !file! | findstr /I "-common -sources -thin" >nul
+                                if errorlevel 1 (
+                                    echo Copying: !file!
+                                    copy /Y "!fullpath!" "!TARGET_DIR!\"
+                                )
+                            )
+                        )
+                    )
+                    
+                    echo Done collecting JARs.
 
 
 #            -   name: "Prepare artifacts (Windows)"
