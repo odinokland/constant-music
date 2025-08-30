@@ -41,8 +41,18 @@ jobs:
                     gradle-version: wrapper
                     add-job-summary: 'on-failure'
 
-            - name: "Run build"
-              run: ./gradlew build
+
+            -   name: "Run build (with heartbeat)"
+                shell: bash
+                run: |
+                    ./gradlew build --info &
+                    GRADLE_PID=$!
+                    (while kill -0 $GRADLE_PID 2> /dev/null; do echo "Still building..."; sleep 60; done) &
+                    WAITER_PID=$!
+                    wait $GRADLE_PID
+                    BUILD_RESULT=$?
+                    kill $WAITER_PID
+                    exit $BUILD_RESULT
 
     generate-publish-matrix:
         runs-on: ubuntu-latest
