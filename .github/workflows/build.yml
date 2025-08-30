@@ -46,15 +46,25 @@ jobs:
                 run: |
                     mkdir -p artifacts
                     find . -path "./*/versions/*/build/libs/*.jar" ! -name "*-common*.jar" -exec cp {} artifacts/ \;
-
-            -   name: "Prepare artifacts (Windows)"
+            -   name: "Prepare artifacts (Windows CMD)"
                 if: runner.os == 'Windows'
-                shell: pwsh
+                shell: cmd
                 run: |
-                    New-Item -ItemType Directory -Path artifacts -Force | Out-Null
-                    Get-ChildItem -Path '.\*\versions\*\build\libs\*.jar' -File -Recurse -ErrorAction SilentlyContinue |
-                        Where-Object { $_.Name -notlike '*-common*.jar' } |
-                        Copy-Item -Destination 'artifacts' -Force
+                    if not exist artifacts mkdir artifacts
+                    for /f "delims=" %%F in ('dir /b /s ".\*\versions\*\build\libs\*.jar"') do (
+                        echo %%~nxF | findstr /i /c:"-common" /c:"-sources" /c:"-thin" >nul
+                        if errorlevel 1 copy "%%F" "artifacts" >nul
+                    )
+
+
+#            -   name: "Prepare artifacts (Windows)"
+#                if: runner.os == 'Windows'
+#                shell: pwsh
+#                run: |
+#                    New-Item -ItemType Directory -Path artifacts -Force | Out-Null
+#                    Get-ChildItem -Path '.\*\versions\*\build\libs\*.jar' -File -Recurse -ErrorAction SilentlyContinue |
+#                        Where-Object { $_.Name -notlike '*-common*.jar' } |
+#                        Copy-Item -Destination 'artifacts' -Force
             
 
             -   name: "Upload artifacts"
