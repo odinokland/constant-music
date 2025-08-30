@@ -38,9 +38,6 @@ jobs:
                 id: gradle-properties
                 run: ./.github/scripts/parse-gradle-properties.sh
 
-            -   name: Setup tmate session
-                uses: mxschmitt/action-tmate@v3
-
             -   name: "Run build"
                 run: ./gradlew build --debug --info --stacktrace
 
