@@ -139,7 +139,7 @@ jobs:
                     modrinth-id: ${{ matrix.modrinth_project_id }}
                     modrinth-token: ${{ secrets.MODRINTH_RELEASE_TOKEN }}
 
-                    name: [${{ matrix.mod_loader_name }} ${{ steps.gradle-properties.outputs.MIN_MINECRAFT_VERSION }}-${{ steps.gradle-properties.outputs.MINECRAFT_VERSION }}] v${{ steps.gradle-properties.outputs.MOD_VERSION }}
+                    name: "[${{ matrix.mod_loader_name }} ${{ steps.gradle-properties.outputs.MIN_MINECRAFT_VERSION }}-${{ steps.gradle-properties.outputs.MINECRAFT_VERSION }}] v${{ steps.gradle-properties.outputs.MOD_VERSION }}"
                     version: ${{ matrix.mod_loader }}-${{ steps.gradle-properties.outputs.MOD_VERSION }}+mc${{ steps.gradle-properties.outputs.MINECRAFT_VERSION }}
                     loaders: ${{ join(matrix.supported_mod_loaders, ' ') }}
                     game-versions: |
