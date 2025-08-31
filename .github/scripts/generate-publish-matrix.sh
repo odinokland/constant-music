@@ -5,6 +5,8 @@ allowed_versions=$2
 curseforge_project_id=$3
 modrinth_project_id=$4
 
+declare -A loader_table=([fabric]="Fabric" [forge]="Forge" [neoforge]="NeoForge")
+
 echo ${allowed_mod_loaders};
 echo ${allowed_versions};
 
@@ -25,7 +27,7 @@ for platform in $(echo $enabled_platforms | tr ',' ' '); do
           supported_mod_loaders="\"$platform\""
         fi
 
-        matrix_entry="{\"mod_loader\":\"$platform\",\"version\":\"$version\",\"supported_mod_loaders\":[$supported_mod_loaders],\"curseforge_project_id\":\"$curseforge_project_id\",\"modrinth_project_id\":\"$modrinth_project_id\"},"
+        matrix_entry="{\"mod_loader\":\"$platform\",\"mod_loader_name\":\"${loader_table[${platform}]}\",\"version\":\"$version\",\"supported_mod_loaders\":[$supported_mod_loaders],\"curseforge_project_id\":\"$curseforge_project_id\",\"modrinth_project_id\":\"$modrinth_project_id\"},"
         matrix_content+="$matrix_entry"
       fi
     done
