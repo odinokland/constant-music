@@ -54,7 +54,7 @@ jobs:
                 if: runner.os != 'Windows'
                 run: |
                     mkdir -p artifacts
-                    find . -path "./*/versions/*/build/libs/*.jar" ! -name "*-common*.jar" -exec cp {} artifacts/ \;
+                    find . -path "./*/versions/*/build/libs/*.jar" ! -name "*-common*.jar" ! -name "*-thin*.jar" ! -name "*-sources*.jar" ! -name "*-javadoc*.jar" -exec cp {} artifacts/ \;
             -   name: "Prepare artifacts (Windows CMD)"
                 if: runner.os == 'Windows'
                 shell: cmd
