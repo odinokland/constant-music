@@ -42,6 +42,7 @@ Rudimentary language support has been provided by machine translations. Translat
 If you are looking for a mod that does the same thing but with a few more advanced features, such as skipping tracks and a now playing widget, check out Simple Music Control:
 * [Simple Music Control on Curseforge](https://www.curseforge.com/minecraft/mc-mods/simple-music-control) 
 * [Simple Music Control on Modrinth](https://modrinth.com/mod/simple-music-control).
+
 ## License
 
 This mod is under the [GNU LESSER GENERAL PUBLIC LICENSE](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
