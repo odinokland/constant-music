@@ -1,7 +1,7 @@
 plugins {
 	`multiloader-loader`
 	id("net.minecraftforge.gradle") version "[6.0.24,6.2)"
-	id("org.spongepowered.mixin") version "0.7.+"
+	id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
 	id("dev.kikugie.j52j") version "2.0"
 }
 
@@ -91,7 +91,6 @@ dependencies {
 	}
 
 	runtimeOnly("io.github.llamalad7:mixinextras-forge:0.5.0")
-	// Include Guava in the final jar via jar-in-jar:
 	// 1) Create the dependency on the jarJar configuration
 	val mixinExtras = jarJar("io.github.llamalad7:mixinextras-forge:0.5.0")
 	// 2) Attach version range to the SAME dependency instance
@@ -101,9 +100,6 @@ dependencies {
 		// 3) Put it on a normal configuration so your mod can compile/run against it
 		implementation(mixinExtras)
 	}
-
-
-
 
 	if (stonecutter.eval(stonecutterBuild.current.version, ">=1.21.6")) {
 	annotationProcessor("net.minecraftforge:eventbus-validator:7.0-beta.7")
