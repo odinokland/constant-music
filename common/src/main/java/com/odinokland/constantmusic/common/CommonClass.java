@@ -41,6 +41,8 @@ public class CommonClass {
 	 */
 	public static int MAX_TIMER = 600;
 
+	private CommonClass() {}
+
     /**
      * Init.
      */

@@ -8,6 +8,9 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
 
+/**
+ * The type Minecraft client mixin.
+ */
 @Mixin(Minecraft.class)
 public abstract class MinecraftClientMixin {
 	@Inject(method = "updateLevelInEngines", at = @At("TAIL"))

@@ -11,7 +11,6 @@ extensions.configure<net.minecraftforge.gradle.userdev.jarjar.JarJarProjectExten
 }
 
 java {
-	withSourcesJar()
 	val java = if (stonecutter.eval(stonecutterBuild.current.version, ">=1.20.5"))
 		JavaVersion.VERSION_21 else JavaVersion.VERSION_17
 	targetCompatibility = java
@@ -31,7 +30,7 @@ minecraft {
 	// Automatically enable forge AccessTransformers if the file exists
 	// This location is hardcoded in Forge and can not be changed.
 	// https://github.com/MinecraftForge/MinecraftForge/blob/be1698bb1554f9c8fa2f58e32b9ab70bc4385e60/fmlloader/src/main/java/net/minecraftforge/fml/loading/moddiscovery/ModFile.java#L123
-	// Forge still uses SRG names during compile time, so we cannot use the common AT"s
+	// Forge still uses SRG names during compile time, so we cannot use the common AT's
 	val at = file("src/main/resources/META-INF/accesstransformer.cfg")
 	if (at.exists()) {
 		accessTransformer(at)
@@ -158,14 +157,6 @@ idea {
 		isDownloadSources = true
 	}
 }
-
-//publishing {
-//	publications {
-//		mavenJava(MavenPublication) {
-//			fg.component(it)
-//		}
-//	}
-//}
 
 sourceSets.forEach {
 	val dir = layout.buildDirectory.dir("sourcesSets/${it.name}")

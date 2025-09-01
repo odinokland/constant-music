@@ -28,6 +28,9 @@ import org.spongepowered.asm.mixin.injection.At;
 
 import java.util.Map;
 
+/**
+ * The type Level renderer mixin.
+ */
 //? if >=1.21.2 {
 @Mixin(LevelEventHandler.class)
 //?} else {
@@ -43,6 +46,8 @@ public class LevelRendererMixin {
 	/*private final Map<BlockPos, SoundInstance> playingRecords = Maps.newHashMap();
 	*///?}
 	@Shadow @Final private Minecraft minecraft;
+
+	private LevelRendererMixin(){}
 
 	//? if >=1.21 {
 	@WrapMethod(method = "playJukeboxSong")

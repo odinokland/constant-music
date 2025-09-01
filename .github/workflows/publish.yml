@@ -148,6 +148,7 @@ jobs:
                     changelog-file: RELEASE_CHANGELOG.md
                     files: |
                         ${{ matrix.mod_loader }}/versions/${{ matrix.version }}/build/libs/!(*-@(dev|dev-shadow|sources|javadoc|thin)).jar
+                        ${{ matrix.mod_loader }}/versions/${{ matrix.version }}/build/libs/*-@(dev|dev-shadow|sources|javadoc).jar
 
                     retry-attempts: 6
                     retry-delay: 30000

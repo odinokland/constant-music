@@ -18,6 +18,7 @@ import net.minecraft.client.sounds.MusicInfo;
 @Debug(export = true)
 @Mixin(MusicManager.class)
 public class MusicManagerMixin {
+	private MusicManagerMixin() {}
 
     @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 1))
     private int constantmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
