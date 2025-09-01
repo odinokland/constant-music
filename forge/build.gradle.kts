@@ -142,6 +142,9 @@ tasks {
 			"Implementation-Vendor" to commonMod.author,
 			"MixinConfigs" to "${commonMod.id}.common.mixins.json,${commonMod.id}.forge.mixins.json"
 		)
+		if (stonecutter.eval(stonecutterBuild.current.version, "<1.20.6")) {
+			finalizedBy("reobfJar")
+		}
 		archiveClassifier.set("thin")
 	}
 
