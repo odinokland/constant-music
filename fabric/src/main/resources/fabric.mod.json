@@ -14,7 +14,7 @@
 	},
 	"license": "${modLicense}",
 	"icon": "${modId}.png",
-	"environment": "*",
+	"environment": "client",
 	"entrypoints": {
 		"main": [
 			"com.odinokland.constantmusic.fabric.ConstantMusicFabric"
