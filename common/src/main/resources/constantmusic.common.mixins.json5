@@ -8,7 +8,9 @@
   "client": [
 	  "MusicManagerAccessor",
 	  "MusicManagerMixin",
+	  //? if >= 1.21 {
 	  "LevelRendererMixin",
+	  //?}
 	  //? if <1.19.3 {
 	  /*"SoundSourceMixin",
 	  "VolumeSliderMixin",
