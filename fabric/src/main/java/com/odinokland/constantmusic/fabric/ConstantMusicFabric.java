@@ -11,11 +11,21 @@ import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientWorldEvents;
 /*import com.odinokland.constantmusic.fabric.client.event.ClientWorldEvents;
 *///?}
 
+/**
+ * The type Constant music fabric.
+ */
 public class ConstantMusicFabric implements ModInitializer, ClientModInitializer {
+	/**
+	 * On initialize client.
+	 */
 	@Override
 	public void onInitializeClient() {
 
 	}
+
+	/**
+	 * On initialize.
+	 */
 	@Override
 	public void onInitialize() {
 

@@ -7,9 +7,23 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.Level;
 
+/**
+ * The type Jukebox tracker utility.
+ */
 public class JukeboxTrackerUtility {
+	private JukeboxTrackerUtility() {}
+	/**
+	 * The constant jukeboxes.
+	 */
 	public static Object2BooleanOpenHashMap<BlockPos> jukeboxes = new Object2BooleanOpenHashMap<>();
 
+	/**
+	 * On jukebox play.
+	 *
+	 * @param level     the level
+	 * @param minecraft the minecraft
+	 * @param pos       the pos
+	 */
 	public static void onJukeboxPlay(Level level, Minecraft minecraft, BlockPos pos) {
 		if (level != null) {
 			minecraft.getMusicManager().stopPlaying();
@@ -17,18 +31,36 @@ public class JukeboxTrackerUtility {
 		}
 	}
 
+	/**
+	 * On jukebox stop.
+	 *
+	 * @param pos the pos
+	 */
 	public static void onJukeboxStop(BlockPos pos) {
 		jukeboxes.removeBoolean(pos);
 	}
 
+	/**
+	 * No jukeboxes in range boolean.
+	 *
+	 * @return the boolean
+	 */
 	public static boolean noJukeboxesInRange() {
 		return jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
 	}
 
+	/**
+	 * Clear jukeboxes.
+	 */
 	public static void clearJukeboxes() {
 		jukeboxes.clear();
 	}
 
+	/**
+	 * Check jukeboxes in range.
+	 *
+	 * @param client the client
+	 */
 	public static void checkJukeboxesInRange(Minecraft client) {
 		if (client.player != null &&  !jukeboxes.isEmpty()) {
 			// int hasJukeboxInRange = 0;

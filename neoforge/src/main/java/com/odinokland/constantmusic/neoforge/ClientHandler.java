@@ -19,6 +19,9 @@ import java.util.function.Supplier;
 import net.neoforged.neoforge.client.ConfigScreenHandler;
 *///?}
 
+/**
+ * The type Client handler.
+ */
 //? if >= 1.21.6 {
 @Mod(value = Constants.MOD_ID, dist = Dist.CLIENT)
 @EventBusSubscriber(modid = Constants.MOD_ID, value = Dist.CLIENT)
@@ -29,13 +32,29 @@ import net.neoforged.neoforge.client.ConfigScreenHandler;
 /*@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 *///?}
 public class  ClientHandler {
+
 	//? if >= 1.21.6 {
+	/**
+	 * Instantiates a new Client handler.
+	 *
+	 * @param modContainer the mod container
+	 */
 	public  ClientHandler(ModContainer modContainer) {
 		modContainer.registerExtensionPoint(IConfigScreenFactory.class, (Supplier<IConfigScreenFactory>) ClientConfigHelper::new);
 	}
-	//?}
+	//?} else {
+	/*/^*
+	 * Instantiates a new Client handler.
+	 ^/
+	public ClientHandler() {}
+	*///?}
 	//? if < 1.21.6 {
-    /*@SubscribeEvent
+	/*/^*
+	 * On fml client setup event.
+	 *
+	 * @param event the event
+	 ^/
+    @SubscribeEvent
     public static void onFMLClientSetupEvent(FMLClientSetupEvent event) {
 		//? if >= 1.20.6 {
         ModLoadingContext.get().registerExtensionPoint(IConfigScreenFactory.class, ClientConfigHelper::new);

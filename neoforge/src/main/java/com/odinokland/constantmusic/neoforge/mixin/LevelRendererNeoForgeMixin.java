@@ -1,5 +1,8 @@
 package com.odinokland.constantmusic.neoforge.mixin;
 
+/**
+ * The type Level renderer neo forge mixin.
+ */
 //? if <1.21 {
 /*import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
@@ -28,6 +31,7 @@ import org.jetbrains.annotations.Nullable;
 *///?}
 public class LevelRendererNeoForgeMixin
 {
+	private LevelRendererNeoForgeMixin() {}
 	//? if < 1.21 {
 	/*@Shadow @Nullable private ClientLevel level;
 	@Shadow @Final private Minecraft minecraft;
