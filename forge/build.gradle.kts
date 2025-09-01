@@ -170,3 +170,14 @@ artifacts {
 	archives(tasks.named("jar"))
 }
 
+if (stonecutter.eval(stonecutterBuild.current.version, "<1.20.6")) {
+	// Workaround for SpongePowered/MixinGradle#38
+	afterEvaluate {
+		tasks.named("configureReobfTaskForReobfJar").configure {
+			mustRunAfter(tasks.named("compileJava"))
+		}
+		tasks.named("configureReobfTaskForReobfJarJar").configure {
+			mustRunAfter(tasks.named("compileJava"))
+		}
+	}
+}
