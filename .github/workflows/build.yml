@@ -91,16 +91,6 @@ jobs:
                     )
                     
                     echo Done collecting JARs.
-
-
-#            -   name: "Prepare artifacts (Windows)"
-#                if: runner.os == 'Windows'
-#                shell: pwsh
-#                run: |
-#                    New-Item -ItemType Directory -Path artifacts -Force | Out-Null
-#                    Get-ChildItem -Path '.\*\versions\*\build\libs\*.jar' -File -Recurse -ErrorAction SilentlyContinue |
-#                        Where-Object { $_.Name -notlike '*-common*.jar' } |
-#                        Copy-Item -Destination 'artifacts' -Force
             
 
             -   name: "Upload artifacts"
@@ -177,12 +167,12 @@ jobs:
 #                    wget -P run/mods "$MOD_URL"
 
             -   name: Run ${{ matrix.version }} ${{ matrix.mod_loader }} client
-                uses: 3arthqu4ke/mc-runtime-test@3.1.0
+                uses: 3arthqu4ke/mc-runtime-test@3.1.1
                 with:
                     mc: ${{ matrix.version }}
                     modloader: ${{ matrix.mod_loader }}
                     regex: .*${{ matrix.mod_loader }}.*
-                    mc-runtime-test: ${{ matrix.mod_loader }}
+                    mc-runtime-test: ${{ matrix.test_runtime }}
                     java: ${{ steps.gradle-properties.outputs.JAVA_VERSION }}
                     fabric-api: ${{ steps.gradle-properties.outputs.DEPS_FABRIC_API }}
                     xvfb: false
