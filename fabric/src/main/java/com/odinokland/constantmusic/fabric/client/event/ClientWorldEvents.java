@@ -6,6 +6,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 
+/**
+ * The type Client world events.
+ */
 public final class ClientWorldEvents {
 	private ClientWorldEvents() {
 	}
@@ -19,13 +22,16 @@ public final class ClientWorldEvents {
 		}
 	});
 
+	/**
+	 * The interface After client world change.
+	 */
 	@FunctionalInterface
 	public interface AfterClientWorldChange {
 		/**
 		 * Called after the client world has been changed.
 		 *
 		 * @param client the client instance
-		 * @param world the new world instance
+		 * @param world  the new world instance
 		 */
 		void afterWorldChange(Minecraft client, ClientLevel world);
 	}

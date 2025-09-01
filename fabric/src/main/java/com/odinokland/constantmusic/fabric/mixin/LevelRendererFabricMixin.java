@@ -22,6 +22,9 @@ import org.spongepowered.asm.mixin.Shadow;
 
 import java.util.Map;
 
+/**
+ * The type Level renderer fabric mixin.
+ */
 //? if >=1.21.6 {
 @Mixin(LevelEventHandler.class)
  //?} else {

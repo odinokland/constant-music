@@ -1,5 +1,8 @@
 package com.odinokland.constantmusic.forge.mixin;
 
+/**
+ * The type Level renderer forge mixin.
+ */
 //? if < 1.21 {
 /*import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;

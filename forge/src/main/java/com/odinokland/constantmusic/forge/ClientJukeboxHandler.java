@@ -18,12 +18,22 @@ import net.minecraftforge.event.level.LevelEvent;
  */
 @Mod.EventBusSubscriber(value = Dist.CLIENT, modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
 public class ClientJukeboxHandler {
+	/**
+	 * On client tick.
+	 *
+	 * @param event the event
+	 */
 	@SubscribeEvent
 	public static void onClientTick(/*? >= 1.21.6 {*/ TickEvent.ClientTickEvent.Post /*?} else {*/ /*TickEvent.ClientTickEvent *//*?}*/ event) {
 		Minecraft client = Minecraft.getInstance();
 		JukeboxTrackerUtility.checkJukeboxesInRange(client);
 	}
 
+	/**
+	 * On level unload.
+	 *
+	 * @param event the event
+	 */
 	@SubscribeEvent
 	public static void onLevelUnload(LevelEvent.Unload event) {
 		JukeboxTrackerUtility.clearJukeboxes();

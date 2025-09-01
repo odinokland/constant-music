@@ -38,6 +38,13 @@ public class TomlWriter {
     private TimeZone timeZone = TimeZone.getTimeZone("UTC");
     private boolean showFractionalSeconds = false;
 
+	/**
+	* Instantiates a new Builder.
+	*/
+	public Builder() {
+
+	}
+
     /**
      * Indent values by builder.
      *

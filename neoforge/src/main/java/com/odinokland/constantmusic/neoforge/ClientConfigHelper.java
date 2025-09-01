@@ -10,8 +10,23 @@ import net.neoforged.fml.ModContainer;
 *///?}
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 
+/**
+ * The type Client config helper.
+ */
 public class ClientConfigHelper implements IConfigScreenFactory {
-    @Override
+
+	/**
+	 * Instantiates a new Client config helper.
+	 */
+	public ClientConfigHelper() {}
+	/**
+	 * Create screen screen.
+	 *
+	 * @param container     the container
+	 * @param modListScreen the mod list screen
+	 * @return the screen
+	 */
+	@Override
     public Screen createScreen(/*? >=1.21 {*/ ModContainer /*?} else {*/ /*Minecraft *//*?}*/ container, Screen modListScreen) {
         return new ConstantMusicConfigScreen(modListScreen);
     }

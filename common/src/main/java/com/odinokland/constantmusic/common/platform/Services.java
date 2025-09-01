@@ -11,7 +11,7 @@ import java.util.ServiceLoader;
 // environment to another. In the context of MultiLoader we use this feature to access a mock API in the common code that
 // is swapped out for the platform specific implementation at runtime.
 public class Services {
-
+	private Services() {}
     /**
      * The constant PLATFORM.
      */

@@ -11,9 +11,17 @@ import net.neoforged.fml.ModLoadingContext;
 import net.neoforged.neoforge.client.ConfigScreenHandler;
 *///?}
 
+/**
+ * The type Constant music neo forge.
+ */
 @Mod(Constants.MOD_ID)
 public class ConstantMusicNeoForge {
 
+	/**
+	 * Instantiates a new Constant music neo forge.
+	 *
+	 * @param eventBus the event bus
+	 */
 	public ConstantMusicNeoForge(IEventBus eventBus) {
 
 		// This method is invoked by the NeoForge mod loader when it is ready
