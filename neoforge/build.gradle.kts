@@ -5,8 +5,15 @@ plugins {
 	`java-library`
 	idea
 	`multiloader-loader`
-	id("dev.kikugie.j52j") version "2.0"
+	//id("dev.kikugie.j52j") version "2.0"
+	id("dev.kikugie.fletching-table") version "0.1.0-alpha.22"
 	id("net.neoforged.moddev")
+}
+
+fletchingTable {
+	j52j.register("main") {
+		extension("json", "*.mixins.json5")
+	}
 }
 
 neoForge{

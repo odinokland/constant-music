@@ -9,16 +9,16 @@ version = "${modVersion}"
 displayName = "${modName}"
 authors = "${modAuthor}"
 description = "${modDescription}"
-logoFile = "icon.png"
+logoFile = "${modId}.png"
 logoBlur = false
 displayURL = "${modHomepage}"
 credits = "${modCredits}" #optional
 
 [[mixins]]
-config = "constantmusic.neoforge.mixins.json"
+config = "${modId}.common.mixins.json"
 
 [[mixins]]
-config = "constantmusic.common.mixins.json"
+config = "${modId}.neoforge.mixins.json"
 
 [[dependencies.${ modId }]]
 modId = "neoforge"

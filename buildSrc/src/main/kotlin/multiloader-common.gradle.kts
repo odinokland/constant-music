@@ -25,6 +25,12 @@ repositories {
         )
         filter { includeGroup("org.parchmentmc.data") }
     }
+	exclusiveContent {
+		forRepositories(
+			maven("https://maven.neoforged.net/releases") { name = "NeoForge" },
+		)
+		filter { includeGroup("cpw.mods") }
+	}
 	maven("https://www.cursemaven.com")
 	maven("https://api.modrinth.com/maven") {
 		name = "Modrinth"
@@ -36,6 +42,7 @@ repositories {
 	maven("https://maven.quiltmc.org/repository/release")
 	maven("https://pkgs.dev.azure.com/djtheredstoner/DevAuth/_packaging/public/maven/v1")
 	maven("https://nexus.velocitypowered.com/repository/maven-public")
+	maven("https://maven.neoforged.net/releases/")
 }
 
 tasks {
