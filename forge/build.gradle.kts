@@ -1,8 +1,9 @@
 plugins {
 	`multiloader-loader`
-	id("net.minecraftforge.gradle") version "[6.0.24,6.2)"
+	id("net.minecraftforge.gradle") version "[6.0.46,6.2)"
 	id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
-	id("dev.kikugie.j52j") version "2.0"
+	id("dev.kikugie.fletching-table") version "0.1.0-alpha.22"
+	//id("dev.kikugie.j52j") version "2.0"
 }
 
 // Ensure the ForgeGradle Jar-in-Jar extension is enabled in Kotlin DSL
@@ -15,6 +16,12 @@ java {
 		JavaVersion.VERSION_21 else JavaVersion.VERSION_17
 	targetCompatibility = java
 	sourceCompatibility = java
+}
+
+fletchingTable {
+	j52j.register("main") {
+		extension("json", "*.mixins.json5")
+	}
 }
 
 minecraft {

@@ -1,7 +1,8 @@
 plugins {
 	id("multiloader-common")
 	id("fabric-loom")
-	id("dev.kikugie.j52j") version "2.0"
+	//id("dev.kikugie.j52j") version "2.0"
+	id("dev.kikugie.fletching-table")
 }
 
 loom {
