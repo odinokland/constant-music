@@ -130,8 +130,8 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
         public static Entry small(AbstractWidget pLeftOption, AbstractWidget pRightOption, Screen pScreen) {
             return pRightOption == null ? new Entry(ImmutableList.of(pLeftOption), pScreen) : new Entry(ImmutableList.of(pLeftOption, pRightOption), pScreen);
         }
-
-        @Override
+		//? if < 1.21.9 {
+        /*@Override
         public void render(
                 @NotNull GuiGraphics pGuiGraphics,
                 int pIndex,
@@ -153,6 +153,24 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
                 abstractwidget.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
             }
         }
+		*///?} else {
+		@Override
+		public void renderContent(
+			GuiGraphics guiGraphics,
+			int mouseX,
+			int mouseY,
+			boolean isHovering,
+			float partialTick
+		) {
+			int i = 0;
+			int j = this.screen.width / 2 - 155;
+			for (AbstractWidget abstractWidget : this.children) {
+				abstractWidget.setPosition(j + i, this.getContentY());
+				abstractWidget.render(guiGraphics, mouseX, mouseY, partialTick);
+				i += 160;
+			}
+		}
+		//?}
 
         @Override
         public @NotNull List<? extends GuiEventListener> children() {
@@ -163,7 +181,7 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
         public @NotNull List<? extends NarratableEntry> narratables() {
             return this.children;
         }
-    }
+	}
 
     /**
      * The type Option entry.

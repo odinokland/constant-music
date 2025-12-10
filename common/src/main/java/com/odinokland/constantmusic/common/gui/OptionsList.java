@@ -152,7 +152,8 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	/**
 	 * The type Entry.
 	 */
-	protected static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
+	protected static class Entry extends ContainerObjectSelectionList.Entry<Entry>
+	{
 		private final List<AbstractWidget> children;
 		private final Screen screen;
 		private static final int X_OFFSET = 160;
@@ -184,22 +185,23 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 		 *
 		 * @param leftOption  the abstract widget
 		 * @param rightOption the abstract widget 2
-		 * @param screen          the screen
+		 * @param screen      the screen
 		 * @return the entry
 		 */
 		public static Entry small(AbstractWidget leftOption, AbstractWidget rightOption, Screen screen) {
 			return rightOption == null
 				? new Entry(ImmutableList.of(leftOption), screen)
-				: new Entry(ImmutableList.of(leftOption, rightOption), screen);
+				:new Entry(ImmutableList.of(leftOption, rightOption), screen);
 		}
 
-		@Override
+		//? if < 1.21.9 {
+		/*@Override
 		public void render(
 			//? if >1.19.4 {
 			GuiGraphics gui,
 			//?} else {
-			/*PoseStack gui,
-			*///?}
+			/^PoseStack gui,
+			 ^///?}
 			int index,
 			int top,
 			int left,
@@ -217,13 +219,32 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 				//? if >=1.19.3 {
 				abstractWidget.setPosition(q + p, top);
 				//?} else {
-				/*abstractWidget.x = q + p;
+				/^abstractWidget.x = q + p;
 				abstractWidget.y = top;
-				*///?}
+				^///?}
 				abstractWidget.render(gui, mouseX, mouseY, partialTick);
 				p += X_OFFSET;
 			}
 		}
+
+		*///?} else {
+		@Override
+		public void renderContent(
+			GuiGraphics guiGraphics,
+			int mouseX,
+			int mouseY,
+			boolean isHovering,
+			float partialTick
+		) {
+			int i = 0;
+			int j = this.screen.width / 2 - 155;
+			for (AbstractWidget abstractWidget : this.children) {
+				abstractWidget.setPosition(j + i, this.getContentY());
+				abstractWidget.render(guiGraphics, mouseX, mouseY, partialTick);
+				i += 160;
+			}
+		}
+		//?}
 
 		@Override
 		public List<? extends GuiEventListener> children() {
