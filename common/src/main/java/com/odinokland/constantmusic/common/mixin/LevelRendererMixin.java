@@ -6,10 +6,13 @@ import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.odinokland.constantmusic.common.Constants;
 import com.odinokland.constantmusic.common.util.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
-//? if >=1.21.2 {
+//? if >=1.21.9 {
 import net.minecraft.client.renderer.LevelEventHandler;
+import net.minecraft.client.multiplayer.ClientLevel;
+//?} else if >=1.21.2 {
+/*import net.minecraft.client.renderer.LevelEventHandler;
 import net.minecraft.world.level.Level;
-//?} else {
+*///?} else {
 /*import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.renderer.LevelRenderer;
 import net.minecraft.client.resources.sounds.SoundInstance;
@@ -37,9 +40,11 @@ import java.util.Map;
 /*@Mixin(LevelRenderer.class)
 *///?}
 public class LevelRendererMixin {
-	//? if >=1.21.2 {
-	@Shadow @Final private Level level;
-	//?} else {
+	//? if >=1.21.9 {
+	@Shadow @Final private ClientLevel level;
+	//?} else if >=1.21.2 {
+	/*@Shadow @Final private Level level;
+	*///?} else {
 	/*@Shadow @Nullable private ClientLevel level;
 	*///?}
 	//? if < 1.21 {
