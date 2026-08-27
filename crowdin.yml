@@ -1,9 +1,8 @@
+pull_request_description: 'Automated translation sync from Crowdin.\x0A\x0AUpdated locales: %language_names%'
 files:
   - source: /src/main/resources/assets/constantmusic/lang/en_us.json
     translation: /src/main/resources/assets/constantmusic/lang/%locale_with_underscore%.json
 bundles:
   - 2
-commit_message: "chore(lang): update translations for %language% [%locale%]"
-
-pull_request_title: "Localization: Update Minecraft language bundles"
-pull_request_description: "Automated translation sync from Crowdin.\n\nUpdated locales: %language_names%"
+commit_message: 'chore(lang): update translations for %language% [%locale%]'
+pull_request_title: 'Localization: Update Minecraft language bundles'
