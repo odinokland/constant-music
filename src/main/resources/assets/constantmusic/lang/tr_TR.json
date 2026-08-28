@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Sürekli Müzik Ayarları",
+  "constantmusic.option.timer": "Şarkılar arasındaki zaman gecikmesini ayarlayın.",
   "constantmusic.option": "Müzik Gecikmesi",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "Şarkılar arasında %s dakika %s saniye",
+  "constantmusic.option.seconds": "Şarkılar arasında %s saniye"
 }
