@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Configuración de Música Continua",
+  "constantmusic.option.timer": "Establecer el retrasu de tiempu ente cantares.",
   "constantmusic.option": "La música retrasar",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s minutu y %s segundos ente cantares",
+  "constantmusic.option.seconds": "%s segundos ente cantares"
 }
