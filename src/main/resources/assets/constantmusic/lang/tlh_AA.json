@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "mIwchaj lutu'lu'meH jatlh",
+  "constantmusic.option.timer": "muSHa'ghach chu' 'op",
   "constantmusic.option": "Qom",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s tup %s bom",
+  "constantmusic.option.seconds": "%s bom"
 }
