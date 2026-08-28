@@ -4,9 +4,9 @@ import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import com.odinokland.constantmusic.platform.Platform;
 //? fabric {
-//import com.odinokland.constantmusic.platform.fabric.FabricPlatform;
+import com.odinokland.constantmusic.platform.fabric.FabricPlatform;
 //? } forge {
-import com.odinokland.constantmusic.platform.forge.ForgePlatform;
+//import com.odinokland.constantmusic.platform.forge.ForgePlatform;
 //? } neoforge {
 //import com.odinokland.constantmusic.platform.neoforge.NeoforgePlatform;
 //? }
@@ -131,11 +131,11 @@ public class ConstantMusic {
 	 */
 	private static Platform createPlatformInstance() {
 		//? fabric {
-		//return new FabricPlatform();
+		return new FabricPlatform();
 		//?} neoforge {
 		//return new NeoforgePlatform();
 		//?} forge {
-		return new ForgePlatform();
+		//return new ForgePlatform();
 		//?}
 	}
 }

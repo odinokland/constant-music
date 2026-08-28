@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform.forge;
 
 //? forge {
-
+/*
 import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.platform.Platform;
 import net.minecraftforge.fml.ModList;
@@ -39,4 +39,4 @@ public class ForgePlatform implements Platform {
 		return Paths.get(FMLPaths.CONFIGDIR.get().toString(), Constants.MOD_ID + ".toml");
 	}
 }
-//?}
+*///?}

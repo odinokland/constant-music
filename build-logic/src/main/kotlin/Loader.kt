@@ -28,6 +28,8 @@ sealed class Loader(val id: String) {
 		)
 
 		override fun generateManifest(ctx: Context): String {
+			val widener = ctx.resolvedAccessFile(ctx.currentMcVersion, AccessType.WIDENER)
+			val widenerPath = if (widener != null) "aw/$widener" else "aw/${ctx.modId}.accesswidener"
 			val manifest = FabricManifest(
 				id = ctx.modId,
 				name = ctx.modName,
@@ -49,7 +51,7 @@ sealed class Loader(val id: String) {
 				description = ctx.description,
 				icon = "assets/icon.png",
 				license = ctx.licenseName,
-				accessWidener = "aw/${ctx.currentMcVersion}.accesswidener",
+				accessWidener = widenerPath,
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricEntrypoint"),
 					"preLaunch" to listOf("com.llamalad7.mixinextras.MixinExtrasBootstrap::init"),
@@ -91,6 +93,9 @@ sealed class Loader(val id: String) {
 			addDeps(ctx.extension.dependencies.optional, "optional")
 			addDeps(ctx.extension.dependencies.incompatible, "incompatible")
 
+			val transformer = ctx.resolvedAccessFile(ctx.currentMcVersion, AccessType.WIDENER)
+			val transformerPath = if (transformer != null) "aw/$transformer" else "aw/${ctx.modId}.cfg"
+
 			val manifest = ForgeManifest(
 				license = ctx.licenseName,
 				issueTrackerURL = ctx.issuesUrl,
@@ -111,7 +116,7 @@ sealed class Loader(val id: String) {
 				),
 				dependencies = mapOf(ctx.modId to forgeDeps),
 				mixins = listOf(ForgeMixin("${ctx.modId}.mixins.json")),
-				accessTransformers = listOf(ForgeAccessTransformer("aw/${ctx.stonecutter.current.version}.cfg"))
+				accessTransformers = listOf(ForgeAccessTransformer(transformerPath))
 			)
 
 			return TOML.encodeToString(manifest)

@@ -1,6 +1,7 @@
 @file:Suppress("unused", "DuplicatedCode")
 
 import dev.kikugie.fletching_table.extension.FletchingTableExtension
+import dev.kikugie.stonecutter.AnyVersion
 import dev.kikugie.stonecutter.StonecutterExperimentalAPI
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
 import org.gradle.api.DefaultTask
@@ -39,11 +40,20 @@ fun Project.env(variable: String): String? {
 fun Project.envTrue(variable: String): Boolean = env(variable)?.toDefaultLowerCase() == "true"
 
 fun Project.getAccessFile(type: AccessType): File {
-	val awDir = rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
 	val modId = sc.properties["mod.id"]
 	val defaultFile = rootProject.layout.projectDirectory.file("src/main/resources/aw/$modId.${type.keyword}").asFile
 
 	val targetVersion = sc.current.version
+	val awDir = rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
+	val resolvedFile = findResolvedAccessFile(targetVersion, awDir, type)
+	return resolvedFile ?: defaultFile
+}
+
+fun findResolvedAccessFile(
+	targetVersion: AnyVersion,
+	awDir: File,
+	type: AccessType
+): File? {
 	val safeVersionQuery = Regex.escape(targetVersion)
 	val resolvedFile = awDir.listFiles()?.firstOrNull { file ->
 		if (!file.isFile || !file.name.endsWith(".${type.keyword}")) return@firstOrNull false
@@ -54,8 +64,7 @@ fun Project.getAccessFile(type: AccessType): File {
 		fileMatchesQueryPattern.containsMatchIn(fileVersionPart) ||
 			queryMatchesFilePattern.containsMatchIn(targetVersion)
 	}
-
-	return resolvedFile ?: defaultFile
+	return resolvedFile
 }
 
 fun RepositoryHandler.strictMaven(

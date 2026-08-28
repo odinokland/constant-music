@@ -61,14 +61,14 @@ public class ConstantMusicConfigScreen extends Screen {
 		this.list = this.addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height, 32, 32, this));
 		this.addOptions();
 		//? if >= 1.19.3 {
-		/*this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
+		this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
 			this.minecraft.setScreen(this.parent);
 		}).bounds(this.width / 2 - 100, this.height - 27, 200, 20).build());
-		*///?} else {
-		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (Button button) -> {
+		//?} else {
+		/*this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (Button button) -> {
 			this.minecraft.setScreen(this.parent);
 		}));
-		//?}
+		*///?}
 		//?}
     }
 
