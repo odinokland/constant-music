@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Pideva muusika seaded",
+  "constantmusic.option.timer": "Määrake lugude vaheline viivitus.",
   "constantmusic.option": "Muusika viivitus",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s minutit %s sekundit lugude vahel",
+  "constantmusic.option.seconds": "%s sekundit lugude vahel"
 }
