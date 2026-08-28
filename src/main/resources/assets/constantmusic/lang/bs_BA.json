@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Kontinuirana podešavanja muzike",
+  "constantmusic.option.timer": "Podesite vremensko odlaganje između pesama.",
   "constantmusic.option": "Music Delay",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s minuta %s sekundi između pjesama",
+  "constantmusic.option.seconds": "%s sekundi između pjesama"
 }
