@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Непрерывная музыка",
+  "constantmusic.option.timer": "Установите задержку между песнями.",
+  "constantmusic.option": "Задержка музыки",
+  "constantmusic.option.minutes_and_seconds": "%s минут %s секунд между песнями",
+  "constantmusic.option.seconds": "%s секунд между песнями"
+}
