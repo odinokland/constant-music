@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Երաժշտության շարունակական կարգավորումներ",
+  "constantmusic.option.timer": "Սահմանեք երգերի միջև ուշացումը:",
   "constantmusic.option": "Երաժշտության հետաձգում",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s րոպե %s վայրկյան երգերի միջև",
+  "constantmusic.option.seconds": "%s վայրկյան երգերի միջև"
 }
