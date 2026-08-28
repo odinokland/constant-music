@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Cilësimet e vazhdueshme të muzikës",
+  "constantmusic.option.timer": "Vendosni vonesën kohore midis këngëve.",
   "constantmusic.option": "Vonesa e muzikës",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s minuta %s sekonda ndërmjet këngëve",
+  "constantmusic.option.seconds": "%s sekonda ndërmjet këngëve"
 }
