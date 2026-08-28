@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Gosodiadau Cerddoriaeth Barhaus",
+  "constantmusic.option.timer": "Gosodwch yr oedi rhwng caneuon.",
   "constantmusic.option": "Oedi Cerdd",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s munud %s eiliad rhwng caneuon",
+  "constantmusic.option.seconds": "%s eiliad rhwng caneuon"
 }
