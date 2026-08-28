@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Налады бесперапыннай музыкі",
+  "constantmusic.option.timer": "Усталюйце затрымку паміж песнямі.",
   "constantmusic.option": "Музычная затрымка",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s хвілін %s секунд паміж песнямі",
+  "constantmusic.option.seconds": "%s секунд паміж песнямі"
 }
