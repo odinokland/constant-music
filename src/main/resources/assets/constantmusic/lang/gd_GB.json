@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Suidhichidhean ciùil leantainneach",
+  "constantmusic.option.timer": "Suidhich an dàil ùine eadar òrain.",
   "constantmusic.option": "Dàil Ciùil",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s mionaidean %s diogan eadar òrain",
+  "constantmusic.option.seconds": "%s diogan eadar òrain"
 }
