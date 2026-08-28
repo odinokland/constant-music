@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "연속 음악 설정",
+  "constantmusic.option.timer": "노래 사이의 시간 지연을 설정합니다.",
+  "constantmusic.option": "음악 지연",
+  "constantmusic.option.minutes_and_seconds": "노래 사이 간격 %s 분 %s 초",
+  "constantmusic.option.seconds": "노래 사이 간격 %s 초"
+}
