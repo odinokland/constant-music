@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Pengaturan Musik Berkelanjutan",
+  "constantmusic.option.timer": "Mengatur waktu tunda antar lagu.",
   "constantmusic.option": "Penundaan Musik",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s menit %s detik di antara lagu",
+  "constantmusic.option.seconds": "%s detik antar lagu"
 }
