@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Тасралтгүй хөгжмийн тохиргоо",
+  "constantmusic.option.timer": "Дуу хоорондын саатлыг тохируулна уу.",
   "constantmusic.option": "Хөгжмийн саатал",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "Дуу хоорондын %s минут %s секунд",
+  "constantmusic.option.seconds": "Дуу хоорондын %s секунд"
 }
