@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Даими музыка көйләнмәләре",
+  "constantmusic.option.timer": "Songsырлар арасында вакытны тоткарлагыз.",
   "constantmusic.option": "Музыка тоткарлануы",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "Треклар арасында %s минут %s секунд",
+  "constantmusic.option.seconds": "Треклар арасында %s секунд"
 }
