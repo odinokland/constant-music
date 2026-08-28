@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "निरंतर संगीत सेटिंग्स",
+  "constantmusic.option.timer": "गानों के बीच विलंब समय निर्धारित करें.",
   "constantmusic.option": "संगीत विलंब",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "गानों के बीच %s मिनट %s सेकंड",
+  "constantmusic.option.seconds": "गानों के बीच %s सेकंड"
 }
