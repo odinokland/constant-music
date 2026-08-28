@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Dejinta Muusiga oo Joogta ah",
+  "constantmusic.option.timer": "Samee wakhtiga dib u dhaca inta u dhaxaysa heesaha.",
   "constantmusic.option": "Dib u dhigista Muusiga",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s daqiiqo %s ilbiriqsi ee heesaha dhexdooda",
+  "constantmusic.option.seconds": "%s ilbiriqsiyo u dhexeeya heesaha"
 }
