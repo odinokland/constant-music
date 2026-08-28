@@ -213,11 +213,11 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 
 			for (AbstractWidget abstractWidget : this.children) {
 				//? if >=1.19.3 {
-				//abstractWidget.setPosition(q + p, top);
+				abstractWidget.setPosition(q + p, top);
 				//?} else {
-				abstractWidget.x = q + p;
+				/*abstractWidget.x = q + p;
 				abstractWidget.y = top;
-				//?}
+				*///?}
 				abstractWidget.render(gui, mouseX, mouseY, partialTick);
 				p += X_OFFSET;
 			}

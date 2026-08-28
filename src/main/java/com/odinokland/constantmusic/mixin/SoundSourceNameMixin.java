@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.mixin;
 
 //? < 1.19.3 {
-import com.odinokland.constantmusic.util.ICustomSoundSource;
+/*import com.odinokland.constantmusic.util.ICustomSoundSource;
 import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -18,4 +18,4 @@ public class SoundSourceNameMixin {
 		}
 	}
 }
-//? }
+*///? }

@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform.fabric;
 
 //? fabric {
-/*
+
 import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.fabric.Entrypoint;
@@ -17,17 +17,17 @@ import com.odinokland.constantmusic.platform.fabric.client.event.ClientWorldEven
 @Entrypoint("main")
 public class FabricEntrypoint implements ModInitializer, ClientModInitializer {
 
-	/^*
+	/**
 	 * On initialize.
-	 ^/
+	 */
 	@Override
 	public void onInitialize() {
 
 	}
 
-	/^*
+	/**
 	 * On initialize client.
-	 ^/
+	 */
 	@Override
 	public void onInitializeClient() {
 		ConstantMusic.init();
@@ -35,4 +35,4 @@ public class FabricEntrypoint implements ModInitializer, ClientModInitializer {
 		ClientTickEvents.END_CLIENT_TICK.register(JukeboxTrackerUtility::checkJukeboxesInRange);
 	}
 }
-*///?}
+//?}

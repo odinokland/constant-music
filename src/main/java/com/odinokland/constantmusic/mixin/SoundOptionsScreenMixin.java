@@ -6,13 +6,13 @@ import com.odinokland.constantmusic.Constants;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.OptionInstance;
 //? < 1.19.3 {
-import net.minecraft.client.gui.components.VolumeSlider;
+/*import net.minecraft.client.gui.components.VolumeSlider;
 import com.llamalad7.mixinextras.sugar.Local;
 import com.odinokland.constantmusic.util.ICustomSoundSource;
 import com.odinokland.constantmusic.util.SoundSourceUtil;
 import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-//? }
+*///? }
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.SoundOptionsScreen;
 import net.minecraft.network.chat.Component;
@@ -34,12 +34,12 @@ public class SoundOptionsScreenMixin extends Screen {
 	}
 
 	//? if >=1.19.3 {
-/*
-	/^*
+
+	/**
 	 * On get all options.
 	 *
 	 * @param cir the cir
-	 ^/
+	 */
 	@Inject(method = "getAllSoundOptionsExceptMaster", at = @At("RETURN"), cancellable = true)
 	protected void onGetAllOptions(CallbackInfoReturnable<OptionInstance<?>[]> cir) {
 		OptionInstance<?>[] defaultOptions = cir.getReturnValue();
@@ -54,13 +54,13 @@ public class SoundOptionsScreenMixin extends Screen {
 
 		cir.setReturnValue(updatedOptions);
 	}
-	*///?} else {
-
-	/**
+	//?} else {
+/*
+	/^*
 	 * In 1.19.2, SoundOptionsScreen#init loops over SoundSource.values().
 	 * We can intercept that array and swap it out for an array that has
 	 * our custom size, OR we can capture the local loop counter.
-	 */
+	 ^/
 	@Inject(
 			method = "init",
 			at = @At(
@@ -99,5 +99,5 @@ public class SoundOptionsScreenMixin extends Screen {
 			));
 		}
 	}
-	//? }
+	*///? }
 }

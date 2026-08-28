@@ -65,7 +65,7 @@ public class LevelRendererMixin {
 	}
 	*///?} else {
 	//? fabric {
-	/*@WrapMethod(method="playStreamingMusic")
+	@WrapMethod(method="playStreamingMusic")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
 		if (soundEvent != null) {
@@ -76,8 +76,8 @@ public class LevelRendererMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
-	*///? } else {
-	@WrapMethod(method="playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
+	//? } else {
+	/*@WrapMethod(method="playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
 		if (soundEvent != null) {
@@ -100,6 +100,6 @@ public class LevelRendererMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
-	//?}
+	*///?}
 	//?}
 }

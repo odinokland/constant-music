@@ -1,3 +1,4 @@
+import dev.kikugie.stonecutter.AnyVersion
 import dev.kikugie.stonecutter.StonecutterExperimentalAPI
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
 import org.gradle.api.JavaVersion
@@ -16,6 +17,12 @@ class Context(
 
 	private fun optional(key: String, fallback: String = ""): String =
 		runCatching { project.sc.properties.getAs<String>(key) }.getOrNull()?.takeIf { it.isNotBlank() } ?: fallback
+
+	fun resolvedAccessFile(version: AnyVersion, type: AccessType): String? {
+		val accessDir = project.rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
+		val pathString = findResolvedAccessFile(version, accessDir, type) ?: return null
+		return pathString.getName()
+	}
 
 	val currentMcVersion: String by lazy {
 		stonecutter.current.version
