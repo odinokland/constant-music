@@ -1,7 +1,7 @@
 {
-  "constantmusic.title": "Constant Music Config",
-  "constantmusic.option.timer": "Set the time delay music tracks.",
+  "constantmusic.title": "Nuolatinės muzikos nustatymai",
+  "constantmusic.option.timer": "Nustatykite laiko delsą tarp dainų.",
   "constantmusic.option": "Muzikos uždelsimas",
-  "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.minutes_and_seconds": "%s minučių %s sekundės tarp dainų",
+  "constantmusic.option.seconds": "%s sekundžių tarp dainų"
 }
