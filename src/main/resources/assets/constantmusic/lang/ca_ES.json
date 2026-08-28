@@ -1,0 +1,7 @@
+{
+  "constantmusic.title": "Configuració de música contínua",
+  "constantmusic.option.timer": "Estableix el temps de retard entre cançons.",
+  "constantmusic.option": "Retard de música",
+  "constantmusic.option.minutes_and_seconds": "%s minuts %s segons entre cançons",
+  "constantmusic.option.seconds": "%s segons entre cançons"
+}
