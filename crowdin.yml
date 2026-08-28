@@ -1,3 +1,7 @@
+pull_request_description: 'Automated translation sync from Crowdin.\x0A\x0AUpdated locales: %language_names%'
+pull_request_labes:
+  - crowdin
+  - l10n
 files:
   - source: /src/main/resources/assets/constantmusic/lang/en_us.json
     translation: /src/main/resources/assets/constantmusic/lang/%locale_with_underscore%.json
@@ -210,7 +214,7 @@ files:
         nl-BE: nl_be
         nl-SR: nl_sr
         nn-NO: nn_no
-        no: no_no
+        'no': no_no
         nr: nr_za
         nso: ns_za
         ny: ny_mw
@@ -304,14 +308,8 @@ files:
         zh-SG: zh_sg
         zh-TW: zh_tw
         zu: zu_za
-
 bundles:
   - 2
-commit_message: "chore(lang): update translations for %language% [%original_file_name%] [ci skip]"
+commit_message: 'chore(lang): update translations for %language% [%original_file_name%] [ci skip]'
 append_commit_message: false
-
-pull_request_title: "Localization: Update Minecraft language bundles"
-pull_request_description: "Automated translation sync from Crowdin.\n\nUpdated locales: %language_names%"
-pull_request_labes:
-  - "crowdin"
-  - "l10n"
+pull_request_title: 'Localization: Update Minecraft language bundles'
