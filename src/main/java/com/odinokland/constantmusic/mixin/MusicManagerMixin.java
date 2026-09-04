@@ -5,13 +5,15 @@ import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.sounds.MusicManager;
-import net.minecraft.sounds.Music;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
-//? if > 1.21.3
+//? if <= 1.21.3 || > 1.21.8 {
+import net.minecraft.sounds.Music;
+//? } else {
 //import net.minecraft.client.sounds.MusicInfo;
+//? }
 
 /**
  * The type Music manager mixin.
@@ -28,7 +30,7 @@ public class MusicManagerMixin {
     }
 
 
-	//? if <= 1.21.3 {
+	//? if <= 1.21.3 || > 1.21.8 {
 	@WrapWithCondition(
 		method = "tick",
 		at = @At(
@@ -39,9 +41,7 @@ public class MusicManagerMixin {
 	private boolean dontPlayIfJukeboxInRange(MusicManager instance, Music music) {
 		return JukeboxTrackerUtility.noJukeboxesInRange();
 	}
-	//?}
-
-	//? if > 1.21.3 {
+	//?} else {
     /*@WrapWithCondition(
             method = "tick",
             at = @At(

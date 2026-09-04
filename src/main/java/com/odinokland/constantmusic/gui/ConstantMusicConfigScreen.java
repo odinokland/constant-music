@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 
 *///?} else {
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 //?}
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -25,10 +25,10 @@ import org.jetbrains.annotations.NotNull;
  */
 public class ConstantMusicConfigScreen extends Screen {
     private final Screen parent;
-    /**
-     * The List.
-     */
-    @Nullable
+	/**
+	 * The List.
+	 */
+	@Nullable
     protected OptionsList list;
 	//? if >=1.21 {
     /*/^*
@@ -37,12 +37,12 @@ public class ConstantMusicConfigScreen extends Screen {
     public final HeaderAndFooterLayout layout = new HeaderAndFooterLayout(this);
 	*///?}
 
-    /**
-     * Instantiates a new Constant music config screen.
-     *
-     * @param parent the parent
-     */
-    public ConstantMusicConfigScreen(final Screen parent) {
+	/**
+	 * Instantiates a new Constant music config screen.
+	 *
+	 * @param parent the parent
+	 */
+	public ConstantMusicConfigScreen(final Screen parent) {
         super(Component.translatable("constantmusic.title"));
         this.parent = parent;
     }
@@ -106,6 +106,7 @@ public class ConstantMusicConfigScreen extends Screen {
      ^/
     protected void addFooter() {
         final Minecraft client = Minecraft.getInstance();
+		//~ if >= 26.2 '.setScreen' -> '.setScreenAndShow'
         final Button.Builder doneButton = Button.builder(CommonComponents.GUI_DONE, button -> client.setScreen(this.parent));
         this.layout.addToFooter(doneButton.width(200).build());
     }
@@ -118,14 +119,14 @@ public class ConstantMusicConfigScreen extends Screen {
         }
     }
 	*///?} else if >1.19.4 {
-	/*public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
+	public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
 		super.render(gui, i, j, f);
 		gui.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
 	}
-	*///?} else {
-		public void render(@NotNull PoseStack gui, int i, int j, float f) {
+	//?} else {
+		/*public void render(@NotNull PoseStack gui, int i, int j, float f) {
 			super.render(gui, i, j, f);
 			drawCenteredString(gui, this.font, this.title, this.width / 2, 20, 16777215);
 		}
-	//?}
+	*///?}
 }

@@ -1,53 +1,49 @@
 package com.odinokland.constantmusic.mixin;
 
-import com.google.common.collect.Maps;
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.ClientLevel;
-//~ level
+//~ level_renderer
 import net.minecraft.client.renderer.LevelRenderer;
-//? if < 1.21.2 {
-import net.minecraft.client.resources.sounds.SoundInstance;
-import net.minecraft.sounds.SoundEvent;
-//?}
-//? < 1.21.1 {
-import net.minecraft.world.item.RecordItem;
-//? }
-import org.jetbrains.annotations.Nullable;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.Holder;
-//? if >= 1.21 {
-//import net.minecraft.world.item.JukeboxSong;
-//?}
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
-
-import java.util.Map;
+//~ level_import
+import net.minecraft.client.multiplayer.ClientLevel;
+//? if < 1.21.2 {
+import org.jetbrains.annotations.Nullable;
+//? }
+//? if >= 1.21 {
+/*import net.minecraft.world.item.JukeboxSong;
+import net.minecraft.core.Holder;
+*///?}
+//? < 1.21 {
+import net.minecraft.sounds.SoundEvent;
+//? forge || neoforge {
+import net.minecraft.world.item.RecordItem;
+//? }
+//? }
 
 /**
  * The type Level renderer mixin.
  */
-//~ level
+//~ level_renderer
 @Mixin(LevelRenderer.class)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
-public class LevelRendererMixin {
-	//? if >=1.21.9 {
-	//@Shadow @Final private ClientLevel level;
-	//?} else if >=1.21.2 {
-	//@Shadow @Final private Level level;
-	//?} else {
+public class JukeboxDetectorMixin {
+	 //? if >=1.21.2 {
+	/*//~ level_name
+	@Shadow @Final private ClientLevel level;
+	 *///?} else {
 	@Shadow @Nullable private ClientLevel level;
 	//?}
-	//? if < 1.21 {
-	private final Map<BlockPos, SoundInstance> playingRecords = Maps.newHashMap();
-	//?}
+
 	@Shadow @Final private Minecraft minecraft;
 
-	private LevelRendererMixin(){}
+	private JukeboxDetectorMixin(){}
 
 	//? if >=1.21 {
 	/*@WrapMethod(method = "playJukeboxSong")
@@ -64,8 +60,9 @@ public class LevelRendererMixin {
 		JukeboxTrackerUtility.onJukeboxStop(pos);
 	}
 	*///?} else {
+
 	//? fabric {
-	@WrapMethod(method="playStreamingMusic")
+	/*@WrapMethod(method="playStreamingMusic")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
 		if (soundEvent != null) {
@@ -76,8 +73,8 @@ public class LevelRendererMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
-	//? } else {
-	/*@WrapMethod(method="playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
+	*///? } else {
+	@WrapMethod(method="playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
 		if (soundEvent != null) {
@@ -100,6 +97,6 @@ public class LevelRendererMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
-	*///?}
 	//?}
+	//? }
 }

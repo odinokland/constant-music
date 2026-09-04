@@ -24,18 +24,12 @@ public class ForgeClientEventSubscriber {
 	 ^/
 	@SubscribeEvent
 	public static void onFMLClientSetupEvent(FMLClientSetupEvent event) {
-		//? if <1.20 {
 		ModLoadingContext.get().registerExtensionPoint(
-				net.minecraftforge.client.ConfigScreenHandler.ConfigScreenFactory.class,
-				() -> new net.minecraftforge.client.ConfigScreenHandler.ConfigScreenFactory(
+				ConfigScreenHandler.ConfigScreenFactory.class,
+				() -> new ConfigScreenHandler.ConfigScreenFactory(
 						(client, parent) -> new ConstantMusicConfigScreen(parent)
 				)
 		);
-		//? } else {
-		/^ModLoadingContext.get().registerConfigScreen(
-				(client, parent) -> new ConstantMusicConfigScreen(parent)
-		);
-		^///? }
 	}
 }
 *///?}

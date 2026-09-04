@@ -5,6 +5,7 @@ import dev.kikugie.stonecutter.AnyVersion
 import dev.kikugie.stonecutter.StonecutterExperimentalAPI
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
 import org.gradle.api.DefaultTask
+import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.dsl.RepositoryHandler
@@ -14,10 +15,13 @@ import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Property
 import org.gradle.api.tasks.Copy
 import org.gradle.api.tasks.Input
+import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import org.gradle.jvm.tasks.Jar
+import org.gradle.jvm.toolchain.JavaLanguageVersion
+import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.*
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.plugins.ide.idea.model.IdeaModel
@@ -138,6 +142,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 		version = ctx.fullVersion
 		ctx.extension.requiredJava.set(ctx.javaVersion)
+		println("Setting java version to ${ctx.javaVersion.majorVersion} (required by ${ctx.loader.id})")
 
 		if (ctx.loader.isFabricLike) {
 			ctx.extension.dependencies {
@@ -164,8 +169,17 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		extensions.configure<JavaPluginExtension>("java") {
 			withSourcesJar()
 			withJavadocJar()
+			toolchain.languageVersion = JavaLanguageVersion.of(ctx.javaVersion.majorVersion)
 			sourceCompatibility = ctx.javaVersion
 			targetCompatibility = ctx.javaVersion
+		}
+		val javaToolchains = extensions.getByType<JavaToolchainService>()
+		if (ctx.loader is Loader.ForgeLike) {
+			tasks.withType<JavaExec>().matching { it.name.startsWith("run") }.configureEach {
+				javaLauncher.set(javaToolchains.launcherFor {
+					languageVersion.set(JavaLanguageVersion.of(ctx.javaVersion.majorVersion))
+				})
+			}
 		}
 	}
 
@@ -173,7 +187,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		val manifestOutputDir = layout.buildDirectory.dir("generated/modManifest")
 		val generateTask = tasks.register<GenerateModManifestTask>("generateModManifest") {
 			content.set(ctx.loader.generateManifest(ctx))
-			outputFile.set(layout.buildDirectory.file("generated/modManifest/${ctx.loader.modManifestPath}"))
+			outputFile.set(layout.buildDirectory.file("generated/modManifest/${ctx.loader.manifestPathFor(ctx)}"))
 		}
 
 		the<JavaPluginExtension>().sourceSets.named("main") { resources.srcDir(manifestOutputDir) }
@@ -185,15 +199,33 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			dependsOn(tasks.named("stonecutterGenerate"), "kspKotlin")
 			inputs.property("modId", ctx.modId)
 			inputs.property("javaVersion", ctx.javaVersion.majorVersion)
+			val isForge = ctx.loader is Loader.Forge
 			filesMatching("*.mixins.json*") {
+				// Forge 1.20.6 runs on Java 21, but its bundled Mixin version
+				// only recognizes compatibility levels through JAVA_17. The
+				// compatibility level controls Mixin bytecode behavior, not the
+				// Java toolchain used to compile the mod.
+				val mixinJava = if (isForge && ctx.javaVersion > JavaVersion.VERSION_17) {
+					"JAVA_17"
+				} else {
+					"JAVA_${ctx.javaVersion.majorVersion}"
+				};
 				expand(mapOf(
-					"java" to "JAVA_${ctx.javaVersion.majorVersion}",
+					"java" to mixinJava,
 					"modId" to ctx.modId
 				))
 
 			}
-			exclude(ctx.loader.excludedResources)
+			exclude(ctx.loader.excludedResourcesFor(ctx))
 			if (ctx.loader is Loader.ForgeLike) {
+				val accessFileName = ctx.resolvedAccessFile()
+				into("META-INF") {
+					from("src/main/resources/aw") {
+						include(accessFileName)
+					}
+					rename { "accesstransformer.cfg" }
+				}
+				exclude("aw/**")
 				// Forge's ModListScreen reads logoFile as a root resource, so move
 				// the shared icon to the archive root (Fabric keeps the assets path).
 				eachFile {

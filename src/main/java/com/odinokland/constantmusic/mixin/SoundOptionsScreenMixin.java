@@ -28,6 +28,11 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 @Mixin(SoundOptionsScreen.class)
 public class SoundOptionsScreenMixin extends Screen {
 
+	/**
+	 * Instantiates a new Sound options screen mixin.
+	 *
+	 * @param title the title
+	 */
 	protected SoundOptionsScreenMixin(Component title) {
 		super(title);
 		Constants.LOG.info("SoundOptionsScreenMixin constructor");
@@ -54,6 +59,18 @@ public class SoundOptionsScreenMixin extends Screen {
 
 		cir.setReturnValue(updatedOptions);
 	}
+//	@Inject(method = "getOptions", at = @At("RETURN"), cancellable = true)
+//	private static void onGetOptions(net.minecraft.client.Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
+//		OptionInstance<?>[] defaultOptions = cir.getReturnValue();
+//
+//		OptionInstance<Integer> seconds = ConstantMusic.getConfigOption();
+//
+//		OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];
+//		System.arraycopy(defaultOptions, 0, updatedOptions, 0, defaultOptions.length);
+//		updatedOptions[updatedOptions.length - 1] = seconds;
+//
+//		cir.setReturnValue(updatedOptions);
+//	}
 	//?} else {
 /*
 	/^*

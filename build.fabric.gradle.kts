@@ -35,6 +35,12 @@ platform {
 
 loom {
 	accessWidenerPath = getAccessFile(AccessType.WIDENER)
+	if (sc.current.parsed < "26") {
+		mixin {
+			useLegacyMixinAp = true
+			defaultRefmapName = "${prop("mod.id")}.refmap.json"
+		}
+	}
 	runs.named("client") {
 		client()
 		generateRunConfig.set(false)

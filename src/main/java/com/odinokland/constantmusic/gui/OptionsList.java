@@ -5,7 +5,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -39,6 +39,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 		this.screen = screen;
 	}
 	*///?} else {
+
 	/**
 	 * Instantiates a new Options list.
 	 *
@@ -51,9 +52,9 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	 */
 	public OptionsList(Minecraft minecraft, int width, int height, int headerHeight,int footerHeight, Screen screen) {
 		//? if >=1.20.3 {
-		//super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
+		super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
 		//?} else {
-		super(minecraft, width, height, headerHeight, height - headerHeight - footerHeight, DEFAULT_ITEM_HEIGHT);
+		//super(minecraft, width, height, headerHeight, height - headerHeight - footerHeight, DEFAULT_ITEM_HEIGHT);
 		//?}
 		this.centerListVertically = false;
 		this.screen = screen;
@@ -194,9 +195,9 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 		@Override
 		public void render(
 			//? if >1.19.4 {
-			//GuiGraphics gui,
+			GuiGraphics gui,
 			//?} else {
-			PoseStack gui,
+			//PoseStack gui,
 			 //?}
 			int index,
 			int top,

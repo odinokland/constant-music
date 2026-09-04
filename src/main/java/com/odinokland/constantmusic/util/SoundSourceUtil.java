@@ -4,10 +4,15 @@ import net.minecraft.sounds.SoundSource;
 import sun.misc.Unsafe;
 import java.lang.reflect.Field;
 
+/**
+ * The type Sound source util.
+ */
 public class SoundSourceUtil {
 
 	/**
 	 * Safely allocates a completely isolated, dummy SoundSource instance.
+	 *
+	 * @return the sound source
 	 */
 	public static SoundSource createDummySource() {
 		try {

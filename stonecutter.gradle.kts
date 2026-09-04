@@ -36,6 +36,10 @@ stonecutter parameters {
 	swaps["mod_name"] = "\"${properties.get("mod.name")}\";"
 	swaps["mod_group"] = "\"${properties.get("mod.group")}\";"
 	swaps["minecraft"] = "\"${current.version}\";"
+	swaps["forge_modlist"] = when {
+		eval(current.version, ">=26.1") -> "ModList;"
+		else -> "ModList.get();"
+	}
 	constants["release"] = properties.get("mod.id") != "modtemplate"
 
 	replacements {
@@ -45,15 +49,28 @@ stonecutter parameters {
 		string(current.parsed >= "1.21") {
 			replace("net.minecraft.client.gui.screens.SoundOptionsScreen","net.minecraft.client.gui.screens.options.SoundOptionsScreen")
 		}
-		string(current.parsed >= "1.21.2", "level") {
+		string(current.parsed >= "1.21.2", "level_renderer") {
 			replace("LevelRenderer","LevelEventHandler")
 		}
-		string(current.parsed < "1.21.9" || current.parsed >= "1.21.2") {
+		string(current.parsed >="1.21.9" || current.parsed <"1.21.2", "level_import") {
 			replace("net.minecraft.world.level.Level", "net.minecraft.client.multiplayer.ClientLevel")
+		}
+		string(current.parsed >="1.21.9" || current.parsed <"1.21.2", "level_name") {
+			replace("Level", "ClientLevel")
 		}
 		string(current.parsed >= "1.21.6") {
 			replace("net.minecraftforge.eventbus.api.SubscribeEvent", "net.minecraftforge.eventbus.api.listener.SubscribeEvent")
 		}
+		string(current.parsed >= "26.1") {
+			replace("GuiGraphics", "GuiGraphicsExtractor")
+			replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
+			replace("abstractWidget.render", "abstractWidget.extractRenderState")
+			replace("renderContent", "extractContent")
+		}
+		string(current.parsed >= "26.1", "forge_update") {
+			replace("ModList.get()", "ModList")
+		}
+
 	}
 }
 

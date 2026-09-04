@@ -18,6 +18,9 @@ sealed class Loader(val id: String) {
 
 	open val isFabricLike: Boolean = false
 
+	open fun manifestPathFor(ctx: Context): String = modManifestPath
+	open fun excludedResourcesFor(ctx: Context): List<String> = excludedResources
+
 	abstract fun generateManifest(ctx: Context): String
 
 	object Fabric : Loader("fabric") {
@@ -28,8 +31,8 @@ sealed class Loader(val id: String) {
 		)
 
 		override fun generateManifest(ctx: Context): String {
-			val widener = ctx.resolvedAccessFile(ctx.currentMcVersion, AccessType.WIDENER)
-			val widenerPath = if (widener != null) "aw/$widener" else "aw/${ctx.modId}.accesswidener"
+			val widener = ctx.resolvedAccessFile()
+			val widenerPath = "aw/$widener"
 			val manifest = FabricManifest(
 				id = ctx.modId,
 				name = ctx.modName,
@@ -92,9 +95,7 @@ sealed class Loader(val id: String) {
 			addDeps(ctx.extension.dependencies.required, "required")
 			addDeps(ctx.extension.dependencies.optional, "optional")
 			addDeps(ctx.extension.dependencies.incompatible, "incompatible")
-
-			val transformer = ctx.resolvedAccessFile(ctx.currentMcVersion, AccessType.WIDENER)
-			val transformerPath = if (transformer != null) "aw/$transformer" else "aw/${ctx.modId}.cfg"
+			val logoFile = if (id == "neoforge" && ctx.stonecutter.eval(ctx.currentMcVersion, ">=26.2")) null else "icon.png"
 
 			val manifest = ForgeManifest(
 				license = ctx.licenseName,
@@ -108,15 +109,15 @@ sealed class Loader(val id: String) {
 						modUrl = ctx.homepageUrl,
 						// Forge resolves logoFile with getRootResource(), which only accepts
 						// a filename. The icon is copied to the archive root below.
-						logoFile = "icon.png",
+						logoFile = logoFile,
 						authors = ctx.authors.joinToString(", "),
 						credits = "${ctx.authors.joinToString(", ")} Contributors: ${ctx.contributors.joinToString(", ")}",
-						description = ctx.description
+						description = ctx.description,
+						iconFile = "icon.png",
 					)
 				),
 				dependencies = mapOf(ctx.modId to forgeDeps),
-				mixins = listOf(ForgeMixin("${ctx.modId}.mixins.json")),
-				accessTransformers = listOf(ForgeAccessTransformer(transformerPath))
+				mixins = listOf(ForgeMixin("${ctx.modId}.mixins.json"))
 			)
 
 			return TOML.encodeToString(manifest)
@@ -126,6 +127,15 @@ sealed class Loader(val id: String) {
 	object NeoForge : ForgeLike("neoforge") {
 		override val modManifestPath = "META-INF/neoforge.mods.toml"
 		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta"
+
+		private fun isLegacy(ctx: Context) = !ctx.stonecutter.eval(ctx.currentMcVersion, ">=1.20.5")
+
+		override fun manifestPathFor(ctx: Context) =
+			if (isLegacy(ctx)) "META-INF/mods.toml" else "META-INF/neoforge.mods.toml"
+
+		override fun excludedResourcesFor(ctx: Context) =
+			if (isLegacy(ctx)) (super.excludedResources + "META-INF/neoforge.mods.toml") + "pack.mcmeta"
+			else excludedResources
 	}
 
 	object Forge : ForgeLike("forge") {

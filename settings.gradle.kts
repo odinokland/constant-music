@@ -1,6 +1,11 @@
 import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
+val isCi = System.getenv("CI") == "true"
+gradle.startParameter.isParallelProjectExecutionEnabled = !isCi
+gradle.startParameter.isBuildCacheEnabled = !isCi
+gradle.startParameter.isConfigureOnDemand = !isCi
+
 pluginManagement {
 	repositories {
 		mavenLocal()
@@ -47,11 +52,6 @@ stonecutter {
 			loaders.forEach { version("$version-$it", version).buildscript = "build.$it.gradle.kts" }
 
 		versionsMap.forEach { (version, loaders) -> match(version, *loaders.toTypedArray()) }
-//		match("26.1.2", "fabric", "neoforge")
-//		match("1.21.7", "fabric", "neoforge")
-//		match("1.21.1", "fabric", "neoforge")
-//		match("1.19.2", "fabric", "forge")
-
 		vcsVersion = "1.19.2-forge"
 	}
 }

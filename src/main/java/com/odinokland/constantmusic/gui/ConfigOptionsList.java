@@ -6,7 +6,7 @@ import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
-import com.mojang.blaze3d.vertex.PoseStack;
+import net.minecraft.client.gui.GuiGraphics;
 import net.minecraft.client.gui.components.AbstractWidget;
 import net.minecraft.client.gui.components.ContainerObjectSelectionList;
 import net.minecraft.client.gui.components.events.GuiEventListener;
@@ -148,9 +148,9 @@ public class ConfigOptionsList  extends ContainerObjectSelectionList<ConfigOptio
             int j = this.screen.width / 2 - 155;
 
             for(Iterator<AbstractWidget> var13 = this.children.iterator(); var13.hasNext(); i += 160) {
-                AbstractWidget abstractwidget = (AbstractWidget)var13.next();
-                abstractwidget.setPosition(j + i, pTop);
-                abstractwidget.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
+                AbstractWidget abstractWidget = (AbstractWidget)var13.next();
+                abstractWidget.setPosition(j + i, pTop);
+                abstractWidget.render(pGuiGraphics, pMouseX, pMouseY, pPartialTick);
             }
         }
 		//?} else {

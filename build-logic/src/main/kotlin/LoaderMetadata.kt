@@ -1,3 +1,4 @@
+import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
@@ -32,8 +33,7 @@ data class ForgeManifest(
 	val issueTrackerURL: String,
 	val mods: List<ForgeMod>,
 	val dependencies: Map<String, List<ForgeDependency>> = emptyMap(),
-	val mixins: List<ForgeMixin> = emptyList(),
-	val accessTransformers: List<ForgeAccessTransformer> = emptyList()
+	val mixins: List<ForgeMixin> = emptyList()
 )
 
 @Serializable
@@ -43,11 +43,16 @@ data class ForgeMod(
 	val version: String,
 	val displayURL: String,
 	val modUrl: String,
-	val logoFile: String,
+	@EncodeDefault(EncodeDefault.Mode.NEVER)
+	val logoFile: String? = null,
 	val authors: String,
 	val logoBlur: Boolean = false,
 	val credits: String,
-	val description: String
+	val description: String,
+	@EncodeDefault(EncodeDefault.Mode.NEVER)
+	val iconFile: String? = null,
+	@EncodeDefault(EncodeDefault.Mode.NEVER)
+	val bannerFile: String? = null
 )
 
 @Serializable

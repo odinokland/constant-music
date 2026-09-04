@@ -1,3 +1,4 @@
+import Loader
 import dev.kikugie.stonecutter.AnyVersion
 import dev.kikugie.stonecutter.StonecutterExperimentalAPI
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
@@ -18,9 +19,15 @@ class Context(
 	private fun optional(key: String, fallback: String = ""): String =
 		runCatching { project.sc.properties.getAs<String>(key) }.getOrNull()?.takeIf { it.isNotBlank() } ?: fallback
 
-	fun resolvedAccessFile(version: AnyVersion, type: AccessType): String? {
+	fun accessType(): AccessType {
+		val accessType = if (this.loader is Loader.ForgeLike) AccessType.TRANSFORMER else AccessType.WIDENER
+		return accessType
+	}
+
+	fun resolvedAccessFile(): String {
+		val loaderAccessType = this.accessType()
 		val accessDir = project.rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
-		val pathString = findResolvedAccessFile(version, accessDir, type) ?: return null
+		val pathString = findResolvedAccessFile(this.currentMcVersion, accessDir, loaderAccessType) ?: return "${this.modId}.${loaderAccessType.keyword}"
 		return pathString.getName()
 	}
 

@@ -42,11 +42,14 @@ neoForge {
 			gameDirectory = file("run/")
 			ideName = "NeoForge Client (${stonecutter.current.version})"
 			programArgument("--username=Dev")
+			disableIdeRun()
+			systemProperty("forge.logging.console.level", "debug")
 		}
 		register("server") {
 			server()
 			gameDirectory = file("run/")
 			ideName = "NeoForge Server (${stonecutter.current.version})"
+			disableIdeRun()
 		}
 	}
 
@@ -55,7 +58,8 @@ neoForge {
 			sourceSet(sourceSets["main"])
 		}
 	}
-	//sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
+	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
+	//sourceSets["main"].resources.srcDir("${layout.projectDirectory}/build/generated")
 }
 
 repositories {
@@ -66,6 +70,7 @@ repositories {
 dependencies {
 	// implementation(libs.moulberry.mixinconstraints)
 	// jarJar(libs.moulberry.mixinconstraints)
+	implementation(jarJar(libs.mixinextras.neoforge.get()) as Any)
 }
 
 tasks.named("createMinecraftArtifacts") {
