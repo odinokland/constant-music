@@ -1,33 +1,37 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
+/*import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.Constants;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
+//? if >= 1.20.6 {
+/^import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
+import java.util.function.Supplier;
+^///? }
 //? if < 1.20.6 {
-/*import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
-import net.neoforged.fml.ModLoadingContext;
+import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
 import net.neoforged.neoforge.client.ConfigScreenHandler;
-*///?}
+//?}
 
-/**
+/^*
  * The type Neoforge entrypoint.
- */
+ ^/
 @Mod(Constants.MOD_ID)
 public class NeoforgeEntrypoint {
 
-	/**
+	/^*
 	 * Instantiates a new Neoforge entrypoint.
-	 */
-	public NeoforgeEntrypoint() {
+	 ^/
+	public NeoforgeEntrypoint(ModContainer modContainer) {
 		ConstantMusic.init();
-		//? if < 1.20.6 {
-		/*ModLoadingContext.get().registerExtensionPoint(
+		//? if >= 1.20.6 {
+		//modContainer.registerExtensionPoint(IConfigScreenFactory.class, (Supplier<IConfigScreenFactory>) NeoforgeConfigHelper::new);
+		//? } else {
+		modContainer.registerExtensionPoint(
 				ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory(
 						(minecraft, parent) -> new ConstantMusicConfigScreen(parent)));
-		*///?}
+		//?}
 	}
 }
-//?}
+*///?}

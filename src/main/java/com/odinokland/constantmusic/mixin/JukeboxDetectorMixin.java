@@ -30,7 +30,6 @@ import net.minecraft.world.item.RecordItem;
 /**
  * The type Level renderer mixin.
  */
-//~ level_renderer
 @Mixin(LevelRenderer.class)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class JukeboxDetectorMixin {

@@ -96,6 +96,7 @@ sealed class Loader(val id: String) {
 			addDeps(ctx.extension.dependencies.optional, "optional")
 			addDeps(ctx.extension.dependencies.incompatible, "incompatible")
 			val logoFile = if (id == "neoforge" && ctx.stonecutter.eval(ctx.currentMcVersion, ">=26.2")) null else "icon.png"
+			val bannerFile = if (id == "neoforge" && ctx.stonecutter.eval(ctx.currentMcVersion, ">=26.2")) "assets/banner.png" else null
 
 			val manifest = ForgeManifest(
 				license = ctx.licenseName,
@@ -114,6 +115,7 @@ sealed class Loader(val id: String) {
 						credits = "${ctx.authors.joinToString(", ")} Contributors: ${ctx.contributors.joinToString(", ")}",
 						description = ctx.description,
 						iconFile = "icon.png",
+						bannerFile = bannerFile,
 					)
 				),
 				dependencies = mapOf(ctx.modId to forgeDeps),

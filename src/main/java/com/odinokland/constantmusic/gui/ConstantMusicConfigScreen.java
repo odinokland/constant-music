@@ -13,7 +13,7 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.components.AbstractWidget;
 
 *///?} else {
-import net.minecraft.client.gui.GuiGraphics;
+import com.mojang.blaze3d.vertex.PoseStack;
 //?}
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
@@ -61,14 +61,14 @@ public class ConstantMusicConfigScreen extends Screen {
 		this.list = this.addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height, 32, 32, this));
 		this.addOptions();
 		//? if >= 1.19.3 {
-		this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
+		/*this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
 			this.minecraft.setScreen(this.parent);
 		}).bounds(this.width / 2 - 100, this.height - 27, 200, 20).build());
-		//?} else {
-		/*this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (Button button) -> {
+		*///?} else {
+		this.addRenderableWidget(new Button(this.width / 2 - 100, this.height - 27, 200, 20, CommonComponents.GUI_DONE, (Button button) -> {
 			this.minecraft.setScreen(this.parent);
 		}));
-		*///?}
+		//?}
 		//?}
     }
 
@@ -119,14 +119,14 @@ public class ConstantMusicConfigScreen extends Screen {
         }
     }
 	*///?} else if >1.19.4 {
-	public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
+	/*public void render(@NotNull GuiGraphics gui, int i, int j, float f) {
 		super.render(gui, i, j, f);
 		gui.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
 	}
-	//?} else {
-		/*public void render(@NotNull PoseStack gui, int i, int j, float f) {
+	*///?} else {
+		public void render(@NotNull PoseStack gui, int i, int j, float f) {
 			super.render(gui, i, j, f);
 			drawCenteredString(gui, this.font, this.title, this.width / 2, 20, 16777215);
 		}
-	*///?}
+	//?}
 }

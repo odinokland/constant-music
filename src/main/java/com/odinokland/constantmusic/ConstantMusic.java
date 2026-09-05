@@ -6,9 +6,9 @@ import com.odinokland.constantmusic.platform.Platform;
 //? fabric {
 //import com.odinokland.constantmusic.platform.fabric.FabricPlatform;
 //? } forge {
-//import com.odinokland.constantmusic.platform.forge.ForgePlatform;
+import com.odinokland.constantmusic.platform.forge.ForgePlatform;
 //? } neoforge {
-import com.odinokland.constantmusic.platform.neoforge.NeoforgePlatform;
+//import com.odinokland.constantmusic.platform.neoforge.NeoforgePlatform;
 //? }
 import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.CommonComponents;
@@ -131,9 +131,9 @@ public class ConstantMusic {
 		//? fabric {
 		//return new FabricPlatform();
 		//?} neoforge {
-		return new NeoforgePlatform();
+		//return new NeoforgePlatform();
 		//?} forge {
-		//return new ForgePlatform();
+		return new ForgePlatform();
 		//?}
 	}
 }

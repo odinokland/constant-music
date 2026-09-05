@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
-
+/*
 import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.platform.Platform;
 //~ !forge_update
@@ -12,9 +12,9 @@ import net.neoforged.fml.loading.FMLPaths;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 
-/**
+/^*
  * The type Neoforge platform.
- */
+ ^/
 public class NeoforgePlatform implements Platform {
 	@Override
 	public boolean isModLoaded(String modId) {
@@ -36,7 +36,7 @@ public class NeoforgePlatform implements Platform {
 
 	@Override
 	public boolean isDevelopmentEnvironment() {
-		return !FMLLoader/*? if > 1.21.8 {*//*.getCurrent()*//*?}*/.isProduction();
+		return !FMLLoader/^? if > 1.21.8 {^//^.getCurrent()^//^?}^/.isProduction();
 	}
 
 	@Override
@@ -44,4 +44,4 @@ public class NeoforgePlatform implements Platform {
 		return Paths.get(FMLPaths.CONFIGDIR.get().toString(), Constants.MOD_ID + ".toml");
 	}
 }
-//?}
+*///?}

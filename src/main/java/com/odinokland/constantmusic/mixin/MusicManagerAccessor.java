@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.mixin;
 
 //? < 1.20 {
-/*import dev.kikugie.fletching_table.annotation.MixinEnvironment;
+import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.sounds.MusicManager;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,4 +20,4 @@ public interface MusicManagerAccessor {
 	SoundInstance getCurrentMusic();
 
 }
-*///? }
+//? }
