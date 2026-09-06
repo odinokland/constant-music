@@ -8,6 +8,7 @@ build/
 !**/src/test/**/build/
 
 run/
+run*.launch
 
 ### IntelliJ IDEA ###
 .idea/modules.xml
