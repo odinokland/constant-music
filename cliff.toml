@@ -6,12 +6,10 @@
 # See https://keats.github.io/tera/docs/#introduction
 header = """
 # Changelog\n
-All notable changes to this project will be documented in this file. See [conventional commits](https://www.conventionalcommits.org/) for commit guidelines.\n
 """
 # A Tera template to be rendered for each release in the changelog.
 # See https://keats.github.io/tera/docs/#introduction
 body = """
----
 {% if version %}\
     {% if previous.version %}\
         ## [{{ version | trim_start_matches(pat="v") }}]($REPO/compare/{{ previous.version }}..{{ version }}) - {{ timestamp | date(format="%Y-%m-%d") }}
@@ -30,23 +28,17 @@ body = """
     %}
         {% for commit in scoped %}
         - **({{commit.scope}})**{% if commit.breaking %} [**breaking**]{% endif %} \
-{{ commit.message }} - ([{{ commit.id | truncate(length=7, end="") }}]($REPO/commit/{{ commit.id }})) - {{ commit.author.name }}
+{{ commit.message | upper_first }}
     {% endfor %}
     {% raw %}\n{% endraw %}\
     {%- for commit in commits %}
         {%- if commit.scope -%}
         {% else -%}
             - {% if commit.breaking %} [**breaking**]{% endif %}\
-                {{ commit.message }} - ([{{ commit.id | truncate(length=7, end="") }}]($REPO/commit/{{ commit.id }})) - {{ commit.author.name }}
+                {{ commit.message | upper_first }}
         {% endif -%}
     {% endfor -%}
 {% endfor %}\n
-
-{% set contributors = commits | map(attribute="author.name") | unique | sort %}
-## Contributors
-{% for c in contributors %}
-- {{ c }}
-{% endfor %}
 """
 # A Tera template to be rendered as the changelog's footer.
 # See https://keats.github.io/tera/docs/#introduction
@@ -86,7 +78,7 @@ commit_parsers = [
 	{ message = "^style", group = "Code Style" },
 	{ message = "^revert", group = "Revert" },
 	{ message = "^test", group = "Tests" },
-	{ message = "^chore", group = "Chores" },
+	{ message = "^chore", group = "Chores", skip = true },
 	{ body = ".*security", group = "Security" },
 	{ message = ".*\\((ci|cd|dx)(/.*)?\\).*", group = "Development/Tooling" },
 
