@@ -73,10 +73,23 @@ public class ConstantMusicConfigScreen extends Screen {
     }
 
 	/**
+	 * Gets a config option.
+	 *
+	 * @return the config option
+	 */
+	public static OptionInstance<Integer> getConfigOption() {
+		return new OptionInstance<Integer>("constantmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
+			return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : ConstantMusic.timeDisplayText(integer);
+		}, new OptionInstance.IntRange(0, 600), ConstantMusic.getTimer(), (integer) -> {
+			ConstantMusic.setTimer(Integer.parseInt(integer.toString()));
+		});
+	}
+
+	/**
 	 * Add options.
 	 */
 	protected void addOptions() {
-		OptionInstance<?>[] options = new OptionInstance[]{ConstantMusic.getConfigOption()};
+		OptionInstance<?>[] options = new OptionInstance[]{getConfigOption()};
 		if (this.list != null) {
 			this.list.addSmall(options);
 		}

@@ -1,0 +1,7 @@
+{
+  "type": "function",
+  "function": "constantmusic:test_delay_slider_option_and_config_screen",
+  "environment": "constantmusic:default",
+  "structure": "constantmusic:empty",
+  "max_ticks": 100
+}

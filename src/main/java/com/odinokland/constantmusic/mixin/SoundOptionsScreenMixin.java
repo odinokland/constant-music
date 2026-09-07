@@ -1,18 +1,16 @@
 package com.odinokland.constantmusic.mixin;
 
 
-import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
-import net.minecraft.client.OptionInstance;
 //? < 1.19.3 {
-import net.minecraft.client.gui.components.VolumeSlider;
+import com.odinokland.constantmusic.gui.MusicDelaySlider;
 import com.llamalad7.mixinextras.sugar.Local;
-import com.odinokland.constantmusic.util.ICustomSoundSource;
-import com.odinokland.constantmusic.util.SoundSourceUtil;
 import net.minecraft.sounds.SoundSource;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? }
+import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.client.gui.screens.SoundOptionsScreen;
 import net.minecraft.network.chat.Component;
@@ -49,7 +47,7 @@ public class SoundOptionsScreenMixin extends Screen {
 	protected void onGetAllOptions(CallbackInfoReturnable<OptionInstance<?>[]> cir) {
 		OptionInstance<?>[] defaultOptions = cir.getReturnValue();
 
-		OptionInstance<Integer> seconds = ConstantMusic.getConfigOption();
+		OptionInstance<Integer> seconds = ConstantMusicConfigScreen.getConfigOption();
 
 		OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];
 
@@ -91,15 +89,7 @@ public class SoundOptionsScreenMixin extends Screen {
 	)
 	private void addCustomSliderAfterLoop(CallbackInfo ci, @Local(ordinal = 2) int loopCounter) {
 		Constants.LOG.info("Adding custom slider after loop");
-		// MixinExtras' @Local sugar safely grabs the primitive loop counter/index
-		// without you needing to guess the exact obfuscated local variable index (e.g., "l", "i").
-
-		// SoundSource.values() excluding MASTER means the loop runs a specific number of times.
-		// We check if we are on the very last iteration of the SoundSource loop.
 		int totalVanillaSources = SoundSource.values().length - 1; // 9 elements
-		SoundSource customSource = SoundSourceUtil.createDummySource();
-		((ICustomSoundSource) (Object) customSource).setMusicDelay(true);
-		Constants.LOG.info("loopCounter: " + loopCounter + " totalVanillaSources: " + totalVanillaSources + "");
 
 		if (loopCounter == totalVanillaSources - 1) {
 			// Calculate the next slot in the grid perfectly
@@ -107,12 +97,12 @@ public class SoundOptionsScreenMixin extends Screen {
 			int xPos = this.width / 2 - 155 + (nextIndex % 2) * 160;
 			int yPos = (this.height / 6 - 12)  + 22 * (nextIndex >> 1);
 			// Add your custom slider into the native layout flow
-			this.addRenderableWidget(new VolumeSlider(
+			this.addRenderableWidget(new MusicDelaySlider(
 					this.minecraft,
 					xPos,
 					yPos,
-					customSource,
-					150
+					150,
+					20
 			));
 		}
 	}

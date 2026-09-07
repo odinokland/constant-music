@@ -8,6 +8,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
+import org.gradle.api.artifacts.VersionCatalogsExtension
 import org.gradle.api.artifacts.dsl.RepositoryHandler
 import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.file.RegularFileProperty
@@ -18,6 +19,7 @@ import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
+import org.gradle.api.tasks.testing.Test
 import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import org.gradle.jvm.tasks.Jar
 import org.gradle.jvm.toolchain.JavaLanguageVersion
@@ -156,6 +158,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		configureIdea()
 		configureProcessResources(ctx)
 		configureJava(ctx)
+		configureTesting(ctx)
 		registerBuildAndCollectTask(ctx)
 
 		configureModPublishing(ctx)
@@ -180,6 +183,26 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 					languageVersion.set(JavaLanguageVersion.of(ctx.javaVersion.majorVersion))
 				})
 			}
+		}
+	}
+
+	private fun Project.configureTesting(ctx: Context) {
+		val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+		val java = the<JavaPluginExtension>()
+		java.sourceSets.named("test") {
+			compileClasspath += java.sourceSets.getByName("main").compileClasspath
+			runtimeClasspath += java.sourceSets.getByName("main").runtimeClasspath
+		}
+		tasks.withType<Test>().configureEach {
+			useJUnitPlatform()
+			testLogging {
+				events("passed", "skipped", "failed")
+			}
+		}
+		dependencies {
+			"testImplementation"(libs.findLibrary("junit-jupiter").get())
+			"testImplementation"(libs.findLibrary("assertj-core").get())
+			"testRuntimeOnly"(libs.findLibrary("junit-platform-launcher").get())
 		}
 	}
 

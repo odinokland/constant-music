@@ -56,6 +56,15 @@ loom {
 		runtimeEnvironment.set("server")
 		displayName.set("Fabric Server")
 	}
+	runs.register("gameTestServer") {
+		server()
+		generateRunConfig.set(false)
+		runDirectory.set(layout.projectDirectory.dir("run/gametest"))
+		runtimeEnvironment.set("server")
+		displayName.set("Fabric GameTest Server")
+		systemProperties.put("fabric-api.gametest", "true")
+		systemProperties.put("fabric-api.gametest.report-file", layout.buildDirectory.file("gametest-report.xml").get().asFile.absolutePath)
+	}
 }
 
 fabricApi {

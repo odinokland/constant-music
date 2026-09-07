@@ -1,0 +1,7 @@
+{
+  "type": "function",
+  "function": "constantmusic:test_mod_loaded_and_world_entered",
+  "environment": "constantmusic:default",
+  "structure": "constantmusic:empty",
+  "max_ticks": 100
+}

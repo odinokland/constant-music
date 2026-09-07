@@ -51,6 +51,13 @@ neoForge {
 			ideName = "NeoForge Server (${stonecutter.current.version})"
 			disableIdeRun()
 		}
+		register("gameTestServer") {
+			type = "gameTestServer"
+			gameDirectory = file("run/")
+			ideName = "NeoForge GameTest Server (${stonecutter.current.version})"
+			systemProperty("neoforge.enabledGameTestNamespaces", prop("mod.id"))
+//			systemProperty("forge.gametest.report-file", file("gametest-report.xml").absolutePath)
+		}
 	}
 
 	mods {

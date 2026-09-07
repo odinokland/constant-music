@@ -4,7 +4,6 @@ package com.odinokland.constantmusic.platform.neoforge;
 /*
 import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.platform.Platform;
-//~ !forge_update
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.FMLPaths;

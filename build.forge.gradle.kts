@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.version
-
 plugins {
 	id("mod-platform")
 	id("net.minecraftforge.gradle")
@@ -37,32 +35,25 @@ minecraft {
 	mappings("official", prop("deps.minecraft"))
 	runs {
 		configureEach {
-			if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
-				environment("MOD_CLASSES", "{source_roots}")
-			}
+//			if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
+//				environment("MOD_CLASSES", "{source_roots}")
+//			}
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
 			systemProperty("forge.enabledGameTestNamespaces", prop("mod.id"))
 			args("--mixin.config", "${prop("mod.id")}.mixins.json")
-			if (stonecutter.eval(stonecutter.current.version, ">=1.17") && stonecutter.eval(stonecutter.current.version, "<=1.18")) {
-				jvmArgs("--add-opens=java.base/java.lang.invoke=ALL-UNNAMED")
-			}
+//			if (stonecutter.eval(stonecutter.current.version, ">=1.17") && stonecutter.eval(stonecutter.current.version, "<=1.18")) {
+//				jvmArgs("--add-opens=java.base/java.lang.invoke=ALL-UNNAMED")
+//			}
 		}
-		register("client") {
-			with(sourceSets["main"]) {
-				mods {
-					create(prop("mod.id")) {
-						source(sourceSets["main"])
-					}
-				}
-			}
-			systemProperty("forge.logging.console.level", "debug")
-		}
+		register("client")
+		register("gameTestServer")
 	}
 }
 
 repositories {
+	mavenLocal()
 	minecraft.mavenizer(this)
 	maven(fg.forgeMaven)
 	maven(fg.minecraftLibsMaven)
@@ -95,33 +86,9 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
 			mappings(renamer.mixin.generatedMappings)
 		}
 	}
-	//tasks.named("mergeMixinMappings") { dependsOn("compileJava") }
-//	tasks.withType<Jar>().configureEach {
-//		if (name == "sourcesJar") dependsOn("renameJar")
-//	}
 } else {
 	tasks.withType<Jar>().configureEach {
 		if (name == "sourcesJar") dependsOn("jarJar")
-	}
-}
-
-// ForgeGradle 7.0.35 derives this task output from its own outputDirectory.
-// With Gradle 9, that self-referential provider can leave the launcher metadata
-// stale or incomplete (notably omitting module-path dependencies such as
-// jopt-simple). Keep the generated runs.json at a stable, explicit location.
-tasks.configureEach {
-	if (name == "slimeLauncherMetadataForForge") {
-		@Suppress("UNCHECKED_CAST")
-		val outputDirectory = javaClass.methods
-			.first { it.name == "getOutputDirectory" }
-			.invoke(this) as org.gradle.api.file.DirectoryProperty
-		@Suppress("UNCHECKED_CAST")
-		val runsJson = javaClass.methods
-			.first { it.name == "getRunsJson" }
-			.invoke(this) as org.gradle.api.file.RegularFileProperty
-		val metadataDirectory = layout.buildDirectory.dir("forgegradle/slimeLauncherMetadata")
-		outputDirectory.set(metadataDirectory)
-		runsJson.set(metadataDirectory.map { it.file("launcher/runs.json") })
 	}
 }
 

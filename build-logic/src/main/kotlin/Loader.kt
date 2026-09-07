@@ -27,7 +27,7 @@ sealed class Loader(val id: String) {
 		override val isFabricLike = true
 		override val modManifestPath = "fabric.mod.json"
 		override val excludedResources = listOf(
-			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta"
+			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/constantmusic/test_instance/*.json"
 		)
 
 		override fun generateManifest(ctx: Context): String {
@@ -58,7 +58,8 @@ sealed class Loader(val id: String) {
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricEntrypoint"),
 					"preLaunch" to listOf("com.llamalad7.mixinextras.MixinExtrasBootstrap::init"),
-					"modmenu" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricModMenuIntegration")
+					"modmenu" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricModMenuIntegration"),
+					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.gametest.FabricGameTests")
 				),
 				mixins = listOf("${ctx.modId}.mixins.json"),
 				depends = ctx.extension.dependencies.required.associate { it.modid.get() to it.fabricLikeVersionRange.get() },
@@ -128,7 +129,7 @@ sealed class Loader(val id: String) {
 
 	object NeoForge : ForgeLike("neoforge") {
 		override val modManifestPath = "META-INF/neoforge.mods.toml"
-		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta"
+		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta" + "data/constantmusic/test_instance/*.json"
 
 		private fun isLegacy(ctx: Context) = !ctx.stonecutter.eval(ctx.currentMcVersion, ">=1.20.5")
 

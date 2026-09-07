@@ -17,8 +17,14 @@ mixinextras = "0.5.4"
 forgegradle = "[7.0.29,8.0)"
 renamer = "1.1.2"
 jarjar = "0.2.3"
+junit = "5.11.4"
+junit-platform = "1.11.4"
+assertj = "3.27.3"
 
 [libraries]
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
+junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
+assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
 kikugie-postprocess = { module = "dev.kikugie:postprocess", version.ref = "stonecutter-postprocess" }
 mod-publish-plugin = { module = "me.modmuss50:mod-publish-plugin", version.ref = "mod-publish" }
 kikugie-stonecutter = { module = "dev.kikugie:stonecutter", version.ref = "stonecutter" }

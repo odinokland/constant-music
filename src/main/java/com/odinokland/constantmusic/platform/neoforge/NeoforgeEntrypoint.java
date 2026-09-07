@@ -1,37 +1,39 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
-/*import net.neoforged.fml.ModContainer;
+/*//? if >=1.21.5 {
+//import com.odinokland.constantmusic.platform.neoforge.gametest.NeoforgeGameTests;
+//? }
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.Constants;
-//? if >= 1.20.6 {
-/^import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
-import java.util.function.Supplier;
-^///? }
-//? if < 1.20.6 {
-import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
-import net.neoforged.neoforge.client.ConfigScreenHandler;
-//?}
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 /^*
- * The type Neoforge entrypoint.
+ * The type Neoforge entrypoint. aHXcqJOABdlHUb1@
  ^/
 @Mod(Constants.MOD_ID)
 public class NeoforgeEntrypoint {
-
+	private static ModContainer modContainerContext;
 	/^*
 	 * Instantiates a new Neoforge entrypoint.
 	 ^/
-	public NeoforgeEntrypoint(ModContainer modContainer) {
+	public NeoforgeEntrypoint(IEventBus modEventBus, ModContainer modContainer) {
+		modContainerContext = modContainer;
 		ConstantMusic.init();
-		//? if >= 1.20.6 {
-		//modContainer.registerExtensionPoint(IConfigScreenFactory.class, (Supplier<IConfigScreenFactory>) NeoforgeConfigHelper::new);
-		//? } else {
-		modContainer.registerExtensionPoint(
-				ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory(
-						(minecraft, parent) -> new ConstantMusicConfigScreen(parent)));
-		//?}
+		modEventBus.addListener(NeoforgeEntrypoint::onClientSetup);
+		//? if >=1.21.5 {
+		/^NeoforgeGameTests.FUNCTIONS.register(modEventBus);
+		//modEventBus.addListener(NeoforgeGameTests::registerTests);
+		//modEventBus.addListener(GameTestRegistry::onRegisterGameTests);
+		^///? }
+	}
+
+	public static void onClientSetup(FMLClientSetupEvent event)
+	{
+		NeoForgeClientEntrypoint.setupConfigScreen(modContainerContext);
 	}
 }
 *///?}

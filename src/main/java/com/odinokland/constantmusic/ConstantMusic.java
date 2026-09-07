@@ -10,7 +10,6 @@ import com.odinokland.constantmusic.platform.forge.ForgePlatform;
 //? } neoforge {
 //import com.odinokland.constantmusic.platform.neoforge.NeoforgePlatform;
 //? }
-import net.minecraft.client.OptionInstance;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
@@ -42,13 +41,51 @@ public class ConstantMusic {
 	}
 
 	/**
+	 * Read value int from file.
+	 *
+	 * @param file the config file
+	 * @return the int
+	 */
+	public static int readValue(File file) {
+		if (file == null || !file.exists()) {
+			return 0;
+		}
+		try {
+			Toml toml = new Toml().read(file);
+			Long timerVal = toml.getLong("timer");
+			return timerVal != null ? timerVal.intValue() : 0;
+		} catch (Exception e) {
+			return 0;
+		}
+	}
+
+	/**
 	 * Read value int.
 	 *
 	 * @return the int
 	 */
 	public static int readValue() {
-		Toml toml = new Toml().read(new File(PLATFORM.getConfigFile().toString()));
-		return toml.getLong("timer").intValue();
+		return readValue(new File(PLATFORM.getConfigFile().toString()));
+	}
+
+	/**
+	 * Write value to file.
+	 *
+	 * @param file  the config file
+	 * @param value the value
+	 */
+	public static void writeValue(File file, int value) {
+		TomlWriter tomlWriter = new TomlWriter();
+		try {
+			if (file.getParentFile() != null) {
+				file.getParentFile().mkdirs();
+			}
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put("timer", value);
+			tomlWriter.write(map, file);
+		} catch (IOException e) {
+			// ignore or log
+		}
 	}
 
 	/**
@@ -57,14 +94,24 @@ public class ConstantMusic {
 	 * @param value the value
 	 */
 	public static void writeValue(int value) {
-		TomlWriter tomlWriter = new TomlWriter();
-		try {
-			Map<String, Object> map = new HashMap<String, Object>();
-			map.put("timer", value);
-			tomlWriter.write(map, new File(PLATFORM.getConfigFile().toString()));
-		} catch (IOException e) {
-			// throw new RuntimeException(e);
-		}
+		writeValue(new File(PLATFORM.getConfigFile().toString()), value);
+	}
+
+	/**
+	 * Reset manual config initialization flag for testing.
+	 *
+	 * @param defaultTimer the default timer value
+	 */
+	public static void resetForTesting(int defaultTimer) {
+		timer = defaultTimer;
+		manualConfigInitialized = true;
+	}
+
+	/**
+	 * Reset manual config initialization state so next getTimer() reloads from file.
+	 */
+	public static void resetConfig() {
+		manualConfigInitialized = false;
 	}
 
 	/**
@@ -94,18 +141,6 @@ public class ConstantMusic {
 		timer = value;
 	}
 
-	/**
-	 * Gets a config option.
-	 *
-	 * @return the config option
-	 */
-	public static OptionInstance<Integer> getConfigOption() {
-		return new OptionInstance<Integer>("constantmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
-			return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : ConstantMusic.timeDisplayText(integer);
-		}, new OptionInstance.IntRange(0, 600), ConstantMusic.getTimer(), (integer) -> {
-			ConstantMusic.setTimer(Integer.parseInt(integer.toString()));
-		});
-	}
 
 	/**
 	 * Time display text-mutable component.
