@@ -36,13 +36,18 @@ import net.minecraftforge.fml.client.registry.ClientRegistry;
 public class ForgeEntrypoint {
 	private static ModLoadingContext modLoadingContext;
 
+	//? if 1.19.4 || >=1.20.6 {
+
+	/*/^*
+	 * Default constructor for Forge entrypoint.
+	 * @param context The FMLJavaModLoadingContext for the mod.
+	 ^/
+	public ForgeEntrypoint(FMLJavaModLoadingContext context) {
+		modLoadingContext = context;
+	*///?} else {
 	/**
 	 * Instantiates a new Forge entrypoint.
 	 */
-	//? if 1.19.4 || >=1.20.6 {
-	/*public ForgeEntrypoint(FMLJavaModLoadingContext context) {
-		modLoadingContext = context;
-	*///?} else {
 	public ForgeEntrypoint() {
 		modLoadingContext = ModLoadingContext.get();
 		FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
@@ -58,6 +63,10 @@ public class ForgeEntrypoint {
 		//?}
 	}
 
+	/**
+	 * On FML client setup event.
+	 * @param event The FMLClientSetupEvent for the mod.
+	 */
 	public static void onClientSetup(final FMLClientSetupEvent event) {
 		ForgeClientEntrypoint.setupConfigScreen(modLoadingContext);
 	}

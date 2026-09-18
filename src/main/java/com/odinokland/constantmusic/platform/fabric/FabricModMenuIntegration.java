@@ -17,6 +17,11 @@ import net.fabricmc.api.Environment;
  ^/
 @Environment(EnvType.CLIENT)
 public class FabricModMenuIntegration implements ModMenuApi {
+
+	/^*
+	 * Default constructor for FabricModMenuIntegration.
+	 ^/
+	public FabricModMenuIntegration() {}
 	/^*
 	 * Gets mod config screen factory.
 	 *

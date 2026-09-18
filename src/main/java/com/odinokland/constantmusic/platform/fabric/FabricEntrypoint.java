@@ -23,6 +23,12 @@ import com.odinokland.constantmusic.platform.fabric.client.event.ClientWorldEven
 public class FabricEntrypoint implements ModInitializer, ClientModInitializer {
 
 	/^*
+	 * Default constructor for FabricEntrypoint.
+	 ^/
+	public FabricEntrypoint() {
+	}
+
+	/^*
 	 * On initialize.
 	 ^/
 	@Override

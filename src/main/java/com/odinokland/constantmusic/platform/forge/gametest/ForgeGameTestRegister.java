@@ -8,8 +8,14 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.gametest.ForgeGameTestHooks;
 import net.minecraftforge.registries.RegisterEvent;
 
+/^*
+ * Registration class for forge tests.
+ ^/
 @Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeGameTestRegister {
+	/^*
+     * Registers the test functions.
+     ^/
 	@SubscribeEvent
 	public static void registerTestFunctions(RegisterEvent event) {
 		if (!event.getRegistryKey().equals(Registries.TEST_FUNCTION)) {

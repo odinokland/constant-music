@@ -14,6 +14,9 @@ import net.minecraft.gametest.framework.GameTest;
 import net.minecraftforge.gametest.GameTestDontPrefix;
 *///?}
 
+/**
+ * The game tests for the Forge platform.
+ */
 @GameTestHolder(Constants.MOD_ID)
 //? <1.20.1 {
 @PrefixGameTestTemplate(false)
@@ -29,10 +32,17 @@ public class ForgeGameTests {
 	//?}
 	private static final String ENVIRONMENT_NAME = Constants.MOD_ID + "default";
 
+	/**
+	 * Default constructor for Forge game tests.
+	 */
 	public ForgeGameTests() {
 		commonGameTests = new CommonGameTests();
 	}
 
+	/**
+	 * On game test.
+	 * @param helper The GameTestHelper for the game test.
+	 */
 	//? >=1.21.5 {
 	//@GameTest
 	//?} else {
@@ -42,6 +52,10 @@ public class ForgeGameTests {
 		commonGameTests.testModLoadedAndWorldEntered(helper);
 	}
 
+	/**
+	 * On game test.
+	 * @param helper The GameTestHelper for the game test.
+	 */
 	//? >=1.21.5 {
 	//@GameTest
 	//?} else {
@@ -51,6 +65,10 @@ public class ForgeGameTests {
 		commonGameTests.testDelaySliderOptionAndConfigScreen(helper);
 	}
 
+	/**
+	 * On game test.
+	 * @param helper The GameTestHelper for the game test.
+	 */
 	//? >=1.21.5 {
 	//@GameTest
 	//?} else {

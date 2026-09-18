@@ -10,6 +10,9 @@ import net.minecraft.client.multiplayer.ClientLevel;
  * The type Client world events.
  ^/
 public final class ClientWorldEvents {
+	/^*
+	 * Default constructor for ClientWorldEvents.
+	 ^/
 	private ClientWorldEvents() {
 	}
 

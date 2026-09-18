@@ -16,6 +16,18 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 @Mixin(Minecraft.class)
 public abstract class MinecraftClientMixin {
+
+	/^*
+	 * Default constructor.
+	 ^/
+	public MinecraftClientMixin() {
+	}
+
+	/^*
+	 * Register an after client world change event.
+	 * @param world the minecraft client world
+	 * @param ci the callback info
+	 ^/
 	@Inject(method = "updateLevelInEngines", at = @At("TAIL"))
 	private void afterClientWorldChange(ClientLevel world, CallbackInfo ci) {
 		if (world != null) {

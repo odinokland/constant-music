@@ -19,11 +19,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
+/^*
+ * Neoforge game tests.
+ ^/
 @EventBusSubscriber(modid = Constants.MOD_ID)
 public class NeoforgeGameTests {
 	private static final String STRUCTURE = "empty";
 	private static final int MAX_TICKS = 400;
 
+	/^*
+	 * The default constructor.
+	 ^/
+	public NeoforgeGameTests() {
+	}
+
+	/^*
+	 * The game tests functions.
+	 ^/
 	public static final DeferredRegister<Consumer<GameTestHelper>> FUNCTIONS =
 			DeferredRegister.create(Registries.TEST_FUNCTION, Constants.MOD_ID);
 
@@ -38,11 +50,20 @@ public class NeoforgeGameTests {
 		add("test_mod_loaded_and_world_entered", tests::testModLoadedAndWorldEntered);
 	}
 
+	/^*
+	 * Add a game test.
+	 * @param name the name of the test
+	 * @param body the test body
+	 ^/
 	private static void add(String name, Consumer<GameTestHelper> body) {
 		FUNCTIONS.register(name, () -> body);
 		NAMES.add(name);
 	}
 
+	/^*
+	 * Register the game tests.
+	 * @param event the event
+	 ^/
 	@SubscribeEvent
 	public static void registerTests(RegisterGameTestsEvent event) {
 		Constants.LOG.info("Dan: registering tests");
@@ -64,6 +85,11 @@ public class NeoforgeGameTests {
 		}
 	}
 
+	/^*
+	 * Get the game test id.
+	 * @param path the path
+	 * @return the game test id
+	 ^/
 	private static ResourceLocation id(String path) {
 		return ResourceLocation.fromNamespaceAndPath(Constants.MOD_ID, path);
 	}

@@ -5,7 +5,20 @@ import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 
+/**
+ * Entry point for Forge client-side code.
+ */
 public class ForgeClientEntrypoint {
+
+	/**
+	 * Default constructor for ForgeClientEntrypoint.
+	 */
+	public ForgeClientEntrypoint() {
+	}
+	/**
+	 * Hook to set up config screen.
+	 * @param modLoadingContext The ModLoadingContext for the mod.
+	 */
 	public static void setupConfigScreen(ModLoadingContext modLoadingContext) {
 		//? if >=1.19 {
 		modLoadingContext.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->

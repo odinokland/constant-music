@@ -11,6 +11,10 @@ import java.lang.reflect.Method;
 import net.fabricmc.fabric.api.gametest.v1.FabricGameTest;
 import net.minecraft.gametest.framework.GameTest;
 //? }
+
+/^*
+ * The game tests for the Fabric platform.
+ ^/
 //? >= 1.21.5 {
 //public class FabricGameTests implements CustomTestMethodInvoker {
 //? } else {
@@ -23,22 +27,37 @@ public class FabricGameTests implements FabricGameTest {
 	//private static final String TEMPLATE_NAME = "constantmusic:empty";
 	//? }
 
+	/^*
+	 * Constructor for the FabricGameTests.
+	 ^/
 	public FabricGameTests() {
 		commonGameTests = new CommonGameTests();
 	}
 
+	/^*
+	 * Test mod loaded and world entered.
+	 * @param helper Minecraft Game Test Helper
+	 ^/
 	//$ gametest_annotation
 	@GameTest(template = TEMPLATE_NAME)
 	public void testModLoadedAndWorldEntered(GameTestHelper helper) {
 		commonGameTests.testModLoadedAndWorldEntered(helper);
 	}
 
+	/^*
+	 * Test delay slider option and config screen.
+	 * @param helper Minecraft Game Test Helper
+	 ^/
 	//$ gametest_annotation
 	@GameTest(template = TEMPLATE_NAME)
 	public void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
 		commonGameTests.testDelaySliderOptionAndConfigScreen(helper);
 	}
 
+	/^*
+	 * Test jukebox music suppression and resumption.
+	 * @param helper Minecraft Game Test Helper
+	 ^/
 	//$ gametest_annotation
 	@GameTest(template = TEMPLATE_NAME)
 	public void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
@@ -46,7 +65,14 @@ public class FabricGameTests implements FabricGameTest {
 	}
 
 	//? >= 1.21.5 {
-	/^@Override
+
+	/^/^*
+	 * Invoke test method.
+	 * @param helper Game Test Helper
+	 * @param method Method to invoke
+	 * @throws ReflectiveOperationException If an error occurs during method invocation
+	 ^/
+	@Override
 	public void invokeTestMethod(GameTestHelper helper, Method method) throws ReflectiveOperationException {
 		method.invoke(this, helper);
 	}

@@ -19,6 +19,9 @@ public class NeoforgeEntrypoint {
 	private static ModContainer modContainerContext;
 	/^*
 	 * Instantiates a new Neoforge entrypoint.
+	 *
+	 * @param modEventBus The mod event bus.
+	 * @param modContainer The mod container.
 	 ^/
 	public NeoforgeEntrypoint(IEventBus modEventBus, ModContainer modContainer) {
 		modContainerContext = modContainer;
@@ -31,6 +34,10 @@ public class NeoforgeEntrypoint {
 		^///? }
 	}
 
+	/^*
+	 * On client setup.
+	 * @param event The FMLClientSetupEvent.
+	 ^/
 	public static void onClientSetup(FMLClientSetupEvent event)
 	{
 		NeoForgeClientEntrypoint.setupConfigScreen(modContainerContext);

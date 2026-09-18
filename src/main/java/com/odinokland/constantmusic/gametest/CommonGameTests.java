@@ -24,7 +24,14 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 *///?}
 public class CommonGameTests {
 	/**
+	 * Default constructor for CommonGameTests.
+	 */
+	public CommonGameTests() {
+	}
+	/**
 	 * Test 1: Minecraft starts, loads the mod, and can enter the game without crashing.
+	 *
+	 * @param helper Minecraft game test helper
 	 */
 	//? neoforge_game_annotations
 	//@GameTest(template = "empty")
@@ -38,6 +45,8 @@ public class CommonGameTests {
 	/**
 	 * Test 2: When in game, if a jukebox is playing in range, the background music is stopped.
 	 * If the jukebox stops playing or is out of range, the background music resumes.
+	 *
+	 * @param helper Minecraft game test helper
 	 */
 	//? neoforge_game_annotations
 	//@GameTest(template = "empty")
@@ -94,6 +103,8 @@ public class CommonGameTests {
 
 	/**
 	 * Test 3 and 4: The mod successfully configures the delay timer and formats display text.
+	 *
+	 * @param helper Minecraft game test helper
 	 */
 	//? neoforge_game_annotations
 	//@GameTest(template = "empty")
@@ -175,6 +186,17 @@ public class CommonGameTests {
 		//"Failed to run assertTrue"
 	}
 
+	/**
+	 * An assertion method that checks if a condition is true
+	 *
+	 * @param helper    Minecraft game test helper
+	 * @param messageType Type of message to assert
+	 * @param condition   Condition to assert
+	 * @param message     Failure message
+	 * @throws NoSuchMethodException When method doesn't exist on the game test helper
+	 * @throws InvocationTargetException When there is an error invoking the method
+	 * @throws IllegalAccessException When there is an error accessing the method
+	 */
 	void runAssert(GameTestHelper helper, Class<?> messageType, boolean condition, String message) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 		var assertMessage = (messageType == MutableComponent.class) ? Component.literal(message) : message;
 		var method = GameTestHelper.class.getMethod("assertTrue", boolean.class, messageType);

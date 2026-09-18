@@ -8,14 +8,25 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Unique;
 
+/**
+ * Music delay slider.
+ */
 public class MusicDelaySlider extends AbstractSliderButton {
 
+	/**
+	 * Music delay slider.
+	 * @param minecraft the minecraft
+	 * @param x the x
+	 * @param y the y
+	 * @param width the width
+	 * @param height the height
+	 */
 	public MusicDelaySlider(Minecraft minecraft, int x, int y, int width, int height) {
 		super(x, y, width, height, getDisplayValue(), getSliderPercentage());
 		setValueFromConfig();
 	}
 
-	/*
+	/**
 	 * Sets value from config.
 	 */
 	@Unique
@@ -25,17 +36,25 @@ public class MusicDelaySlider extends AbstractSliderButton {
 		this.updateMessage();
 	}
 
+	/**
+	 * Minimum value inclusive.
+	 * @return the minimum value inclusive
+	 */
 	@Unique
 	private static int minInclusive() {
 		return 0;
 	}
 
+	/**
+	 * Maximum value inclusive.
+	 * @return the maximum value inclusive
+	 */
 	@Unique
 	private static int maxInclusive() {
 		return ConstantMusic.MAX_TIMER;
 	}
 
-	/*
+	/**
 	 * To slider value double.
 	 *
 	 * @param integer the integer
@@ -46,7 +65,7 @@ public class MusicDelaySlider extends AbstractSliderButton {
 		return (double) Mth.map((float) integer.intValue(), (float) minInclusive(), (float) maxInclusive(), 0.0F, 1.0F);
 	}
 
-	/*
+	/**
 	 * From slider value integer.
 	 *
 	 * @param d The percentage value of the slider

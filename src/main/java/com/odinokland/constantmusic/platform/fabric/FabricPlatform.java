@@ -15,6 +15,12 @@ import java.nio.file.Paths;
 public class FabricPlatform implements Platform {
 
 	/^*
+	 * Default constructor for FabricPlatform.
+	 ^/
+	public FabricPlatform() {
+	}
+
+	/^*
 	 * Is mod loaded boolean.
 	 *
 	 * @param modId the mod id

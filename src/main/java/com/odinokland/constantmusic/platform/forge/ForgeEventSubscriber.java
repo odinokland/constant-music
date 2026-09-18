@@ -18,6 +18,11 @@ import net.minecraftforge.event.level.LevelEvent;
 public class ForgeEventSubscriber {
 
 	/**
+	 * Constructor for the ForgeEventSubscriber.
+	 */
+	public ForgeEventSubscriber() {
+	}
+	/**
 	 * On client tick.
 	 *
 	 * @param event the event

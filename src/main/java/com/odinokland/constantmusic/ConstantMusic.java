@@ -32,6 +32,11 @@ public class ConstantMusic {
 	private static final Platform PLATFORM = createPlatformInstance();
 
 	/**
+	 * Default constructor for ConstantMusic.
+	 */
+	public ConstantMusic() {}
+
+	/**
 	 * Init.
 	 */
 	public static void init() {
