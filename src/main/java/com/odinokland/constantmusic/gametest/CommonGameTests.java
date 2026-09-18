@@ -21,7 +21,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
 //? neoforge_game_annotations {
 /*@GameTestHolder(Constants.MOD_ID)
 @PrefixGameTestTemplate(false)
-*///? }
+*///?}
 public class CommonGameTests {
 	/**
 	 * Test 1: Minecraft starts, loads the mod, and can enter the game without crashing.
@@ -122,37 +122,40 @@ public class CommonGameTests {
 
 	/**
 	 * Fail the test with a position
-	 * @param helper GameTestHelper
+	 *
+	 * @param helper  GameTestHelper
 	 * @param message Failure message
-	 * @param pos A position
+	 * @param pos     A position
 	 */
 	private void failTest(GameTestHelper helper, String message, BlockPos pos) {
-		//? >= 1.21.5 {
+		//? >=1.21.5 {
 		//helper.fail(Component.literal(message), pos);
-		//? } else {
+		//?} else {
 		helper.fail(message, pos);
-		//? }
+		//?}
 	}
 
 	/**
 	 * Fail the test with an entity
-	 * @param helper GameTestHelper
+	 *
+	 * @param helper  GameTestHelper
 	 * @param message Failure message
-	 * @param entity Entity
+	 * @param entity  Entity
 	 */
 	private void failTest(GameTestHelper helper, String message, Entity entity) {
-		//? >= 1.21.5 {
+		//? >=1.21.5 {
 		//helper.fail(Component.literal(message), entity);
-		//? } else {
+		//?} else {
 		helper.fail(message, entity);
-		//? }
+		//?}
 	}
 
 	/**
 	 * Assert that a condition is true
-	 * @param helper GameTestHelper
+	 *
+	 * @param helper    GameTestHelper
 	 * @param condition Condition to assert
-	 * @param message Failure message
+	 * @param message   Failure message
 	 */
 	void assertTrue(GameTestHelper helper, boolean condition, String message) {
 

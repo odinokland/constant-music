@@ -59,6 +59,7 @@ public class MusicDelaySlider extends AbstractSliderButton {
 
 	/**
 	 * Get the display value for the slider.
+	 *
 	 * @return Component
 	 */
 	private static Component getDisplayValue() {
@@ -68,6 +69,7 @@ public class MusicDelaySlider extends AbstractSliderButton {
 
 	/**
 	 * Get the percentage value for the slider.
+	 *
 	 * @return double
 	 */
 	private static double getSliderPercentage() {

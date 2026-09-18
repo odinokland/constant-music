@@ -2,8 +2,8 @@ package com.odinokland.constantmusic.gametest;
 //? >= 27.1 {
 /*//? neoforge {
 /^//? > 1.21.6 {
-//
-//? } else {
+
+////? } else {
 import net.neoforged.neoforge.gametest.GameTest;
 //? }
 import net.minecraft.gametest.framework.GameTestHelper;

@@ -22,21 +22,22 @@ import net.minecraft.sounds.Music;
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 @Mixin(MusicManager.class)
 public class MusicManagerMixin {
-	private MusicManagerMixin() {}
+	private MusicManagerMixin() {
+	}
 
-    @Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 1))
-    private int constantmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
-        return Math.min(nextSongDelay, ConstantMusic.getTimer() * 20);
-    }
+	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 1))
+	private int constantmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
+		return Math.min(nextSongDelay, ConstantMusic.getTimer() * 20);
+	}
 
 
-	//? if <= 1.21.3 || > 1.21.8 {
+	//? if <=1.21.3 || >1.21.8 {
 	@WrapWithCondition(
-		method = "tick",
-		at = @At(
-			value = "INVOKE",
-			target = "Lnet/minecraft/client/sounds/MusicManager;startPlaying(Lnet/minecraft/sounds/Music;)V"
-		)
+			method = "tick",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/sounds/MusicManager;startPlaying(Lnet/minecraft/sounds/Music;)V"
+			)
 	)
 	private boolean dontPlayIfJukeboxInRange(MusicManager instance, Music music) {
 		return JukeboxTrackerUtility.noJukeboxesInRange();

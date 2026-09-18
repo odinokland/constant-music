@@ -7,7 +7,9 @@ import org.slf4j.LoggerFactory;
  * The type Constants.
  */
 public class Constants {
-	private Constants() {}
+	private Constants() {
+	}
+
 	/**
 	 * The constant MOD_ID.
 	 */

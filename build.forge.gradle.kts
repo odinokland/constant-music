@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.register
+
 plugins {
 	id("mod-platform")
 	id("net.minecraftforge.gradle")
@@ -19,7 +21,7 @@ platform {
 	loader = "forge"
 	dependencies {
 		required("minecraft") {
-			forgeLikeVersionRange = prop("deps.minecraft")
+			forgeLikeVersionRange = "[${prop("deps.minMinecraft")},)"
 		}
 		required("forge") {
 			forgeLikeVersionRange.set("[1,)")
@@ -48,7 +50,14 @@ minecraft {
 //			}
 		}
 		register("client")
-		register("gameTestServer")
+		register("gameTestServer") {
+			mods {
+				register(prop("mod.id")) {
+					source(sourceSets["main"])
+					source(sourceSets["test"])
+				}
+			}
+		}
 	}
 }
 

@@ -24,12 +24,12 @@ import org.jetbrains.annotations.NotNull;
  * The type Constant music config screen.
  */
 public class ConstantMusicConfigScreen extends Screen {
-    private final Screen parent;
+	private final Screen parent;
 	/**
 	 * The List.
 	 */
 	@Nullable
-    protected OptionsList list;
+	protected OptionsList list;
 	//? if >=1.21 {
     /*/^*
      * The Layout.
@@ -43,12 +43,12 @@ public class ConstantMusicConfigScreen extends Screen {
 	 * @param parent the parent
 	 */
 	public ConstantMusicConfigScreen(final Screen parent) {
-        super(Component.translatable("constantmusic.title"));
-        this.parent = parent;
-    }
+		super(Component.translatable("constantmusic.title"));
+		this.parent = parent;
+	}
 
-    @Override
-    public void init() {
+	@Override
+	public void init() {
 		//? if >=1.21 {
         /*this.addTitle();
         this.addContents();
@@ -60,7 +60,7 @@ public class ConstantMusicConfigScreen extends Screen {
 		*///?} else {
 		this.list = this.addRenderableWidget(new OptionsList(this.minecraft, this.width, this.height, 32, 32, this));
 		this.addOptions();
-		//? if >= 1.19.3 {
+		//? if >=1.19.3 {
 		/*this.addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, (Button button) -> {
 			this.minecraft.setScreen(this.parent);
 		}).bounds(this.width / 2 - 100, this.height - 27, 200, 20).build());
@@ -70,7 +70,7 @@ public class ConstantMusicConfigScreen extends Screen {
 		}));
 		//?}
 		//?}
-    }
+	}
 
 	/**
 	 * Gets a config option.
@@ -137,9 +137,9 @@ public class ConstantMusicConfigScreen extends Screen {
 		gui.drawCenteredString(this.font, this.title, this.width / 2, 20, 16777215);
 	}
 	*///?} else {
-		public void render(@NotNull PoseStack gui, int i, int j, float f) {
-			super.render(gui, i, j, f);
-			drawCenteredString(gui, this.font, this.title, this.width / 2, 20, 16777215);
-		}
+	public void render(@NotNull PoseStack gui, int i, int j, float f) {
+		super.render(gui, i, j, f);
+		drawCenteredString(gui, this.font, this.title, this.width / 2, 20, 16777215);
+	}
 	//?}
 }

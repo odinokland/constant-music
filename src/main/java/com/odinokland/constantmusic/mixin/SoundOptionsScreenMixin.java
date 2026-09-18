@@ -37,8 +37,8 @@ public class SoundOptionsScreenMixin extends Screen {
 	}
 
 	//? if >=1.19.3 {
-/*
-	/^*
+
+	/*/^*
 	 * On get all options.
 	 *
 	 * @param cir the cir
@@ -95,7 +95,7 @@ public class SoundOptionsScreenMixin extends Screen {
 			// Calculate the next slot in the grid perfectly
 			int nextIndex = loopCounter + 3;
 			int xPos = this.width / 2 - 155 + (nextIndex % 2) * 160;
-			int yPos = (this.height / 6 - 12)  + 22 * (nextIndex >> 1);
+			int yPos = (this.height / 6 - 12) + 22 * (nextIndex >> 1);
 			// Add your custom slider into the native layout flow
 			this.addRenderableWidget(new MusicDelaySlider(
 					this.minecraft,
@@ -106,5 +106,5 @@ public class SoundOptionsScreenMixin extends Screen {
 			));
 		}
 	}
-	//? }
+	//?}
 }

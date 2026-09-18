@@ -50,7 +50,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	 * @param footerHeight the footer height
 	 * @param screen       the screen
 	 */
-	public OptionsList(Minecraft minecraft, int width, int height, int headerHeight,int footerHeight, Screen screen) {
+	public OptionsList(Minecraft minecraft, int width, int height, int headerHeight, int footerHeight, Screen screen) {
 		//? if >=1.20.3 {
 		//super(minecraft, width, height - headerHeight - footerHeight, headerHeight, DEFAULT_ITEM_HEIGHT);
 		//?} else {
@@ -89,7 +89,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	 */
 	public void addSmall(List<AbstractWidget> list) {
 		for (int i = 0; i < list.size(); i += 2) {
-			this.addSmall((AbstractWidget)list.get(i), i < list.size() - 1 ? (AbstractWidget)list.get(i + 1) : null);
+			this.addSmall((AbstractWidget) list.get(i), i < list.size() - 1 ? (AbstractWidget) list.get(i + 1) : null);
 		}
 	}
 
@@ -117,7 +117,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	public AbstractWidget findOption(OptionInstance<?> optionInstance) {
 		for (Entry entry : this.children()) {
 			if (entry instanceof OptionEntry optionEntry) {
-				AbstractWidget abstractWidget = (AbstractWidget)optionEntry.options.get(optionInstance);
+				AbstractWidget abstractWidget = (AbstractWidget) optionEntry.options.get(optionInstance);
 				if (abstractWidget != null) {
 					return abstractWidget;
 				}
@@ -149,8 +149,7 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 	/**
 	 * The type Entry.
 	 */
-	protected static class Entry extends ContainerObjectSelectionList.Entry<Entry>
-	{
+	protected static class Entry extends ContainerObjectSelectionList.Entry<Entry> {
 		private final List<AbstractWidget> children;
 		private final Screen screen;
 		private static final int X_OFFSET = 160;
@@ -188,26 +187,26 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 		public static Entry small(AbstractWidget leftOption, AbstractWidget rightOption, Screen screen) {
 			return rightOption == null
 					? new Entry(ImmutableList.of(leftOption), screen)
-					:new Entry(ImmutableList.of(leftOption, rightOption), screen);
+					: new Entry(ImmutableList.of(leftOption, rightOption), screen);
 		}
 
-		//? if < 1.21.9 {
+		//? if <1.21.9 {
 		@Override
 		public void render(
-			//? if >1.19.4 {
-			//GuiGraphics gui,
-			//?} else {
-			PoseStack gui,
-			 //?}
-			int index,
-			int top,
-			int left,
-			int width,
-			int height,
-			int mouseX,
-			int mouseY,
-			boolean hovering,
-			float partialTick
+				//? if >1.19.4 {
+				//GuiGraphics gui,
+				//?} else {
+				PoseStack gui,
+				//?}
+				int index,
+				int top,
+				int left,
+				int width,
+				int height,
+				int mouseX,
+				int mouseY,
+				boolean hovering,
+				float partialTick
 		) {
 			int p = 0;
 			int q = this.screen.width / 2 - 155;
@@ -300,8 +299,8 @@ public class OptionsList extends ContainerObjectSelectionList<OptionsList.Entry>
 			*///?} else {
 			AbstractWidget abstractWidget = optionInstance.createButton(options, 0, 0, SMALL_BUTTON_WIDTH);
 			return optionInstance2 == null
-				? new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget), screen)
-				: new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget, optionInstance2, optionInstance2.createButton(options, 0, 0, SMALL_BUTTON_WIDTH)), screen);
+					? new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget), screen)
+					: new OptionEntry(ImmutableMap.of(optionInstance, abstractWidget, optionInstance2, optionInstance2.createButton(options, 0, 0, SMALL_BUTTON_WIDTH)), screen);
 			//?}
 		}
 	}

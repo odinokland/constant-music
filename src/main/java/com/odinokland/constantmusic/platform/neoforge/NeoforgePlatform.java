@@ -1,8 +1,8 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
-/*
-import com.odinokland.constantmusic.Constants;
+
+/*import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.platform.Platform;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;

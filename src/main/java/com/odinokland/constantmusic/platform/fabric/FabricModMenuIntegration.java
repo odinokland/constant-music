@@ -1,12 +1,12 @@
 package com.odinokland.constantmusic.platform.fabric;
 
 //? fabric {
-/*
-//? fabric {
-/^
-//? fabric {
-/^
-import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
+
+/*//? fabric {
+
+/^//? fabric {
+
+/^import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;

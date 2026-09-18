@@ -17,7 +17,7 @@ platform {
 	loader = "neoforge"
 	dependencies {
 		required("minecraft") {
-			forgeLikeVersionRange = prop("deps.minecraft")
+			forgeLikeVersionRange = "[${prop("deps.minMinecraft")},)"
 		}
 		required("neoforge") {
 			forgeLikeVersionRange.set("[1,)")

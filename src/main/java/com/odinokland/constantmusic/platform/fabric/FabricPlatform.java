@@ -1,8 +1,8 @@
 package com.odinokland.constantmusic.platform.fabric;
 
 //? fabric {
-/*
-import com.odinokland.constantmusic.Constants;
+
+/*import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.platform.Platform;
 import net.fabricmc.loader.api.FabricLoader;
 

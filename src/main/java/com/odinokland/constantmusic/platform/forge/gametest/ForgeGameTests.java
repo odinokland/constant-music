@@ -15,48 +15,49 @@ import net.minecraftforge.gametest.GameTestDontPrefix;
 *///?}
 
 @GameTestHolder(Constants.MOD_ID)
-//? < 1.20.1 {
+//? <1.20.1 {
 @PrefixGameTestTemplate(false)
-//? } else if >= 1.21.5 {
+//?} else if >=1.21.5 {
 //@GameTestDontPrefix
-//? }
+//?}
 public class ForgeGameTests {
 	private CommonGameTests commonGameTests;
-	//? if < 1.20.1 {
+	//? if <1.20.1 {
 	private static final String TEMPLATE_NAME = "empty";
-	//? } else {
+	//?} else {
 	//private static final String TEMPLATE_NAME = Constants.MOD_ID + ":" + "empty";
-	//? }
+	//?}
 	private static final String ENVIRONMENT_NAME = Constants.MOD_ID + "default";
 
 	public ForgeGameTests() {
 		commonGameTests = new CommonGameTests();
 	}
-	//? >= 1.21.5 {
+
+	//? >=1.21.5 {
 	//@GameTest
-	//? } else {
+	//?} else {
 	@GameTest(template = TEMPLATE_NAME)
-	//? }
+			//?}
 	public void testModLoadedAndWorldEntered(GameTestHelper helper) {
 		commonGameTests.testModLoadedAndWorldEntered(helper);
 	}
 
-	//? >= 1.21.5 {
+	//? >=1.21.5 {
 	//@GameTest
-	//? } else {
+	//?} else {
 	@GameTest(template = TEMPLATE_NAME)
-	//? }
+			//?}
 	public void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
 		commonGameTests.testDelaySliderOptionAndConfigScreen(helper);
 	}
 
-	//? >= 1.21.5 {
+	//? >=1.21.5 {
 	//@GameTest
-	//? } else {
+	//?} else {
 	@GameTest(template = TEMPLATE_NAME)
-	//? }
+			//?}
 	public void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
 		commonGameTests.testJukeboxMusicSuppressionAndResumption(helper);
 	}
 }
-//? }
+//?}

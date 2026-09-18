@@ -1,8 +1,8 @@
 package com.odinokland.constantmusic.platform.fabric;
 
 //? fabric {
-/*
-import com.odinokland.constantmusic.ConstantMusic;
+
+/*import com.odinokland.constantmusic.ConstantMusic;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.fabric.Entrypoint;
 import net.fabricmc.api.ClientModInitializer;

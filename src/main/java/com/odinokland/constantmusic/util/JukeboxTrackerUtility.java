@@ -10,7 +10,9 @@ import net.minecraft.core.BlockPos;
  * The type Jukebox tracker utility.
  */
 public class JukeboxTrackerUtility {
-	private JukeboxTrackerUtility() {}
+	private JukeboxTrackerUtility() {
+	}
+
 	/**
 	 * The constant jukeboxes.
 	 */
@@ -80,10 +82,10 @@ public class JukeboxTrackerUtility {
 	/**
 	 * Update jukebox statuses based on player position.
 	 *
-	 * @param playerX            player X coordinate
-	 * @param playerY            player Y coordinate
-	 * @param playerZ            player Z coordinate
-	 * @param onJukeboxInRange   callback when at least one jukebox is in range
+	 * @param playerX          player X coordinate
+	 * @param playerY          player Y coordinate
+	 * @param playerZ          player Z coordinate
+	 * @param onJukeboxInRange callback when at least one jukebox is in range
 	 */
 	public static void updatePlayerPosition(double playerX, double playerY, double playerZ, Runnable onJukeboxInRange) {
 		boolean hasAnyInRange = false;

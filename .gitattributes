@@ -1,4 +1,16 @@
-*               text=auto eol=lf
+# Handle line endings automatically for all text files
+# and force them to use LF when checked out.
+* text=auto eol=lf
+
+# Explicitly declare text files you want to guarantee use LF
+*.java text eol=lf
+*.kt text eol=lf
+*.xml text eol=lf
+*.json text eol=lf
+*.properties text eol=lf
+*.md text eol=lf
+*.txt text eol=lf
+*.sh text eol=lf
 
 /gradlew        text eol=lf
 

@@ -23,7 +23,7 @@ public class ForgeEventSubscriber {
 	 * @param event the event
 	 */
 	@SubscribeEvent
-	public static void onClientTick(/*? >= 1.21.6 {*/ /*TickEvent.ClientTickEvent.Post *//*?} else {*/ TickEvent.ClientTickEvent /*?}*/ event) {
+	public static void onClientTick(/*? >=1.21.6 {*/ /*TickEvent.ClientTickEvent.Post *//*?} else {*/ TickEvent.ClientTickEvent /*?}*/ event) {
 		Minecraft client = Minecraft.getInstance();
 		JukeboxTrackerUtility.checkJukeboxesInRange(client);
 	}

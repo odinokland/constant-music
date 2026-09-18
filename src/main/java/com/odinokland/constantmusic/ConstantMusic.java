@@ -122,7 +122,7 @@ public class ConstantMusic {
 	public static int getTimer() {
 		if (!manualConfigInitialized) {
 			try {
-				timer =  readValue();
+				timer = readValue();
 				manualConfigInitialized = true;
 			} catch (Exception e) {
 				return 0;
@@ -149,8 +149,8 @@ public class ConstantMusic {
 	 * @return the mutable component
 	 */
 	public static MutableComponent timeDisplayText(Integer seconds) {
-		int minutes = seconds/60;
-		int remainingSeconds = seconds%60;
+		int minutes = seconds / 60;
+		int remainingSeconds = seconds % 60;
 		if (minutes > 0) {
 			return Component.translatable("constantmusic.option.minutes_and_seconds", new Object[]{minutes, remainingSeconds});
 		}
@@ -160,6 +160,7 @@ public class ConstantMusic {
 
 	/**
 	 * Create a platform instance.
+	 *
 	 * @return the platform
 	 */
 	private static Platform createPlatformInstance() {

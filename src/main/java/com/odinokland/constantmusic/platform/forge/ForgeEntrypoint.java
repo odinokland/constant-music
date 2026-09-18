@@ -39,23 +39,23 @@ public class ForgeEntrypoint {
 	/**
 	 * Instantiates a new Forge entrypoint.
 	 */
-	//? if 1.19.4 || >= 1.20.6 {
+	//? if 1.19.4 || >=1.20.6 {
 	/*public ForgeEntrypoint(FMLJavaModLoadingContext context) {
 		modLoadingContext = context;
-	*///? } else {
+	*///?} else {
 	public ForgeEntrypoint() {
 		modLoadingContext = ModLoadingContext.get();
 		FMLJavaModLoadingContext context = FMLJavaModLoadingContext.get();
-	//? }
+		//?}
 		ConstantMusic.init();
 
-		//? if >= 1.21.6 {
+		//? if >=1.21.6 {
 		/*BusGroup modBusGroup = context.getModBusGroup();
 		FMLClientSetupEvent.getBus(modBusGroup).addListener(ForgeEntrypoint::onClientSetup);
-		*///? } else {
+		*///?} else {
 		IEventBus modEventBus = context.getModEventBus();
 		modEventBus.addListener(ForgeEntrypoint::onClientSetup);
-		//? }
+		//?}
 	}
 
 	public static void onClientSetup(final FMLClientSetupEvent event) {

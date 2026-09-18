@@ -33,16 +33,21 @@ import net.minecraft.world.item.RecordItem;
 @Mixin(LevelRenderer.class)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class JukeboxDetectorMixin {
-	 //? if >=1.21.2 {
+	//? if >=1.21.2 {
 	/*//~ level_name
 	@Shadow @Final private ClientLevel level;
 	 *///?} else {
-	@Shadow @Nullable private ClientLevel level;
+	@Shadow
+	@Nullable
+	private ClientLevel level;
 	//?}
 
-	@Shadow @Final private Minecraft minecraft;
+	@Shadow
+	@Final
+	private Minecraft minecraft;
 
-	private JukeboxDetectorMixin(){}
+	private JukeboxDetectorMixin() {
+	}
 
 	//? if >=1.21 {
 	/*@WrapMethod(method = "playJukeboxSong")
@@ -72,8 +77,8 @@ public class JukeboxDetectorMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
-	*///? } else {
-	@WrapMethod(method="playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
+	*///?} else {
+	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
 		if (soundEvent != null) {
@@ -97,5 +102,5 @@ public class JukeboxDetectorMixin {
 		}
 	}
 	//?}
-	//? }
+	//?}
 }

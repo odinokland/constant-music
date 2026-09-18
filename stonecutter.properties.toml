@@ -21,7 +21,7 @@ mod.environment = "client"
 [[mod.pom.developers]]
 id = "odinokland"
 name = "Odin Okland"
-url = "https://github.com/ghost"
+url = "https://github.com/odinokland"
 
 [fabric]
 deps.fabric-loader = "0.19.2"
