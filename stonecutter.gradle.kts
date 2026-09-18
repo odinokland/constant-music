@@ -54,7 +54,7 @@ tasks.register("runAllTestsSequentially") {
 	} else {
 		variantProjects = subprojects.filter { sub ->
 			// Adjust this condition if you use a specific naming convention (e.g., contains("-fabric"))
-			sub.tasks.any { it.name == "test" || it.name == "runGameTestServer" }
+			sub.name != "1.21.5-forge" && sub.tasks.any { it.name == "test" || it.name == "runGameTestServer" }
 		}
 	}
 

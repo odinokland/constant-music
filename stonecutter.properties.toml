@@ -31,6 +31,7 @@ deps.minecraft = "1.19.2"
 deps.minMinecraft = "1.19"
 deps.fabric-api = "0.77.0+1.19.2"
 deps.modmenu = "4.2.0-beta.2"
+publish.additionalVersions = ["1.19", "1.19.1"]
 
 [fabric."1.19.3"]
 deps.minecraft = "1.19.3"
@@ -49,50 +50,56 @@ deps.minecraft = "1.20.2"
 deps.minMinecraft = "1.20"
 deps.fabric-api = "0.91.6+1.20.2"
 deps.modmenu = "8.0.0"
+publish.additionalVersions = ["1.20", "1.20.1"]
 
 [fabric."1.20.4"]
 deps.minecraft = "1.20.4"
 deps.minMinecraft = "1.20.3"
 deps.fabric-api = "0.97.3+1.20.4"
 deps.modmenu = "9.0.0"
+publish.additionalVersions = ["1.20.3"]
 
 [fabric."1.20.6"]
 deps.minecraft = "1.20.6"
 deps.minMinecraft = "1.20.5"
 deps.fabric-api = "0.97.8+1.20.6"
 deps.modmenu = "10.0.0"
+publish.additionalVersions = ["1.20.5"]
 
 [fabric."1.21.1"]
 deps.minecraft = "1.21.1"
 deps.minMinecraft = "1.21"
 deps.fabric-api = "0.116.7+1.21.1"
 deps.modmenu = "11.0.4"
+publish.additionalVersions = ["1.21"]
 
 [fabric."1.21.3"]
 deps.minecraft = "1.21.3"
 deps.minMinecraft = "1.21.2"
 deps.fabric-api = "0.114.1+1.21.3"
 deps.modmenu = "12.0.1"
+publish.additionalVersions = ["1.21.2"]
 
 [fabric."1.21.5"]
 deps.minecraft = "1.21.5"
 deps.minMinecraft = "1.21.4"
 deps.fabric-api = "0.119.4+1.21.5"
 deps.modmenu = "14.0.0-rc.2"
+publish.additionalVersions = ["1.21.4"]
 
 [fabric."1.21.8"]
 deps.minecraft = "1.21.8"
 deps.minMinecraft = "1.21.6"
 deps.fabric-api = "0.129.0+1.21.8"
 deps.modmenu = "15.0.0"
-publish.additionalVersions = ["1.21.6"]
+publish.additionalVersions = ["1.21.6", "1.21.7"]
 
 [fabric."1.21.11"]
 deps.minecraft = "1.21.11"
 deps.minMinecraft = "1.21.9"
 deps.fabric-api = "0.139.4+1.21.11"
 deps.modmenu = "17.0.0"
-publish.additionalVersions = ["1.21.9", "1.21.9"]
+publish.additionalVersions = ["1.21.9", "1.21.10"]
 
 [fabric."26.1.2"]
 deps.minecraft = "26.1.2"
@@ -106,7 +113,6 @@ deps.minecraft = "26.2"
 deps.minMinecraft = "26.2"
 deps.fabric-api = "0.158.0+26.2"
 deps.modmenu = "20.0.1"
-publish.additionalVersions = ["26.2"]
 
 [forge]
 
@@ -114,6 +120,7 @@ publish.additionalVersions = ["26.2"]
 deps.minecraft = "1.19.2"
 deps.minMinecraft = "1.19"
 deps.forge = "43.5.2"
+publish.additionalVersions = ["1.19", "1.19.1"]
 
 [forge."1.19.3"]
 deps.minecraft = "1.19.3"
@@ -129,41 +136,49 @@ deps.forge = "45.4.0"
 deps.minecraft = "1.20.2"
 deps.minMinecraft = "1.20.0"
 deps.forge = "48.0.49"
+publish.additionalVersions = ["1.20", "1.20.1"]
 
 [forge."1.20.4"]
 deps.minecraft = "1.20.4"
 deps.minMinecraft = "1.20.3"
 deps.forge = "49.0.19"
+publish.additionalVersions = ["1.20.3"]
 
 [forge."1.20.6"]
 deps.minecraft = "1.20.6"
 deps.minMinecraft = "1.20.5"
 deps.forge = "50.2.10"
+publish.additionalVersions = ["1.20.5"]
 
 [forge."1.21.1"]
 deps.minecraft = "1.21.1"
 deps.minMinecraft = "1.21"
 deps.forge = "52.1.0"
+publish.additionalVersions = ["1.21"]
 
 [forge."1.21.3"]
 deps.minecraft = "1.21.3"
 deps.minMinecraft = "1.21.2"
 deps.forge = "53.1.0"
+publish.additionalVersions = ["1.21.2"]
 
 [forge."1.21.5"]
 deps.minecraft = "1.21.5"
 deps.minMinecraft = "1.21.4"
 deps.forge = "55.1.0"
+publish.additionalVersions = ["1.21.64"]
 
 [forge."1.21.8"]
 deps.minecraft = "1.21.8"
 deps.minMinecraft = "1.21.6"
 deps.forge = "58.0.6"
+publish.additionalVersions = ["1.21.6", "1.21.7"]
 
 [forge."1.21.11"]
 deps.minecraft = "1.21.11"
 deps.minMinecraft = "1.21.9"
 deps.forge = "61.2.1"
+publish.additionalVersions = ["1.21.9", "1.21.10"]
 
 [forge."26.1.2"]
 deps.minecraft = "26.1.2"
@@ -175,7 +190,6 @@ publish.additionalVersions = ["26.1.1", "26.1"]
 deps.minecraft = "26.2"
 deps.minMinecraft = "26.2"
 deps.forge = "65.1.0"
-publish.additionalVersions = ["26.2"]
 
 [neoforge]
 
@@ -183,38 +197,43 @@ publish.additionalVersions = ["26.2"]
 deps.minecraft = "1.20.4"
 deps.minMinecraft = "1.20.3"
 deps.neoforge = "20.4.250"
+publish.additionalVersions = ["1.20.3"]
 
 [neoforge."1.20.6"]
 deps.minecraft = "1.21.6"
 deps.minMinecraft = "1.20.5"
 deps.neoforge = "20.6.135"
+publish.additionalVersions = ["1.21.5"]
 
 [neoforge."1.21.1"]
 deps.minecraft = "1.21.1"
 deps.minMinecraft = "1.21"
 deps.neoforge = "21.1.213"
+publish.additionalVersions = ["1.21"]
 
 [neoforge."1.21.3"]
 deps.minecraft = "1.21.3"
 deps.minMinecraft = "1.21.2"
 deps.neoforge = "21.3.90"
+publish.additionalVersions = ["1.21.2"]
 
 [neoforge."1.21.5"]
 deps.minecraft = "1.21.5"
 deps.minMinecraft = "1.21.4"
 deps.neoforge = "21.5.81"
+publish.additionalVersions = ["1.21.4"]
 
 [neoforge."1.21.8"]
 deps.minecraft = "1.21.8"
 deps.minMinecraft = "1.21.6"
 deps.neoforge = "21.8.23"
-publish.additionalVersions = ["1.21.6"]
+publish.additionalVersions = ["1.21.6", "1.21.7"]
 
 [neoforge."1.21.11"]
 deps.minecraft = "1.21.11"
 deps.minMinecraft = "1.21.9"
 deps.neoforge = "21.11.45"
-publish.additionalVersions = ["1.21.6"]
+publish.additionalVersions = ["1.21.9", "1.21.10"]
 
 [neoforge."26.1.2"]
 deps.minecraft = "26.1.2"
