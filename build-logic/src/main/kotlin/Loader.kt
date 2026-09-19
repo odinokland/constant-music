@@ -54,6 +54,7 @@ sealed class Loader(val id: String) {
 				description = ctx.description,
 				icon = "assets/icon.png",
 				license = ctx.licenseName,
+				environment = if (ctx.environment == "both") "*" else ctx.environment,
 				accessWidener = widenerPath,
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricEntrypoint"),
@@ -102,6 +103,7 @@ sealed class Loader(val id: String) {
 			val manifest = ForgeManifest(
 				license = ctx.licenseName,
 				issueTrackerURL = ctx.issuesUrl,
+				clientSideOnly = ctx.environment == "client",
 				mods = listOf(
 					ForgeMod(
 						modId = ctx.modId,

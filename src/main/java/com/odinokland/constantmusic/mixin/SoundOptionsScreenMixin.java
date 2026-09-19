@@ -33,7 +33,6 @@ public class SoundOptionsScreenMixin extends Screen {
 	 */
 	protected SoundOptionsScreenMixin(Component title) {
 		super(title);
-		Constants.LOG.info("SoundOptionsScreenMixin constructor");
 	}
 
 	//? if >=1.19.3 {
@@ -88,7 +87,6 @@ public class SoundOptionsScreenMixin extends Screen {
 			require = 1  // Breaks compilation/game loading if it fails to apply
 	)
 	private void addCustomSliderAfterLoop(CallbackInfo ci, @Local(ordinal = 2) int loopCounter) {
-		Constants.LOG.info("Adding custom slider after loop");
 		int totalVanillaSources = SoundSource.values().length - 1; // 9 elements
 
 		if (loopCounter == totalVanillaSources - 1) {

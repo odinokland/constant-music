@@ -66,7 +66,6 @@ public class NeoforgeGameTests {
 	 ^/
 	@SubscribeEvent
 	public static void registerTests(RegisterGameTestsEvent event) {
-		Constants.LOG.info("Dan: registering tests");
 		//? if >=26.1 {
 		//Holder<TestEnvironmentDefinition<?>> environment = event.registerEnvironment(id("empty"));
 		//? } else {

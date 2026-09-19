@@ -36,7 +36,6 @@ public class CommonGameTests {
 	//? neoforge_game_annotations
 	//@GameTest(template = "empty")
 	public void testModLoadedAndWorldEntered(GameTestHelper helper) {
-		Constants.LOG.info("Testing mod loaded and world entered");
 		helper.setBlock(new BlockPos(1, 1, 1), Blocks.JUKEBOX.defaultBlockState());
 		helper.assertBlockPresent(Blocks.JUKEBOX, new BlockPos(1, 1, 1));
 		helper.succeed();
@@ -51,7 +50,6 @@ public class CommonGameTests {
 	//? neoforge_game_annotations
 	//@GameTest(template = "empty")
 	public void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
-		Constants.LOG.info("Testing jukebox music suppression and resumption");
 		BlockPos localPos = new BlockPos(1, 1, 1);
 		helper.setBlock(localPos, Blocks.JUKEBOX.defaultBlockState());
 		BlockPos absolutePos = helper.absolutePos(localPos);
@@ -110,7 +108,6 @@ public class CommonGameTests {
 	//@GameTest(template = "empty")
 	public void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
 		ConstantMusic.resetForTesting(60);
-		Constants.LOG.info("Testing delay slider option and config screen");
 		if (ConstantMusic.getTimer() != 60) {
 			failTest(helper, "Config timer value mismatch", new BlockPos(1, 1, 1));
 			return;

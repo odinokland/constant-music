@@ -33,7 +33,8 @@ data class ForgeManifest(
 	val issueTrackerURL: String,
 	val mods: List<ForgeMod>,
 	val dependencies: Map<String, List<ForgeDependency>> = emptyMap(),
-	val mixins: List<ForgeMixin> = emptyList()
+	val mixins: List<ForgeMixin> = emptyList(),
+	val clientSideOnly: Boolean = false
 )
 
 @Serializable

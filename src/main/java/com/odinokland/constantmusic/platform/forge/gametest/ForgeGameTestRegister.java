@@ -23,7 +23,6 @@ public class ForgeGameTestRegister {
 		}
 		ForgeGameTestHooks.gatherTests(ForgeGameTests.class, new ForgeGameTests())
 				.forEach((name, ref) -> {
-					Constants.LOG.info("Dan: Registering test function: {}", name);
 					event.register(Registries.TEST_FUNCTION, name, () -> ref.consumer());
 				});
 	}
