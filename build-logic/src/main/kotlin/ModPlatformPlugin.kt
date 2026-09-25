@@ -153,12 +153,13 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		}
 
 		configureFletchingTable(ctx)
+		configureTesting(ctx)
 		registerGenerateManifestTask(ctx)
+		registerGenerateTestManifestTask(ctx)
 		configureJarTask(ctx)
 		configureIdea()
 		configureProcessResources(ctx)
 		configureJava(ctx)
-		configureTesting(ctx)
 		registerBuildAndCollectTask(ctx)
 
 		configureModPublishing(ctx)
@@ -187,12 +188,23 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 	}
 
 	private fun Project.configureTesting(ctx: Context) {
-		val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
-		val java = the<JavaPluginExtension>()
-		java.sourceSets.named("test") {
-			compileClasspath += java.sourceSets.getByName("main").compileClasspath
-			runtimeClasspath += java.sourceSets.getByName("main").runtimeClasspath
+		fun configureSourceSets(sourceSetName: String) {
+			val java = the<JavaPluginExtension>()
+			val sourceSet: org.gradle.api.tasks.SourceSet = java.sourceSets.findByName(sourceSetName) ?: java.sourceSets.create(sourceSetName)
+			sourceSet.apply {
+				compileClasspath += java.sourceSets.getByName("main").compileClasspath
+				runtimeClasspath += java.sourceSets.getByName("main").runtimeClasspath
+				java.registerFeature(sourceSetName) { usingSourceSet(this@apply) }
+				dependencies { implementationConfigurationName(java.sourceSets["main"].output) }
+			}
+
+			dependencies {
+				"${sourceSetName}CompileOnly"(java.sourceSets.getByName("main").output)
+			}
 		}
+		val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+		configureSourceSets("test")
+		configureSourceSets("gametest")
 		tasks.withType<Test>().configureEach {
 			useJUnitPlatform()
 			testLogging {
@@ -215,6 +227,17 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 		the<JavaPluginExtension>().sourceSets.named("main") { resources.srcDir(manifestOutputDir) }
 		tasks.named<ProcessResources>("processResources") { dependsOn(generateTask) }
+	}
+
+	private fun Project.registerGenerateTestManifestTask(ctx: Context) {
+		val manifestOutputDir = layout.buildDirectory.dir("generated/modTestManifest")
+		val generateTask = tasks.register<GenerateModManifestTask>("generateModTestManifest") {
+			content.set(ctx.loader.generateTestManifest(ctx))
+			outputFile.set(layout.buildDirectory.file("generated/modTestManifest/${ctx.loader.manifestPathFor(ctx)}"))
+		}
+
+		the<JavaPluginExtension>().sourceSets.named("gametest") { resources.srcDir(manifestOutputDir) }
+		tasks.named<ProcessResources>("processGametestResources") { dependsOn(generateTask) }
 	}
 
 	private fun Project.configureProcessResources(ctx: Context) {
@@ -255,6 +278,19 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 					if (path == "assets/icon.png") {
 						path = "icon.png"
 					}
+				}
+			}
+		}
+		tasks.named<ProcessResources>("processGametestResources") {
+			dependsOn(tasks.named("stonecutterGenerateGametest"), "kspGametestKotlin")
+			exclude(ctx.loader.excludedResourcesFor(ctx))
+			if (ctx.loader is Loader.ForgeLike) {
+				filesMatching("META-INF/mods.toml") {
+					expand(
+						mapOf(
+							"loader" to ctx.loader.id
+						)
+					)
 				}
 			}
 		}

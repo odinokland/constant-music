@@ -22,6 +22,7 @@ sealed class Loader(val id: String) {
 	open fun excludedResourcesFor(ctx: Context): List<String> = excludedResources
 
 	abstract fun generateManifest(ctx: Context): String
+	abstract fun generateTestManifest(ctx: Context): String
 
 	object Fabric : Loader("fabric") {
 		override val isFabricLike = true
@@ -54,19 +55,56 @@ sealed class Loader(val id: String) {
 				description = ctx.description,
 				icon = "assets/icon.png",
 				license = ctx.licenseName,
-				environment = if (ctx.environment == "both") "*" else ctx.environment,
+				environment = if (ctx.effectiveEnvironment == "both") "*" else ctx.effectiveEnvironment,
 				accessWidener = widenerPath,
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricEntrypoint"),
 					"preLaunch" to listOf("com.llamalad7.mixinextras.MixinExtrasBootstrap::init"),
 					"modmenu" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricModMenuIntegration"),
-					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.gametest.FabricGameTests")
 				),
 				mixins = listOf("${ctx.modId}.mixins.json"),
 				depends = ctx.extension.dependencies.required.associate { it.modid.get() to it.fabricLikeVersionRange.get() },
 				recommends = ctx.extension.dependencies.optional.associate { it.modid.get() to it.fabricLikeVersionRange.get() },
 				breaks = ctx.extension.dependencies.incompatible.associate { it.modid.get() to it.fabricLikeVersionRange.get() },
 				provides = ctx.extension.dependencies.embeds.map { it.modid.get() }
+			)
+			return JSON.encodeToString(manifest)
+		}
+
+		override fun generateTestManifest(ctx: Context): String {
+			val manifest = FabricManifest(
+				id = "${ctx.modId}_gametest",
+				name = "Constant Music Game Tests",
+				version = "1.0.0",
+				authors = ctx.authors,
+				contributors = ctx.contributors,
+				contact = mapOf(
+					"sources" to ctx.sourcesUrl,
+					"issues" to ctx.issuesUrl,
+					"homepage" to ctx.homepageUrl
+				),
+				custom = ctx.discordUrl.takeIf { it.isNotEmpty() }?.let { url ->
+					buildJsonObject {
+						putJsonObject("modmenu") {
+							putJsonObject("links") {
+								put("modmenu.discord", url)
+							}
+						}
+					}
+				},
+				description = ctx.description,
+				license = ctx.licenseName,
+				environment = if (ctx.effectiveEnvironment == "both") "*" else ctx.effectiveEnvironment,
+				entrypoints = mapOf(
+					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.FabricGameTests")
+				),
+				mixins = listOf(),
+				depends = mapOf(
+					"fabricloader" to "*",
+					"minecraft" to "*",
+					"fabric-api" to "*",
+					ctx.modId to "*"
+				),
 			)
 			return JSON.encodeToString(manifest)
 		}
@@ -103,7 +141,7 @@ sealed class Loader(val id: String) {
 			val manifest = ForgeManifest(
 				license = ctx.licenseName,
 				issueTrackerURL = ctx.issuesUrl,
-				clientSideOnly = ctx.environment == "client",
+				clientSideOnly = ctx.effectiveEnvironment == "client",
 				mods = listOf(
 					ForgeMod(
 						modId = ctx.modId,
@@ -123,6 +161,58 @@ sealed class Loader(val id: String) {
 				),
 				dependencies = mapOf(ctx.modId to forgeDeps),
 				mixins = listOf(ForgeMixin("${ctx.modId}.mixins.json"))
+			)
+
+			return TOML.encodeToString(manifest)
+		}
+
+		override fun generateTestManifest(ctx: Context): String {
+			val forgeDeps = mutableListOf<ForgeDependency>()
+
+			fun addDeps(container: NamedDomainObjectContainer<Dependency>, type: String) {
+				container.forEach {
+					forgeDeps.add(
+						ForgeDependency(
+							modId = it.modid.get(),
+							side = it.environment.get().uppercase(Locale.getDefault()),
+							versionRange = it.forgeLikeVersionRange.get(),
+							mandatory = type == "required",
+							type = type
+						)
+					)
+				}
+			}
+
+			addDeps(ctx.extension.dependencies.required, "required")
+			addDeps(ctx.extension.dependencies.optional, "optional")
+			addDeps(ctx.extension.dependencies.incompatible, "incompatible")
+			forgeDeps.add(
+				ForgeDependency(
+					modId = ctx.modId,
+					side = "BOTH",
+					versionRange = "[1, )",
+					mandatory = true,
+					type = "required",
+					ordering = "BEFORE"
+				)
+			)
+
+			val manifest = ForgeManifest(
+				license = ctx.licenseName,
+				issueTrackerURL = ctx.issuesUrl,
+				mods = listOf(
+					ForgeMod(
+						modId = "${ctx.modId}_gametest",
+						displayName = "Constant Music Game Tests",
+						version = "1.0.0",
+						displayURL = ctx.homepageUrl,
+						modUrl = ctx.homepageUrl,
+						authors = ctx.authors.joinToString(", "),
+						credits = "${ctx.authors.joinToString(", ")} Contributors: ${ctx.contributors.joinToString(", ")}",
+						description = ctx.description,
+					)
+				),
+				dependencies = mapOf(ctx.modId + "_gametest" to forgeDeps)
 			)
 
 			return TOML.encodeToString(manifest)

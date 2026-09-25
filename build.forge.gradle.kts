@@ -29,6 +29,12 @@ platform {
 	}
 }
 
+sourceSets.configureEach {
+	val dir = layout.buildDirectory.dir("sourcesSets/$name")
+	output.setResourcesDir(dir.get())
+	java.destinationDirectory.set(dir)
+}
+
 jarJar.register() {
 	archiveClassifier = null
 }
@@ -43,26 +49,30 @@ minecraft {
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
-			systemProperty("forge.enabledGameTestNamespaces", prop("mod.id"))
+			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.id")}_gametest")
 			args("--mixin.config", "${prop("mod.id")}.mixins.json")
+			mods {
+				create("constantmusic") {
+					source(sourceSets["main"])
+				}
+				create("constantmusic_gametest") {
+					source(sourceSets["gametest"])
+				}
+			}
 //			if (stonecutter.eval(stonecutter.current.version, ">=1.17") && stonecutter.eval(stonecutter.current.version, "<=1.18")) {
 //				jvmArgs("--add-opens=java.base/java.lang.invoke=ALL-UNNAMED")
 //			}
 		}
-		register("client")
+		register("client") {
+			workingDir.convention(layout.projectDirectory.dir("run/client"))
+		}
 		register("gameTestServer") {
-			mods {
-				register(prop("mod.id")) {
-					source(sourceSets["main"])
-					source(sourceSets["test"])
-				}
-			}
+			workingDir.convention(layout.projectDirectory.dir("run/server"))
 		}
 	}
 }
 
 repositories {
-	mavenLocal()
 	minecraft.mavenizer(this)
 	maven(fg.forgeMaven)
 	maven(fg.minecraftLibsMaven)
@@ -81,7 +91,6 @@ dependencies {
 }
 
 if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
-
 	renamer {
 		mappings(minecraft.dependency.toSrg)
 
@@ -103,4 +112,26 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
 
 tasks.withType<JavaCompile>().configureEach {
 	options.encoding = "UTF-8" // Use the UTF-8 charset for Java compilation
+}
+
+afterEvaluate {
+	// ForgeGradle's run tasks only put getDefaultSourceSets() (main-only, or main+test for the
+	// auto-generated per-sourceSet task variants) on the launch classpath; mods{} above does not
+	// affect it. Adding testmod's compiled output directly to the auto-generated task's own (public,
+	// standard Gradle) classpath is what actually gets it in front of FML's mod scanner.
+
+//	tasks.named<JavaExec>("runTestmodClient") { classpath(sourceSets["test"].output) }
+//	tasks.named<JavaExec>("runTestmodServer") { classpath(sourceSets["test"].output) }
+
+	//tasks.named<JavaExec>("runData") { classpath(sourceSets["gametest"].output) }
+	tasks.named<JavaExec>("runGameTestServer") {
+		classpath(sourceSets["gametest"].output)
+		//dependsOn(":${ project.name }:runData")
+	}
+	tasks.named<JavaExec>("runClient") {
+		classpath(sourceSets["gametest"].output)
+		//dependsOn(":${ project.name }:runData")
+	}
+
+	//java.sourceSets[gametest.sourceSetName.get()].resources { srcDir("src/${ gametest.sourceSetName.get() }/generated/") }
 }

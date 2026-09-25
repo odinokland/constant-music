@@ -1,4 +1,4 @@
-package com.odinokland.constantmusic.platform.fabric.gametest;
+package com.odinokland.constantmusic.gametest.platform;
 
 //? fabric {
 /*import com.odinokland.constantmusic.gametest.CommonGameTests;

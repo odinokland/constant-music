@@ -1,3 +1,7 @@
+import org.gradle.plugins.ide.idea.model.IdeaModel
+import org.jetbrains.gradle.ext.runConfigurations
+import org.jetbrains.gradle.ext.settings
+
 plugins {
 	id("mod-platform")
 	id("net.neoforged.moddev")
@@ -25,6 +29,10 @@ platform {
 	}
 }
 
+sourceSets {
+	maybeCreate("gametest")
+}
+
 neoForge {
 	version = prop("deps.neoforge")
 	accessTransformers.from(getAccessFile(AccessType.TRANSFORMER))
@@ -37,32 +45,41 @@ neoForge {
 	}
 
 	runs {
+		mods.create(prop("mod.id")) { sourceSet(java.sourceSets["main"]) }
+		configureEach {
+			disableIdeRun()
+			systemProperty("terminal.ansi", "true")
+		}
 		register("client") {
 			client()
-			gameDirectory = file("run/")
+			gameDirectory = file("run/client")
 			ideName = "NeoForge Client (${stonecutter.current.version})"
 			programArgument("--username=Dev")
-			disableIdeRun()
 			systemProperty("forge.logging.console.level", "debug")
+
+			sourceSet.set(java.sourceSets["main"])
+			loadedMods.set(listOf(mods[prop("mod.id")]))
 		}
 		register("server") {
 			server()
-			gameDirectory = file("run/")
+			gameDirectory = file("run/server")
 			ideName = "NeoForge Server (${stonecutter.current.version})"
-			disableIdeRun()
+
+			sourceSet.set(java.sourceSets["main"])
+			loadedMods.set(listOf(mods[prop("mod.id")]))
 		}
+		mods.create("${prop("mod.id")}_gametest") { sourceSet(java.sourceSets["gametest"]) }
 		register("gameTestServer") {
 			type = "gameTestServer"
-			gameDirectory = file("run/")
+			gameDirectory = file("run/server")
 			ideName = "NeoForge GameTest Server (${stonecutter.current.version})"
-			systemProperty("neoforge.enabledGameTestNamespaces", prop("mod.id"))
+			systemProperty("neoforge.enableGameTest", "true")
+			systemProperty("neoforge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.id")}_gametest")
 //			systemProperty("forge.gametest.report-file", file("gametest-report.xml").absolutePath)
-		}
-	}
+//			sourceSet.set(sourceSets[""])
 
-	mods {
-		register(prop("mod.id")) {
-			sourceSet(sourceSets["main"])
+			sourceSet.set(java.sourceSets["gametest"])
+			loadedMods.set(listOf(mods[prop("mod.id")], mods["${prop("mod.id")}_gametest"]))
 		}
 	}
 	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
@@ -82,4 +99,11 @@ dependencies {
 
 tasks.named("createMinecraftArtifacts") {
 	dependsOn(tasks.named("stonecutterGenerate"))
+}
+
+afterEvaluate {
+	tasks.named<JavaExec>("runGameTestServer") {
+		classpath(sourceSets["gametest"].output)
+		//dependsOn(":${ project.name }:runData")
+	}
 }

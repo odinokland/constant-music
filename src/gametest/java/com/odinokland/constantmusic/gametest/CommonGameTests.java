@@ -19,7 +19,7 @@ import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
  * Game tests verifying mod loading, config options, and jukebox music tracking.
  */
 //? neoforge_game_annotations {
-/*@GameTestHolder(Constants.MOD_ID)
+/*@GameTestHolder(GameTestConstants.MOD_ID)
 @PrefixGameTestTemplate(false)
 *///?}
 public class CommonGameTests {
@@ -34,7 +34,7 @@ public class CommonGameTests {
 	 * @param helper Minecraft game test helper
 	 */
 	//? neoforge_game_annotations
-	//@GameTest(template = "empty")
+	//@GameTest(templateNamespace = Constants.MOD_ID, template = "empty")
 	public void testModLoadedAndWorldEntered(GameTestHelper helper) {
 		helper.setBlock(new BlockPos(1, 1, 1), Blocks.JUKEBOX.defaultBlockState());
 		helper.assertBlockPresent(Blocks.JUKEBOX, new BlockPos(1, 1, 1));
@@ -48,7 +48,7 @@ public class CommonGameTests {
 	 * @param helper Minecraft game test helper
 	 */
 	//? neoforge_game_annotations
-	//@GameTest(template = "empty")
+	//@GameTest(templateNamespace = Constants.MOD_ID, template = "empty")
 	public void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
 		BlockPos localPos = new BlockPos(1, 1, 1);
 		helper.setBlock(localPos, Blocks.JUKEBOX.defaultBlockState());
@@ -105,7 +105,7 @@ public class CommonGameTests {
 	 * @param helper Minecraft game test helper
 	 */
 	//? neoforge_game_annotations
-	//@GameTest(template = "empty")
+	//@GameTest(templateNamespace = Constants.MOD_ID, template = "empty")
 	public void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
 		ConstantMusic.resetForTesting(60);
 		if (ConstantMusic.getTimer() != 60) {

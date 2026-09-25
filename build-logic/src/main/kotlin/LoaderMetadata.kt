@@ -1,3 +1,5 @@
+@file:OptIn(kotlinx.serialization.ExperimentalSerializationApi::class)
+
 import kotlinx.serialization.EncodeDefault
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
@@ -13,10 +15,12 @@ data class FabricManifest(
 	val contact: Map<String, String>,
 	val custom: JsonObject?,
 	val description: String,
-	val icon: String,
+	@EncodeDefault(EncodeDefault.Mode.NEVER)
+	val icon: String? = null,
 	val license: String,
 	val environment: String = "*",
-	val accessWidener: String,
+	@EncodeDefault(EncodeDefault.Mode.NEVER)
+	val accessWidener: String? = null,
 	val entrypoints: Map<String, List<String>>,
 	val mixins: List<String>,
 	val depends: Map<String, String> = emptyMap(),
@@ -62,7 +66,9 @@ data class ForgeDependency(
 	val side: String,
 	val versionRange: String,
 	val mandatory: Boolean,
-	val type: String
+	val type: String,
+	@EncodeDefault(EncodeDefault.Mode.NEVER)
+	val ordering: String? = null
 )
 
 @Serializable

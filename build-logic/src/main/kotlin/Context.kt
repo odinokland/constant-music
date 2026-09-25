@@ -45,7 +45,13 @@ class Context(
 	val licenseUrl: String by lazy { require("mod.license.url") }
 	val licenseDist: String by lazy { optional("mod.license.dist", "repo") }
 	val inceptionYear: String by lazy { optional("mod.inception_year") }
+	val isRelease: Boolean by lazy {
+		project.envTrue("MOD_IS_RELEASE") || project.hasProperty("release") || project.hasProperty("mod.release")
+	}
 	val environment: String by lazy { optional("mod.environment", "both") }
+	val effectiveEnvironment: String by lazy {
+		if (isRelease) environment else "both"
+	}
 
 	val authors: List<String> by lazy {
 		runCatching {

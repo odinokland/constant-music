@@ -1,4 +1,4 @@
-package com.odinokland.constantmusic.platform.neoforge.gametest;
+package com.odinokland.constantmusic.gametest.platform;
 
 //? neoforge && >= 1.21.5 {
 /*import com.odinokland.constantmusic.Constants;

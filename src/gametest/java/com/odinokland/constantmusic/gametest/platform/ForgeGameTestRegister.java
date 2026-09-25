@@ -1,7 +1,8 @@
-package com.odinokland.constantmusic.platform.forge.gametest;
+package com.odinokland.constantmusic.gametest.platform;
 
 //? forge && >= 1.21.5 {
 /*import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.gametest.GameTestConstants;
 import net.minecraft.core.registries.Registries;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -11,7 +12,7 @@ import net.minecraftforge.registries.RegisterEvent;
 /^*
  * Registration class for forge tests.
  ^/
-@Mod.EventBusSubscriber(modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
+@Mod.EventBusSubscriber(modid = GameTestConstants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class ForgeGameTestRegister {
 	/^*
      * Registers the test functions.

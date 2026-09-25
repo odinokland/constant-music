@@ -44,23 +44,21 @@ loom {
 	runs.named("client") {
 		client()
 		generateRunConfig.set(false)
-		runDirectory.set(layout.projectDirectory.dir("run"))
-		runtimeEnvironment.set("client")
+		runDirectory.set(layout.projectDirectory.dir("run/client"))
 		programArguments.addAll("--username","Dev")
 		displayName.set("Fabric Client")
 	}
 	runs.named("server") {
 		server()
 		generateRunConfig.set(false)
-		runDirectory.set(layout.projectDirectory.dir("run"))
-		runtimeEnvironment.set("server")
+		runDirectory.set(layout.projectDirectory.dir("run/server"))
 		displayName.set("Fabric Server")
 	}
 	runs.register("gameTestServer") {
 		server()
 		generateRunConfig.set(false)
-		runDirectory.set(layout.projectDirectory.dir("run/gametest"))
-		runtimeEnvironment.set("server")
+		runDirectory.set(layout.projectDirectory.dir("run/server"))
+		sourceSet.set("gametest")
 		displayName.set("Fabric GameTest Server")
 		systemProperties.put("fabric-api.gametest", "true")
 		systemProperties.put("fabric-api.gametest.report-file", layout.buildDirectory.file("gametest-report.xml").get().asFile.absolutePath)
