@@ -7,6 +7,16 @@ stonecutter {
 	val (version, loader) = current.project.split('-', limit = 2)
 	properties.tags(version, loader)
 
+	swaps["gametest_implementations"] = when {
+		(eval(current.version, ">=1.21.5")) -> "implements CustomTestMethodInvoker {"
+		else -> "implements FabricGameTest {"
+	}
+
+	swaps["gametest_annotation"] = when {
+		(eval(current.version, ">=1.21.5")) -> "@GameTest"
+		else -> "@GameTest(template = EMPTY_STRUCTURE)"
+	}
+
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("ResourceLocation", "Identifier")
 		replace("location()", "identifier()")

@@ -96,7 +96,7 @@ stonecutter {
 	parameters {
 		val currentLoader = current.project.substringAfterLast('-')
 		constants.match(currentLoader, "fabric", "neoforge", "forge")
-		constants["neoforge_game_annotations"] = (currentLoader == "neoforge" && eval(current.version, "<1.21.5"))
+
 		swaps["mod_version"] = "\"${properties["mod.version"]}\";"
 		swaps["mod_id"] = "\"${properties.get("mod.id")}\";"
 		swaps["mod_name"] = "\"${properties.get("mod.name")}\";"
@@ -106,11 +106,8 @@ stonecutter {
 			eval(current.version, ">=26.1") -> "ModList;"
 			else -> "ModList.get();"
 		}
-		swaps["gametest_annotation"] = when {
-			(eval(current.version, ">=1.21.5") && currentLoader == "fabric") -> "@GameTest"
-			(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME, environment = ENVIRONMENT_NAME)"
-			else -> "@GameTest(template = TEMPLATE_NAME)"
-		}
+		swaps["gametest_implementations"] = "{"
+
 		constants["release"] = properties.get("mod.id") != "modtemplate"
 
 		replacements {

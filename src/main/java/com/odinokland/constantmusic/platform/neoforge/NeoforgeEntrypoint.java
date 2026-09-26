@@ -1,10 +1,7 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
-/*//? if >=1.21.5 {
-//import com.odinokland.constantmusic.platform.neoforge.gametest.NeoforgeGameTests;
-//? }
-import net.neoforged.bus.api.IEventBus;
+/*import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import com.odinokland.constantmusic.ConstantMusic;
@@ -27,11 +24,6 @@ public class NeoforgeEntrypoint {
 		modContainerContext = modContainer;
 		ConstantMusic.init();
 		modEventBus.addListener(NeoforgeEntrypoint::onClientSetup);
-		//? if >=1.21.5 {
-		/^NeoforgeGameTests.FUNCTIONS.register(modEventBus);
-		//modEventBus.addListener(NeoforgeGameTests::registerTests);
-		//modEventBus.addListener(GameTestRegistry::onRegisterGameTests);
-		^///? }
 	}
 
 	/^*

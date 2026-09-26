@@ -10,32 +10,23 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.world.level.block.Blocks;
 import java.lang.reflect.InvocationTargetException;
-//? neoforge_game_annotations {
-/*import net.minecraft.gametest.framework.GameTest;
-import net.neoforged.neoforge.gametest.GameTestHolder;
-import net.neoforged.neoforge.gametest.PrefixGameTestTemplate;
-*///? }
+
 /**
  * Game tests verifying mod loading, config options, and jukebox music tracking.
  */
-//? neoforge_game_annotations {
-/*@GameTestHolder(GameTestConstants.MOD_ID)
-@PrefixGameTestTemplate(false)
-*///?}
-public class CommonGameTests {
+public class ConstantMusicGameTests {
 	/**
-	 * Default constructor for CommonGameTests.
+	 * Default constructor for ConstantMusicGameTests.
 	 */
-	public CommonGameTests() {
+	public ConstantMusicGameTests() {
 	}
 	/**
 	 * Test 1: Minecraft starts, loads the mod, and can enter the game without crashing.
 	 *
 	 * @param helper Minecraft game test helper
 	 */
-	//? neoforge_game_annotations
-	//@GameTest(templateNamespace = Constants.MOD_ID, template = "empty")
-	public void testModLoadedAndWorldEntered(GameTestHelper helper) {
+	public static void testModLoadedAndWorldEntered(GameTestHelper helper) {
+		GametestConstants.LOGGER.info("Testing Mod Loaded and World Entered");
 		helper.setBlock(new BlockPos(1, 1, 1), Blocks.JUKEBOX.defaultBlockState());
 		helper.assertBlockPresent(Blocks.JUKEBOX, new BlockPos(1, 1, 1));
 		helper.succeed();
@@ -47,9 +38,8 @@ public class CommonGameTests {
 	 *
 	 * @param helper Minecraft game test helper
 	 */
-	//? neoforge_game_annotations
-	//@GameTest(templateNamespace = Constants.MOD_ID, template = "empty")
-	public void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
+	public static void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
+		GametestConstants.LOGGER.info("Testing Jukebox Music Suppression and Resumption");
 		BlockPos localPos = new BlockPos(1, 1, 1);
 		helper.setBlock(localPos, Blocks.JUKEBOX.defaultBlockState());
 		BlockPos absolutePos = helper.absolutePos(localPos);
@@ -104,9 +94,8 @@ public class CommonGameTests {
 	 *
 	 * @param helper Minecraft game test helper
 	 */
-	//? neoforge_game_annotations
-	//@GameTest(templateNamespace = Constants.MOD_ID, template = "empty")
-	public void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
+	public static void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
+		GametestConstants.LOGGER.info("Testing Delay Slider Option and Config Screen");
 		ConstantMusic.resetForTesting(60);
 		if (ConstantMusic.getTimer() != 60) {
 			failTest(helper, "Config timer value mismatch", new BlockPos(1, 1, 1));
@@ -135,7 +124,7 @@ public class CommonGameTests {
 	 * @param message Failure message
 	 * @param pos     A position
 	 */
-	private void failTest(GameTestHelper helper, String message, BlockPos pos) {
+	private static void failTest(GameTestHelper helper, String message, BlockPos pos) {
 		//? >=1.21.5 {
 		//helper.fail(Component.literal(message), pos);
 		//?} else {
@@ -150,7 +139,7 @@ public class CommonGameTests {
 	 * @param message Failure message
 	 * @param entity  Entity
 	 */
-	private void failTest(GameTestHelper helper, String message, Entity entity) {
+	private static void failTest(GameTestHelper helper, String message, Entity entity) {
 		//? >=1.21.5 {
 		//helper.fail(Component.literal(message), entity);
 		//?} else {

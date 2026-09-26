@@ -11,9 +11,18 @@ stonecutter {
 	val (version, loader) = current.project.split('-', limit = 2)
 	properties.tags(version, loader)
 
+	swaps["gametest_annotation"] = when {
+		(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME, environment = ENVIRONMENT_NAME)"
+		else -> "@GameTest(templateNamespace = Constants.MOD_ID, template = TEMPLATE_NAME)"
+	}
+
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("ResourceLocation", "Identifier")
 		replace("location()", "identifier()")
+	}
+
+	replacements.string(current.parsed >= "26.1") {
+		replace("Holder<TestEnvironmentDefinition>", "Holder<TestEnvironmentDefinition<?>>")
 	}
 }
 

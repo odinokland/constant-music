@@ -96,7 +96,7 @@ sealed class Loader(val id: String) {
 				license = ctx.licenseName,
 				environment = if (ctx.effectiveEnvironment == "both") "*" else ctx.effectiveEnvironment,
 				entrypoints = mapOf(
-					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.FabricGameTests")
+					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.GametestTestRunner")
 				),
 				mixins = listOf(),
 				depends = mapOf(

@@ -11,6 +11,12 @@ stonecutter {
 	val (version, loader) = current.project.split('-', limit = 2)
 	properties.tags(version, loader)
 
+	swaps["gametest_annotation"] = when {
+		(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME, environment = ENVIRONMENT_NAME)"
+		(eval(current.version, ">1.20.1")) -> "@GameTest(template = TEMPLATE_NAME)"
+		else -> "@GameTest(templateNamespace = Constants.MOD_ID, template = TEMPLATE_NAME)"
+	}
+
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("ResourceLocation", "Identifier")
 		replace("location()", "identifier()")
@@ -30,7 +36,7 @@ platform {
 }
 
 sourceSets.configureEach {
-	val dir = layout.buildDirectory.dir("sourcesSets/$name")
+	val dir = layout.buildDirectory.dir("sourceSets/$name")
 	output.setResourcesDir(dir.get())
 	java.destinationDirectory.set(dir)
 }
@@ -39,13 +45,15 @@ jarJar.register() {
 	archiveClassifier = null
 }
 
+val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
+
 minecraft {
 	mappings("official", prop("deps.minecraft"))
 	runs {
 		configureEach {
-//			if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
-//				environment("MOD_CLASSES", "{source_roots}")
-//			}
+			if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
+				environment("MOD_CLASSES", "{source_roots}")
+			}
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
@@ -68,6 +76,20 @@ minecraft {
 		}
 		register("gameTestServer") {
 			workingDir.convention(layout.projectDirectory.dir("run/server"))
+		}
+		if (generateTests) {
+			// Gradle run will not be registered, since it is only a requirement for the GameTestServer run.
+			// Forge doesn't apply the json data needed via Code, so we have to generate it before running the Gametest Server.
+			register("data") {
+				workingDir.convention(layout.projectDirectory.dir("run/data"))
+				args(
+					"--mod",
+					"${prop("mod.id")}_gametest",
+					"--all",
+					"--output",
+					file("src/gametest/generated").absolutePath
+				)
+			}
 		}
 	}
 }
@@ -123,15 +145,22 @@ afterEvaluate {
 //	tasks.named<JavaExec>("runTestmodClient") { classpath(sourceSets["test"].output) }
 //	tasks.named<JavaExec>("runTestmodServer") { classpath(sourceSets["test"].output) }
 
-	//tasks.named<JavaExec>("runData") { classpath(sourceSets["gametest"].output) }
+	if (generateTests) {
+		tasks.named<JavaExec>("runData") { classpath(sourceSets["gametest"].output) }
+	}
+
 	tasks.named<JavaExec>("runGameTestServer") {
 		classpath(sourceSets["gametest"].output)
-		//dependsOn(":${ project.name }:runData")
+		if (generateTests) {
+			dependsOn("runData")
+		}
 	}
 	tasks.named<JavaExec>("runClient") {
 		classpath(sourceSets["gametest"].output)
-		//dependsOn(":${ project.name }:runData")
+		if (generateTests) {
+			dependsOn("runData")
+		}
 	}
 
-	//java.sourceSets[gametest.sourceSetName.get()].resources { srcDir("src/${ gametest.sourceSetName.get() }/generated/") }
+	java.sourceSets["gametest"].resources { srcDir("src/gametest/generated/") }
 }
