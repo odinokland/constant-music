@@ -2,18 +2,18 @@
 # Constant Music
 
 [![Release](https://img.shields.io/github/v/release/odinokland/constant-music?include_prereleases&label=latest)](https://github.com/odinokland/constant-music/releases)
-[![GitHub issues](https://img.shields.io/github/issues/odinokland/constant-music?style=flat-square)](https://github.com/odinokland/constant-music/issues)
-[![GitHub license](https://img.shields.io/github/license/odinokland/constant-music?color=0690ff&style=flat-square)](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
+[![GitHub issues](https://img.shields.io/github/issues/odinokland/constant-music)](https://github.com/odinokland/constant-music/issues)
+[![GitHub license](https://img.shields.io/github/license/odinokland/constant-music?color=0690ff)](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
+![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/odinokland/constant-music/build.yml)
 
-[![Modrinth Downloads](https://img.shields.io/modrinth/dt/tvuSEM6E?label=modrinth&logo=modrinth)](https://modrinth.com/mod/constant-music)
-[![CurseForge Downloads](https://img.shields.io/curseforge/dt/949032?logo=curseforge&label=curseforge)](https://www.curseforge.com/minecraft/mc-mods/constant-music)
+[![Modrinth Downloads](https://img.shields.io/modrinth/dt/tvuSEM6E?label=modrinth&logo=modrinth&color=00af5c)](https://modrinth.com/mod/constant-music)
+[![CurseForge Downloads](https://img.shields.io/curseforge/dt/949032?logo=curseforge&label=curseforge&color=eb622b)](https://www.curseforge.com/minecraft/mc-mods/constant-music)
+[![GitHub Downloads (all assets, all releases)](https://img.shields.io/github/downloads/odinokland/constant-music/total?logo=github&label=github)](https://github.com/odinokland/constant-music/releases)
 
-[![Dynamic JSON Badge](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fapi.modrinth.com%2Fv2%2Fproject%2Fconstant-music&query=loaders&label=mod%20loaders)
-]()
-[![Mod Loaders - Fabric | Forge | NeoForge](https://img.shields.io/badge/Mod%20Loader-Fabric_%7C_Forge_%7C_Neoforge-blue)]()
-[![Mod Loaders - Fabric | Forge | NeoForge](https://img.shields.io/badge/environment-client-1976d2)]()
-![Available For](https://img.shields.io/badge/dynamic/json?label=Available%20For&color=e64626&query=version&url=https%3A%2F%2Fapi.blueish.dev%2Fapi%2Fminecraft%2Fversion%3Fid%3Dconstant-music)
-[![Available for 26, 1.21, 1.20, 1.19](https://cf.way2muchnoise.eu/versions/constant-music.svg?q=2)](https://www.curseforge.com/minecraft/mc-mods/constant-music)
+[![Environment - Client](https://img.shields.io/badge/environment-client-blue)]()
+![Available for](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fodinokland%2Fconstant-music%2Frefs%2Fheads%2Fmain%2Fmetadata%2Fmoddata.json&query=game_versions&label=available%20for&color=blue)
+![Mod Loaders](https://img.shields.io/badge/dynamic/json?url=https%3A%2F%2Fraw.githubusercontent.com%2Fodinokland%2Fconstant-music%2Frefs%2Fheads%2Fmain%2Fmetadata%2Fmoddata.json&query=loaders&label=mod%20loaders&color=blue)
+
 
 
 Constant Music is a Minecraft Fabric, Forge & NeoForge mod currently developed for the latest Minecraft version.
