@@ -19,10 +19,14 @@ jobs:
           filter='.versions[] | { mc: .version, modloader: .loaders[], java: .java } | . + { type: (if .modloader == "forge" then "lexforge" else .modloader end), regex: ".*\(.modloader).*" }'
           matrix_json=$(jq -c "[$filter]" ./versions.json)
           echo "matrix=$matrix_json" >> "$GITHUB_OUTPUT"
-
+  build:
+    uses: ./.github/workflows/build_reusable.yml
   run-matrix:
     runs-on: ubuntu-latest
-    needs: define-matrix
+    needs:
+      - define-matrix
+      - build
+
     strategy:
       matrix:
         version: ${{ fromJSON(needs.define-matrix.outputs.matrix_include) }}
@@ -35,32 +39,12 @@ jobs:
           echo "Java Version: ${{matrix.version.java }}"
           echo "Type: ${{ matrix.version.type }}
           echo "Regex: ${{ matrix.version.regex }}
-#      - name: Define Color
-#        env:
-#          color: ${{ matrix.color }}
-#        run: |
-#          echo "$color" > color
-#      - name: Produce Artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: ${{ matrix.color }}
-#          path: color
-#
-#  consume-artifacts:
-#    runs-on: ubuntu-latest
-#    needs:
-#      - define-matrix
-#      - produce-artifacts
-#    strategy:
-#      matrix:
-#        color: ${{ fromJSON(needs.define-matrix.outputs.colors) }}
-#
-#    steps:
-#      - name: Retrieve Artifact
-#        uses: actions/download-artifact@v5
-#        with:
-#          name: ${{ matrix.color }}
-#
-#      - name: Report Color
-#        run: |
-#          cat color
+
+      - name: Download build artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: build/libs/
+
+      - name: Display structures of downloaded files
+        run: ls build/libs
