@@ -1,0 +1,53 @@
+name: Fetch and Process Modrinth Data
+on:
+  workflow_dispatch: # Allows manual trigger
+  workflow_run:
+    workflows:
+      - release
+    types:
+      - completed
+  schedule:
+    - cron: '0 0 * * *' # Optional: runs daily at midnight
+
+jobs:
+  update-data:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Fetch API Data and Process with jq
+        run: |
+          API_URL="https://api.modrinth.com/v2/project/constant-music"
+          RAW_DATA=$(curl -s -H "User-Agent: github-actions/modrinth-sync" "$API_URL")
+
+          # 2. Extract, transform, and map data using jq:
+          # - game_versions: split by ".", take first 2 parts, get distinct list, sort them
+          # - loaders: join elements together with "|"
+          PROCESSED_JSON=$(echo "$RAW_DATA" | jq '{
+            game_versions: ([.game_versions[] | split(".") | .[0:2] | join(".")] | unique | join("|")),
+            loaders: (.loaders | join("|"))
+          }')
+
+          # 3. Save the resulting structure to a file
+          echo "$PROCESSED_JSON" > metadata/moddata.json
+
+          # Optional: Print file to logs for verification
+          cat metadata/moddata.json
+
+      - name: Commit and Push changes
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          git add metadata/moddata.json
+
+          # Only commit and push if the file actually changed
+          if ! git diff-index --quiet HEAD; then
+            git commit -m "chore: automated update of moddata.json"
+            git push
+          else
+            echo "No changes detected in version or loader data."
+          fi
