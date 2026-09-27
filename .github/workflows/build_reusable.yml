@@ -34,7 +34,7 @@ jobs:
           distribution: 'microsoft'
 
       - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v4
+        uses: gradle/actions/setup-gradle@v6
         with:
           gradle-version: wrapper
           # setup-gradle handles caching out-of-the-box for ~/.gradle paths
