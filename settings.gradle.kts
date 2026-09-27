@@ -37,13 +37,13 @@ plugins {
 	id("dev.kikugie.loom-back-compat") version "0.4.2"
 }
 
-
+data class VersionData(val versions: List<GameVersion>)
+data class GameVersion(val version: String, val loaders: List<String>, val java: Int)
 
 val mapper = jacksonObjectMapper()
 val versionsFile = file("versions.json")
-val typeRef = object : TypeReference<Map<String, Map<String, List<String>>>>() {}
-val rootData: Map<String, Map<String, List<String>>>? = mapper.readValue(versionsFile, typeRef)
-val versionsMap: Map<String, List<String>> = rootData?.get("versions") ?: emptyMap()
+val typeRef = object : TypeReference<VersionData>() {}
+val rootData: VersionData = mapper.readValue(versionsFile, typeRef)
 
 stonecutter {
 	create(rootProject) {
@@ -51,7 +51,9 @@ stonecutter {
 		fun match(version: String, vararg loaders: String) =
 			loaders.forEach { version("$version-$it", version).buildscript = "build.$it.gradle.kts" }
 
-		versionsMap.forEach { (version, loaders) -> match(version, *loaders.toTypedArray()) }
+		for ((version, loaders) in rootData.versions) {
+			match(version, *loaders.toTypedArray())
+		}
 		vcsVersion = "1.19.2-forge"
 	}
 }

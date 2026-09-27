@@ -1,17 +1,117 @@
 {
-  "versions": {
-    "1.19.2": ["fabric", "forge"],
-    "1.19.3": ["fabric", "forge"],
-    "1.19.4": ["fabric", "forge"],
-    "1.20.2": ["fabric", "forge"],
-    "1.20.4": ["fabric", "forge", "neoforge"],
-    "1.20.6": ["fabric", "forge", "neoforge"],
-    "1.21.1": ["fabric", "forge", "neoforge"],
-    "1.21.3": ["fabric", "forge", "neoforge"],
-    "1.21.5": ["fabric", "forge", "neoforge"],
-    "1.21.8": ["fabric", "forge", "neoforge"],
-    "1.21.11": ["fabric", "forge", "neoforge"],
-    "26.1.2": ["fabric", "forge", "neoforge"],
-    "26.2": ["fabric", "forge", "neoforge"]
-  }
+  "versions": [
+    {
+      "version": "1.19.2",
+      "loaders": [
+        "fabric",
+        "forge"
+      ],
+      "java": 17
+    },
+    {
+      "version": "1.19.3",
+      "loaders": [
+        "fabric",
+        "forge"
+      ],
+      "java": 17
+    },
+    {
+      "version": "1.19.4",
+      "loaders": [
+        "fabric",
+        "forge"
+      ],
+      "java": 17
+    },
+    {
+      "version": "1.20.2",
+      "loaders": [
+        "fabric",
+        "forge"
+      ],
+      "java": 17
+    },
+    {
+      "version": "1.20.4",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 17
+    },
+    {
+      "version": "1.20.6",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "1.21.1",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "1.21.3",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "1.21.5",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "1.21.8",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "1.21.11",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "26.1.2",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    },
+    {
+      "version": "26.2",
+      "loaders": [
+        "fabric",
+        "forge",
+        "neoforge"
+      ],
+      "java": 21
+    }
+  ]
 }

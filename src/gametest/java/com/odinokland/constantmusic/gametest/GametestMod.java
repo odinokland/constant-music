@@ -19,6 +19,11 @@ import net.minecraftforge.registries.DeferredRegister;
 import com.odinokland.constantmusic.gametest.provider.GametestInstanceProvider;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.DataProvider;
+//? >= 1.21.6 {
+//import net.minecraftforge.eventbus.api.bus.BusGroup;
+//? } else {
+import net.minecraftforge.eventbus.api.IEventBus;
+//? }
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +59,15 @@ public class GametestMod {
 	public GametestMod(FMLJavaModLoadingContext context) {
 		GametestConstants.LOGGER.info("Loading Gametest Mod");
 		GametestConstants.initTests(GametestMod::registerTest);
-		GatherDataEvent.getBus(context.getModBusGroup()).addListener(GametestMod::gatherData);
-		GAMETESTS.register(context.getModBusGroup());
+		//? if >= 1.21.6 {
+		/^BusGroup modBusGroup = context.getModBusGroup();
+		GatherDataEvent.getBus(modBusGroup).addListener(GametestMod::gatherData);
+		^///? } else {
+		IEventBus modBusGroup = context.getModEventBus();
+		modBusGroup.addListener(GametestMod::gatherData);
+		//? }
+
+		GAMETESTS.register(modBusGroup);
 	}
 
 	private static void registerTest(String name, Consumer<GameTestHelper> consumer) {

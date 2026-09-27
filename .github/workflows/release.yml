@@ -142,6 +142,7 @@ jobs:
 
             # Re-upload artifacts (delete first to avoid duplicates)
             for FILE in ./build/libs/$TAG/*; do
+              [[ "$FILE" == *-gametest.jar ]] && continue
               NAME=$(basename "$FILE")
               gh release delete-asset "$TAG" "$NAME" -y || true
               gh release upload "$TAG" "$FILE" --clobber

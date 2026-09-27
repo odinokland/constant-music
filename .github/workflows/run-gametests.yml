@@ -1,0 +1,39 @@
+name: Run all versions with Xvfb
+on:
+  workflow_dispatch:
+  workflow_call:
+  push:
+  pull_request:
+
+jobs:
+  setup-matrix:
+    runs-on: ubuntu-latest
+
+    outputs:
+      matrix_include: ${{ steps.set_matrix.outputs.matrix }}
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Parse versions.json into matrix array
+        id: set_matrix
+        run: |
+          filter='.versions[] | { mc: .version, modloader: .loaders[], java: .java } | . + { type: (if .modloader == "forge" then "lexforge" else .modloader end), regex: ".*\(.modloader).*" }'
+          matrix_json=(jq -c "[filter]" ./versions.json)
+          echo "matrix=matrix_json" >> GITHUB_OUTPUT
+
+  run-matrix:
+    needs: setup-matrix
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        include: ${{ fromJson(needs:setup-matrix.outputs.matrix_include) }}
+    steps:
+      - name: Run job for version
+        run: |
+          echo "Minecraft Version: ${{ matrix.mc }}"
+          echo "Modloader: ${{ matrix.modloader }}"
+          echo "Java Version: ${{matrix.java }}"
+          echo "Type: ${{ matrix.type }}
+          echo "Regex: ${{ matrix.regex }}

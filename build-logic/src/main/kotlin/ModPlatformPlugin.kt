@@ -332,7 +332,8 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			from(
 				tasks.named(ctx.extension.jarTask.get()),
 				tasks.named(ctx.extension.sourcesJarTask.get()),
-				tasks.named("javadocJar")
+				tasks.named("javadocJar"),
+				tasks.named("gametestJar")
 			)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
 			dependsOn("build")
