@@ -17,8 +17,8 @@ jobs:
         id: set_matrix
         run: |
           filter='.versions[] | { mc: .version, modloader: .loaders[], java: .java } | . + { type: (if .modloader == "forge" then "lexforge" else .modloader end), regex: ".*\(.modloader).*" }'
-          matrix_json=(jq -c "[filter]" ./versions.json)
-          echo "matrix=matrix_json" >> "$GITHUB_OUTPUT"
+          matrix_json=$(jq -c "[$filter]" ./versions.json)
+          echo "matrix=$matrix_json" >> "$GITHUB_OUTPUT"
 
   run-matrix:
     runs-on: ubuntu-latest
