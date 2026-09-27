@@ -27,8 +27,7 @@ jobs:
     needs: setup-matrix
     runs-on: ubuntu-latest
     strategy:
-      matrix:
-        include: ${{ fromJson(needs:setup-matrix.outputs.matrix_include) }}
+      matrix: ${{ fromJson(needs:setup-matrix.outputs.matrix_include) }}
     steps:
       - name: Run job for version
         run: |
