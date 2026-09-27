@@ -28,17 +28,24 @@ jobs:
       - build
 
     strategy:
+      fail-fast: true
       matrix:
         version: ${{ fromJSON(needs.define-matrix.outputs.matrix_include) }}
 
     steps:
-      - name: Run job for version
-        run: |
-          echo "Minecraft Version: ${{ matrix.version.mc }}"
-          echo "Modloader: ${{ matrix.version.modloader }}"
-          echo "Java Version: ${{matrix.version.java }}"
-          echo "Type: ${{ matrix.version.type }}
-          echo "Regex: ${{ matrix.version.regex }}
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup JDK matching matrix target
+        uses: actions/setup-java@v4
+        with:
+          java-version: ${{ matrix.version.java }}
+          distribution: 'microsoft'
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v4
+        with:
+          gradle-version: wrapper
 
       - name: Download build artifacts
         uses: actions/download-artifact@v4
@@ -46,5 +53,22 @@ jobs:
           name: build-artifacts
           path: build/libs/
 
-      - name: Display structures of downloaded files
+      - name: Create mods dir
+        run: mkdir -p run/mods
+
+      - name: List mod files
         run: ls build/libs
+
+      - name: Copy mod jar
+        run: find build/libs -type f -name "constantmusic-*-${{ matrix.version.modloader }}+${{ matrix.version.mc }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -exec cp {} run/mods \;
+
+      - name: Run the MC client
+        uses: 3arthqu4ke/mc-runtime-test@4.5.1
+        with:
+          mc: ${{ matrix.version.mc }}
+          modloader: ${{ matrix.version.modloader }}
+          regex: ${{ matrix.version.regex }}
+          java: ${{ matrix.version.java }}
+          mc-runtime-test: ${{ matrix.version.type }}
+          xvfb: true
+          headlessmc-command: -lwjgl --jvm -Djava.awt.headless=true --retries 2
