@@ -103,7 +103,7 @@ dependencies {
 				parchment("org.parchmentmc.data:parchment-${prop("deps.parchment")}@zip")
 		})
 	}
-	annotationProcessor("net.fabricmc:sponge-mixin:0.17.2+mixin.0.8.7")
+	annotationProcessor("net.fabricmc:sponge-mixin:0.17.4+mixin.0.8.7")
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${libs.versions.mixinextras.get()}")!!)!!)
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
 	// implementation(libs.moulberry.mixinconstraints)
