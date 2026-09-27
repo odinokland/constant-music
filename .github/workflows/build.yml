@@ -1,6 +1,23 @@
 name: build
-on: [ push, pull_request ]
-
+on:
+  push:
+    paths:
+      - 'src/**'
+      - 'gradle/**'
+      - 'build-logic/**'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+      - 'stonecutter.properties.toml'
+      - 'versions.json'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'gradle/**'
+      - 'build-logic/**'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+      - 'stonecutter.properties.toml'
+      - 'versions.json'
 jobs:
   build:
     uses: ./.github/workflows/build_reusable.yml
