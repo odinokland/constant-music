@@ -1,5 +1,3 @@
-@file:OptIn(dev.kikugie.stonecutter.StonecutterExperimentalAPI::class)
-
 import dev.kikugie.stonecutter.controller.flag.StonecutterFlag
 
 
