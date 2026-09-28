@@ -61,7 +61,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				})
 			}
 			is Loader.Forge -> {
-				extension.jarTask.convention("jar")
+				extension.jarTask.convention("jarjar")
 				extension.sourcesJarTask.convention("sourcesJar")
 			}
 			else -> {

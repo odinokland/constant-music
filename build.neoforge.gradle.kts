@@ -1,7 +1,3 @@
-import org.gradle.plugins.ide.idea.model.IdeaModel
-import org.jetbrains.gradle.ext.runConfigurations
-import org.jetbrains.gradle.ext.settings
-
 plugins {
 	id("mod-platform")
 	id("net.neoforged.moddev")
@@ -65,7 +61,6 @@ neoForge {
 		register("client") {
 			client()
 			gameDirectory = file("run/client")
-			ideName = "NeoForge Client (${stonecutter.current.version})"
 			programArgument("--username=Dev")
 			systemProperty("forge.logging.console.level", "debug")
 
@@ -75,8 +70,6 @@ neoForge {
 		register("server") {
 			server()
 			gameDirectory = file("run/server")
-			ideName = "NeoForge Server (${stonecutter.current.version})"
-
 			sourceSet.set(java.sourceSets["main"])
 			loadedMods.set(listOf(mods[prop("mod.id")]))
 		}
@@ -84,18 +77,14 @@ neoForge {
 		register("gameTestServer") {
 			type = "gameTestServer"
 			gameDirectory = file("run/server")
-			ideName = "NeoForge GameTest Server (${stonecutter.current.version})"
 			systemProperty("neoforge.enableGameTest", "true")
 			systemProperty("neoforge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.id")}_gametest")
 //			systemProperty("forge.gametest.report-file", file("gametest-report.xml").absolutePath)
-//			sourceSet.set(sourceSets[""])
-
 			sourceSet.set(java.sourceSets["gametest"])
 			loadedMods.set(listOf(mods[prop("mod.id")], mods["${prop("mod.id")}_gametest"]))
 		}
 	}
 	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
-	//sourceSets["main"].resources.srcDir("${layout.projectDirectory}/build/generated")
 }
 
 repositories {
@@ -104,8 +93,6 @@ repositories {
 }
 
 dependencies {
-	// implementation(libs.moulberry.mixinconstraints)
-	// jarJar(libs.moulberry.mixinconstraints)
 	implementation(jarJar(libs.mixinextras.neoforge.get()) as Any)
 }
 

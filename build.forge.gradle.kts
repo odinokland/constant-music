@@ -1,5 +1,3 @@
-import org.gradle.kotlin.dsl.register
-
 plugins {
 	id("mod-platform")
 	id("net.minecraftforge.gradle")
@@ -35,6 +33,35 @@ platform {
 	}
 }
 
+if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
+	renamer.enableMixinRefmaps {
+		config("${prop("mod.id")}.mixins.json")
+		source(sourceSets.main.get(), prop("mod.id"))
+		jar(project.tasks.named(JavaPlugin.JAR_TASK_NAME, Jar::class.java))
+	}
+
+	afterEvaluate {
+		minecraft.runs.forEach { r ->
+			renamer.mixin.run(r)
+		}
+	}
+
+	renamer.classes(tasks.named<Jar>("jar")) {
+		output.set(tasks.named<Jar>("jar").get().archiveFile)
+		dependsOn("jarJar")
+		mappings(renamer.mixin.generatedMappings)
+	}
+
+	// Fixes the maven publishing using a broken jar
+	tasks.named<Jar>("sourcesJar") {
+		dependsOn("renameJar")
+	}
+} else {
+	tasks.withType<Jar>().configureEach {
+		if (name == "sourcesJar") dependsOn("jarJar")
+	}
+}
+
 sourceSets.configureEach {
 	val dir = layout.buildDirectory.dir("sourceSets/$name")
 	output.setResourcesDir(dir.get())
@@ -43,6 +70,10 @@ sourceSets.configureEach {
 
 jarJar.register() {
 	archiveClassifier = null
+}
+
+tasks.named<Jar>("jar") {
+	archiveClassifier = "slim"
 }
 
 val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
@@ -115,24 +146,8 @@ dependencies {
 
 }
 
-if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
-	renamer {
-		mappings(minecraft.dependency.toSrg)
-
-		enableMixinRefmaps {
-			config("${prop("mod.id")}.mixins.json")
-			source(sourceSets["main"]) { refMap.set("${prop("mod.id")}.refmap.json") }
-		}
-		classes(tasks.named<Jar>("jarJar")) {
-			output.set(tasks.named<Jar>("jar").get().archiveFile)
-			dependsOn("jarJar")
-			mappings(renamer.mixin.generatedMappings)
-		}
-	}
-} else {
-	tasks.withType<Jar>().configureEach {
-		if (name == "sourcesJar") dependsOn("jarJar")
-	}
+if (stonecutter.eval(stonecutter.current.version, "<1.20.5")) {
+	renamer.mappings(minecraft.dependency.toSrg)
 }
 
 tasks.withType<JavaCompile>().configureEach {
