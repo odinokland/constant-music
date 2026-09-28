@@ -21,8 +21,9 @@ const main = () => {
 	const fileContent = fs.readFileSync(filePath);
 	const tomlData = parse(fileContent.toString('utf8'))
 
-	// 4. Use or log the content
-	console.log(`Successfully read file content:\n${fileContent}`);
+	if (debug) {
+		console.log(`Successfully read file content:\n${fileContent}`);
+	}
 
 	const getJavaVersion = (ver) => {
 		const mcVersion = semver.coerce(ver, {loose: true})
@@ -75,6 +76,10 @@ const main = () => {
 			}
 		})
 	})
+	if (debug) {
+		console.log("Matrix data:")
+		console.log(outputData)
+	}
 	setOutput('versions', JSON.stringify(outputData));
 }
 

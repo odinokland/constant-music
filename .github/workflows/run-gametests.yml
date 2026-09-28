@@ -67,5 +67,6 @@ jobs:
           regex: ${{ matrix.version.regex }}
           java: ${{ matrix.version.java }}
           mc-runtime-test: ${{ matrix.version.type }}
+          fabric-api: ${{ matrix.version.fabricApi }}
           xvfb: true
           headlessmc-command: -lwjgl --jvm -Djava.awt.headless=true --retries 2
