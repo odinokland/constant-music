@@ -2,28 +2,27 @@
   "name": "prepare-matrix",
   "version": "1.0.0",
   "description": "",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "package": "npx rimraf ./dist && npx rollup --config rollup.config.js"
+    "build": "ncc build index.js",
+    "test": "mocha --require @babel/register test/*.js"
   },
+  "module": "index.js",
   "keywords": [],
-  "exports": {
-    ".": "./dist/index.js"
-  },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@actions/core": "^3.0.1",
-    "@actions/github": "^9.1.1",
+    "@actions/exec": "^3.0.0",
+    "@vercel/ncc": "^0.34.0",
     "semver": "^7.8.5",
     "smol-toml": "^1.9.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^29.0.3",
-    "@rollup/plugin-node-resolve": "^16.0.3",
-    "rollup": "^4.63.5"
-  },
-  "optionalDependencies": {
-    "@rollup/rollup-linux-x64-gnu": "*"
+    "@babel/core": "^7.29.7",
+    "@babel/preset-env": "^7.19.3",
+    "@babel/register": "^7.18.9",
+    "chai": "^4.3.6",
+    "mocha": "^12.0.2"
   }
 }

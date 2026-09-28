@@ -6,5 +6,5 @@ outputs:
     description: The object of version data
 
 runs:
-  using: node24
-  main: dist/index.js
+  using: 'node24'
+  main: 'dist/index.js'
