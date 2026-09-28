@@ -34,7 +34,7 @@ platform {
 		}
 		required("fabric-api") {
 			slug("fabric-api")
-			fabricLikeVersionRange = ">=${prop("deps.fabric-api")}"
+			fabricLikeVersionRange = ">=${prop("deps.fabricApi")}"
 		}
 		required("fabricloader") {
 			fabricLikeVersionRange = ">=${prop("deps.fabric-loader")}"
@@ -113,7 +113,7 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
 	// implementation(libs.moulberry.mixinconstraints)
 	// include(libs.moulberry.mixinconstraints)
-	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabric-api")}")
+	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
 	//ksp("org.spongepowered:mixin:0.8.7:processor")
 }

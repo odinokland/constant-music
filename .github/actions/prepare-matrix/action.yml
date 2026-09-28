@@ -1,0 +1,10 @@
+name: Prepare Version Matrix
+description: Prepares the matrix information for all combinations of game versions and loaders
+
+outputs:
+  versions:
+    description: The object of version data
+
+runs:
+  using: node24
+  main: dist/index.js

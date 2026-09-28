@@ -7,18 +7,15 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      matrix_include: ${{ steps.set_matrix.outputs.matrix }}
+      matrix_include: ${{ steps.set_matrix.outputs.versions }}
 
     steps:
       - name: Checkout repository
         uses: actions/checkout@v7
 
-      - name: Parse versions.json into matrix array
+      - name: Prepare matrix
         id: set_matrix
-        run: |
-          filter='.versions[] | { mc: .version, modloader: .loaders[], java: .java } | . + { type: (if .modloader == "forge" then "lexforge" else .modloader end), regex: ".*\(.modloader).*" }'
-          matrix_json=$(jq -c "[$filter]" ./versions.json)
-          echo "matrix=$matrix_json" >> "$GITHUB_OUTPUT"
+        uses: ./.github/actions/prepare-matrix
   build:
     uses: ./.github/workflows/build_reusable.yml
   run-matrix:
