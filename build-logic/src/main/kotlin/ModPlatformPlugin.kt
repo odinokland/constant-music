@@ -1,16 +1,11 @@
 @file:Suppress("unused", "DuplicatedCode")
 
 import dev.kikugie.fletching_table.extension.FletchingTableExtension
-import dev.kikugie.stonecutter.AnyVersion
-import dev.kikugie.stonecutter.StonecutterExperimentalAPI
-import dev.kikugie.stonecutter.build.StonecutterBuildExtension
 import org.gradle.api.DefaultTask
 import org.gradle.api.JavaVersion
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 import org.gradle.api.artifacts.VersionCatalogsExtension
-import org.gradle.api.artifacts.dsl.RepositoryHandler
-import org.gradle.api.artifacts.repositories.MavenArtifactRepository
 import org.gradle.api.file.RegularFileProperty
 import org.gradle.api.plugins.JavaPluginExtension
 import org.gradle.api.provider.Property
@@ -61,7 +56,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				})
 			}
 			is Loader.Forge -> {
-				extension.jarTask.convention("jarjar")
+				extension.jarTask.convention("jar")
 				extension.sourcesJarTask.convention("sourcesJar")
 			}
 			else -> {
@@ -280,6 +275,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 	private fun Project.registerBuildAndCollectTask(ctx: Context) {
 		tasks.register<Copy>("buildAndCollect") {
+			dependsOn("build")
 			from(
 				tasks.named(ctx.extension.jarTask.get()),
 				tasks.named(ctx.extension.sourcesJarTask.get()),
@@ -287,7 +283,6 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				tasks.named("gametestJar")
 			)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
-			dependsOn("build")
 			group = "build"
 		}
 	}
