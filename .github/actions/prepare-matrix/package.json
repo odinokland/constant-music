@@ -2,7 +2,6 @@
   "name": "prepare-matrix",
   "version": "1.0.0",
   "description": "",
-  "type": "module",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "package": "npx rimraf ./dist && npx rollup --config rollup.config.js"

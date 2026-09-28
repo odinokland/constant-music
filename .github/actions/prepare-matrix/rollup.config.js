@@ -1,17 +1,12 @@
-// See: https://rollupjs.org/introduction/
+const commonjs = require("@rollup/plugin-commonjs")
+const { nodeResolve } = require("@rollup/plugin-node-resolve")
 
-import commonjs from '@rollup/plugin-commonjs'
-import { nodeResolve } from '@rollup/plugin-node-resolve'
-
-const config = {
-  input: 'src/index.js',
-  output: {
-    esModule: true,
-    file: 'dist/index.js',
-    format: 'es',
-    sourcemap: true
-  },
-  plugins: [commonjs(), nodeResolve({ preferBuiltins: true })]
+module.exports = {
+	input: 'src/index.js',
+	output: {
+		file: 'dist/index.js',
+		format: 'cjs',  // Changed from 'es' to 'cjs'
+		sourcemap: true
+	},
+	plugins: [commonjs(), nodeResolve({ preferBuiltins: true })]
 }
-
-export default config

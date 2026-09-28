@@ -1,8 +1,8 @@
-import semver from "semver";
-import { parse } from 'smol-toml'
-import fs from 'fs'
-import path from 'path'
-import * as core from '@actions/core';
+const semver = require('semver')
+const { parse } = require("smol-toml");
+const fs = require('fs')
+const path = require('path')
+const core = require("@actions/core");
 
 /**
  * The main function for the action.
