@@ -49,6 +49,8 @@ val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
 
 minecraft {
 	mappings("official", prop("deps.minecraft"))
+	val devJvmArgs = propsList("mod", "dev_jvm_args") +
+		propsList("mod", "dev_jvm_args_mixin_debug")
 	runs {
 		configureEach {
 			if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
@@ -67,6 +69,7 @@ minecraft {
 					source(sourceSets["gametest"])
 				}
 			}
+			jvmArgs.addAll(devJvmArgs)
 //			if (stonecutter.eval(stonecutter.current.version, ">=1.17") && stonecutter.eval(stonecutter.current.version, "<=1.18")) {
 //				jvmArgs("--add-opens=java.base/java.lang.invoke=ALL-UNNAMED")
 //			}

@@ -20,65 +20,13 @@ import org.gradle.api.tasks.JavaExec
 import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import org.gradle.api.tasks.testing.Test
-import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import org.gradle.jvm.tasks.Jar
 import org.gradle.jvm.toolchain.JavaLanguageVersion
 import org.gradle.jvm.toolchain.JavaToolchainService
 import org.gradle.kotlin.dsl.*
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.plugins.ide.idea.model.IdeaModel
-import java.io.File
-import java.util.Properties
 import javax.inject.Inject
-
-val Project.sc: StonecutterBuildExtension
-	get() = extensions.getByType<StonecutterBuildExtension>()
-
-@OptIn(StonecutterExperimentalAPI::class)
-fun Project.prop(name: String): String = (project.sc.properties.getAs<String>(name))
-
-fun Project.env(variable: String): String? {
-	providers.environmentVariable(variable).orNull?.let { return it }
-	return rootProject.file(".env").takeIf { it.exists() }?.let { f ->
-		Properties().apply { f.inputStream().use(::load) }.getProperty(variable)
-	}
-}
-fun Project.envTrue(variable: String): Boolean = env(variable)?.toDefaultLowerCase() == "true"
-
-fun Project.getAccessFile(type: AccessType): File {
-	val modId = sc.properties["mod.id"]
-	val defaultFile = rootProject.layout.projectDirectory.file("src/main/resources/aw/$modId.${type.keyword}").asFile
-
-	val targetVersion = sc.current.version
-	val awDir = rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
-	val resolvedFile = findResolvedAccessFile(targetVersion, awDir, type)
-	return resolvedFile ?: defaultFile
-}
-
-fun findResolvedAccessFile(
-	targetVersion: AnyVersion,
-	awDir: File,
-	type: AccessType
-): File? {
-	val safeVersionQuery = Regex.escape(targetVersion)
-	val resolvedFile = awDir.listFiles()?.firstOrNull { file ->
-		if (!file.isFile || !file.name.endsWith(".${type.keyword}")) return@firstOrNull false
-		val fileVersionPart = file.name.removeSuffix(".${type.keyword}")
-		val fileMatchesQueryPattern = Regex("""\b$safeVersionQuery(\.\d+)*(-[0-9A-Za-z.-]+)?\b""")
-		val safeFileQuery = Regex.escape(fileVersionPart)
-		val queryMatchesFilePattern = Regex("""\b$safeFileQuery(\.\d+)*(-[0-9A-Za-z.-]+)?\b""")
-		fileMatchesQueryPattern.containsMatchIn(fileVersionPart) ||
-			queryMatchesFilePattern.containsMatchIn(targetVersion)
-	}
-	return resolvedFile
-}
-
-fun RepositoryHandler.strictMaven(
-	url: String, vararg groups: String, configure: MavenArtifactRepository.() -> Unit = {}
-) = exclusiveContent {
-	forRepository { maven(url) { configure() } }
-	filter { groups.forEach(::includeGroup) }
-}
 
 abstract class GenerateModManifestTask : DefaultTask() {
 	@get:Input
@@ -122,25 +70,28 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			}
 		}
 
-		listOf("org.jetbrains.kotlin.jvm", "com.google.devtools.ksp", "dev.kikugie.fletching-table").forEach {
+		listOf(
+			"org.jetbrains.kotlin.jvm",
+			"com.google.devtools.ksp",
+			"dev.kikugie.fletching-table",
+			"me.modmuss50.mod-publish-plugin"
+		).forEach {
 			apply(
 				plugin = it
 			)
 		}
 
-		afterEvaluate {
-			val ctx = Context(
-				project = this,
-				extension = extension,
-				loader = Loader.of(extension.loader.get()),
-				stonecutter = project.sc
-			)
-			configureProject(ctx)
-		}
+		val ctx = Context(
+			project = this,
+			extension = extension,
+			loader = Loader.of(extension.loader.get()),
+			stonecutter = project.sc
+		)
+		configureProject(ctx)
 	}
 
 	private fun Project.configureProject(ctx: Context) {
-		listOf("java", "me.modmuss50.mod-publish-plugin", "idea").forEach { apply(plugin = it) }
+		listOf("java", "idea").forEach { apply(plugin = it) }
 
 		version = ctx.fullVersion
 		ctx.extension.requiredJava.set(ctx.javaVersion)

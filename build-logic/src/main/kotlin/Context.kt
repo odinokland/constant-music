@@ -2,6 +2,7 @@ import Loader
 import dev.kikugie.stonecutter.AnyVersion
 import dev.kikugie.stonecutter.StonecutterExperimentalAPI
 import dev.kikugie.stonecutter.build.StonecutterBuildExtension
+import me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment
 import org.gradle.api.JavaVersion
 import org.gradle.api.Project
 
@@ -48,9 +49,48 @@ class Context(
 	val isRelease: Boolean by lazy {
 		project.envTrue("MOD_IS_RELEASE") || project.hasProperty("release") || project.hasProperty("mod.release")
 	}
-	val environment: String by lazy { optional("mod.environment", "both") }
-	val effectiveEnvironment: String by lazy {
-		if (isRelease) environment else "both"
+	val environment: ModrinthEnvironment by lazy {
+		val env = require("mod.environment")
+		runCatching { ModrinthEnvironment.valueOf(env.uppercase()) }.getOrElse {
+			val entries = ModrinthEnvironment.entries.joinToString { it.name.lowercase() }
+			error("""
+				Invalid mod.environment '$env' in stonecutter.properties.toml.
+				Valid values: $entries
+				See https://github.com/modmuss50/mod-publish-plugin/blob/main/src/main/kotlin/me/modmuss50/mpp/platforms/modrinth/ModrinthEnvironment.kt for documentation.
+			""".trimIndent()
+			)
+		}
+	}
+	val effectiveEnvironment: ModrinthEnvironment by lazy {
+		if (isRelease) environment else ModrinthEnvironment.CLIENT_OR_SERVER
+	}
+	val environmentPhysicalClient: Boolean by lazy {
+		when (effectiveEnvironment) {
+			ModrinthEnvironment.DEDICATED_SERVER_ONLY -> false
+
+			ModrinthEnvironment.CLIENT_ONLY,
+			ModrinthEnvironment.SERVER_ONLY,
+			ModrinthEnvironment.CLIENT_AND_SERVER,
+			ModrinthEnvironment.SERVER_ONLY_CLIENT_OPTIONAL,
+			ModrinthEnvironment.CLIENT_ONLY_SERVER_OPTIONAL,
+			ModrinthEnvironment.CLIENT_OR_SERVER_PREFERS_BOTH,
+			ModrinthEnvironment.CLIENT_OR_SERVER,
+			ModrinthEnvironment.SINGLEPLAYER_ONLY -> true
+		}
+	}
+	val environmentPhysicalServer: Boolean by lazy {
+		when (effectiveEnvironment) {
+			ModrinthEnvironment.CLIENT_ONLY,
+			ModrinthEnvironment.SINGLEPLAYER_ONLY -> false
+
+			ModrinthEnvironment.SERVER_ONLY,
+			ModrinthEnvironment.DEDICATED_SERVER_ONLY,
+			ModrinthEnvironment.CLIENT_AND_SERVER,
+			ModrinthEnvironment.SERVER_ONLY_CLIENT_OPTIONAL,
+			ModrinthEnvironment.CLIENT_ONLY_SERVER_OPTIONAL,
+			ModrinthEnvironment.CLIENT_OR_SERVER_PREFERS_BOTH,
+			ModrinthEnvironment.CLIENT_OR_SERVER -> true
+		}
 	}
 
 	val authors: List<String> by lazy {

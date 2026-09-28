@@ -54,10 +54,13 @@ neoForge {
 	}
 
 	runs {
+		val devJvmArgs = propsList("mod", "dev_jvm_args") +
+			propsList("mod", "dev_jvm_args_mixin_debug")
 		mods.create(prop("mod.id")) { sourceSet(java.sourceSets["main"]) }
 		configureEach {
 			disableIdeRun()
 			systemProperty("terminal.ansi", "true")
+			jvmArguments.addAll(devJvmArgs)
 		}
 		register("client") {
 			client()

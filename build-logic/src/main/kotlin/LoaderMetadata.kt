@@ -18,7 +18,7 @@ data class FabricManifest(
 	@EncodeDefault(EncodeDefault.Mode.NEVER)
 	val icon: String? = null,
 	val license: String,
-	val environment: String = "*",
+	val environment: String,
 	@EncodeDefault(EncodeDefault.Mode.NEVER)
 	val accessWidener: String? = null,
 	val entrypoints: Map<String, List<String>>,

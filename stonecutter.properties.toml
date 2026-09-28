@@ -1,23 +1,43 @@
 loomx.loom_version="1.17-SNAPSHOT"
 
+[mod]
+id = "constantmusic"
+name = "Constant Music"
+group = "com.odinokland"
+version = "1.0.6"
+channel_tag = ""
+description = "Control the silence between music."
+authors = ["Odin Okland"]
+contributors = []
+inception_year = "2026"
+license.name = "LGPL-3.0"
+license.url = "https://opensource.org/licenses/MIT"
+license.dist = "repo"
+environment = "client_only"
+sources_url = "https://github.com/odinokland/constant-music"
+homepage_url = "https://curseforge.com/minecraft/mc-mods/constant-music"
+issues_url = "https://github.com/odinokland/constant-music/issues"
+discord_url = ""
+dev_jvm_args = [
+	"-XX:+IgnoreUnrecognizedVMOptions",
+	"-XX:+UseZGC",
+	"-XX:+HeapDumpOnOutOfMemoryError",
+	"-XX:HeapDumpPath=heapdump.hprof",
+	"-XX:+ShowCodeDetailsInExceptionMessages",
+	"-XX:+UseCompactObjectHeaders",
+	"-XX:+AlwaysPreTouch",
+	"-XX:+UseStringDeduplication",
+	"-Dfile.encoding=UTF-8"
+]
+dev_jvm_args_mixin_debug = [
+	"-Dmixin.env.remapRefMap=true",
+	"-Dmixin.debug.verbose=true",
+	"-Dmixin.debug.verify=true",
+	"-Dmixin.debug.countInjections=true",
+	"-Dmixin.debug=true",
+	"-Dmixin.debug.export=true"
+]
 
-mod.id = "constantmusic"
-mod.name = "Constant Music"
-mod.group = "com.odinokland"
-mod.version = "1.0.6"
-mod.channel_tag = ""
-mod.description = "Control the silence between music."
-mod.authors = ["Odin Okland"]
-mod.contributors = []
-mod.inception_year = "2026"
-mod.license.name = "LGPL-3.0"
-mod.license.url = "https://opensource.org/licenses/MIT"
-mod.license.dist = "repo"
-mod.sources_url = "https://github.com/odinokland/constant-music"
-mod.homepage_url = "https://curseforge.com/minecraft/mc-mods/constant-music"
-mod.issues_url = "https://github.com/odinokland/constant-music/issues"
-mod.discord_url = ""
-mod.environment = "client"
 [[mod.pom.developers]]
 id = "odinokland"
 name = "Odin Okland"

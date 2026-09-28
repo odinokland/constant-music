@@ -45,6 +45,8 @@ platform {
 
 loom {
 	accessWidenerPath = getAccessFile(AccessType.WIDENER)
+	val devJvmArgs = propsList("mod", "dev_jvm_args") +
+		propsList("mod", "dev_jvm_args_mixin_debug")
 	if (sc.current.parsed < "26") {
 		mixin {
 			useLegacyMixinAp = true
@@ -56,12 +58,14 @@ loom {
 		generateRunConfig.set(false)
 		runDirectory.set(layout.projectDirectory.dir("run/client"))
 		programArguments.addAll("--username","Dev")
+		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric Client")
 	}
 	runs.named("server") {
 		server()
 		generateRunConfig.set(false)
 		runDirectory.set(layout.projectDirectory.dir("run/server"))
+		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric Server")
 	}
 	runs.register("gameTestServer") {
@@ -69,6 +73,7 @@ loom {
 		generateRunConfig.set(false)
 		runDirectory.set(layout.projectDirectory.dir("run/server"))
 		sourceSet.set("gametest")
+		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric GameTest Server")
 		systemProperties.put("fabric-api.gametest", "true")
 		systemProperties.put("fabric-api.gametest.report-file", layout.buildDirectory.file("gametest-report.xml").get().asFile.absolutePath)

@@ -5,10 +5,10 @@ import dev.kikugie.stonecutter.controller.flag.StonecutterFlag
 
 plugins {
 	alias(libs.plugins.stonecutter)
+	alias(libs.plugins.mod.publish.plugin)
 	alias(libs.plugins.loom.back.compat).apply(false)
 	alias(libs.plugins.neoforged.moddev).apply(false)
 	alias(libs.plugins.jsonlang.postprocess).apply(false)
-	alias(libs.plugins.mod.publish.plugin).apply(false)
 	alias(libs.plugins.kotlin.jvm).apply(false)
 	alias(libs.plugins.devtools.ksp).apply(false)
 	alias(libs.plugins.fletching.table).apply(false)
@@ -16,70 +16,7 @@ plugins {
 	alias(libs.plugins.forgegradle).apply(false)
 	alias(libs.plugins.renamer).apply(false)
 	alias(libs.plugins.jarjar).apply(false)
-}
-
-tasks.register("runActiveClient") {
-	group = "stonecutter"
-	description = "Run client of the active Stonecutter version"
-	dependsOn(stonecutter.current!!.project + ":runClient")
-}
-
-tasks.register("runActiveServer") {
-	group = "stonecutter"
-	description = "Run server of the active Stonecutter version"
-	dependsOn(stonecutter.current!!.project + ":runServer")
-}
-
-tasks.register("runActiveGameTest") {
-	group = "stonecutter"
-	description = "Run game tests of the active Stonecutter version"
-	dependsOn(stonecutter.current!!.project + ":runGameTestServer")
-}
-
-tasks.register("testActive") {
-	group = "stonecutter"
-	description = "Run tests of the active Stonecutter version"
-	dependsOn(stonecutter.current!!.project + ":test")
-}
-
-tasks.register("runAllTestsSequentially") {
-	group = "verification"
-	description = "Runs all unit tests and game tests across all Stonecutter variants sequentially to save memory."
-	val variantProjects: List<Project>
-	if (project.hasProperty("runTestsFor")) {
-		val modLoader = project.property("runTestsFor") as String
-		variantProjects = subprojects.filter { sub ->
-			// Adjust this condition if you use a specific naming convention (e.g., contains("-fabric"))
-			sub.name.endsWith("-${modLoader}") && sub.tasks.any { it.name == "test" || it.name == "runGameTestServer" }
-		}
-	} else {
-		variantProjects = subprojects.filter { sub ->
-			// Adjust this condition if you use a specific naming convention (e.g., contains("-fabric"))
-			sub.name != "1.21.5-forge" && sub.tasks.any { it.name == "test" || it.name == "runGameTestServer" }
-		}
-	}
-
-	doLast {
-		logger.lifecycle("Found ${variantProjects.size} variants to test sequentially.")
-	}
-
-	var previousTask: Task? = null
-	variantProjects.forEach { sub ->
-		// Target standard unit tests
-		val unitTestTask = sub.tasks.findByName("test")
-		// Target Fabric/Forge/NeoForge game test tasks (adjust name if your loader uses a different task name)
-		val gameTestTask = sub.tasks.findByName("runGameTestServer")
-
-		listOfNotNull(unitTestTask, gameTestTask).forEach { currentTask ->
-			if (previousTask != null) {
-				// Force the current task to wait for the completion of the previous one
-				currentTask.mustRunAfter(previousTask!!)
-			}
-			// Make the root aggregator task depend on this task
-			dependsOn(currentTask)
-			previousTask = currentTask
-		}
-	}
+	id("mod-root")
 }
 
 tasks.withType<Test>().configureEach {
@@ -92,6 +29,10 @@ stonecutter {
 	active(file(".sc_active_version"))
 	flags {
 		set(StonecutterFlag.LINE_SEPARATOR, "\n")
+	}
+	tasks {
+		order("publishModrinth")
+		order("publishCurseforge")
 	}
 	parameters {
 		val currentLoader = current.project.substringAfterLast('-')
@@ -145,9 +86,4 @@ stonecutter {
 
 		}
 	}
-}
-
-for (version in stonecutter.versions.map { it.version }.distinct()) tasks.register("publish$version") {
-	group = "publishing"
-	dependsOn(stonecutter.tasks.named("publishMods") { metadata.version == version })
 }
