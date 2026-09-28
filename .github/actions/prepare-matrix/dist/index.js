@@ -1,11 +1,9 @@
-import fs$1 from 'node:fs';
-import path from 'node:path';
+import * as fs from 'fs';
+import fs__default, { promises } from 'fs';
+import path from 'path';
 import * as os from 'os';
 import os__default from 'os';
 import * as crypto from 'crypto';
-import * as fs from 'fs';
-import { promises } from 'fs';
-import 'path';
 import http from 'http';
 import https from 'https';
 import 'net';
@@ -32543,11 +32541,11 @@ async function run() {
 		const relativeFilePath = getInput('stonecutter.properties.toml');
 		const filePath = path.resolve(workspace, relativeFilePath);
 
-		if (!fs$1.existsSync(filePath)) {
+		if (!fs__default.existsSync(filePath)) {
 			throw new Error(`File not found at: ${filePath}`);
 		}
 
-		const fileContent = fs$1.readFileSync(filePath, 'utf8');
+		const fileContent = fs__default.readFileSync(filePath, 'utf8');
 		const tomlData = parse$1(fileContent);
 
 		// 4. Use or log the content
