@@ -57,7 +57,7 @@ jobs:
         run: ls build/libs
 
       - name: Copy mod jar
-        run: find build/libs -type f -name "constantmusic-*-${{ matrix.version.modloader }}+${{ matrix.version.mc }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -exec cp {} run/mods \;
+        run: find build/libs -type f -name "constantmusic-*-${{ matrix.version.modloader }}+${{ matrix.version.mc }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -not -name "*-slim.jar" -exec cp {} run/mods \;
 
       - name: Run the MC client
         uses: 3arthqu4ke/mc-runtime-test@4.5.1
