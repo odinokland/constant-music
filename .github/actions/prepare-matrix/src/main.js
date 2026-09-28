@@ -1,9 +1,8 @@
 import semver from "semver";
 import { parse } from 'smol-toml'
-
-const fs = require('fs');
-const path = require('path');
-const core = require('@actions/core');
+import fs from 'node:fs'
+import path from 'node:path'
+import * as core from '@actions/core';
 
 /**
  * The main function for the action.
