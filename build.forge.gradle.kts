@@ -76,6 +76,13 @@ tasks.named<Jar>("jar") {
 	archiveClassifier = "slim"
 }
 
+tasks.named("build") {
+	dependsOn("jarJar")
+}
+tasks.named("buildAndCollect") {
+	dependsOn("jarJar")
+}
+
 val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
 
 minecraft {
