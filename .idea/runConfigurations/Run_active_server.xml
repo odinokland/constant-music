@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run active server" type="GradleRunConfiguration" factoryName="Gradle" folderName="Stonecutter">
+  <configuration default="false" name="Run active server" type="GradleRunConfiguration" factoryName="Gradle" folderName="Common">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />

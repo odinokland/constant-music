@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Run active tests" type="GradleRunConfiguration" factoryName="Gradle" folderName="Common">
+  <configuration default="false" name="Run active client" type="GradleRunConfiguration" factoryName="Gradle" folderName="Common">
     <ExternalSystemSettings>
       <option name="executionName" />
       <option name="externalProjectPath" value="$PROJECT_DIR$" />
@@ -10,7 +10,7 @@
       </option>
       <option name="taskNames">
         <list>
-          <option value="testActive" />
+          <option value="runActiveClient" />
         </list>
       </option>
       <option name="vmOptions" />
