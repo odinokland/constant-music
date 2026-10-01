@@ -72,15 +72,15 @@ commit_preprocessors = [
 commit_parsers = [
 	{ message = "^feat", group = "Features" },
 	{ message = "^fix", group = "Fixes" },
-	{ message = "^doc", group = "Documentation" },
+	{ message = "^doc", group = "Documentation", skip = true },
 	{ message = "^perf", group = "Performance" },
-	{ message = "^refactor", group = "Refactoring" },
+	{ message = "^refactor", group = "Refactoring", skip = true },
 	{ message = "^style", group = "Code Style", skip = true },
-	{ message = "^revert", group = "Revert" },
-	{ message = "^test", group = "Tests" },
+	{ message = "^revert", group = "Revert", skip = true },
+	{ message = "^test", group = "Tests", skip = true },
 	{ message = "^chore", group = "Chores", skip = true },
 	{ body = ".*security", group = "Security" },
-	{ message = ".*\\((ci|cd|dx)(/.*)?\\).*", group = "Development/Tooling" },
+	{ message = ".*\\((ci|cd|dx)(/.*)?\\).*", group = "Development/Tooling", skip = true },
 
 	# Silence not structured commits
 	{ message = "^.*", skip = true },

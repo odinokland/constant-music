@@ -2,9 +2,9 @@ import dev.kikugie.stonecutter.controller.flag.StonecutterFlag
 
 
 plugins {
-	alias(libs.plugins.stonecutter)
 	alias(libs.plugins.mod.publish.plugin)
-	alias(libs.plugins.loom.back.compat).apply(false)
+	//alias(libs.plugins.loom.back.compat).apply(false)
+	id("dev.kikugie.loom-back-compat").apply(false)
 	alias(libs.plugins.neoforged.moddev).apply(false)
 	alias(libs.plugins.jsonlang.postprocess).apply(false)
 	alias(libs.plugins.kotlin.jvm).apply(false)

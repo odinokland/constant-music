@@ -19,6 +19,12 @@ pluginManagement {
 		maven("https://maven.parchmentmc.org") { name = "ParchmentMC" }
 	}
 	includeBuild("build-logic")
+
+	plugins {
+		id("org.gradle.toolchains.foojay-resolver-convention") version providers.gradleProperty("foojay.version").get()
+		id("dev.kikugie.stonecutter") version providers.gradleProperty("stonecutter.version").get()
+		id("dev.kikugie.loom-back-compat") version providers.gradleProperty("loomx.version").get()
+	}
 }
 
 buildscript {
@@ -32,9 +38,9 @@ buildscript {
 }
 
 plugins {
-	id("org.gradle.toolchains.foojay-resolver-convention") version "1.0.0"
-	id("dev.kikugie.stonecutter") version "0.10-alpha.11"
-	id("dev.kikugie.loom-back-compat") version "0.4.3"
+	id("org.gradle.toolchains.foojay-resolver-convention")
+	id("dev.kikugie.stonecutter")
+	id("dev.kikugie.loom-back-compat")
 }
 
 data class VersionData(val versions: List<GameVersion>)
