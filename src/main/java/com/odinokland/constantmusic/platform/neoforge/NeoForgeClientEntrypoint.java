@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
-/*import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
+/*import com.odinokland.constantmusic.gui.ConfigScreen;
 import net.neoforged.fml.ModContainer;
 //? if >= 1.20.6 {
 //import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
@@ -31,7 +31,7 @@ public class NeoForgeClientEntrypoint {
 		//? } else {
 		modContainer.registerExtensionPoint(
 				ConfigScreenHandler.ConfigScreenFactory.class, () -> new ConfigScreenHandler.ConfigScreenFactory(
-						(minecraft, parent) -> new ConstantMusicConfigScreen(parent)));
+						(minecraft, parent) -> new ConfigScreen(parent)));
 		//?}
 	}
 }

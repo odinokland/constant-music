@@ -13,14 +13,14 @@ public class ConstantMusicConfigScreenTest {
 	@DisplayName("Config option generates valid OptionInstance with correct initial value and caption")
 	void testConfigOption() {
 		ConstantMusic.resetForTesting(30);
-		OptionInstance<Integer> option = ConstantMusicConfigScreen.getConfigOption();
+		OptionInstance<Integer> option = ConfigScreen.getConfigOption();
 
 		assertThat(option).isNotNull();
 		assertThat(option.get()).isEqualTo(30);
 
 		// Verify option caption when 0 (OFF)
 		ConstantMusic.resetForTesting(0);
-		OptionInstance<Integer> optionZero = ConstantMusicConfigScreen.getConfigOption();
+		OptionInstance<Integer> optionZero = ConfigScreen.getConfigOption();
 		assertThat(optionZero.get()).isEqualTo(0);
 	}
 }

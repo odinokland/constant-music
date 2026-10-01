@@ -41,17 +41,19 @@ stonecutter {
 		swaps["mod_name"] = "\"${properties.get("mod.name")}\";"
 		swaps["mod_group"] = "\"${properties.get("mod.group")}\";"
 		swaps["minecraft"] = "\"${current.version}\";"
-		swaps["forge_modlist"] = when {
-			eval(current.version, ">=26.1") -> "ModList;"
-			else -> "ModList.get();"
-		}
 		swaps["gametest_implementations"] = "{"
+		swaps["render_input"] = when {
+			eval(current.version, ">=26.1") -> "GuiGraphicsExtractor guiGraphics,"
+			eval(current.version, ">1.19.4") -> "GuiGraphics guiGraphics,"
+			else -> "PoseStack guiGraphics,"
+		}
 
 		constants["release"] = properties.get("mod.id") != "modtemplate"
 
 		replacements {
 			string(current.parsed > "1.19.4") {
 				replace("com.mojang.blaze3d.vertex.PoseStack","net.minecraft.client.gui.GuiGraphics")
+				replace("drawCenteredString(guiGraphics, ", "guiGraphics.drawCenteredString(")
 			}
 			string(current.parsed >= "1.21") {
 				replace("net.minecraft.client.gui.screens.SoundOptionsScreen","net.minecraft.client.gui.screens.options.SoundOptionsScreen")
@@ -72,12 +74,14 @@ stonecutter {
 			string(current.parsed >= "1.21.6") {
 				replace("net.minecraftforge.eventbus.api.SubscribeEvent", "net.minecraftforge.eventbus.api.listener.SubscribeEvent")
 			}
-			string(current.parsed >= "26.1") {
-				replace("GuiGraphics", "GuiGraphicsExtractor")
-				replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
-				replace("abstractWidget.render", "abstractWidget.extractRenderState")
-				replace("renderContent", "extractContent")
-			}
+ 		string(current.parsed >= "26.1") {
+ 			replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
+ 			replace("abstractWidget.render", "abstractWidget.extractRenderState")
+ 			replace("renderContent", "extractContent")
+ 			replace("public void render(", "public void extractRenderState(")
+ 			replace("renderBackground(", "extractBackground(")
+ 			replace("super.render(", "super.extractRenderState(")
+ 		}
 			string(current.parsed >= "26.1", "forge_update") {
 				replace("ModList.get()", "ModList")
 			}

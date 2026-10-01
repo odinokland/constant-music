@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform.forge;
 
 //? forge {
-import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
+import com.odinokland.constantmusic.gui.ConfigScreen;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.fml.ModLoadingContext;
 
@@ -23,7 +23,7 @@ public class ForgeClientEntrypoint {
 		//? if >=1.19 {
 		modLoadingContext.registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class, () ->
 				new ConfigScreenHandler.ConfigScreenFactory(
-						(client, parent) -> new ConstantMusicConfigScreen(parent)
+						(client, parent) -> new ConfigScreen(parent)
 				)
 		);
 		//?} else if >1.16.5 <1.19 {

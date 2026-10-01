@@ -2,7 +2,7 @@ package com.odinokland.constantmusic.mixin;
 
 
 import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
+import com.odinokland.constantmusic.gui.ConfigScreen;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 //? < 1.19.3 {
 import com.odinokland.constantmusic.gui.MusicDelaySlider;
@@ -46,7 +46,7 @@ public class SoundOptionsScreenMixin extends Screen {
 	protected void onGetAllOptions(CallbackInfoReturnable<OptionInstance<?>[]> cir) {
 		OptionInstance<?>[] defaultOptions = cir.getReturnValue();
 
-		OptionInstance<Integer> seconds = ConstantMusicConfigScreen.getConfigOption();
+		OptionInstance<Integer> seconds = ConfigScreen.getConfigOption();
 
 		OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];
 
@@ -56,18 +56,6 @@ public class SoundOptionsScreenMixin extends Screen {
 
 		cir.setReturnValue(updatedOptions);
 	}
-//	@Inject(method = "getOptions", at = @At("RETURN"), cancellable = true)
-//	private static void onGetOptions(net.minecraft.client.Options options, CallbackInfoReturnable<OptionInstance<?>[]> cir) {
-//		OptionInstance<?>[] defaultOptions = cir.getReturnValue();
-//
-//		OptionInstance<Integer> seconds = ConstantMusic.getConfigOption();
-//
-//		OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];
-//		System.arraycopy(defaultOptions, 0, updatedOptions, 0, defaultOptions.length);
-//		updatedOptions[updatedOptions.length - 1] = seconds;
-//
-//		cir.setReturnValue(updatedOptions);
-//	}
 	*///?} else {
 
 	/**

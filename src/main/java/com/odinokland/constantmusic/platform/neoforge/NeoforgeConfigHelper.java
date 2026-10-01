@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge && >=1.20.6 {
-/*import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
+/*import com.odinokland.constantmusic.gui.ConfigScreen;
 import net.minecraft.client.gui.screens.Screen;
 //? if >=1.21 {
 //import net.neoforged.fml.ModContainer;
@@ -27,7 +27,7 @@ public class NeoforgeConfigHelper implements IConfigScreenFactory {
 	 ^/
 	@Override
 	public Screen createScreen(/^? >=1.21 {^/ /^ModContainer ^//^?} else {^/ Minecraft /^?}^/ container, Screen modListScreen) {
-		return new ConstantMusicConfigScreen(modListScreen);
+		return new ConfigScreen(modListScreen);
 	}
 }
 *///? }
