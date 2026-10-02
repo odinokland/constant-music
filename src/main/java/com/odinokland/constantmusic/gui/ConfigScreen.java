@@ -9,6 +9,9 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
 
+/**
+ * Constant music config screen.
+ */
 public class ConfigScreen extends Screen {
 	private final Screen parent;
 	/**

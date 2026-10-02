@@ -56,7 +56,14 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				})
 			}
 			is Loader.Forge -> {
-				extension.jarTask.convention("jar")
+				logger.lifecycle("Preparing for forge loader. Current mc version: ${project.sc.current.version}")
+				if (project.sc.eval(project.sc.current.version, "<=1.20.6")) {
+					logger.lifecycle("Less than 1.21.10")
+					extension.jarTask.convention("renameJarJar")
+				} else {
+					logger.lifecycle("Greater than or equal to 1.21.10")
+					extension.jarTask.convention("jar")
+				}
 				extension.sourcesJarTask.convention("sourcesJar")
 			}
 			else -> {
@@ -283,9 +290,9 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				tasks.named("javadocJar"),
 				tasks.named("gametestJar")
 			)
-			if (ctx.loader is Loader.Forge) {
-				taskArray += tasks.named("jarJar")
-			}
+//			if (ctx.loader is Loader.Forge) {
+//				taskArray += tasks.named("renameJarJar")
+//			}
 			from(taskArray)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
 			group = "build"

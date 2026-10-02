@@ -33,33 +33,8 @@ platform {
 	}
 }
 
-if (stonecutter.eval(stonecutter.current.version, "<1.20.5 ")) {
-	renamer.enableMixinRefmaps {
-		config("${prop("mod.id")}.mixins.json")
-		source(sourceSets.main.get(), prop("mod.id"))
-		jar(project.tasks.named(JavaPlugin.JAR_TASK_NAME, Jar::class.java))
-	}
-
-	afterEvaluate {
-		minecraft.runs.forEach { r ->
-			renamer.mixin.run(r)
-		}
-	}
-
-	renamer.classes(tasks.named<Jar>("jar")) {
-		output.set(tasks.named<Jar>("jar").get().archiveFile)
-		dependsOn("jarJar")
-		mappings(renamer.mixin.generatedMappings)
-	}
-
-	// Fixes the maven publishing using a broken jar
-	tasks.named<Jar>("sourcesJar") {
-		dependsOn("renameJar")
-	}
-} else {
-	tasks.withType<Jar>().configureEach {
-		if (name == "sourcesJar") dependsOn("jarJar")
-	}
+jarJar {
+	register("jarJar")
 }
 
 sourceSets.configureEach {
@@ -68,25 +43,12 @@ sourceSets.configureEach {
 	java.destinationDirectory.set(dir)
 }
 
-jarJar.register() {
-	archiveClassifier = null
-}
-
-tasks.named<Jar>("jar") {
-	archiveClassifier = "slim"
-}
-
-tasks.named("build") {
-	dependsOn("jarJar")
-}
-tasks.named("buildAndCollect") {
-	dependsOn("jarJar")
-}
-
 val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
 
 minecraft {
-	mappings("official", prop("deps.minecraft"))
+	if (stonecutter.eval(stonecutter.current.version, "<=1.21.11")) {
+		mappings("official", prop("deps.minecraft"))
+	}
 	val devJvmArgs = propsList("mod", "dev_jvm_args") +
 		propsList("mod", "dev_jvm_args_mixin_debug")
 	runs {
@@ -144,17 +106,38 @@ repositories {
 
 dependencies {
 	implementation(minecraft.dependency("net.minecraftforge:forge:${prop("deps.minecraft")}-${prop("deps.forge")}"))
-	if (stonecutter.eval(stonecutter.current.version, "<1.20.5")) {
+	if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
 		annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
 	}
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
+	implementation(libs.mixinextras.forge.get())
 
-	implementation("jarJar"(libs.mixinextras.forge.get()) as Any)
+	// 1.21.10 bundles mixin extras
+	if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
+		add("jarJar", libs.mixinextras.forge.get())
+	}
 
 }
+if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
+	renamer {
+		mappings(minecraft.dependency.toSrg)
 
-if (stonecutter.eval(stonecutter.current.version, "<1.20.5")) {
-	renamer.mappings(minecraft.dependency.toSrg)
+		enableMixinRefmaps {
+			config("${prop("mod.id")}.mixins.json")
+			source(project.sourceSets.main.get()) {
+				refMap = "${prop("mod.id")}.refmap.json"
+			}
+			jar(tasks.named<Jar>("jarJar"))
+		}
+		classes(tasks.named<Jar>("jarJar")) {
+			mappings(renamer.mixin.generatedMappings)
+			archiveClassifier.set(null)
+		}
+	}
+
+	tasks.named<Jar>("jar") {
+		archiveClassifier = "slim"
+	}
 }
 
 tasks.withType<JavaCompile>().configureEach {

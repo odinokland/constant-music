@@ -68,7 +68,12 @@ public class ForgeEntrypoint {
 	 * @param event The FMLClientSetupEvent for the mod.
 	 */
 	public static void onClientSetup(final FMLClientSetupEvent event) {
-		ForgeClientEntrypoint.setupConfigScreen(modLoadingContext);
+		//? if < 1.20.6 {
+		modLoadingContext = ModLoadingContext.get();
+		//? }
+		event.enqueueWork(() -> {
+			ForgeClientEntrypoint.setupConfigScreen(modLoadingContext);
+		});
 	}
 }
 //?}
