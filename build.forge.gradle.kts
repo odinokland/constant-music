@@ -32,9 +32,17 @@ platform {
 		}
 	}
 }
-
-jarJar {
-	register("jarJar")
+if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
+	jarJar {
+		register("jarJar") {
+			if (stonecutter.eval(stonecutter.current.version, ">1.20.6")) {
+				archiveClassifier.set(null)
+			}
+		}
+	}
+	tasks.named<Jar>("jar") {
+		archiveClassifier = "slim"
+	}
 }
 
 sourceSets.configureEach {
@@ -133,10 +141,6 @@ if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
 			mappings(renamer.mixin.generatedMappings)
 			archiveClassifier.set(null)
 		}
-	}
-
-	tasks.named<Jar>("jar") {
-		archiveClassifier = "slim"
 	}
 }
 
