@@ -21,6 +21,9 @@ public class ConfigScreen extends Screen {
 		this.parent = parent;
 	}
 
+	/**
+	 * Called when the screen is initialized.
+	 */
 	@Override
 	protected void init() {
 		addRenderableWidget(this.addRenderableWidget(new MusicDelaySlider(
@@ -39,6 +42,14 @@ public class ConfigScreen extends Screen {
 
 	}
 
+	/**
+	 * Called when the screen is rendered.
+	 *
+	 * @param guiGraphics Graphics drawing class
+	 * @param mouseX Mouse X position
+	 * @param mouseY Mouse Y position
+	 * @param partialTick Partial tick time
+	 */
 	@Override
 	public void render(
 			@NotNull /*$ render_input */PoseStack guiGraphics,
@@ -59,6 +70,9 @@ public class ConfigScreen extends Screen {
 		*///? }
 	}
 
+	/**
+	 * Called when the screen is closed.
+	 */
 	@Override
 	public void onClose() {
 		assert minecraft != null;
