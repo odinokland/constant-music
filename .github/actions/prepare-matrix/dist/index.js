@@ -35286,8 +35286,9 @@ const main = () => {
 	const fileContent = external_node_fs_namespaceObject.readFileSync(filePath);
 	const tomlData = parse(fileContent.toString('utf8'))
 
-	// 4. Use or log the content
-	console.log(`Successfully read file content:\n${fileContent}`);
+	if (debug) {
+		console.log(`Successfully read file content:\n${fileContent}`);
+	}
 
 	const getJavaVersion = (ver) => {
 		const mcVersion = semver.coerce(ver, {loose: true})
@@ -35311,6 +35312,8 @@ const main = () => {
 		if (key !== "deps") {
 			const fApi = tomlData.fabric[key].deps["fabricApi"]
 			const mc = tomlData.fabric[key].deps["minecraft"]
+			// Skip 26.3 until there's a mc-runtime-test release for it
+			if (mc === "26.3") return;
 			const v = {
 				mc,
 				modloader: "fabric",
@@ -35328,6 +35331,8 @@ const main = () => {
 			if (key !== "deps") {
 				const mc = tomlData[modloader][key].deps["minecraft"]
 				const type = modloader === "forge" ? "lexforge" : "neoforge"
+				// Skip 26.3 until there's a mc-runtime-test release for it
+				if (mc === "26.3") return;
 				const v = {
 					mc,
 					modloader,
@@ -35340,6 +35345,10 @@ const main = () => {
 			}
 		})
 	})
+	if (debug) {
+		console.log("Matrix data:")
+		console.log(outputData)
+	}
 	setOutput('versions', JSON.stringify(outputData));
 }
 
