@@ -1,6 +1,7 @@
-package com.odinokland.constantmusic.gui;
+package com.odinokland.constantmusic.test.gui;
 
 import com.odinokland.constantmusic.ConstantMusic;
+import com.odinokland.constantmusic.gui.ConfigScreen;
 import net.minecraft.client.OptionInstance;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

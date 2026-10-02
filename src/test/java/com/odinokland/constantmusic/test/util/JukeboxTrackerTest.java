@@ -1,5 +1,6 @@
-package com.odinokland.constantmusic.util;
+package com.odinokland.constantmusic.test.util;
 
+import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import net.minecraft.core.BlockPos;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;

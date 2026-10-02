@@ -44,7 +44,7 @@ name = "Odin Okland"
 url = "https://github.com/odinokland"
 
 [fabric]
-deps.fabric-loader = "0.19.2"
+deps.fabric-loader = "0.19.3"
 
 [fabric."1.19.2"]
 deps.minecraft = "1.19.2"
@@ -128,11 +128,12 @@ deps.fabricApi = "0.146.1"
 deps.modmenu = "18.0.0"
 publish.additionalVersions = ["26.1.1", "26.1"]
 
-[fabric."26.2"]
-deps.minecraft = "26.2"
-deps.minMinecraft = "26.2"
-deps.fabricApi = "0.158.0"
-deps.modmenu = "20.0.1"
+[fabric."26.3"]
+deps.minecraft = "26.3"
+deps.minMinecraft = "26.3"
+deps.fabricApi = "0.161.0"
+deps.modmenu = "21.0.0"
+publish.additionalVersions = ["26.2"]
 
 [forge]
 
@@ -185,7 +186,7 @@ publish.additionalVersions = ["1.21.2"]
 [forge."1.21.5"]
 deps.minecraft = "1.21.5"
 deps.minMinecraft = "1.21.4"
-deps.forge = "55.1.0"
+deps.forge = "55.1.14"
 publish.additionalVersions = ["1.21.64"]
 
 [forge."1.21.8"]
@@ -206,10 +207,11 @@ deps.minMinecraft = "26.1"
 deps.forge = "64.1.0"
 publish.additionalVersions = ["26.1.1", "26.1"]
 
-[forge."26.2"]
-deps.minecraft = "26.2"
-deps.minMinecraft = "26.2"
-deps.forge = "65.1.0"
+[forge."26.3"]
+deps.minecraft = "26.3"
+deps.minMinecraft = "26.3"
+deps.forge = "66.0.9"
+publish.additionalVersions = ["26.2"]
 
 [neoforge]
 
@@ -261,7 +263,8 @@ deps.minMinecraft = "26.1"
 deps.neoforge = "26.1.2.71"
 publish.additionalVersions = ["26.1.1", "26.1"]
 
-[neoforge."26.2"]
-deps.minecraft = "26.2"
-deps.minMinecraft = "26.2"
-deps.neoforge = "26.2.0.68"
+[neoforge."26.3"]
+deps.minecraft = "26.3"
+deps.minMinecraft = "26.3"
+deps.neoforge = "26.3.0.40-beta"
+publish.additionalVersions = ["26.2"]

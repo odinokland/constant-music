@@ -1,6 +1,7 @@
-package com.odinokland.constantmusic;
+package com.odinokland.constantmusic.test;
 
 //import com.odinokland.constantmusic.gui.ConstantMusicConfigScreen;
+import com.odinokland.constantmusic.ConstantMusic;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
