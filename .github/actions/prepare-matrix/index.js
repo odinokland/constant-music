@@ -26,34 +26,39 @@ const main = () => {
 	}
 
 	const getJavaVersion = (ver) => {
-		const mcVersion = semver.coerce(ver, {loose: true})
-		if (semver.gte(mcVersion, "26.0.0", {loose: true})) {
+		const versionVersion = semver.coerce(ver, {loose: true})
+		if (semver.gte(versionVersion, "26.0.0", {loose: true})) {
 			return 25
 		}
-		if (semver.gte(mcVersion, "1.20.5", {loose: true})) {
+		if (semver.gte(versionVersion, "1.20.5", {loose: true})) {
 			return 21
 		}
-		if (semver.gte(mcVersion, "1.18.0", {loose: true})) {
+		if (semver.gte(versionVersion, "1.18.0", {loose: true})) {
 			return 17
 		}
-		if (semver.gte(mcVersion, "1.17.0", {loose: true})) {
+		if (semver.gte(versionVersion, "1.17.0", {loose: true})) {
 			return 16
 		}
 		return 8
 	}
 
+	const modId = tomlData?.mod.id;
+	const modVersion = tomlData?.mod.version;
+
 	const outputData = []
 	Object.keys(tomlData?.fabric).forEach((key) => {
 		if (key !== "deps") {
 			const fApi = tomlData.fabric[key].deps["fabricApi"]
-			const mc = tomlData.fabric[key].deps["minecraft"]
-			// Skip 26.3 until there's a mc-runtime-test release for it
-			if (mc === "26.3") return;
+			const version = tomlData.fabric[key].deps["minecraft"]
+			// Skip 26.3 until there's a version-runtime-test release for it
+			if (version === "26.3") return;
 			const v = {
-				mc,
-				modloader: "fabric",
+				modId,
+				modVersion,
+				version,
+				modLoader: "fabric",
 				type: "fabric",
-				java: getJavaVersion(mc),
+				java: getJavaVersion(version),
 				regex: ".*fabric.*",
 				fabricApi: fApi,
 			};
@@ -61,19 +66,21 @@ const main = () => {
 		}
 	})
 	const forgeLike = ["forge", "neoforge"]
-	forgeLike.forEach((modloader) => {
-		Object.keys(tomlData?.[modloader]).forEach((key) => {
+	forgeLike.forEach((modLoader) => {
+		Object.keys(tomlData?.[modLoader]).forEach((key) => {
 			if (key !== "deps") {
-				const mc = tomlData[modloader][key].deps["minecraft"]
-				const type = modloader === "forge" ? "lexforge" : "neoforge"
-				// Skip 26.3 until there's a mc-runtime-test release for it
-				if (mc === "26.3") return;
+				const version = tomlData[modLoader][key].deps["minecraft"]
+				const type = modLoader === "forge" ? "lexforge" : "neoforge"
+				// Skip 26.3 until there's a version-runtime-test release for it
+				if (version === "26.3") return;
 				const v = {
-					mc,
-					modloader,
+					modId,
+					modVersion,
+					version,
+					modLoader,
 					type,
-					java: getJavaVersion(mc),
-					regex: `.*${modloader}.*`,
+					java: getJavaVersion(version),
+					regex: `.*${modLoader}.*`,
 					fabricApi: "none",
 				}
 				outputData.push(v)
@@ -84,7 +91,7 @@ const main = () => {
 		console.log("Matrix data:")
 		console.log(outputData)
 	}
-	setOutput('versions', JSON.stringify(outputData));
+	setOutput('matrix', JSON.stringify(outputData));
 }
 
 (function (){

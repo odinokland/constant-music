@@ -1,0 +1,110 @@
+name: "Build"
+
+on:
+    workflow_dispatch:
+    push:
+        branches:
+            - "**"
+    pull_request:
+        branches:
+            - "**"
+            - "!master"
+
+jobs:
+    generate-build-matrix:
+        runs-on: ubuntu-latest
+        name: Generate build matrix
+        outputs:
+            matrix: ${{ steps.set_matrix.outputs.matrix }}
+        steps:
+            -   name: "Checkout repository"
+                uses: actions/checkout@v7
+
+            -   name: "Generate matrix for the run job"
+                id: set_matrix
+                uses: ./.github/actions/prepare-matrix
+
+    build:
+        runs-on: ubuntu-latest
+        needs: generate-build-matrix
+        continue-on-error: true
+        timeout-minutes: 30
+        name: Build ${{ matrix.modLoader }} ${{ matrix.version }}
+        strategy:
+            fail-fast: false
+            matrix: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
+
+        steps:
+            -   name: "Checkout repository"
+                uses: actions/checkout@v7
+
+            -   name: "Set up JDK"
+                uses: actions/setup-java@v6
+                with:
+                    java-version: 25
+                    distribution: temurin
+
+            -   name: "Setup gradle"
+                uses: gradle/actions/setup-gradle@v6
+                with:
+                    cache-read-only: false
+                    gradle-version: wrapper
+                    add-job-summary: 'on-failure'
+
+            -   name: "Run build"
+                run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}::buildAndCollect
+
+            -   name: "Upload artifacts"
+                uses: actions/upload-artifact@v7
+                with:
+                    name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
+                    if-no-files-found: error
+                    path: build/libs/*.jar
+
+    run-client:
+        runs-on: ubuntu-latest
+        needs: [ build, generate-build-matrix ]
+        if: ${{ success() && !cancelled() }}
+        strategy:
+            fail-fast: false
+            matrix: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
+
+        name: Run ${{ matrix.modLoader }} ${{ matrix.version }} client
+        timeout-minutes: 10
+
+        steps:
+            -   name: "Checkout repository"
+                uses: actions/checkout@v7
+
+            -   name: "Set up JDK"
+                uses: actions/setup-java@6
+                with:
+                    java-version: 25
+                    distribution: temurin
+
+            - name: Setup Gradle
+              uses: gradle/actions/setup-gradle@v6
+              with:
+                gradle-version: wrapper
+
+            -   name: "Download artifacts"
+                uses: actions/download-artifact@v8
+                with:
+                    name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
+                    path: build/libs
+
+            -   name: "Copy mod jar to run/mods"
+                run: mkdir -p run/mods && find build/libs -type f -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -not -name "*-slim.jar" -exec cp {} run/mods \;
+
+            -   name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
+                uses: headlesshq/mc-runtime-test@4.5.1
+                with:
+                    mc: ${{ matrix.version }}
+                    modloader: ${{ matrix.modLoader }}
+                    regex: .*${{ matrix.modLoader }}.*
+                    mc-runtime-test: ${{ matrix.type }}
+                    java: ${{ matrix.java }}
+                    fabric-api: ${{ matrix.fabricApi }}
+                    xvfb: true
+                    headlessmc-command: -lwjgl --retries 3 --jvm -Djava.awt.headless=true
+                    cache-mc: true

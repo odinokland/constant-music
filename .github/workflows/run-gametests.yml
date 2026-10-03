@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
 
     outputs:
-      matrix_include: ${{ steps.set_matrix.outputs.versions }}
+      matrix_include: ${{ steps.set_matrix.outputs.matrix }}
 
     steps:
       - name: Checkout repository
@@ -36,7 +36,7 @@ jobs:
       - name: Setup JDK matching matrix target
         uses: actions/setup-java@v6
         with:
-          java-version: ${{ matrix.version.java }}
+          java-version: ${{ matrix.java }}
           distribution: 'microsoft'
 
       - name: Setup Gradle
@@ -57,16 +57,16 @@ jobs:
         run: ls build/libs
 
       - name: Copy mod jar
-        run: find build/libs -type f -name "constantmusic-*-${{ matrix.version.modloader }}+${{ matrix.version.mc }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -not -name "*-slim.jar" -exec cp {} run/mods \;
+        run: find build/libs -type f -name "constantmusic-*-${{ matrix.modLoader }}+${{ matrix.version }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -not -name "*-slim.jar" -exec cp {} run/mods \;
 
       - name: Run the MC client
         uses: 3arthqu4ke/mc-runtime-test@4.5.1
         with:
-          mc: ${{ matrix.version.mc }}
-          modloader: ${{ matrix.version.modloader }}
-          regex: ${{ matrix.version.regex }}
-          java: ${{ matrix.version.java }}
-          mc-runtime-test: ${{ matrix.version.type }}
-          fabric-api: ${{ matrix.version.fabricApi }}
+          mc: ${{ matrix.version }}
+          modloader: ${{ matrix.modLoader }}
+          regex: ${{ matrix.regex }}
+          java: ${{ matrix.java }}
+          mc-runtime-test: ${{ matrix.type }}
+          fabric-api: ${{ matrix.fabricApi }}
           xvfb: true
           headlessmc-command: -lwjgl --jvm -Djava.awt.headless=true --retries 2
