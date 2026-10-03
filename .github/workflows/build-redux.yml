@@ -53,7 +53,7 @@ jobs:
                     add-job-summary: 'on-failure'
 
             -   name: "Run build"
-                run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}::buildAndCollect
+                run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}:buildAndCollect
 
             -   name: "Upload artifacts"
                 uses: actions/upload-artifact@v7
