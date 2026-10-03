@@ -32,7 +32,8 @@ jobs:
         name: Build ${{ matrix.modLoader }} ${{ matrix.version }}
         strategy:
             fail-fast: false
-            matrix: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
+            matrix:
+              include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
 
         steps:
             -   name: "Checkout repository"
@@ -67,7 +68,8 @@ jobs:
         if: ${{ success() && !cancelled() }}
         strategy:
             fail-fast: false
-            matrix: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
+            matrix:
+              include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
 
         name: Run ${{ matrix.modLoader }} ${{ matrix.version }} client
         timeout-minutes: 10
