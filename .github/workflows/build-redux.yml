@@ -60,7 +60,7 @@ jobs:
                 with:
                     name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
                     if-no-files-found: error
-                    path: ./versions/${{ matrix.version }}-${{ matrix.mod_loader }}/build/libs/*.jar
+                    path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
 
     run-client:
         runs-on: ubuntu-latest
@@ -93,7 +93,7 @@ jobs:
                 uses: actions/download-artifact@v8
                 with:
                     name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
-                    path: ./versions/${{ matrix.version }}-${{ matrix.mod_loader }}/build/libs/*.jar
+                    path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
 
             -   name: "Copy mod jar to run/mods"
                 run: mkdir -p run/mods && find build/libs -type f -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -not -name "*-slim.jar" -exec cp {} run/mods \;
