@@ -146,7 +146,7 @@ publish.additionalVersions = ["1.19", "1.19.1"]
 [forge."1.19.3"]
 deps.minecraft = "1.19.3"
 deps.minMinecraft = "1.19.3"
-deps.forge ="44.1.0"
+deps.forge ="44.1.23"
 
 [forge."1.19.4"]
 deps.minecraft = "1.19.4"

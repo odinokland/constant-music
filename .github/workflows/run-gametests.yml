@@ -25,7 +25,7 @@ jobs:
       - build
 
     strategy:
-      fail-fast: true
+      fail-fast: false
       matrix:
         version: ${{ fromJSON(needs.define-matrix.outputs.matrix_include) }}
 
