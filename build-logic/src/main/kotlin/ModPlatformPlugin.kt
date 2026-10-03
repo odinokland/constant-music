@@ -283,19 +283,21 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 	private fun Project.registerBuildAndCollectTask(ctx: Context) {
 		tasks.register<Copy>("buildAndCollect") {
 			dependsOn("build")
-
-			var taskArray = arrayOf(
+			from(
 				tasks.named(ctx.extension.jarTask.get()),
 				tasks.named(ctx.extension.sourcesJarTask.get()),
 				tasks.named("javadocJar"),
 				tasks.named("gametestJar")
 			)
-//			if (ctx.loader is Loader.Forge) {
-//				taskArray += tasks.named("renameJarJar")
-//			}
-			from(taskArray)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
 			group = "build"
 		}
+
+		tasks.register("buildForTests") {
+			dependsOn("build")
+			dependsOn("gametestJar")
+			group = "build"
+		}
+
 	}
 }
