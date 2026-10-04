@@ -142,7 +142,7 @@ if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
 		}
 		classes(tasks.named<Jar>("jarJar")) {
 			mappings(renamer.mixin.generatedMappings)
-			archiveClassifier.set(null)
+			archiveClassifier.set("srg")
 		}
 	}
 }
