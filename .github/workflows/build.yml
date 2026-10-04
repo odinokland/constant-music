@@ -3,12 +3,23 @@ name: "Build"
 on:
     workflow_dispatch:
     push:
-        branches:
-            - "**"
+      paths:
+        - 'src/**'
+        - 'gradle/**'
+        - 'build-logic/**'
+        - '*.gradle.kts'
+        - 'gradle.properties'
+        - 'stonecutter.properties.toml'
+        - 'versions.json'
     pull_request:
-        branches:
-            - "**"
-            - "!master"
+      paths:
+        - 'src/**'
+        - 'gradle/**'
+        - 'build-logic/**'
+        - '*.gradle.kts'
+        - 'gradle.properties'
+        - 'stonecutter.properties.toml'
+        - 'versions.json'
 
 jobs:
     generate-build-matrix:
