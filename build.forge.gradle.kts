@@ -37,8 +37,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		register("jarJar") {
 			if (stonecutter.eval(stonecutter.current.version, ">1.20.6")) {
 				archiveClassifier.set(null)
-			} else {
-				archiveClassifier.set("jarJar")
 			}
 		}
 	}
@@ -142,9 +140,10 @@ if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
 		}
 		classes(tasks.named<Jar>("jarJar")) {
 			mappings(renamer.mixin.generatedMappings)
-			archiveClassifier.set("srg")
+			archiveClassifier.set(null)
 		}
 	}
+
 	tasks.named("mergeMixinMappings") {
 		dependsOn("jarJar")
 	}
@@ -160,9 +159,9 @@ tasks.withType<JavaCompile>().configureEach {
 tasks.register("keepOnlyFinal") {
 	description = "Cleans out all non-final classes from the build directory"
 	doLast {
-//		fileTree(layout.buildDirectory.dir("libs")) {
-//			include("**/*-all.jar")
-//		}.forEach { it.delete() }
+		fileTree(layout.buildDirectory.dir("libs")) {
+			include("**/*-all.jar")
+		}.forEach { it.delete() }
 	}
 }
 
