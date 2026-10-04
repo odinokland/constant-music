@@ -145,6 +145,9 @@ if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
 			archiveClassifier.set("srg")
 		}
 	}
+	tasks.named("renameJarJar") {
+		dependsOn("mergeMixinMappings")
+	}
 }
 
 tasks.withType<JavaCompile>().configureEach {
