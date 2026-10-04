@@ -35,7 +35,7 @@ platform {
 if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 	jarJar {
 		register("jarJar") {
-			if (stonecutter.eval(stonecutter.current.version, ">1.20.6")) {
+			if (stonecutter.eval(stonecutter.current.version, ">=1.20.6")) {
 				archiveClassifier.set(null)
 			}
 		}
@@ -115,7 +115,7 @@ repositories {
 
 dependencies {
 	implementation(minecraft.dependency("net.minecraftforge:forge:${prop("deps.minecraft")}-${prop("deps.forge")}"))
-	if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
+	if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 		annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
 	}
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
@@ -127,7 +127,7 @@ dependencies {
 	}
 
 }
-if (stonecutter.eval(stonecutter.current.version, "<=1.20.6")) {
+if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 	renamer {
 		mappings(minecraft.dependency.toSrg)
 
