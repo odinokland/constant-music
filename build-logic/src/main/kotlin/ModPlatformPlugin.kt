@@ -56,12 +56,9 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				})
 			}
 			is Loader.Forge -> {
-				logger.lifecycle("Preparing for forge loader. Current mc version: ${project.sc.current.version}")
-				if (project.sc.eval(project.sc.current.version, "<=1.20.6")) {
-					logger.lifecycle("Less than 1.21.10")
+				if (project.sc.eval(project.sc.current.version, "<1.20.6")) {
 					extension.jarTask.convention("renameJarJar")
 				} else {
-					logger.lifecycle("Greater than or equal to 1.21.10")
 					extension.jarTask.convention("jar")
 				}
 				extension.sourcesJarTask.convention("sourcesJar")
@@ -236,7 +233,26 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		}
 		tasks.named<ProcessResources>("processGametestResources") {
 			dependsOn(tasks.named("stonecutterGenerateGametest"), "kspGametestKotlin")
+			inputs.property("modId", ctx.modId)
+			inputs.property("javaVersion", ctx.javaVersion.majorVersion)
+			val isForge = ctx.loader is Loader.Forge
 			exclude(ctx.loader.excludedResourcesFor(ctx))
+			filesMatching("*.mixins.json*") {
+				// Forge 1.20.6 runs on Java 21, but its bundled Mixin version
+				// only recognizes compatibility levels through JAVA_17. The
+				// compatibility level controls Mixin bytecode behavior, not the
+				// Java toolchain used to compile the mod.
+				val mixinJava = if (isForge && ctx.javaVersion > JavaVersion.VERSION_17) {
+					"JAVA_17"
+				} else {
+					"JAVA_${ctx.javaVersion.majorVersion}"
+				};
+				expand(mapOf(
+					"java" to mixinJava,
+					"modId" to "${ctx.modId}_gametest"
+				))
+
+			}
 			if (ctx.loader is Loader.ForgeLike) {
 				filesMatching("META-INF/mods.toml") {
 					expand(
@@ -256,6 +272,13 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			dependsOn(generateTask)
 			if (ctx.loader is Loader.Forge) {
 				manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")
+			}
+		}
+		val generateTestTask = tasks.named("generateModTestManifest")
+		tasks.named<Jar>("gametestJar") {
+			dependsOn(generateTestTask)
+			if (ctx.loader is Loader.Forge) {
+				manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}_gametest.mixins.json")
 			}
 		}
 	}

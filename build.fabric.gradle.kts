@@ -17,6 +17,12 @@ stonecutter {
 		else -> "@GameTest(template = EMPTY_STRUCTURE)"
 	}
 
+	swaps["world_flows_var"] = when {
+		(eval(current.version, "< 1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel\", at = @At(value= \"STORE\"), ordinal = 3)"
+		(eval(current.version, "< 1.20.6")) -> "@ModifyVariable(method = \"loadLevel\", at = @At(value= \"STORE\"), ordinal = 3)"
+		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
+	}
+
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("ResourceLocation", "Identifier")
 		replace("location()", "identifier()")

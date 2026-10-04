@@ -15,6 +15,20 @@ stonecutter {
 		else -> "@GameTest(templateNamespace = Constants.MOD_ID, template = TEMPLATE_NAME)"
 	}
 
+	swaps["world_flows_var"] = when {
+		(eval(current.version, "<1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel*\", at = @At(value= \"STORE\"), ordinal = 5)"
+		(eval(current.version, "<1.20.6")) -> "@ModifyVariable(method = \"loadLevel*\", at = @At(value= \"STORE\"), ordinal = 5)"
+		(eval(current.version, "<1.21.11")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
+		(eval(current.version, "<26.2")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1)"
+		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1, require = 0)"
+	}
+
+	swaps["world_flows_inject"] = when {
+		(eval(current.version, "<1.20.6")) -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\"), cancellable = true)"
+		(eval(current.version, "<26.2")) -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true)"
+		else -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true, require = 0)"
+	}
+
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("ResourceLocation", "Identifier")
 		replace("location()", "identifier()")
@@ -135,6 +149,10 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 			config("${prop("mod.id")}.mixins.json")
 			source(project.sourceSets.main.get()) {
 				refMap = "${prop("mod.id")}.refmap.json"
+			}
+			config("${prop("mod.id")}_gametest.mixins.json")
+			source(project.sourceSets.gametest.get()) {
+				refMap = "${prop("mod.id")}_gametest.refmap.json"
 			}
 			jar(tasks.named<Jar>("jarJar"))
 		}

@@ -47,6 +47,8 @@ stonecutter {
 			eval(current.version, ">1.19.4") -> "GuiGraphics guiGraphics,"
 			else -> "PoseStack guiGraphics,"
 		}
+		swaps["world_flows_var"] = "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
+		swaps["world_flows_inject"] = "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true)"
 
 		constants["release"] = properties.get("mod.id") != "modtemplate"
 

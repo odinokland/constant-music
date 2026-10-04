@@ -1,0 +1,17 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "com.odinokland.constantmusic.gametest.mixin",
+  "compatibilityLevel": "${java}",
+  "refmap": "${modId}.refmap.json",
+  "mixins": [
+    "WorldOpenFlowsMixin"
+  ],
+  "client": [
+  ],
+  "server": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
