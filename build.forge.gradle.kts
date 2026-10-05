@@ -16,8 +16,8 @@ stonecutter {
 	}
 
 	swaps["world_flows_var"] = when {
-		(eval(current.version, "<1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel*\", at = @At(value= \"STORE\"), ordinal = 5)"
-		(eval(current.version, "<1.20.6")) -> "@ModifyVariable(method = \"loadLevel*\", at = @At(value= \"STORE\"), ordinal = 5)"
+		(eval(current.version, "<1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;ZZZ)V\", at = @At(\"HEAD\"), ordinal = 3, argsOnly = true)"
+		(eval(current.version, "<1.20.6")) -> "@ModifyVariable(method = \"loadLevel(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;ZZLjava/lang/Runnable;Z)V\", at = @At(\"HEAD\"), ordinal = 2, argsOnly = true)"
 		(eval(current.version, "<1.21.11")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
 		(eval(current.version, "<26.2")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1)"
 		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1, require = 0)"
@@ -130,7 +130,11 @@ repositories {
 dependencies {
 	implementation(minecraft.dependency("net.minecraftforge:forge:${prop("deps.minecraft")}-${prop("deps.forge")}"))
 	if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
-		annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
+		val mixinProcessor =
+			"org.spongepowered:mixin:${libs.versions.mixin.get()}:processor"
+
+		annotationProcessor(mixinProcessor)
+		"gametestAnnotationProcessor"(mixinProcessor)
 	}
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
 	implementation(libs.mixinextras.forge.get())
@@ -139,6 +143,7 @@ dependencies {
 	if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		add("jarJar", libs.mixinextras.forge.get())
 	}
+	"gametestImplementation"(sourceSets["main"].output)
 
 }
 if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
@@ -150,23 +155,29 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 			source(project.sourceSets.main.get()) {
 				refMap = "${prop("mod.id")}.refmap.json"
 			}
+
 			config("${prop("mod.id")}_gametest.mixins.json")
-			source(project.sourceSets.gametest.get()) {
+			source(project.sourceSets["gametest"]) {
 				refMap = "${prop("mod.id")}_gametest.refmap.json"
 			}
+
 			jar(tasks.named<Jar>("jarJar"))
 		}
 		classes(tasks.named<Jar>("jarJar")) {
 			mappings(renamer.mixin.generatedMappings)
 			archiveClassifier.set(null)
 		}
+		classes(tasks.named<Jar>("gametestJar")) {
+			mappings(renamer.mixin.generatedMappings)
+			archiveClassifier.set("gametest")
+		}
 	}
 
 	tasks.named("mergeMixinMappings") {
 		dependsOn("jarJar")
 	}
-	tasks.named("renameJarJar") {
-		dependsOn("mergeMixinMappings")
+	tasks.named<Jar>("gametestJar") {
+		archiveClassifier.set("gametest-noobf")
 	}
 }
 
@@ -174,16 +185,16 @@ tasks.withType<JavaCompile>().configureEach {
 	options.encoding = "UTF-8" // Use the UTF-8 charset for Java compilation
 }
 
-tasks.register("keepOnlyFinal") {
-	description = "Cleans out all non-final classes from the build directory"
-	doLast {
-		fileTree(layout.buildDirectory.dir("libs")) {
-			include("**/*-all.jar")
-		}.forEach { it.delete() }
-	}
-}
-
-tasks.named("build") { finalizedBy("keepOnlyFinal") }
+//tasks.register("keepOnlyFinal") {
+//	description = "Cleans out all non-final classes from the build directory"
+//	doLast {
+//		fileTree(layout.buildDirectory.dir("libs")) {
+//			include("**/*-all.jar")
+//		}.forEach { it.delete() }
+//	}
+//}
+//
+//tasks.named("build") { finalizedBy("keepOnlyFinal") }
 
 afterEvaluate {
 	// ForgeGradle's run tasks only put getDefaultSourceSets() (main-only, or main+test for the

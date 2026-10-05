@@ -64,7 +64,7 @@ jobs:
                     add-job-summary: 'on-failure'
 
             -   name: "Run build"
-                run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}:buildForTests
+                run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}:build
 
             -   name: "Upload artifacts"
                 uses: actions/upload-artifact@v7
@@ -107,7 +107,7 @@ jobs:
                     path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
 
             -   name: "Copy mod jar to run/mods"
-                run: mkdir -p run/mods && find ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs -type f -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}*.jar" -not -name "*-javadoc.jar" -not -name "*-sources.jar" -not -name "*-slim*.jar" -exec cp {} run/mods \;
+                run: mkdir -p run/mods && find ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs -type f \( -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT.jar" -o -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT-gametest.jar" \) -exec cp {} run/mods \;
 
             -   name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
                 uses: headlesshq/mc-runtime-test@4.5.1

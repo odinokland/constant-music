@@ -14,11 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(value = WorldOpenFlows.class, priority = 1001)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public final class WorldOpenFlowsMixin {
-	//$ world_flows_var
-	@ModifyVariable(method = "doLoadLevel*", at = @At(value= "STORE"), ordinal = 5)
-	public boolean loadLevel_bl2(boolean isNotLifeCycleStable) {
-		return false;
-	}
+
 
 	//$ world_flows_inject
 	@Inject(method = "confirmWorldCreation", at = @At(value = "INVOKE_ASSIGN", target = "Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;"), cancellable = true)
