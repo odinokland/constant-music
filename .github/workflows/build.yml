@@ -119,5 +119,5 @@ jobs:
                     java: ${{ matrix.java }}
                     fabric-api: ${{ matrix.fabricApi }}
                     xvfb: true
-                    headlessmc-command: -lwjgl --retries 3 --jvm -Djava.awt.headless=true
+                    headlessmc-command: -lwjgl --retries 3 --jvm "-Djava.awt.headless=true  -DMcRuntimeGameTestMinExpectedGameTests=1"
                     cache-mc: true
