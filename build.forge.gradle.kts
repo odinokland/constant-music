@@ -56,7 +56,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 	}
 	tasks.named<Jar>("jar") {
 		enabled = false
-		//archiveClassifier = "slim"
 	}
 }
 
