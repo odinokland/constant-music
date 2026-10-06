@@ -121,7 +121,7 @@ jobs:
                 fi
                 printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
             -   name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
-                uses: headlesshq/mc-runtime-test@4.5.1
+                uses: headlesshq/mc-runtime-test@4.5.2
                 with:
                     mc: ${{ matrix.version }}
                     modloader: ${{ matrix.modLoader }}
@@ -129,7 +129,6 @@ jobs:
                     mc-runtime-test: ${{ matrix.type }}
                     java: ${{ matrix.java }}
                     fabric-api: ${{ matrix.fabricApi }}
-                    fabric-gametest-api: 1.3.5+85d85a934f
                     xvfb: true
                     headlessmc-command: -lwjgl --retries 3 --jvm "-Djava.awt.headless=true  -DMcRuntimeGameTestMinExpectedGameTests=1"
                     cache-mc: true
