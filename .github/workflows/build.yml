@@ -109,6 +109,17 @@ jobs:
             -   name: "Copy mod jar to run/mods"
                 run: mkdir -p run/mods && find ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs -type f \( -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT.jar" -o -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT-gametest.jar" \) -exec cp {} run/mods \;
 
+            - name: Configure test JVM
+              run: |
+                mkdir -p HeadlessMC
+                if [ "${{ matrix.modLoader }}" = "fabric" ]; then
+                  jvm_args="-Djava.awt.headless=true -Dfabric.client.gametest -Dfabric.client.gametest.disableNetworkSynchronizer=true"
+                elif [ "${{ matrix.modLoader }}" = "neoforge" ]; then
+                  jvm_args="-Djava.awt.headless=true -Dneoforge.enableGameTest=true -Dneoforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
+                else
+                  jvm_args="-Djava.awt.headless=true -Dforge.enableGameTest=true -Dforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
+                fi
+                printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
             -   name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
                 uses: headlesshq/mc-runtime-test@4.5.1
                 with:

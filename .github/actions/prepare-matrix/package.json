@@ -14,7 +14,6 @@
   "dependencies": {
     "@actions/core": "^3.0.1",
     "@actions/exec": "^3.0.0",
-    "@vercel/ncc": "^0.45.0",
     "semver": "^7.8.5",
     "smol-toml": "^1.9.0"
   },
@@ -22,6 +21,7 @@
     "@babel/core": "^8.0.0",
     "@babel/preset-env": "^8.0.0",
     "@babel/register": "^8.0.0",
+    "@vercel/ncc": "^0.45.0",
     "chai": "^6.0.0",
     "mocha": "^12.0.2"
   }
