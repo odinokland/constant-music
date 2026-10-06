@@ -164,6 +164,15 @@ public class ConstantMusic {
 	}
 
 	/**
+	 * Check if a mod is loaded
+	 * @param modId the mod's id
+	 * @return whether or not the mod is loaded
+	 */
+	public static boolean isModLoaded(String modId) {
+		return PLATFORM.isModLoaded(modId);
+	}
+
+	/**
 	 * Create a platform instance.
 	 *
 	 * @return the platform

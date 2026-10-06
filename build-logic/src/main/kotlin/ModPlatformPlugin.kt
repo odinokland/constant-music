@@ -140,27 +140,47 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 	private fun Project.configureTesting(ctx: Context) {
 		fun configureSourceSets(sourceSetName: String) {
 			val java = the<JavaPluginExtension>()
-			val sourceSet: org.gradle.api.tasks.SourceSet = java.sourceSets.findByName(sourceSetName) ?: java.sourceSets.create(sourceSetName)
+
+			val sourceSet =
+				java.sourceSets.findByName(sourceSetName)
+					?: java.sourceSets.create(sourceSetName)
+
 			sourceSet.apply {
 				compileClasspath += java.sourceSets.getByName("main").compileClasspath
 				runtimeClasspath += java.sourceSets.getByName("main").runtimeClasspath
-				java.registerFeature(sourceSetName) { usingSourceSet(this@apply) }
-				dependencies { implementationConfigurationName(java.sourceSets["main"].output) }
+
+				java.registerFeature(sourceSetName) {
+					usingSourceSet(this@apply)
+				}
+
+				dependencies {
+					implementationConfigurationName(
+						java.sourceSets["main"].output
+					)
+				}
 			}
 
 			dependencies {
-				"${sourceSetName}CompileOnly"(java.sourceSets.getByName("main").output)
+				"${sourceSetName}CompileOnly"(
+					java.sourceSets.getByName("main").output
+				)
 			}
 		}
-		val libs = extensions.getByType<VersionCatalogsExtension>().named("libs")
+
+		val libs = extensions
+			.getByType<VersionCatalogsExtension>()
+			.named("libs")
+
 		configureSourceSets("test")
 		configureSourceSets("gametest")
+
 		tasks.withType<Test>().configureEach {
 			useJUnitPlatform()
 			testLogging {
 				events("passed", "skipped", "failed")
 			}
 		}
+
 		dependencies {
 			"testImplementation"(libs.findLibrary("junit-jupiter").get())
 			"testImplementation"(libs.findLibrary("assertj-core").get())
@@ -274,13 +294,6 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")
 			}
 		}
-		val generateTestTask = tasks.named("generateModTestManifest")
-		tasks.named<Jar>("gametestJar") {
-			dependsOn(generateTestTask)
-			if (ctx.loader is Loader.Forge) {
-				manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}_gametest.mixins.json")
-			}
-		}
 	}
 
 	private fun Project.configureIdea() {
@@ -314,10 +327,6 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
 			group = "build"
-		}
-
-		tasks.named("build") {
-			dependsOn("gametestJar")
 		}
 
 		tasks.register("buildForTests") {

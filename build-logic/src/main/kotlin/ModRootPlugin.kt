@@ -35,25 +35,25 @@ class ModRootPlugin : Plugin<Project> {
 			tasks.register("runActiveClient") {
 				group = "stonecutter"
 				description = "Run client of the active Stonecutter version"
-				dependsOn(stonecutter.current!!.project + ":runClient")
+				dependsOn(stonecutter.active!!.project + ":runClient")
 			}
 
 			tasks.register("runActiveServer") {
 				group = "stonecutter"
 				description = "Run server of the active Stonecutter version"
-				dependsOn(stonecutter.current!!.project + ":runServer")
+				dependsOn(stonecutter.active!!.project + ":runServer")
 			}
 
 			tasks.register("runActiveGameTest") {
 				group = "stonecutter"
 				description = "Run game tests of the active Stonecutter version"
-				dependsOn(stonecutter.current!!.project + ":runGameTestServer")
+				dependsOn(stonecutter.active!!.project + ":runGameTestServer")
 			}
 
 			tasks.register("testActive") {
 				group = "stonecutter"
 				description = "Run tests of the active Stonecutter version"
-				dependsOn(stonecutter.current!!.project + ":test")
+				dependsOn(stonecutter.active!!.project + ":test")
 			}
 
 			tasks.register("runAllTestsSequentially") {

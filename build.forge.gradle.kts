@@ -59,12 +59,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 	}
 }
 
-sourceSets.configureEach {
-	val dir = layout.buildDirectory.dir("sourceSets/$name")
-	output.setResourcesDir(dir.get())
-	java.destinationDirectory.set(dir)
-}
-
 val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
 
 minecraft {
@@ -155,11 +149,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 				refMap = "${prop("mod.id")}.refmap.json"
 			}
 
-			config("${prop("mod.id")}_gametest.mixins.json")
-			source(project.sourceSets["gametest"]) {
-				refMap = "${prop("mod.id")}_gametest.refmap.json"
-			}
-
 			jar(tasks.named<Jar>("jarJar"))
 		}
 		classes(tasks.named<Jar>("jarJar")) {
@@ -167,7 +156,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 			archiveClassifier.set(null)
 		}
 		classes(tasks.named<Jar>("gametestJar")) {
-			mappings(renamer.mixin.generatedMappings)
 			archiveClassifier.set("gametest")
 		}
 	}

@@ -2,7 +2,11 @@ import com.fasterxml.jackson.core.type.TypeReference
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 
 val isCi = System.getenv("CI") == "true"
-gradle.startParameter.isParallelProjectExecutionEnabled = !isCi
+gradle.startParameter.isParallelProjectExecutionEnabled = if (isCi) {
+	false
+} else {
+	providers.gradleProperty("org.gradle.parallel").orNull?.toBoolean() ?: false
+}
 gradle.startParameter.isBuildCacheEnabled = !isCi
 gradle.startParameter.isConfigureOnDemand = !isCi
 
