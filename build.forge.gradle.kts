@@ -75,13 +75,13 @@ minecraft {
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
-			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.id")}_gametest")
+			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
 			args("--mixin.config", "${prop("mod.id")}.mixins.json")
 			mods {
 				create("constantmusic") {
 					source(sourceSets["main"])
 				}
-				create("constantmusic_gametest") {
+				create("gametest") {
 					source(sourceSets["gametest"])
 				}
 			}
@@ -103,7 +103,7 @@ minecraft {
 				workingDir.convention(layout.projectDirectory.dir("run/data"))
 				args(
 					"--mod",
-					"${prop("mod.id")}_gametest",
+					prop("mod.gametest.id"),
 					"--all",
 					"--output",
 					file("src/gametest/generated").absolutePath

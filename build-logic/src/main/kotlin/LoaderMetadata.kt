@@ -5,6 +5,11 @@ import kotlinx.serialization.Serializable
 import kotlinx.serialization.json.JsonObject
 
 @Serializable
+data class FabricJar(
+	val file: String
+)
+
+@Serializable
 data class FabricManifest(
 	val schemaVersion: Int = 1,
 	val id: String,
@@ -26,7 +31,8 @@ data class FabricManifest(
 	val depends: Map<String, String> = emptyMap(),
 	val recommends: Map<String, String> = emptyMap(),
 	val breaks: Map<String, String> = emptyMap(),
-	val provides: List<String> = emptyList()
+	val provides: List<String> = emptyList(),
+	val jars: List<FabricJar> = emptyList()
 )
 
 @Serializable

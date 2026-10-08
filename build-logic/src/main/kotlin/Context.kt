@@ -40,6 +40,7 @@ class Context(
 	val modName: String by lazy { require("mod.name") }
 	val modGroup: String by lazy { require("mod.group") }
 	val modVersion: String by lazy { require("mod.version") }
+	val modGametestId: String by lazy { require("mod.gametest.id") }
 	val channelTag: String by lazy { optional("mod.channel_tag") }
 	val description: String by lazy { optional("mod.description") }
 	val licenseName: String by lazy { require("mod.license.name") }

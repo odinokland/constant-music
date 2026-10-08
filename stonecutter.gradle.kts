@@ -40,6 +40,7 @@ stonecutter {
 		swaps["mod_id"] = "\"${properties.get("mod.id")}\";"
 		swaps["mod_name"] = "\"${properties.get("mod.name")}\";"
 		swaps["mod_group"] = "\"${properties.get("mod.group")}\";"
+		swaps["mod_gametest_id"] = "\"${properties.get("mod.gametest.id")}\";"
 		swaps["minecraft"] = "\"${current.version}\";"
 		swaps["gametest_implementations"] = "{"
 		swaps["render_input"] = when {

@@ -18,7 +18,10 @@ sealed class Loader(val id: String) {
 	open fun excludedResourcesFor(ctx: Context): List<String> = excludedResources
 
 	abstract fun generateManifest(ctx: Context): String
-	abstract fun generateTestManifest(ctx: Context): String
+	abstract fun generateTestManifest(
+		ctx: Context,
+		jars: List<String> = emptyList()
+	): String
 
 	object Fabric : Loader("fabric") {
 		override val isFabricLike = true
@@ -75,9 +78,12 @@ sealed class Loader(val id: String) {
 			return JSON.encodeToString(manifest)
 		}
 
-		override fun generateTestManifest(ctx: Context): String {
+		override fun generateTestManifest(
+			ctx: Context,
+			jars: List<String>
+		): String {
 			val manifest = FabricManifest(
-				id = "${ctx.modId}_gametest",
+				id = ctx.modGametestId,
 				name = "Constant Music Game Tests",
 				version = "1.0.0",
 				authors = ctx.authors,
@@ -100,8 +106,10 @@ sealed class Loader(val id: String) {
 				license = ctx.licenseName,
 				environment = "*",
 				entrypoints = mapOf(
+					"main" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricEntryPoint"),
 					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.GametestTestRunner")
 				),
+				jars = jars.map(::FabricJar),
 				mixins = listOf(),
 				depends = mapOf(
 					"fabricloader" to "*",
@@ -170,7 +178,10 @@ sealed class Loader(val id: String) {
 			return TOML.encodeToString(manifest)
 		}
 
-		override fun generateTestManifest(ctx: Context): String {
+		override fun generateTestManifest(
+			ctx: Context,
+			jars: List<String>
+		): String {
 			val forgeDeps = mutableListOf<ForgeDependency>()
 
 			fun addDeps(container: NamedDomainObjectContainer<Dependency>, type: String) {
@@ -206,7 +217,7 @@ sealed class Loader(val id: String) {
 				issueTrackerURL = ctx.issuesUrl,
 				mods = listOf(
 					ForgeMod(
-						modId = "${ctx.modId}_gametest",
+						modId = ctx.modGametestId,
 						displayName = "Constant Music Game Tests",
 						version = "1.0.0",
 						displayURL = ctx.homepageUrl,
@@ -216,7 +227,7 @@ sealed class Loader(val id: String) {
 						description = ctx.description,
 					)
 				),
-				dependencies = mapOf(ctx.modId + "_gametest" to forgeDeps)
+				dependencies = mapOf(ctx.modGametestId to forgeDeps)
 			)
 
 			return TOML.encodeToString(manifest)

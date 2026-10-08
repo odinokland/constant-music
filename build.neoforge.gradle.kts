@@ -73,15 +73,15 @@ neoForge {
 			sourceSet.set(java.sourceSets["main"])
 			loadedMods.set(listOf(mods[prop("mod.id")]))
 		}
-		mods.create("${prop("mod.id")}_gametest") { sourceSet(java.sourceSets["gametest"]) }
+		mods.create(prop("mod.gametest.id")) { sourceSet(java.sourceSets["gametest"]) }
 		register("gameTestServer") {
 			type = "gameTestServer"
 			gameDirectory = file("run/server")
 			systemProperty("neoforge.enableGameTest", "true")
-			systemProperty("neoforge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.id")}_gametest")
+			systemProperty("neoforge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
 //			systemProperty("forge.gametest.report-file", file("gametest-report.xml").absolutePath)
 			sourceSet.set(java.sourceSets["gametest"])
-			loadedMods.set(listOf(mods[prop("mod.id")], mods["${prop("mod.id")}_gametest"]))
+			loadedMods.set(listOf(mods[prop("mod.id")], mods[prop("mod.gametest.id")]))
 		}
 	}
 	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")

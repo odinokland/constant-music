@@ -10,7 +10,7 @@ import java.util.function.Consumer;
 
 
 public class GametestConstants {
-	public static final String MOD_ID = Constants.MOD_ID + "_gametest";
+	public static final String MOD_ID = /*$ mod_gametest_id */"gametest";
 	public static final String MOD_NAME = "Constant Music Game Tests";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 

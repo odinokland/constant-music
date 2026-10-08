@@ -138,6 +138,11 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 	}
 
 	private fun Project.configureTesting(ctx: Context) {
+		val gametestInclude = configurations.maybeCreate("gametestInclude").apply {
+			isCanBeConsumed = false
+			isCanBeResolved = true
+		}
+
 		fun configureSourceSets(sourceSetName: String) {
 			val java = the<JavaPluginExtension>()
 
@@ -201,8 +206,20 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 	private fun Project.registerGenerateTestManifestTask(ctx: Context) {
 		val manifestOutputDir = layout.buildDirectory.dir("generated/modTestManifest")
+		val gametestInclude = configurations.named("gametestInclude")
 		val generateTask = tasks.register<GenerateModManifestTask>("generateModTestManifest") {
-			content.set(ctx.loader.generateTestManifest(ctx))
+			inputs.files(gametestInclude)
+
+			content.set(
+				provider {
+					val jars = gametestInclude.get()
+						.resolve()
+						.map { "META-INF/jars/${it.name}" }
+
+					ctx.loader.generateTestManifest(ctx, jars)
+				}
+			)
+
 			outputFile.set(layout.buildDirectory.file("generated/modTestManifest/${ctx.loader.manifestPathFor(ctx)}"))
 		}
 
@@ -269,7 +286,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				};
 				expand(mapOf(
 					"java" to mixinJava,
-					"modId" to "${ctx.modId}_gametest"
+					"modId" to ctx.modGametestId
 				))
 
 			}
@@ -287,11 +304,17 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 	private fun Project.configureJarTask(ctx: Context) {
 		val generateTask = tasks.named("generateModManifest")
+		val generateTestTask = tasks.named("generateModTestManifest")
 		tasks.withType<Jar>().configureEach {
-			archiveBaseName.set(ctx.modId)
-			dependsOn(generateTask)
-			if (ctx.loader is Loader.Forge) {
-				manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")
+			if (name == "gametestJar") {
+				archiveBaseName.set(ctx.modGametestId)
+				dependsOn(generateTestTask)
+			} else {
+				archiveBaseName.set(ctx.modId)
+				dependsOn(generateTask)
+				if (ctx.loader is Loader.Forge) {
+					manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")
+				}
 			}
 		}
 	}

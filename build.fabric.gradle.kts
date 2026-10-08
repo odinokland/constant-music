@@ -93,6 +93,13 @@ fabricApi {
 //	}
 }
 
+configurations.named("gametestCompileClasspath") {
+	extendsFrom(configurations.named("gametestInclude").get())
+}
+
+configurations.named("gametestRuntimeClasspath") {
+	extendsFrom(configurations.named("gametestInclude").get())
+}
 repositories {
 	mavenCentral()
 	strictMaven("https://maven.terraformersmc.com/", "com.terraformersmc") { name = "TerraformersMC" }
@@ -119,4 +126,17 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
+	gametestImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
+	"gametestInclude"(
+		fabricApi.module(
+			"fabric-gametest-api-v1",
+			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
+		)
+	)
+}
+
+tasks.named<Jar>("gametestJar") {
+	into("META-INF/jars") {
+		from(configurations.named("gametestInclude"))
+	}
 }
