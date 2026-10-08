@@ -72,8 +72,8 @@ stonecutter {
 			for ((version, loaders) in rootData.versions) {
 				match(version, *loaders.toTypedArray())
 			}
+			vcsVersion = "1.19.2-forge"
 		}
-		vcsVersion = "1.19.2-forge"
 	}
 }
 
