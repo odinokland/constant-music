@@ -306,11 +306,10 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		val generateTask = tasks.named("generateModManifest")
 		val generateTestTask = tasks.named("generateModTestManifest")
 		tasks.withType<Jar>().configureEach {
+			archiveBaseName.set(ctx.modId)
 			if (name == "gametestJar") {
-				archiveBaseName.set(ctx.modGametestId)
 				dependsOn(generateTestTask)
 			} else {
-				archiveBaseName.set(ctx.modId)
 				dependsOn(generateTask)
 				if (ctx.loader is Loader.Forge) {
 					manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")

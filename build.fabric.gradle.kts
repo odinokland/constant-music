@@ -126,13 +126,13 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
-	gametestImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
-	"gametestInclude"(
-		fabricApi.module(
-			"fabric-gametest-api-v1",
-			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
-		)
-	)
+	//gametestImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
+//	"gametestInclude"(
+//		fabricApi.module(
+//			"fabric-gametest-api-v1",
+//			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
+//		)
+//	)
 }
 
 tasks.named<Jar>("gametestJar") {

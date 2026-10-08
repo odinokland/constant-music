@@ -78,10 +78,10 @@ minecraft {
 			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
 			args("--mixin.config", "${prop("mod.id")}.mixins.json")
 			mods {
-				create("constantmusic") {
+				create(prop("mod.id")) {
 					source(sourceSets["main"])
 				}
-				create("gametest") {
+				create(prop("mod.gametest.id")) {
 					source(sourceSets["gametest"])
 				}
 			}
