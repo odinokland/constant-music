@@ -100,6 +100,7 @@ sealed class Loader(val id: String) {
 				license = ctx.licenseName,
 				environment = "*",
 				entrypoints = mapOf(
+					"main" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.FabricEntrypoint"),
 					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.GametestTestRunner")
 				),
 				mixins = listOf(),

@@ -1,5 +1,5 @@
 package com.odinokland.constantmusic.gametest.platform;
-//? < 27.1 {
+
 //? < 1.21.5 || fabric {
 import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.gametest.ConstantMusicGameTests;
@@ -34,14 +34,13 @@ import net.minecraft.gametest.framework.GameTest;
 *///? }
 
 //? forge || neoforge {
-@GameTestHolder(GametestConstants.MOD_ID)
 //? <1.20.1 || neoforge {
 @PrefixGameTestTemplate(false)
 //?} else if >=1.21.5 {
 //@GameTestDontPrefix
 //?}
 //? }
-public class GametestTestRunner /*$ gametest_implementations */{
+public class GameTests {
 	//? if <1.20.1 || neoforge {
 	private static final String TEMPLATE_NAME = "empty";
 	//?} else {
@@ -77,20 +76,5 @@ public class GametestTestRunner /*$ gametest_implementations */{
 	public void testJukeboxMusicSuppressionAndResumption(GameTestHelper helper) {
 		ConstantMusicGameTests.testJukeboxMusicSuppressionAndResumption(helper);
 	}
-
-	//? fabric && >= 1.21.5 {
-
-	/*/^*
-	 * Invoke test method.
-	 * @param helper Game Test Helper
-	 * @param method Method to invoke
-	 * @throws ReflectiveOperationException If an error occurs during method invocation
-	 ^/
-	@Override
-	public void invokeTestMethod(GameTestHelper helper, Method method) throws ReflectiveOperationException {
-		method.invoke(this, helper);
-	}
-	*///? }
 }
-//? }
 //? }
