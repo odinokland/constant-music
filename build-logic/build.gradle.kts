@@ -22,9 +22,27 @@ repositories {
 	maven("https://maven.fabricmc.net/") { name = "Fabric" }
 	maven("https://maven.neoforged.net/releases/") { name = "NeoForged" }
 	maven("https://maven.minecraftforge.net/") { name = "Forge" }
-	maven("https://maven.kikugie.dev/snapshots") { name = "KikuGie Snapshots" }
-	maven("https://maven.kikugie.dev/releases") { name = "KikuGie Releases" }
 	maven("https://jitpack.io") { name = "Jitpack" }
+	exclusiveContent {
+		forRepository { maven("https://maven.quiltmc.org/repository/release") }
+		filter { includeGroup("org.quiltmc.parsers") }
+	}
+	maven {
+		name = "KikuGie Snapshots"
+		url = uri("https://maven.kikugie.dev/snapshots/")
+
+		content {
+			includeGroupAndSubgroups("dev.kikugie")
+		}
+	}
+	maven {
+		name = "KikuGie Releases"
+		url = uri("https://maven.kikugie.dev/releases/")
+
+		content {
+			includeGroupAndSubgroups("dev.kikugie")
+		}
+	}
 }
 
 dependencies {
