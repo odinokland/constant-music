@@ -11,7 +11,7 @@ stonecutter {
 
 	swaps["gametest_annotation"] = when {
 		(eval(current.version, ">=1.21.5")) -> "@GameTest"
-		else -> "@GameTest"
+		else -> "@GameTest(template = EMPTY_STRUCTURE)"
 	}
 
 	swaps["world_flows_var"] = when {
@@ -54,6 +54,15 @@ loom {
 		mixin {
 			useLegacyMixinAp = true
 			defaultRefmapName = "${prop("mod.id")}.refmap.json"
+		}
+	}
+
+	mods {
+		create(prop("mod.id")) {
+			sourceSet(sourceSets["main"])
+		}
+		create(prop("mod.gametest.id")) {
+			sourceSet(sourceSets["gametest"])
 		}
 	}
 	runs.named("client") {
@@ -123,13 +132,12 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
-	//gametestImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
-//	"gametestInclude"(
-//		fabricApi.module(
-//			"fabric-gametest-api-v1",
-//			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
-//		)
-//	)
+	add("gametestCompileOnly",
+		fabricApi.module(
+			"fabric-gametest-api-v1",
+			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
+		)
+	)
 }
 
 tasks.named<Jar>("gametestJar") {

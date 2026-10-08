@@ -47,6 +47,7 @@ public class GameTests {
 	//private static final String TEMPLATE_NAME = Constants.MOD_ID + ":" + "empty";
 	//?}
 	private static final String ENVIRONMENT_NAME = Constants.MOD_ID + "default";
+	private static final String EMPTY_STRUCTURE = "fabric-gametest-api-v1:empty";
 	/**
 	 * Test mod loaded and world entered.
 	 * @param helper Minecraft Game Test Helper
