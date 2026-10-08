@@ -83,3 +83,12 @@ stonecutter {
 	}
 }
 
+gradle.lifecycle.beforeProject {
+	repositories.matching { it.name == "KikuGie Releases" || it.name == "KikuGie Snapshots" }.configureEach {
+		if (this is MavenArtifactRepository) {
+			content {
+				includeGroupAndSubgroups("dev.kikugie")
+			}
+		}
+	}
+}
