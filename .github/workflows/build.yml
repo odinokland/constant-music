@@ -49,6 +49,7 @@ jobs:
           SINGLE_PROJECT: false
           PROJECT_VERSION: ${{ matrix.version }}
           PROJECT_MOD_LOADER: ${{ matrix.modLoader }}
+          CI: true
         steps:
             -   name: "Checkout repository"
                 uses: actions/checkout@v7
