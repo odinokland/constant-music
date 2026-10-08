@@ -1,4 +1,5 @@
 import dev.kikugie.stonecutter.controller.StonecutterControllerExtension
+import dev.kikugie.stonecutter.data.tree.ProjectNode
 import me.modmuss50.mpp.ModPublishExtension
 import org.gradle.api.Plugin
 import org.gradle.api.Project
@@ -99,7 +100,7 @@ class ModRootPlugin : Plugin<Project> {
 
 			for (version in stonecutter.versions.map { it.version }.distinct()) tasks.register("publish$version") {
 				group = "publishing"
-				dependsOn(stonecutter.tasks.named("publishMods") { metadata.version == version })
+				dependsOn(stonecutter.tasks.names("publishMods") { metadata.version == version })
 			}
 		}
 	}

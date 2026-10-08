@@ -68,9 +68,10 @@ stonecutter {
 
 		if (isSingle && !projectVersion.isNullOrEmpty() && !projectModLoader.isNullOrEmpty()) {
 			match(projectVersion, projectModLoader)
-		}
-		for ((version, loaders) in rootData.versions) {
-			match(version, *loaders.toTypedArray())
+		} else {
+			for ((version, loaders) in rootData.versions) {
+				match(version, *loaders.toTypedArray())
+			}
 		}
 		vcsVersion = "1.19.2-forge"
 	}
