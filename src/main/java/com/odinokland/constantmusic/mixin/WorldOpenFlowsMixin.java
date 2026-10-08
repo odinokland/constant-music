@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 /**
- * WorldOpenFlows mixin class
+ * WorldOpenFlows mixin class. For disabling experimental settings warning
  */
 @Mixin(value = WorldOpenFlows.class, priority = 1001)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
