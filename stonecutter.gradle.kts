@@ -23,8 +23,16 @@ tasks.withType<Test>().configureEach {
 	maxParallelForks = 1  // Force sequential forks within the subproject
 }
 
+val isSingle = System.getenv("SINGLE_PROJECT") == "true"
+val projectVersion: String? = System.getenv("PROJECT_VERSION")
+val projectModLoader: String? = System.getenv("PROJECT_MOD_LOADER")
+
 stonecutter {
-	active(file(".sc_active_version"))
+	if (isSingle && !projectVersion.isNullOrEmpty() && !projectModLoader.isNullOrEmpty()) {
+		active("$projectVersion-$projectModLoader")
+	} else {
+		active(file(".sc_active_version"))
+	}
 	flags {
 		set(StonecutterFlag.LINE_SEPARATOR, "\n")
 	}
