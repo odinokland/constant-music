@@ -4,9 +4,6 @@ plugins {
 }
 
 stonecutter {
-	val (version, loader) = current.project.split('-', limit = 2)
-	properties.tags(version, loader)
-
 	swaps["gametest_implementations"] = when {
 		(eval(current.version, ">=1.21.5")) -> "implements CustomTestMethodInvoker {"
 		else -> "implements FabricGameTest {"

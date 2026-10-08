@@ -22,6 +22,7 @@ import org.gradle.kotlin.dsl.*
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import javax.inject.Inject
+import kotlin.text.split
 
 abstract class GenerateModManifestTask : DefaultTask() {
 	@get:Input
@@ -79,6 +80,9 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				plugin = it
 			)
 		}
+
+		val (version, loader) = name.split('-', limit = 2)
+		project.sc.properties.tags(version, loader)
 
 		val ctx = Context(
 			project = this,
