@@ -2,6 +2,7 @@ package com.odinokland.constantmusic.gametest;
 
 //? forge || neoforge {
 //? forge {
+import com.odinokland.constantmusic.gametest.platform.GameTests;
 import net.minecraft.gametest.framework.GameTestRegistry;
 import net.minecraftforge.fml.common.Mod;
 import com.odinokland.constantmusic.gametest.platform.GametestTestRunner;
@@ -48,11 +49,9 @@ import java.util.Map;
 
 @Mod(GametestConstants.MOD_ID)
 public class GametestMod {
-	//? forge {
 	public GametestMod() {
-		GameTestRegistry.register(GametestTestRunner.class);
+		GameTestRegistry.register(GameTests.class);
 	}
-	//? }
 	//? >= 1.21.5 {
 	/*//? forge {
 	public static final DeferredRegister<Consumer<GameTestHelper>> GAMETESTS = DeferredRegister.create(Registries.TEST_FUNCTION, GametestConstants.MOD_ID);

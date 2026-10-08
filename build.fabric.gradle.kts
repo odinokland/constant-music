@@ -11,7 +11,7 @@ stonecutter {
 
 	swaps["gametest_annotation"] = when {
 		(eval(current.version, ">=1.21.5")) -> "@GameTest"
-		else -> "@GameTest(template = EMPTY_STRUCTURE)"
+		else -> "@GameTest"
 	}
 
 	swaps["world_flows_var"] = when {

@@ -56,6 +56,7 @@ neoForge {
 			jvmArguments.addAll(devJvmArgs)
 		}
 		register("client") {
+			disableIdeRun()
 			client()
 			gameDirectory = file("run/client")
 			programArgument("--username=Dev")
@@ -65,6 +66,7 @@ neoForge {
 			loadedMods.set(listOf(mods[prop("mod.id")]))
 		}
 		register("server") {
+			disableIdeRun()
 			server()
 			gameDirectory = file("run/server")
 			sourceSet.set(java.sourceSets["main"])
@@ -72,6 +74,7 @@ neoForge {
 		}
 		mods.create(prop("mod.gametest.id")) { sourceSet(java.sourceSets["gametest"]) }
 		register("gameTestServer") {
+			disableIdeRun()
 			type = "gameTestServer"
 			gameDirectory = file("run/server")
 			systemProperty("neoforge.enableGameTest", "true")
