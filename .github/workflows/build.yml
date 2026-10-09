@@ -46,7 +46,7 @@ jobs:
             matrix:
               include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
         env:
-          SINGLE_PROJECT: true
+          SINGLE_PROJECT: false
           PROJECT_VERSION: ${{ matrix.version }}
           PROJECT_MOD_LOADER: ${{ matrix.modLoader }}
           CI: true

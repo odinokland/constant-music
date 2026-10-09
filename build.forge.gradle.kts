@@ -169,17 +169,6 @@ tasks.withType<JavaCompile>().configureEach {
 	options.encoding = "UTF-8" // Use the UTF-8 charset for Java compilation
 }
 
-//tasks.register("keepOnlyFinal") {
-//	description = "Cleans out all non-final classes from the build directory"
-//	doLast {
-//		fileTree(layout.buildDirectory.dir("libs")) {
-//			include("**/*-all.jar")
-//		}.forEach { it.delete() }
-//	}
-//}
-//
-//tasks.named("build") { finalizedBy("keepOnlyFinal") }
-
 afterEvaluate {
 	// ForgeGradle's run tasks only put getDefaultSourceSets() (main-only, or main+test for the
 	// auto-generated per-sourceSet task variants) on the launch classpath; mods{} above does not

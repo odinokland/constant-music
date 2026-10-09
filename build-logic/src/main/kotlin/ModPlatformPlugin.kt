@@ -355,6 +355,10 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			group = "build"
 		}
 
+		tasks.named("build") {
+			finalizedBy("gametestJar")
+		}
+
 		tasks.register("buildForTests") {
 			dependsOn("build")
 			dependsOn("gametestJar")
