@@ -1,3 +1,5 @@
+import net.fabricmc.loom.task.RemapJarTask
+
 plugins {
 	id("mod-platform")
 	id("dev.kikugie.loom-back-compat")
@@ -106,6 +108,7 @@ configurations.named("gametestCompileClasspath") {
 configurations.named("gametestRuntimeClasspath") {
 	extendsFrom(configurations.named("gametestInclude").get())
 }
+
 repositories {
 	mavenCentral()
 	strictMaven("https://maven.terraformersmc.com/", "com.terraformersmc") { name = "TerraformersMC" }
@@ -132,12 +135,15 @@ dependencies {
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
-	add("gametestCompileOnly",
-		fabricApi.module(
-			"fabric-gametest-api-v1",
-			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
-		)
-	)
+//	"gametestCompileOnly"(fabricApi.module(
+//		"fabric-gametest-api-v1",
+//		"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
+//	))
+}
+
+tasks.withType<RemapJarTask> {
+	sourceNamespace = "named"
+	targetNamespace = "named"
 }
 
 tasks.named<Jar>("gametestJar") {

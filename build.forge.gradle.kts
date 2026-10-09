@@ -124,7 +124,7 @@ dependencies {
 			"org.spongepowered:mixin:${libs.versions.mixin.get()}:processor"
 
 		annotationProcessor(mixinProcessor)
-		"gametestAnnotationProcessor"(mixinProcessor)
+		//"gametestAnnotationProcessor"(mixinProcessor)
 	}
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
 	implementation(libs.mixinextras.forge.get())
@@ -133,7 +133,7 @@ dependencies {
 	if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		add("jarJar", libs.mixinextras.forge.get())
 	}
-	"gametestImplementation"(sourceSets["main"].output)
+//	"gametestCompileOnly"(sourceSets["main"].output)
 
 }
 if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {

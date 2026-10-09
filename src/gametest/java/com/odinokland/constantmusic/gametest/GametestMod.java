@@ -1,11 +1,12 @@
 package com.odinokland.constantmusic.gametest;
 
 //? forge || neoforge {
-//? forge {
+//? < 1.21.11 {
 import com.odinokland.constantmusic.gametest.platform.GameTests;
 import net.minecraft.gametest.framework.GameTestRegistry;
+//? }
+//? forge {
 import net.minecraftforge.fml.common.Mod;
-import com.odinokland.constantmusic.gametest.platform.GametestTestRunner;
 //? }
 //? neoforge {
 //import net.neoforged.fml.common.Mod;
@@ -49,9 +50,11 @@ import java.util.Map;
 
 @Mod(GametestConstants.MOD_ID)
 public class GametestMod {
+	//? < 1.21.11 {
 	public GametestMod() {
-		GameTestRegistry.register(GameTests.class);
+		//GameTestRegistry.register(GameTests.class);
 	}
+	//? }
 	//? >= 1.21.5 {
 	/*//? forge {
 	public static final DeferredRegister<Consumer<GameTestHelper>> GAMETESTS = DeferredRegister.create(Registries.TEST_FUNCTION, GametestConstants.MOD_ID);
@@ -93,7 +96,7 @@ public class GametestMod {
 	}
 
 	public static void registerTests(RegisterGameTestsEvent event) {
-		Holder<TestEnvironmentDefinition<?>> env = event.registerEnvironment(ResourceLocation.fromNamespaceAndPath(GametestConstants.MOD_ID, "default"));
+		Holder<TestEnvironmentDefinition> env = event.registerEnvironment(ResourceLocation.fromNamespaceAndPath(GametestConstants.MOD_ID, "default"));
 
 		for (Map.Entry<String, ResourceKey<Consumer<GameTestHelper>>> entry : TEST_FUNCTION_MAP.entrySet()) {
 			event.registerTest(

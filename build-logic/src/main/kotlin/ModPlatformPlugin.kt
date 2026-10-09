@@ -274,7 +274,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 		}
 		tasks.named<ProcessResources>("processGametestResources") {
 			dependsOn(tasks.named("stonecutterGenerateGametest"), "kspGametestKotlin")
-			inputs.property("modId", ctx.modId)
+			inputs.property("modId", ctx.modGametestId)
 			inputs.property("javaVersion", ctx.javaVersion.majorVersion)
 			val isForge = ctx.loader is Loader.Forge
 			exclude(ctx.loader.excludedResourcesFor(ctx))

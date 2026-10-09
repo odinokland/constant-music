@@ -37,7 +37,7 @@ dev_jvm_args_mixin_debug = [
 	"-Dmixin.debug=true",
 	"-Dmixin.debug.export=true"
 ]
-gametest.id = "gametest"
+gametest.id = "constantmusic_gametest"
 
 [[mod.pom.developers]]
 id = "odinokland"

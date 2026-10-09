@@ -1,5 +1,5 @@
 package com.odinokland.constantmusic.gametest.platform;
-//? < 27.1 {
+
 //? < 1.21.5 || fabric {
 import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.gametest.ConstantMusicGameTests;
@@ -92,5 +92,4 @@ public class GametestTestRunner /*$ gametest_implementations */{
 	}
 	*///? }
 }
-//? }
 //? }
