@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.gametest;
 
 //? forge || neoforge {
-//? < 1.21.11 {
+//? < 1.21.5 {
 import com.odinokland.constantmusic.gametest.platform.GameTests;
 import net.minecraft.gametest.framework.GameTestRegistry;
 //? }
