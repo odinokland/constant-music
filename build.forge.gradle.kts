@@ -166,7 +166,7 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 }
 
 tasks.withType<JavaCompile>().configureEach {
-	options.encoding = "UTF-8" // Use the UTF-8 charset for Java compilation
+	options.encoding = "UTF-8"
 }
 
 afterEvaluate {

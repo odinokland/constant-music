@@ -1,138 +1,167 @@
 name: "Build"
 
 on:
-    workflow_dispatch:
-    push:
-      paths:
-        - 'src/**'
-        - 'gradle/**'
-        - 'build-logic/**'
-        - '*.gradle.kts'
-        - 'gradle.properties'
-        - 'stonecutter.properties.toml'
-        - 'versions.json'
-    pull_request:
-      paths:
-        - 'src/**'
-        - 'gradle/**'
-        - 'build-logic/**'
-        - '*.gradle.kts'
-        - 'gradle.properties'
-        - 'stonecutter.properties.toml'
-        - 'versions.json'
+  workflow_dispatch:
+  push:
+    paths:
+      - 'src/**'
+      - 'gradle/**'
+      - 'build-logic/**'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+      - 'stonecutter.properties.toml'
+      - 'versions.json'
+  pull_request:
+    paths:
+      - 'src/**'
+      - 'gradle/**'
+      - 'build-logic/**'
+      - '*.gradle.kts'
+      - 'gradle.properties'
+      - 'stonecutter.properties.toml'
+      - 'versions.json'
 
 jobs:
-    generate-build-matrix:
-        runs-on: ubuntu-latest
-        name: Generate build matrix
-        outputs:
-            matrix: ${{ steps.set_matrix.outputs.matrix }}
-        steps:
-            -   name: "Checkout repository"
-                uses: actions/checkout@v7
+  generate-build-matrix:
+    runs-on: ubuntu-latest
+    name: Generate build matrix
+    outputs:
+      matrix: ${{ steps.set_matrix.outputs.matrix }}
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
 
-            -   name: "Generate matrix for the run job"
-                id: set_matrix
-                uses: ./.github/actions/prepare-matrix
+      - name: "Generate matrix for the run job"
+        id: set_matrix
+        uses: ./.github/actions/prepare-matrix
 
-    build:
-        runs-on: ubuntu-latest
-        needs: generate-build-matrix
-        continue-on-error: true
-        timeout-minutes: 60
-        name: Build ${{ matrix.modLoader }} ${{ matrix.version }}
-        strategy:
-            fail-fast: false
-            matrix:
-              include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
-        env:
-          SINGLE_PROJECT: false
-          PROJECT_VERSION: ${{ matrix.version }}
-          PROJECT_MOD_LOADER: ${{ matrix.modLoader }}
-          CI: true
-        steps:
-            -   name: "Checkout repository"
-                uses: actions/checkout@v7
+  setup-gradle-cache:
+    runs-on: ubuntu-latest
+    outputs:
+      cache-key: ${{ github.sha }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-            -   name: "Set up JDK"
-                uses: actions/setup-java@v6
-                with:
-                    java-version: 25
-                    distribution: temurin
+      - name: Set up JDK
+        uses: actions/setup-java@v6
+        with:
+          distribution: 'temurin'
+          java-version: 25
 
-            -   name: "Setup gradle"
-                uses: gradle/actions/setup-gradle@v6
-                with:
-                    cache-read-only: false
-                    gradle-version: wrapper
-                    add-job-summary: 'on-failure'
+      - name: Setup and Prime Gradle Cache
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          # If you want to use the faster Configuration Cache across jobs,
+          # provide an encryption key. Otherwise, leave this out.
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
 
-            -   name: "Run build"
-                run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}:build
+      # Download dependencies and compile classes to seed the cache
+      - name: Prime Gradle Cache
+        run: ./gradlew classes --no-daemon
 
-            -   name: "Upload artifacts"
-                uses: actions/upload-artifact@v7
-                with:
-                    name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
-                    if-no-files-found: error
-                    path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
+  build:
+    runs-on: ubuntu-latest
+    needs: [ generate-build-matrix,setup-gradle-cache ]
+    continue-on-error: true
+    timeout-minutes: 60
+    name: Build ${{ matrix.modLoader }} ${{ matrix.version }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
+    env:
+      SINGLE_PROJECT: true
+      PROJECT_VERSION: ${{ matrix.version }}
+      PROJECT_MOD_LOADER: ${{ matrix.modLoader }}
+      CI: true
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
 
-    run-client:
-        runs-on: ubuntu-latest
-        needs: [ build, generate-build-matrix ]
-        if: ${{ success() && !cancelled() }}
-        strategy:
-            fail-fast: false
-            matrix:
-              include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
+      - name: "Set up JDK"
+        uses: actions/setup-java@v6
+        with:
+          java-version: 25
+          distribution: temurin
 
-        name: Run ${{ matrix.modLoader }} ${{ matrix.version }} client
-        timeout-minutes: 10
+      - name: "Setup gradle"
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          cache-read-only: true
+          cache-encryption-key: ${{ secrets.GRADLE_ENCRYPTION_KEY }}
+          gradle-version: wrapper
+          add-job-summary: 'on-failure'
 
-        steps:
-            -   name: "Checkout repository"
-                uses: actions/checkout@v7
+      - name: "Run Refresh Project"
+        run: ./gradlew :"Refresh active project"
 
-            -   name: "Set up JDK"
-                uses: actions/setup-java@v6
-                with:
-                    java-version: 25
-                    distribution: temurin
+      - name: "Run build"
+        run: ./gradlew :${{ matrix.version }}-${{ matrix.modLoader }}:build
 
-            - name: Setup Gradle
-              uses: gradle/actions/setup-gradle@v6
-              with:
-                gradle-version: wrapper
+      - name: "Upload artifacts"
+        uses: actions/upload-artifact@v7
+        with:
+          name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
+          if-no-files-found: error
+          path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
 
-            -   name: "Download artifacts"
-                uses: actions/download-artifact@v8
-                with:
-                    name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
-                    path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
+  run-client:
+    runs-on: ubuntu-latest
+    needs: [ build, generate-build-matrix ]
+    if: ${{ success() && !cancelled() }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
 
-            -   name: "Copy mod jar to run/mods"
-                run: mkdir -p run/mods && find ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs -type f \( -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT.jar" -o -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT-gametest.jar" \) -exec cp {} run/mods \;
+    name: Run ${{ matrix.modLoader }} ${{ matrix.version }} client
+    timeout-minutes: 10
 
-            - name: Configure test JVM
-              run: |
-                mkdir -p HeadlessMC
-                if [ "${{ matrix.modLoader }}" = "fabric" ]; then
-                  jvm_args="-Djava.awt.headless=true -Dfabric.client.gametest -Dfabric.client.gametest.disableNetworkSynchronizer=true"
-                elif [ "${{ matrix.modLoader }}" = "neoforge" ]; then
-                  jvm_args="-Djava.awt.headless=true -Dneoforge.enableGameTest=true -Dneoforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
-                else
-                  jvm_args="-Djava.awt.headless=true -Dforge.enableGameTest=true -Dforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
-                fi
-                printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
-            -   name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
-                uses: headlesshq/mc-runtime-test@4.5.2
-                with:
-                    mc: ${{ matrix.version }}
-                    modloader: ${{ matrix.modLoader }}
-                    regex: .*${{ matrix.modLoader }}.*
-                    mc-runtime-test: ${{ matrix.type }}
-                    java: ${{ matrix.java }}
-                    fabric-api: ${{ matrix.fabricApi }}
-                    xvfb: true
-                    headlessmc-command: -lwjgl --retries 3 --jvm "-Djava.awt.headless=true  -DMcRuntimeGameTestMinExpectedGameTests=1"
-                    cache-mc: true
+    steps:
+      - name: "Checkout repository"
+        uses: actions/checkout@v7
+
+      - name: "Set up JDK"
+        uses: actions/setup-java@v6
+        with:
+          java-version: 25
+          distribution: temurin
+
+      - name: Setup Gradle
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: wrapper
+
+      - name: "Download artifacts"
+        uses: actions/download-artifact@v8
+        with:
+          name: ${{ matrix.modId }}-${{ matrix.modLoader }}-${{ matrix.modVersion }}+mc${{ matrix.version }}
+          path: ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs/*.jar
+
+      - name: "Copy mod jar to run/mods"
+        run: mkdir -p run/mods && find ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs -type f \( -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT.jar" -o -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT-gametest.jar" \) -exec cp {} run/mods \;
+
+      - name: Configure test JVM
+        run: |
+          mkdir -p HeadlessMC
+          if [ "${{ matrix.modLoader }}" = "fabric" ]; then
+            jvm_args="-Djava.awt.headless=true -Dfabric.client.gametest -Dfabric.client.gametest.disableNetworkSynchronizer=true"
+          elif [ "${{ matrix.modLoader }}" = "neoforge" ]; then
+            jvm_args="-Djava.awt.headless=true -Dneoforge.enableGameTest=true -Dneoforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
+          else
+            jvm_args="-Djava.awt.headless=true -Dforge.enableGameTest=true -Dforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
+          fi
+          printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
+      - name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
+        uses: headlesshq/mc-runtime-test@4.5.2
+        with:
+          mc: ${{ matrix.version }}
+          modloader: ${{ matrix.modLoader }}
+          regex: .*${{ matrix.modLoader }}.*
+          mc-runtime-test: ${{ matrix.type }}
+          java: ${{ matrix.java }}
+          fabric-api: ${{ matrix.fabricApi }}
+          xvfb: true
+          headlessmc-command: -lwjgl --retries 3 --jvm "-Djava.awt.headless=true  -DMcRuntimeGameTestMinExpectedGameTests=1"
+          cache-mc: true
