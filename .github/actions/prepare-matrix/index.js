@@ -50,8 +50,6 @@ const main = () => {
 		if (key !== "deps") {
 			const fApi = tomlData.fabric[key].deps["fabricApi"]
 			const version = tomlData.fabric[key].deps["minecraft"]
-			// Skip 26.3 until there's a version-runtime-test release for it
-			if (version === "26.3") return;
 			const v = {
 				modId,
 				modVersion,
@@ -71,8 +69,6 @@ const main = () => {
 			if (key !== "deps") {
 				const version = tomlData[modLoader][key].deps["minecraft"]
 				const type = modLoader === "forge" ? "lexforge" : "neoforge"
-				// Skip 26.3 until there's a version-runtime-test release for it
-				if (version === "26.3") return;
 				const v = {
 					modId,
 					modVersion,
