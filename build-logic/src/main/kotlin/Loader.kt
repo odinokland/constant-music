@@ -27,7 +27,7 @@ sealed class Loader(val id: String) {
 		override val isFabricLike = true
 		override val modManifestPath = "fabric.mod.json"
 		override val excludedResources = listOf(
-			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/constantmusic/test_instance/*.json"
+			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/constantmusic_gametest/test_instance/*.json"
 		)
 
 		override fun generateManifest(ctx: Context): String {
@@ -236,7 +236,7 @@ sealed class Loader(val id: String) {
 
 	object NeoForge : ForgeLike("neoforge") {
 		override val modManifestPath = "META-INF/neoforge.mods.toml"
-		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta" + "data/constantmusic/test_instance/*.json"
+		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta" + "data/constantmusic_gametest/test_instance/*.json"
 
 		private fun isLegacy(ctx: Context) = !ctx.stonecutter.eval(ctx.currentMcVersion, ">=1.20.5")
 

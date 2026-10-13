@@ -39,6 +39,7 @@ import net.minecraft.gametest.framework.GameTest;
 //?} else if >=1.21.5 {
 //@GameTestDontPrefix
 //?}
+@GameTestHolder("gametests")
 //? }
 public class GameTests {
 	//? if <1.20.1 || neoforge {

@@ -20,12 +20,6 @@ stonecutter {
 		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1, require = 0)"
 	}
 
-	swaps["world_flows_inject"] = when {
-		(eval(current.version, "<1.20.6")) -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\"), cancellable = true)"
-		(eval(current.version, "<26.2")) -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true)"
-		else -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true, require = 0)"
-	}
-
 	replacements.string(current.parsed >= "1.21.11") {
 		replace("ResourceLocation", "Identifier")
 		replace("location()", "identifier()")
@@ -71,6 +65,7 @@ minecraft {
 			}
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
+			systemProperty("forge.enableGameTest", true)
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
 			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
 			args("--mixin.config", "${prop("mod.id")}.mixins.json")
@@ -119,13 +114,7 @@ repositories {
 
 dependencies {
 	implementation(minecraft.dependency("net.minecraftforge:forge:${prop("deps.minecraft")}-${prop("deps.forge")}"))
-	if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
-		val mixinProcessor =
-			"org.spongepowered:mixin:${libs.versions.mixin.get()}:processor"
-
-		annotationProcessor(mixinProcessor)
-		//"gametestAnnotationProcessor"(mixinProcessor)
-	}
+	annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
 	implementation(libs.mixinextras.forge.get())
 

@@ -2,11 +2,22 @@ package com.odinokland.constantmusic.gametest;
 
 //? forge || neoforge {
 //? < 1.21.5 {
+import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.gametest.platform.GameTests;
+import net.minecraft.gametest.framework.GameTestBatch;
+import net.minecraft.gametest.framework.GameTestBatchFactory;
 import net.minecraft.gametest.framework.GameTestRegistry;
 //? }
 //? forge {
+import net.minecraft.gametest.framework.TestFunction;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.event.RegisterGameTestsEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.gametest.ForgeGameTestHooks;
+
+import java.util.Collection;
 //? }
 //? neoforge {
 //import net.neoforged.fml.common.Mod;
@@ -50,9 +61,26 @@ import java.util.Map;
 
 @Mod(GametestConstants.MOD_ID)
 public class GametestMod {
-	//? < 1.21.11 {
+	//? < 1.21.5 {
 	public GametestMod() {
-		//GameTestRegistry.register(GameTests.class);
+//		GameTestRegistry.register(GameTests.class);
+//		GametestConstants.LOGGER.info("Loading Gametest Mod");
+//		Collection<TestFunction> testFunctions = GameTestRegistry.getAllTestFunctions();
+//		GametestConstants.LOGGER.info("TestFunctions: " + testFunctions);
+//
+//		GametestConstants.LOGGER.info("Is production?: " + FMLLoader.isProduction());
+//		GametestConstants.LOGGER.info("Is gametest enabled?: " + ForgeGameTestHooks.isGametestEnabled());
+//		GameTestRegistry.forgetFailedTests();
+//
+//		Collection<GameTestBatch> batches = GameTestBatchFactory.fromTestFunction(testFunctions, level);
+	}
+
+	@Mod.EventBusSubscriber( modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
+	public static class ForgeEventSubscriber {
+		@SubscribeEvent // on the mod event bus
+		public static void registerTests(RegisterGameTestsEvent event) {
+			event.register(GameTests.class);
+		}
 	}
 	//? }
 	//? >= 1.21.5 {

@@ -18,6 +18,7 @@ public class Constants {
 	 * The constant MOD_NAME.
 	 */
 	public static final String MOD_NAME = /*$ mod_name */"Constant Music";
+	public static final boolean REMAP_MIXINS = /*$ mod_remap*/true;
 	/**
 	 * The constant LOG.
 	 */

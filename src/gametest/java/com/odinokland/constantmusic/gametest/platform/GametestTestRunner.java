@@ -9,6 +9,7 @@ import net.minecraft.gametest.framework.GameTestHelper;
 //? if < 1.20.1 {
 import net.minecraftforge.gametest.PrefixGameTestTemplate;
 //? }
+import net.minecraftforge.gametest.GameTestDontPrefix;
 import net.minecraftforge.gametest.GameTestHolder;
 //? if < 1.21.5 {
 import net.minecraft.gametest.framework.GameTest;
@@ -45,9 +46,9 @@ public class GametestTestRunner /*$ gametest_implementations */{
 	//? if <1.20.1 || neoforge {
 	private static final String TEMPLATE_NAME = "empty";
 	//?} else {
-	//private static final String TEMPLATE_NAME = Constants.MOD_ID + ":" + "empty";
+	//private static final String TEMPLATE_NAME = GametestConstants.MOD_ID + ":" + "empty";
 	//?}
-	private static final String ENVIRONMENT_NAME = Constants.MOD_ID + "default";
+	private static final String ENVIRONMENT_NAME = GametestConstants.MOD_ID + "default";
 	/**
 	 * Test mod loaded and world entered.
 	 * @param helper Minecraft Game Test Helper

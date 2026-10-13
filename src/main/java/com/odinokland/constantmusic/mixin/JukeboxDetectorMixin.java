@@ -2,6 +2,7 @@ package com.odinokland.constantmusic.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.Minecraft;
@@ -30,7 +31,7 @@ import net.minecraft.world.item.RecordItem;
 /**
  * The type Level renderer mixin.
  */
-@Mixin(LevelRenderer.class)
+@Mixin(value = LevelRenderer.class, remap = Constants.REMAP_MIXINS)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class JukeboxDetectorMixin {
 	//? if >=1.21.2 {
@@ -90,7 +91,7 @@ public class JukeboxDetectorMixin {
 		}
 	}
 
-	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V", remap = false)
+	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, @Nullable RecordItem musicDiscItem, Operation<Void> original) {
 		original.call(soundEvent, pos, musicDiscItem);
 		if (soundEvent != null) {
