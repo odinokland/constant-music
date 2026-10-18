@@ -52,7 +52,7 @@ buildscript {
 	}
 	dependencies {
 		// Pull in the regular Maven dependency for the settings script classpath
-		classpath("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.3")
+		classpath("com.fasterxml.jackson.module:jackson-module-kotlin:2.22.4")
 	}
 }
 
