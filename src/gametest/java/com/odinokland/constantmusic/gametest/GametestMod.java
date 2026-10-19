@@ -20,6 +20,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraft.resources.ResourceKey;
 import java.util.function.Consumer;
+import java.util.ArrayList;
+import java.util.List;
 //? forge {
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -32,9 +34,6 @@ import net.minecraft.data.DataProvider;
 //? } else {
 import net.minecraftforge.eventbus.api.IEventBus;
 //? }
-
-import java.util.ArrayList;
-import java.util.List;
 //? }
 //? neoforge {
 //import net.neoforged.bus.api.IEventBus;
@@ -50,10 +49,9 @@ public class GametestMod {
 
 	//? }
 	//? >= 1.21.5 {
-	/*//? forge {
+	/*private static final List<String> testKeys = new ArrayList<>();
+	//? forge {
 	public static final DeferredRegister<Consumer<GameTestHelper>> GAMETESTS = DeferredRegister.create(Registries.TEST_FUNCTION, GametestConstants.MOD_ID);
-	private static final List<String> testKeys = new ArrayList<>();
-
 	public GametestMod(FMLJavaModLoadingContext context) {
 		GametestConstants.LOGGER.info("Loading Gametest Mod");
 		GametestConstants.initTests(GametestMod::registerTest);
@@ -75,10 +73,6 @@ public class GametestMod {
 		storeKeys();
 	}
 
-	private static void storeKeys() {
-		System.setProperty("McTestRunnerTests", String.join(",", testKeys.stream().map(name -> GametestConstants.MOD_ID + ":" + name).toArray(String[]::new)));
-	}
-
 	public static void gatherData(final GatherDataEvent event) {
 		GametestConstants.LOGGER.info("Gathering Gametest Data");
 		event.getGenerator().addProvider(true, (DataProvider.Factory<GametestInstanceProvider>) output -> new GametestInstanceProvider(output, testKeys));
@@ -86,9 +80,20 @@ public class GametestMod {
 	//? }
 	//? neoforge {
 	/^public GametestMod(IEventBus eventBus) {
+		GametestConstants.initTests(GametestMod::registerTest);
+	}
 
+	private static void registerTest(String name, Consumer<GameTestHelper> consumer) {
+		GametestConstants.LOGGER.info("Registering Gametest: " + name);
+		testKeys.add(name);
+		storeKeys();
 	}
 	^///? }
+
+
+	private static void storeKeys() {
+		System.setProperty("McTestRunnerTests", String.join(",", testKeys.stream().map(name -> GametestConstants.MOD_ID + ":" + name).toArray(String[]::new)));
+	}
 	*///? }
 }
 //? }
