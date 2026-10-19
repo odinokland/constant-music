@@ -31,7 +31,7 @@ import net.minecraft.world.item.RecordItem;
 /**
  * The type Level renderer mixin.
  */
-@Mixin(value = LevelRenderer.class, remap = Constants.REMAP_MIXINS)
+@Mixin(LevelRenderer.class)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class JukeboxDetectorMixin {
 	//? if >=1.21.2 {
@@ -91,17 +91,17 @@ public class JukeboxDetectorMixin {
 		}
 	}
 
-	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V")
-	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, @Nullable RecordItem musicDiscItem, Operation<Void> original) {
-		original.call(soundEvent, pos, musicDiscItem);
-		if (soundEvent != null) {
-			if (level != null) {
-				JukeboxTrackerUtility.onJukeboxPlay(minecraft, pos);
-			}
-		} else {
-			JukeboxTrackerUtility.onJukeboxStop(pos);
-		}
-	}
+//	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V")
+//	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, @Nullable RecordItem musicDiscItem, Operation<Void> original) {
+//		original.call(soundEvent, pos, musicDiscItem);
+//		if (soundEvent != null) {
+//			if (level != null) {
+//				JukeboxTrackerUtility.onJukeboxPlay(minecraft, pos);
+//			}
+//		} else {
+//			JukeboxTrackerUtility.onJukeboxStop(pos);
+//		}
+//	}
 	//?}
 	//?}
 }

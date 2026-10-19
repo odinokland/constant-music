@@ -23,7 +23,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  * The type Sound options screen mixin.
  */
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
-@Mixin(value = SoundOptionsScreen.class, remap = Constants.REMAP_MIXINS)
+@Mixin(SoundOptionsScreen.class)
 public class SoundOptionsScreenMixin extends Screen {
 
 	/**

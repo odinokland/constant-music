@@ -107,7 +107,7 @@ sealed class Loader(val id: String) {
 				environment = "*",
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricEntryPoint"),
-					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.GametestTestRunner")
+					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricGameTests")
 				),
 				jars = jars.map(::FabricJar),
 				mixins = listOf(),
@@ -236,7 +236,7 @@ sealed class Loader(val id: String) {
 
 	object NeoForge : ForgeLike("neoforge") {
 		override val modManifestPath = "META-INF/neoforge.mods.toml"
-		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta" + "data/constantmusic_gametest/test_instance/*.json"
+		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta"
 
 		private fun isLegacy(ctx: Context) = !ctx.stonecutter.eval(ctx.currentMcVersion, ">=1.20.5")
 

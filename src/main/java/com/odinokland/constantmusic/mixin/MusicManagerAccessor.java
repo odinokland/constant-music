@@ -14,7 +14,7 @@ import net.minecraft.client.resources.sounds.SoundInstance;
  */
 @Debug(export = true)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
-@Mixin(value = MusicManager.class, remap = Constants.REMAP_MIXINS)
+@Mixin(MusicManager.class)
 public interface MusicManagerAccessor {
 
 	/**

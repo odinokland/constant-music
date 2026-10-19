@@ -9,15 +9,7 @@ stonecutter {
 	swaps["gametest_annotation"] = when {
 		(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME, environment = ENVIRONMENT_NAME)"
 		(eval(current.version, ">1.20.1")) -> "@GameTest(template = TEMPLATE_NAME)"
-		else -> "@GameTest(templateNamespace = Constants.MOD_ID, template = TEMPLATE_NAME)"
-	}
-
-	swaps["world_flows_var"] = when {
-		(eval(current.version, "<1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;ZZZ)V\", at = @At(\"HEAD\"), ordinal = 3, argsOnly = true)"
-		(eval(current.version, "<1.20.6")) -> "@ModifyVariable(method = \"loadLevel(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;ZZLjava/lang/Runnable;Z)V\", at = @At(\"HEAD\"), ordinal = 2, argsOnly = true)"
-		(eval(current.version, "<1.21.11")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
-		(eval(current.version, "<26.2")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1)"
-		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1, require = 0)"
+		else -> "@GameTest(templateNamespace = GametestConstants.MOD_ID, template = TEMPLATE_NAME)"
 	}
 
 	replacements.string(current.parsed >= "1.21.11") {
@@ -37,10 +29,14 @@ platform {
 		}
 	}
 }
+
+val obfuscate = stonecutter.eval(stonecutter.current.version, "<1.20.6")
+val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
+
 if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 	jarJar {
 		register("jarJar") {
-			if (stonecutter.eval(stonecutter.current.version, ">=1.20.6")) {
+			if (!obfuscate) {
 				archiveClassifier.set(null)
 			}
 		}
@@ -49,8 +45,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		enabled = false
 	}
 }
-
-val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
 
 minecraft {
 	if (stonecutter.eval(stonecutter.current.version, "<=1.21.11")) {
@@ -114,7 +108,9 @@ repositories {
 
 dependencies {
 	implementation(minecraft.dependency("net.minecraftforge:forge:${prop("deps.minecraft")}-${prop("deps.forge")}"))
-	annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
+	if (obfuscate) {
+		annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
+	}
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
 	implementation(libs.mixinextras.forge.get())
 
@@ -122,10 +118,10 @@ dependencies {
 	if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		add("jarJar", libs.mixinextras.forge.get())
 	}
-//	"gametestCompileOnly"(sourceSets["main"].output)
+	"gametestCompileOnly"(sourceSets["main"].output)
 
 }
-if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
+if (obfuscate) {
 	renamer {
 		mappings(minecraft.dependency.toSrg)
 
@@ -142,15 +138,13 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 			archiveClassifier.set(null)
 		}
 		classes(tasks.named<Jar>("gametestJar")) {
+			mappings(minecraft.dependency.toSrg)
 			archiveClassifier.set("gametest")
 		}
 	}
 
 	tasks.named("mergeMixinMappings") {
 		dependsOn("jarJar")
-	}
-	tasks.named<Jar>("gametestJar") {
-		archiveClassifier.set("gametest-noobf")
 	}
 }
 
@@ -174,13 +168,13 @@ afterEvaluate {
 	tasks.named<JavaExec>("runGameTestServer") {
 		classpath(sourceSets["gametest"].output)
 		if (generateTests) {
-			dependsOn("runData")
+			//dependsOn("runData")
 		}
 	}
 	tasks.named<JavaExec>("runClient") {
 		classpath(sourceSets["gametest"].output)
 		if (generateTests) {
-			dependsOn("runData")
+			//dependsOn("runData")
 		}
 	}
 

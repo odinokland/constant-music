@@ -3,21 +3,14 @@ package com.odinokland.constantmusic.gametest;
 //? forge || neoforge {
 //? < 1.21.5 {
 import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.gametest.platform.GameTests;
-import net.minecraft.gametest.framework.GameTestBatch;
-import net.minecraft.gametest.framework.GameTestBatchFactory;
-import net.minecraft.gametest.framework.GameTestRegistry;
+//import com.odinokland.constantmusic.gametest.platform.GameTests;
+//? forge {
+import net.minecraftforge.event.RegisterGameTestsEvent;
+//? }
 //? }
 //? forge {
-import net.minecraft.gametest.framework.TestFunction;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.event.RegisterGameTestsEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.gametest.ForgeGameTestHooks;
-
-import java.util.Collection;
 //? }
 //? neoforge {
 //import net.neoforged.fml.common.Mod;
@@ -44,55 +37,23 @@ import java.util.ArrayList;
 import java.util.List;
 //? }
 //? neoforge {
-/^import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.gametest.framework.FunctionGameTestInstance;
-import net.minecraft.gametest.framework.TestData;
-import net.minecraft.gametest.framework.TestEnvironmentDefinition;
-import net.minecraft.resources.ResourceLocation;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.event.RegisterGameTestsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.Map;
-^///? }
+//import net.neoforged.bus.api.IEventBus;
+//? }
 *///? }
 
 @Mod(GametestConstants.MOD_ID)
 public class GametestMod {
 	//? < 1.21.5 {
 	public GametestMod() {
-//		GameTestRegistry.register(GameTests.class);
-//		GametestConstants.LOGGER.info("Loading Gametest Mod");
-//		Collection<TestFunction> testFunctions = GameTestRegistry.getAllTestFunctions();
-//		GametestConstants.LOGGER.info("TestFunctions: " + testFunctions);
-//
-//		GametestConstants.LOGGER.info("Is production?: " + FMLLoader.isProduction());
-//		GametestConstants.LOGGER.info("Is gametest enabled?: " + ForgeGameTestHooks.isGametestEnabled());
-//		GameTestRegistry.forgetFailedTests();
-//
-//		Collection<GameTestBatch> batches = GameTestBatchFactory.fromTestFunction(testFunctions, level);
+
 	}
 
-	@Mod.EventBusSubscriber( modid = Constants.MOD_ID, bus = Mod.EventBusSubscriber.Bus.FORGE)
-	public static class ForgeEventSubscriber {
-		@SubscribeEvent // on the mod event bus
-		public static void registerTests(RegisterGameTestsEvent event) {
-			event.register(GameTests.class);
-		}
-	}
 	//? }
 	//? >= 1.21.5 {
 	/*//? forge {
 	public static final DeferredRegister<Consumer<GameTestHelper>> GAMETESTS = DeferredRegister.create(Registries.TEST_FUNCTION, GametestConstants.MOD_ID);
 	private static final List<String> testKeys = new ArrayList<>();
-	//?}
-	//? neoforge {
-	/^public static final DeferredRegister<Consumer<GameTestHelper>> GAMETEST = DeferredRegister.create(BuiltInRegistries.TEST_FUNCTION, GametestConstants.MOD_ID);
-	private static final Map<String, ResourceKey<Consumer<GameTestHelper>>> TEST_FUNCTION_MAP = Maps.newHashMap();
-	^///? }
-	//? forge {
+
 	public GametestMod(FMLJavaModLoadingContext context) {
 		GametestConstants.LOGGER.info("Loading Gametest Mod");
 		GametestConstants.initTests(GametestMod::registerTest);
@@ -108,35 +69,24 @@ public class GametestMod {
 	}
 
 	private static void registerTest(String name, Consumer<GameTestHelper> consumer) {
+		GametestConstants.LOGGER.info("Registering Gametest: " + name);
 		testKeys.add(name);
 		GAMETESTS.register(name, () -> consumer);
+		storeKeys();
 	}
 
-	public static void gatherData(GatherDataEvent event) {
+	private static void storeKeys() {
+		System.setProperty("McTestRunnerTests", String.join(",", testKeys.stream().map(name -> GametestConstants.MOD_ID + ":" + name).toArray(String[]::new)));
+	}
+
+	public static void gatherData(final GatherDataEvent event) {
+		GametestConstants.LOGGER.info("Gathering Gametest Data");
 		event.getGenerator().addProvider(true, (DataProvider.Factory<GametestInstanceProvider>) output -> new GametestInstanceProvider(output, testKeys));
 	}
 	//? }
 	//? neoforge {
 	/^public GametestMod(IEventBus eventBus) {
-		GAMETEST.register(eventBus);
-		GametestConstants.initTests(GametestMod::registerTest);
-		eventBus.addListener(GametestMod::registerTests);
-	}
 
-	public static void registerTests(RegisterGameTestsEvent event) {
-		Holder<TestEnvironmentDefinition> env = event.registerEnvironment(ResourceLocation.fromNamespaceAndPath(GametestConstants.MOD_ID, "default"));
-
-		for (Map.Entry<String, ResourceKey<Consumer<GameTestHelper>>> entry : TEST_FUNCTION_MAP.entrySet()) {
-			event.registerTest(
-					ResourceLocation.fromNamespaceAndPath(GametestConstants.MOD_ID, entry.getKey()),
-					new FunctionGameTestInstance(entry.getValue(),
-							new TestData<>(env, ResourceLocation.withDefaultNamespace("empty"), 100, 0, true)));
-		}
-	}
-
-	public static void registerTest(String testId, Consumer<GameTestHelper> consumer) {
-		DeferredHolder<Consumer<GameTestHelper>, Consumer<GameTestHelper>> test = GAMETEST.register(testId, () -> consumer);
-		TEST_FUNCTION_MAP.putIfAbsent(testId, test.getKey());
 	}
 	^///? }
 	*///? }

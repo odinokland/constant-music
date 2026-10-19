@@ -6,7 +6,7 @@ plugins {
 stonecutter {
 	swaps["gametest_annotation"] = when {
 		(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME, environment = ENVIRONMENT_NAME)"
-		else -> "@GameTest(templateNamespace = Constants.MOD_ID, template = TEMPLATE_NAME)"
+		else -> "@GameTest(templateNamespace = GametestConstants.MOD_ID, template = TEMPLATE_NAME)"
 	}
 
 	replacements.string(current.parsed >= "1.21.11") {

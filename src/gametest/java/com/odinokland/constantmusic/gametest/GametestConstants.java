@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.gametest;
 
+import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
 import net.minecraft.gametest.framework.GameTestHelper;
-import com.odinokland.constantmusic.Constants;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -11,6 +11,7 @@ import java.util.function.Consumer;
 
 public class GametestConstants {
 	public static final String MOD_ID = /*$ mod_gametest_id */"constantmusic_gametest";
+	public static final String MAIN_MOD_ID = /*$ mod_id */"constantmusic";
 	public static final String MOD_NAME = "Constant Music Game Tests";
 	public static final Logger LOGGER = LoggerFactory.getLogger(MOD_NAME);
 

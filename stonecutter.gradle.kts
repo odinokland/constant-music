@@ -56,10 +56,6 @@ stonecutter {
 			eval(current.version, ">1.19.4") -> "GuiGraphics guiGraphics,"
 			else -> "PoseStack guiGraphics,"
 		}
-		swaps["mod_remap"] = when {
-			eval(current.version, ">=1.20.6") -> "false;"
-			else -> "true;"
-		}
 
 		constants["release"] = properties.get("mod.id") != "modtemplate"
 
