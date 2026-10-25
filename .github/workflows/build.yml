@@ -155,7 +155,7 @@ jobs:
           fi
           printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
       - name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
-        uses: headlesshq/mc-runtime-test@4.5.2
+        uses: headlesshq/mc-runtime-test@5.0.0
         with:
           mc: ${{ matrix.version }}
           modloader: ${{ matrix.modLoader }}
