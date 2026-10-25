@@ -28,7 +28,8 @@ class Context(
 	fun resolvedAccessFile(): String {
 		val loaderAccessType = this.accessType()
 		val accessDir = project.rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
-		val pathString = findResolvedAccessFile(this.currentMcVersion, accessDir, loaderAccessType) ?: return "${this.modId}.${loaderAccessType.keyword}"
+		val selectedFile = findVersionedFile(accessDir.toPath(), modId, this.currentMcVersion, loaderAccessType.keyword)
+		val pathString = selectedFile?.toFile() ?: return "${this.modId}.${loaderAccessType.keyword}"
 		return pathString.getName()
 	}
 

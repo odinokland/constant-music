@@ -55,6 +55,11 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				extension.sourcesJarTask.convention(providers.provider {
 					extensions.getByType<dev.kikugie.loomx.LoomCompatProjectExtension>().modSourcesJar.name
 				})
+				if (project.sc.eval(project.sc.current.version, "<26")) {
+					extension.gametestJarTask.convention("remapGametestJar")
+				} else {
+					extension.gametestJarTask.convention("gametestJar")
+				}
 			}
 			is Loader.Forge -> {
 				if (project.sc.eval(project.sc.current.version, "<1.20.6")) {
@@ -63,10 +68,12 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 					extension.jarTask.convention("jar")
 				}
 				extension.sourcesJarTask.convention("sourcesJar")
+				extension.gametestJarTask.convention("gametestJar")
 			}
 			else -> {
 				extension.jarTask.convention("jar")
 				extension.sourcesJarTask.convention("sourcesJar")
+				extension.gametestJarTask.convention("gametestJar")
 			}
 		}
 
@@ -270,6 +277,16 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 						path = "icon.png"
 					}
 				}
+			} else {
+				val accessFileName = ctx.resolvedAccessFile()
+				exclude { it ->
+					if (it.path.startsWith("aw/")) {
+						if (it.path != "aw/$accessFileName") {
+							return@exclude true
+						}
+					}
+					return@exclude false
+				}
 			}
 		}
 		tasks.named<ProcessResources>("processGametestResources") {
@@ -349,7 +366,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				tasks.named(ctx.extension.jarTask.get()),
 				tasks.named(ctx.extension.sourcesJarTask.get()),
 				tasks.named("javadocJar"),
-				tasks.named("gametestJar")
+				tasks.named(ctx.extension.gametestJarTask.get())
 			)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
 			group = "build"

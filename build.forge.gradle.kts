@@ -119,6 +119,7 @@ dependencies {
 		add("jarJar", libs.mixinextras.forge.get())
 	}
 	"gametestCompileOnly"(sourceSets["main"].output)
+	"gametestImplementation"(sourceSets["main"].output)
 
 }
 if (obfuscate) {

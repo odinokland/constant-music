@@ -25,7 +25,12 @@ for file_path in dir_path.iterdir():
 			print(f"Match found: {match.group(0)}")
 			print("Loader: ", match.group(1))
 			print("MC version: ", match.group(2))
-			destination = f"{args.destination}\\{match.group(1)}-{match.group(2)}\\mods\\"
-			print(f"Copying {file_path.name} to {destination}")
-			shutil.copy(file_path, destination)
+			dir_patterns = [f"{match.group(1)}-{match.group(2)}", f"{match.group(1)}-{match.group(2)}-*"]
+			matching_directories = [
+				str(p) for dir_p in dir_patterns for p in Path(args.destination).glob(dir_p) if p.is_dir()
+			]
+			for directory in matching_directories:
+				destination = f"{directory}\\mods\\"
+				print(f"Copying {file_path.name} to {destination}")
+				shutil.copy(file_path, destination)
 			print("\n")

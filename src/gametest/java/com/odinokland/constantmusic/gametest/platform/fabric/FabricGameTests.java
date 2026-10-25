@@ -21,6 +21,14 @@ public class FabricGameTests /^$ gametest_implementations ^/{
 	//private static final String TEMPLATE_NAME = GametestConstants.MOD_ID + ":" + "empty";
 	//?}
 	private static final String ENVIRONMENT_NAME = GametestConstants.MOD_ID + ":" + "default";
+
+	/^*
+	 * Default constructor.
+	 ^/
+	public FabricGameTests() {
+		GametestConstants.LOGGER.info("FabricGameTests initialized");
+	}
+
 	/^*
 	 * Test mod loaded and world entered.
 	 * @param helper Minecraft Game Test Helper

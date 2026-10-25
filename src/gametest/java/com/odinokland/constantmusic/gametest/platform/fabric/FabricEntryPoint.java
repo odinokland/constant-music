@@ -1,15 +1,12 @@
 package com.odinokland.constantmusic.gametest.platform.fabric;
 
 //? fabric {
-/*import com.odinokland.constantmusic.gametest.platform.GametestTestRunner;
-import net.fabricmc.api.ModInitializer;
-//import net.minecraft.gametest.framework.GameTestRegistry;
+/*import net.fabricmc.api.ModInitializer;
 
 public class FabricEntryPoint implements ModInitializer {
 	@Override
 	public void onInitialize() {
-//		GameTestRegistry.register(GametestTestRunner.class);
+		System.setProperty("fabric-api.gametest", "true");
 	}
-
 }
 *///? }

@@ -107,7 +107,10 @@ sealed class Loader(val id: String) {
 				environment = "*",
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricEntryPoint"),
-					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricGameTests")
+					"fabric-gametest" to listOf(
+						//"${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricBaseGameTests",
+						"${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricGameTests"
+					)
 				),
 				jars = jars.map(::FabricJar),
 				mixins = listOf(),
