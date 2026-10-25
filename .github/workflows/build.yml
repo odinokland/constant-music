@@ -163,6 +163,7 @@ jobs:
           mc-runtime-test: ${{ matrix.type }}
           java: ${{ matrix.java }}
           fabric-api: ${{ matrix.fabricApi }}
+          fabric-gametest-api: ${{ matrix.fabricGametestApi }}
           xvfb: true
           headlessmc-command: -lwjgl --retries 3 --jvm "-Djava.awt.headless=true  -DMcRuntimeGameTestMinExpectedGameTests=1"
           cache-mc: true

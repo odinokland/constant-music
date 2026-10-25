@@ -49,6 +49,7 @@ const main = () => {
 	Object.keys(tomlData?.fabric).forEach((key) => {
 		if (key !== "deps") {
 			const fApi = tomlData.fabric[key].deps["fabricApi"]
+			const fGApi = tomlData.fabric[key].deps["fabricGametestApi"]
 			const version = tomlData.fabric[key].deps["minecraft"]
 			const v = {
 				modId,
@@ -59,6 +60,7 @@ const main = () => {
 				java: getJavaVersion(version),
 				regex: ".*fabric.*",
 				fabricApi: fApi,
+				fabricGametestApi: fGApi,
 			};
 			outputData.push(v)
 		}
