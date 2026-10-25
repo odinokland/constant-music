@@ -23,8 +23,16 @@ tasks.withType<Test>().configureEach {
 	maxParallelForks = 1  // Force sequential forks within the subproject
 }
 
+val isSingle = System.getenv("SINGLE_PROJECT") == "true"
+val projectVersion: String? = System.getenv("PROJECT_VERSION")
+val projectModLoader: String? = System.getenv("PROJECT_MOD_LOADER")
+
 stonecutter {
-	active(file(".sc_active_version"))
+	if (isSingle && !projectVersion.isNullOrEmpty() && !projectModLoader.isNullOrEmpty()) {
+		active("$projectVersion-$projectModLoader")
+	} else {
+		active(file(".sc_active_version"))
+	}
 	flags {
 		set(StonecutterFlag.LINE_SEPARATOR, "\n")
 	}
@@ -40,6 +48,7 @@ stonecutter {
 		swaps["mod_id"] = "\"${properties.get("mod.id")}\";"
 		swaps["mod_name"] = "\"${properties.get("mod.name")}\";"
 		swaps["mod_group"] = "\"${properties.get("mod.group")}\";"
+		swaps["mod_gametest_id"] = "\"${properties.get("mod.gametest.id")}\";"
 		swaps["minecraft"] = "\"${current.version}\";"
 		swaps["gametest_implementations"] = "{"
 		swaps["render_input"] = when {
@@ -47,8 +56,6 @@ stonecutter {
 			eval(current.version, ">1.19.4") -> "GuiGraphics guiGraphics,"
 			else -> "PoseStack guiGraphics,"
 		}
-		swaps["world_flows_var"] = "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
-		swaps["world_flows_inject"] = "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true)"
 
 		constants["release"] = properties.get("mod.id") != "modtemplate"
 
@@ -76,14 +83,14 @@ stonecutter {
 			string(current.parsed >= "1.21.6") {
 				replace("net.minecraftforge.eventbus.api.SubscribeEvent", "net.minecraftforge.eventbus.api.listener.SubscribeEvent")
 			}
- 		string(current.parsed >= "26.1") {
- 			replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
- 			replace("abstractWidget.render", "abstractWidget.extractRenderState")
- 			replace("renderContent", "extractContent")
- 			replace("public void render(", "public void extractRenderState(")
- 			replace("renderBackground(", "extractBackground(")
- 			replace("super.render(", "super.extractRenderState(")
- 		}
+			string(current.parsed >= "26.1") {
+				replace("net.minecraft.client.gui.GuiGraphics", "net.minecraft.client.gui.GuiGraphicsExtractor")
+				replace("abstractWidget.render", "abstractWidget.extractRenderState")
+				replace("renderContent", "extractContent")
+				replace("public void render(", "public void extractRenderState(")
+				replace("renderBackground(", "extractBackground(")
+				replace("super.render(", "super.extractRenderState(")
+			}
 			string(current.parsed >= "26.1", "forge_update") {
 				replace("ModList.get()", "ModList")
 			}

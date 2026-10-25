@@ -6,27 +6,10 @@ plugins {
 }
 
 stonecutter {
-	val (version, loader) = current.project.split('-', limit = 2)
-	properties.tags(version, loader)
-
 	swaps["gametest_annotation"] = when {
 		(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME, environment = ENVIRONMENT_NAME)"
 		(eval(current.version, ">1.20.1")) -> "@GameTest(template = TEMPLATE_NAME)"
-		else -> "@GameTest(templateNamespace = Constants.MOD_ID, template = TEMPLATE_NAME)"
-	}
-
-	swaps["world_flows_var"] = when {
-		(eval(current.version, "<1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel(Lnet/minecraft/client/gui/screens/Screen;Ljava/lang/String;ZZZ)V\", at = @At(\"HEAD\"), ordinal = 3, argsOnly = true)"
-		(eval(current.version, "<1.20.6")) -> "@ModifyVariable(method = \"loadLevel(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lcom/mojang/serialization/Dynamic;ZZLjava/lang/Runnable;Z)V\", at = @At(\"HEAD\"), ordinal = 2, argsOnly = true)"
-		(eval(current.version, "<1.21.11")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
-		(eval(current.version, "<26.2")) -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1)"
-		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"INVOKE\", target = \"Lcom/mojang/serialization/Lifecycle;stable()Lcom/mojang/serialization/Lifecycle;\"), ordinal = 1, require = 0)"
-	}
-
-	swaps["world_flows_inject"] = when {
-		(eval(current.version, "<1.20.6")) -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\"), cancellable = true)"
-		(eval(current.version, "<26.2")) -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true)"
-		else -> "@Inject(method = \"confirmWorldCreation\", at = @At(value = \"INVOKE_ASSIGN\", target = \"Lcom/mojang/serialization/Lifecycle;experimental()Lcom/mojang/serialization/Lifecycle;\", remap = false), cancellable = true, require = 0)"
+		else -> "@GameTest(templateNamespace = GametestConstants.MOD_ID, template = TEMPLATE_NAME)"
 	}
 
 	replacements.string(current.parsed >= "1.21.11") {
@@ -46,10 +29,14 @@ platform {
 		}
 	}
 }
+
+val obfuscate = stonecutter.eval(stonecutter.current.version, "<1.20.6")
+val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
+
 if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 	jarJar {
 		register("jarJar") {
-			if (stonecutter.eval(stonecutter.current.version, ">=1.20.6")) {
+			if (!obfuscate) {
 				archiveClassifier.set(null)
 			}
 		}
@@ -58,8 +45,6 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		enabled = false
 	}
 }
-
-val generateTests = stonecutter.eval(stonecutter.current.version, ">= 1.21.5")
 
 minecraft {
 	if (stonecutter.eval(stonecutter.current.version, "<=1.21.11")) {
@@ -74,14 +59,15 @@ minecraft {
 			}
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
+			systemProperty("forge.enableGameTest", true)
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
-			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.id")}_gametest")
+			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
 			args("--mixin.config", "${prop("mod.id")}.mixins.json")
 			mods {
-				create("constantmusic") {
+				create(prop("mod.id")) {
 					source(sourceSets["main"])
 				}
-				create("constantmusic_gametest") {
+				create(prop("mod.gametest.id")) {
 					source(sourceSets["gametest"])
 				}
 			}
@@ -103,7 +89,7 @@ minecraft {
 				workingDir.convention(layout.projectDirectory.dir("run/data"))
 				args(
 					"--mod",
-					"${prop("mod.id")}_gametest",
+					prop("mod.gametest.id"),
 					"--all",
 					"--output",
 					file("src/gametest/generated").absolutePath
@@ -122,12 +108,8 @@ repositories {
 
 dependencies {
 	implementation(minecraft.dependency("net.minecraftforge:forge:${prop("deps.minecraft")}-${prop("deps.forge")}"))
-	if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
-		val mixinProcessor =
-			"org.spongepowered:mixin:${libs.versions.mixin.get()}:processor"
-
-		annotationProcessor(mixinProcessor)
-		"gametestAnnotationProcessor"(mixinProcessor)
+	if (obfuscate) {
+		annotationProcessor("org.spongepowered:mixin:${libs.versions.mixin.get()}:processor")
 	}
 	compileOnly(annotationProcessor(libs.mixinextras.common.get()) as Any)
 	implementation(libs.mixinextras.forge.get())
@@ -136,10 +118,11 @@ dependencies {
 	if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 		add("jarJar", libs.mixinextras.forge.get())
 	}
+	"gametestCompileOnly"(sourceSets["main"].output)
 	"gametestImplementation"(sourceSets["main"].output)
 
 }
-if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
+if (obfuscate) {
 	renamer {
 		mappings(minecraft.dependency.toSrg)
 
@@ -156,6 +139,7 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 			archiveClassifier.set(null)
 		}
 		classes(tasks.named<Jar>("gametestJar")) {
+			mappings(minecraft.dependency.toSrg)
 			archiveClassifier.set("gametest")
 		}
 	}
@@ -163,25 +147,11 @@ if (stonecutter.eval(stonecutter.current.version, "<1.20.6")) {
 	tasks.named("mergeMixinMappings") {
 		dependsOn("jarJar")
 	}
-	tasks.named<Jar>("gametestJar") {
-		archiveClassifier.set("gametest-noobf")
-	}
 }
 
 tasks.withType<JavaCompile>().configureEach {
-	options.encoding = "UTF-8" // Use the UTF-8 charset for Java compilation
+	options.encoding = "UTF-8"
 }
-
-//tasks.register("keepOnlyFinal") {
-//	description = "Cleans out all non-final classes from the build directory"
-//	doLast {
-//		fileTree(layout.buildDirectory.dir("libs")) {
-//			include("**/*-all.jar")
-//		}.forEach { it.delete() }
-//	}
-//}
-//
-//tasks.named("build") { finalizedBy("keepOnlyFinal") }
 
 afterEvaluate {
 	// ForgeGradle's run tasks only put getDefaultSourceSets() (main-only, or main+test for the
@@ -199,13 +169,13 @@ afterEvaluate {
 	tasks.named<JavaExec>("runGameTestServer") {
 		classpath(sourceSets["gametest"].output)
 		if (generateTests) {
-			dependsOn("runData")
+			//dependsOn("runData")
 		}
 	}
 	tasks.named<JavaExec>("runClient") {
 		classpath(sourceSets["gametest"].output)
 		if (generateTests) {
-			dependsOn("runData")
+			//dependsOn("runData")
 		}
 	}
 

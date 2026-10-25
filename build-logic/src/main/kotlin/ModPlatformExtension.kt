@@ -14,6 +14,7 @@ abstract class ModPlatformExtension {
 	abstract val loader: Property<String>
 	abstract val jarTask: Property<String>
 	abstract val sourcesJarTask: Property<String>
+	abstract val gametestJarTask: Property<String>
 
 	@get:Nested
 	abstract val dependencies: DependenciesConfig

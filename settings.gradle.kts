@@ -10,6 +10,11 @@ gradle.startParameter.isParallelProjectExecutionEnabled = if (isCi) {
 gradle.startParameter.isBuildCacheEnabled = !isCi
 gradle.startParameter.isConfigureOnDemand = !isCi
 
+val isSingle = System.getenv("SINGLE_PROJECT") == "true"
+val projectVersion: String? = System.getenv("PROJECT_VERSION")
+val projectModLoader: String? = System.getenv("PROJECT_MOD_LOADER")
+
+
 pluginManagement {
 	repositories {
 		mavenLocal()
@@ -76,10 +81,14 @@ stonecutter {
 		fun match(version: String, vararg loaders: String) =
 			loaders.forEach { version("$version-$it", version).buildscript = "build.$it.gradle.kts" }
 
-		for ((version, loaders) in rootData.versions) {
-			match(version, *loaders.toTypedArray())
+		if (isSingle && !projectVersion.isNullOrEmpty() && !projectModLoader.isNullOrEmpty()) {
+			match(projectVersion, projectModLoader)
+		} else {
+			for ((version, loaders) in rootData.versions) {
+				match(version, *loaders.toTypedArray())
+			}
+			vcsVersion = "1.19.2-forge"
 		}
-		vcsVersion = "1.19.2-forge"
 	}
 }
 

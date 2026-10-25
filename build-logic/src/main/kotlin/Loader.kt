@@ -18,13 +18,16 @@ sealed class Loader(val id: String) {
 	open fun excludedResourcesFor(ctx: Context): List<String> = excludedResources
 
 	abstract fun generateManifest(ctx: Context): String
-	abstract fun generateTestManifest(ctx: Context): String
+	abstract fun generateTestManifest(
+		ctx: Context,
+		jars: List<String> = emptyList()
+	): String
 
 	object Fabric : Loader("fabric") {
 		override val isFabricLike = true
 		override val modManifestPath = "fabric.mod.json"
 		override val excludedResources = listOf(
-			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/constantmusic/test_instance/*.json"
+			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/constantmusic_gametest/test_instance/*.json"
 		)
 
 		override fun generateManifest(ctx: Context): String {
@@ -75,9 +78,12 @@ sealed class Loader(val id: String) {
 			return JSON.encodeToString(manifest)
 		}
 
-		override fun generateTestManifest(ctx: Context): String {
+		override fun generateTestManifest(
+			ctx: Context,
+			jars: List<String>
+		): String {
 			val manifest = FabricManifest(
-				id = "${ctx.modId}_gametest",
+				id = ctx.modGametestId,
 				name = "Constant Music Game Tests",
 				version = "1.0.0",
 				authors = ctx.authors,
@@ -100,9 +106,13 @@ sealed class Loader(val id: String) {
 				license = ctx.licenseName,
 				environment = "*",
 				entrypoints = mapOf(
-					"main" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.FabricEntrypoint"),
-					"fabric-gametest" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.GametestTestRunner")
+					"main" to listOf("${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricEntryPoint"),
+					"fabric-gametest" to listOf(
+						//"${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricBaseGameTests",
+						"${ctx.modGroup}.${ctx.modId}.gametest.platform.fabric.FabricGameTests"
+					)
 				),
+				jars = jars.map(::FabricJar),
 				mixins = listOf(),
 				depends = mapOf(
 					"fabricloader" to "*",
@@ -171,7 +181,10 @@ sealed class Loader(val id: String) {
 			return TOML.encodeToString(manifest)
 		}
 
-		override fun generateTestManifest(ctx: Context): String {
+		override fun generateTestManifest(
+			ctx: Context,
+			jars: List<String>
+		): String {
 			val forgeDeps = mutableListOf<ForgeDependency>()
 
 			fun addDeps(container: NamedDomainObjectContainer<Dependency>, type: String) {
@@ -207,7 +220,7 @@ sealed class Loader(val id: String) {
 				issueTrackerURL = ctx.issuesUrl,
 				mods = listOf(
 					ForgeMod(
-						modId = "${ctx.modId}_gametest",
+						modId = ctx.modGametestId,
 						displayName = "Constant Music Game Tests",
 						version = "1.0.0",
 						displayURL = ctx.homepageUrl,
@@ -217,7 +230,7 @@ sealed class Loader(val id: String) {
 						description = ctx.description,
 					)
 				),
-				dependencies = mapOf(ctx.modId + "_gametest" to forgeDeps)
+				dependencies = mapOf(ctx.modGametestId to forgeDeps)
 			)
 
 			return TOML.encodeToString(manifest)
@@ -226,7 +239,7 @@ sealed class Loader(val id: String) {
 
 	object NeoForge : ForgeLike("neoforge") {
 		override val modManifestPath = "META-INF/neoforge.mods.toml"
-		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta" + "data/constantmusic/test_instance/*.json"
+		override val excludedResources = (super.excludedResources + "META-INF/mods.toml") + "pack.mcmeta"
 
 		private fun isLegacy(ctx: Context) = !ctx.stonecutter.eval(ctx.currentMcVersion, ">=1.20.5")
 

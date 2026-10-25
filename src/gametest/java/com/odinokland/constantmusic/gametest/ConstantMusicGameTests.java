@@ -1,14 +1,14 @@
 package com.odinokland.constantmusic.gametest;
 
 import com.odinokland.constantmusic.ConstantMusic;
-import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import net.minecraft.core.BlockPos;
-import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.gametest.framework.GameTestHelper;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.level.block.Blocks;
+
 import java.lang.reflect.InvocationTargetException;
 
 /**

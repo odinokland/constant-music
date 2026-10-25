@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:function",
+  "environment": "minecraft:default",
+  "function": "constantmusic_gametest:test_delay_slider_option_and_config_screen",
+  "max_ticks": 400,
+  "required": true,
+  "setup_ticks": 50,
+  "structure": "minecraft:empty"
+}

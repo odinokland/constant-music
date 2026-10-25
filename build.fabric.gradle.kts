@@ -1,26 +1,19 @@
+import net.fabricmc.loom.task.RemapJarTask
+
 plugins {
 	id("mod-platform")
 	id("dev.kikugie.loom-back-compat")
 }
 
 stonecutter {
-	val (version, loader) = current.project.split('-', limit = 2)
-	properties.tags(version, loader)
-
 	swaps["gametest_implementations"] = when {
 		(eval(current.version, ">=1.21.5")) -> "implements CustomTestMethodInvoker {"
 		else -> "implements FabricGameTest {"
 	}
 
 	swaps["gametest_annotation"] = when {
-		(eval(current.version, ">=1.21.5")) -> "@GameTest"
-		else -> "@GameTest"
-	}
-
-	swaps["world_flows_var"] = when {
-		(eval(current.version, "< 1.20.4")) -> "@ModifyVariable(method = \"doLoadLevel\", at = @At(value= \"STORE\"), ordinal = 3)"
-		(eval(current.version, "< 1.20.6")) -> "@ModifyVariable(method = \"loadLevel\", at = @At(value= \"STORE\"), ordinal = 3)"
-		else -> "@ModifyVariable(method = \"openWorldCheckWorldStemCompatibility(Lnet/minecraft/world/level/storage/LevelStorageSource\$LevelStorageAccess;Lnet/minecraft/server/WorldStem;Lnet/minecraft/server/packs/repository/PackRepository;Ljava/lang/Runnable;)V\", at = @At(value= \"STORE\"), ordinal = 1)"
+		(eval(current.version, ">=1.21.5")) -> "@GameTest(structure = TEMPLATE_NAME)"
+		else -> "@GameTest(template = EMPTY_STRUCTURE)"
 	}
 
 	replacements.string(current.parsed >= "1.21.11") {
@@ -49,6 +42,8 @@ platform {
 	}
 }
 
+val remap = (sc.current.parsed < "26")
+
 loom {
 	accessWidenerPath = getAccessFile(AccessType.WIDENER)
 	val devJvmArgs = propsList("mod", "dev_jvm_args") +
@@ -57,6 +52,16 @@ loom {
 		mixin {
 			useLegacyMixinAp = true
 			defaultRefmapName = "${prop("mod.id")}.refmap.json"
+		}
+		createRemapConfigurations(sourceSets["gametest"])
+	}
+
+	mods {
+		create(prop("mod.id")) {
+			sourceSet(sourceSets["main"])
+		}
+		create(prop("mod.gametest.id")) {
+			sourceSet(sourceSets["gametest"])
 		}
 	}
 	runs.named("client") {
@@ -93,16 +98,31 @@ fabricApi {
 //	}
 }
 
+
+
 repositories {
 	mavenCentral()
 	strictMaven("https://maven.terraformersmc.com/", "com.terraformersmc") { name = "TerraformersMC" }
 	strictMaven("https://api.modrinth.com/maven", "maven.modrinth") { name = "Modrinth" }
+	maven {
+		name = "3arthqu4ke's Maven"
+		url = uri("https://3arthqu4ke.github.io/maven")
+	}
 }
 
-configurations.all {
-	resolutionStrategy {
-		force("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
+configurations {
+	all {
+		resolutionStrategy {
+			force("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
+		}
 	}
+}
+
+configurations.named("gametestCompileClasspath") {
+	extendsFrom(configurations.named("compileClasspath").get())
+}
+configurations.named("gametestRuntimeClasspath") {
+	extendsFrom(configurations.named("runtimeClasspath").get())
 }
 
 dependencies {
@@ -117,9 +137,42 @@ dependencies {
 	}
 	include(implementation(annotationProcessor("io.github.llamalad7:mixinextras-fabric:${libs.versions.mixinextras.get()}")!!)!!)
 	modImplementation("net.fabricmc:fabric-loader:${prop("deps.fabric-loader")}")
-	// implementation(libs.moulberry.mixinconstraints)
-	// include(libs.moulberry.mixinconstraints)
 	modImplementation("net.fabricmc.fabric-api:fabric-api:${prop("deps.fabricApi")}+${prop("deps.minecraft")}")
 	modImplementation("com.terraformersmc:modmenu:${prop("deps.modmenu")}")
-	//ksp("org.spongepowered:mixin:0.8.7:processor")
+	"gametestImplementation"(sourceSets["main"].output)
+	"modGametestImplementation"(
+		fabricApi.module(
+			"fabric-gametest-api-v1",
+			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
+		)
+	)
 }
+
+
+//tasks.named<Jar>("gametestJar") {
+//	into("META-INF/jars") {
+//		from(configurations.named("gametestInclude"))
+//	}
+//}
+
+if (remap) {
+	val gametestJar = tasks.named<Jar>("gametestJar") {
+		archiveClassifier.set("gametest-unmapped")
+	}
+
+	val remapClientGametestJar =
+		tasks.register<RemapJarTask>("remapGametestJar") {
+			inputFile.set(gametestJar.flatMap { it.archiveFile })
+
+			sourceNamespace.set("named")
+			targetNamespace.set("intermediary")
+
+			archiveClassifier.set("gametest")
+			classpath.from(sourceSets["gametest"].compileClasspath)
+		}
+
+	tasks.named("build") {
+		dependsOn(remapClientGametestJar)
+	}
+}
+

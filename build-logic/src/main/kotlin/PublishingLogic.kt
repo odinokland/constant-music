@@ -2,11 +2,12 @@
 
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import me.modmuss50.mpp.ModPublishExtension
-import me.modmuss50.mpp.ReleaseType
-import me.modmuss50.mpp.platforms.modrinth.ModrinthEnvironment
 import org.gradle.api.Project
+import org.gradle.api.Task
+import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Property
-import org.gradle.jvm.tasks.Jar
+import org.gradle.api.provider.Provider
+import org.gradle.api.tasks.bundling.AbstractArchiveTask
 import org.gradle.kotlin.dsl.assign
 
 fun Project.configureMavenPublishing(ctx: Context) {
@@ -57,6 +58,22 @@ fun Project.configureMavenPublishing(ctx: Context) {
 		}
 	}
 }
+private fun Task.archiveOutput(): Provider<RegularFile> =
+	when (this) {
+		is AbstractArchiveTask -> archiveFile
+		else -> project.layout.file(
+			project.provider {
+				val outputs = outputs.files
+
+				require(outputs.files.size == 1) {
+					"Expected task '$path' to have exactly one output file, " +
+						"but found: ${outputs.files}"
+				}
+
+				outputs.singleFile
+			}
+		)
+	}
 
 fun Project.configureModPublishing(ctx: Context) {
 	val releaseType = releaseTypeFromChannelTag(ctx.channelTag)
@@ -70,11 +87,11 @@ fun Project.configureModPublishing(ctx: Context) {
 		if (envTrue("PUB_DRY_RUN") || !envTrue("PUB_MODS_ENABLE")) {
 			dryRun = true
 		}
-		val jarTask = ctx.extension.jarTask.flatMap { name -> tasks.named(name).map { it as Jar } }
-		val srcJarTask = ctx.extension.sourcesJarTask.flatMap { name -> tasks.named(name).map { it as Jar } }
+		val jarTask = ctx.extension.jarTask.flatMap { name -> tasks.named(name) }
+		val srcJarTask = ctx.extension.sourcesJarTask.flatMap { name -> tasks.named(name) }
 
-		file.set(jarTask.flatMap(Jar::getArchiveFile))
-		additionalFiles.from(srcJarTask.flatMap(Jar::getArchiveFile))
+		file.set(jarTask.flatMap { it.archiveOutput() })
+		additionalFiles.from(srcJarTask.flatMap { it.archiveOutput() })
 		type = releaseType
 		version = ctx.fullVersion
 		changelog.set(rootProject.file("CHANGELOG.md").readText())

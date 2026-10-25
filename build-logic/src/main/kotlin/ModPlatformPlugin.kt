@@ -22,6 +22,7 @@ import org.gradle.kotlin.dsl.*
 import org.gradle.language.jvm.tasks.ProcessResources
 import org.gradle.plugins.ide.idea.model.IdeaModel
 import javax.inject.Inject
+import kotlin.text.split
 
 abstract class GenerateModManifestTask : DefaultTask() {
 	@get:Input
@@ -54,6 +55,11 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				extension.sourcesJarTask.convention(providers.provider {
 					extensions.getByType<dev.kikugie.loomx.LoomCompatProjectExtension>().modSourcesJar.name
 				})
+				if (project.sc.eval(project.sc.current.version, "<26")) {
+					extension.gametestJarTask.convention("remapGametestJar")
+				} else {
+					extension.gametestJarTask.convention("gametestJar")
+				}
 			}
 			is Loader.Forge -> {
 				if (project.sc.eval(project.sc.current.version, "<1.20.6")) {
@@ -62,10 +68,12 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 					extension.jarTask.convention("jar")
 				}
 				extension.sourcesJarTask.convention("sourcesJar")
+				extension.gametestJarTask.convention("gametestJar")
 			}
 			else -> {
 				extension.jarTask.convention("jar")
 				extension.sourcesJarTask.convention("sourcesJar")
+				extension.gametestJarTask.convention("gametestJar")
 			}
 		}
 
@@ -79,6 +87,9 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				plugin = it
 			)
 		}
+
+		val (version, loader) = name.split('-', limit = 2)
+		project.sc.properties.tags(version, loader)
 
 		val ctx = Context(
 			project = this,
@@ -138,6 +149,11 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 	}
 
 	private fun Project.configureTesting(ctx: Context) {
+		val gametestInclude = configurations.maybeCreate("gametestInclude").apply {
+			isCanBeConsumed = false
+			isCanBeResolved = true
+		}
+
 		fun configureSourceSets(sourceSetName: String) {
 			val java = the<JavaPluginExtension>()
 
@@ -201,8 +217,20 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 	private fun Project.registerGenerateTestManifestTask(ctx: Context) {
 		val manifestOutputDir = layout.buildDirectory.dir("generated/modTestManifest")
+		val gametestInclude = configurations.named("gametestInclude")
 		val generateTask = tasks.register<GenerateModManifestTask>("generateModTestManifest") {
-			content.set(ctx.loader.generateTestManifest(ctx))
+			inputs.files(gametestInclude)
+
+			content.set(
+				provider {
+					val jars = gametestInclude.get()
+						.resolve()
+						.map { "META-INF/jars/${it.name}" }
+
+					ctx.loader.generateTestManifest(ctx, jars)
+				}
+			)
+
 			outputFile.set(layout.buildDirectory.file("generated/modTestManifest/${ctx.loader.manifestPathFor(ctx)}"))
 		}
 
@@ -249,11 +277,21 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 						path = "icon.png"
 					}
 				}
+			} else {
+				val accessFileName = ctx.resolvedAccessFile()
+				exclude { it ->
+					if (it.path.startsWith("aw/")) {
+						if (it.path != "aw/$accessFileName") {
+							return@exclude true
+						}
+					}
+					return@exclude false
+				}
 			}
 		}
 		tasks.named<ProcessResources>("processGametestResources") {
 			dependsOn(tasks.named("stonecutterGenerateGametest"), "kspGametestKotlin")
-			inputs.property("modId", ctx.modId)
+			inputs.property("modId", ctx.modGametestId)
 			inputs.property("javaVersion", ctx.javaVersion.majorVersion)
 			val isForge = ctx.loader is Loader.Forge
 			exclude(ctx.loader.excludedResourcesFor(ctx))
@@ -269,7 +307,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				};
 				expand(mapOf(
 					"java" to mixinJava,
-					"modId" to "${ctx.modId}_gametest"
+					"modId" to ctx.modGametestId
 				))
 
 			}
@@ -287,11 +325,16 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 	private fun Project.configureJarTask(ctx: Context) {
 		val generateTask = tasks.named("generateModManifest")
+		val generateTestTask = tasks.named("generateModTestManifest")
 		tasks.withType<Jar>().configureEach {
 			archiveBaseName.set(ctx.modId)
-			dependsOn(generateTask)
-			if (ctx.loader is Loader.Forge) {
-				manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")
+			if (name == "gametestJar") {
+				dependsOn(generateTestTask)
+			} else {
+				dependsOn(generateTask)
+				if (ctx.loader is Loader.Forge) {
+					manifest.attributes(ctx.loader.mixinConfigAttribute to "${ctx.modId}.mixins.json")
+				}
 			}
 		}
 	}
@@ -323,10 +366,14 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 				tasks.named(ctx.extension.jarTask.get()),
 				tasks.named(ctx.extension.sourcesJarTask.get()),
 				tasks.named("javadocJar"),
-				tasks.named("gametestJar")
+				tasks.named(ctx.extension.gametestJarTask.get())
 			)
 			into(rootProject.layout.buildDirectory.file("libs/${ctx.basicVersion}"))
 			group = "build"
+		}
+
+		tasks.named("assemble") {
+			dependsOn("gametestJar")
 		}
 
 		tasks.register("buildForTests") {

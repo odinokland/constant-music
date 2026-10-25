@@ -2,6 +2,7 @@ package com.odinokland.constantmusic.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.odinokland.constantmusic.Constants;
 import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.Minecraft;
@@ -90,17 +91,17 @@ public class JukeboxDetectorMixin {
 		}
 	}
 
-	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V", remap = false)
-	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, @Nullable RecordItem musicDiscItem, Operation<Void> original) {
-		original.call(soundEvent, pos, musicDiscItem);
-		if (soundEvent != null) {
-			if (level != null) {
-				JukeboxTrackerUtility.onJukeboxPlay(minecraft, pos);
-			}
-		} else {
-			JukeboxTrackerUtility.onJukeboxStop(pos);
-		}
-	}
+//	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V")
+//	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, @Nullable RecordItem musicDiscItem, Operation<Void> original) {
+//		original.call(soundEvent, pos, musicDiscItem);
+//		if (soundEvent != null) {
+//			if (level != null) {
+//				JukeboxTrackerUtility.onJukeboxPlay(minecraft, pos);
+//			}
+//		} else {
+//			JukeboxTrackerUtility.onJukeboxStop(pos);
+//		}
+//	}
 	//?}
 	//?}
 }

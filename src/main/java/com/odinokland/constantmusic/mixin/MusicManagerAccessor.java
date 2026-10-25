@@ -1,6 +1,7 @@
 package com.odinokland.constantmusic.mixin;
 
 //? < 1.20 {
+import com.odinokland.constantmusic.Constants;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.sounds.MusicManager;
 import org.spongepowered.asm.mixin.Debug;

@@ -11,7 +11,9 @@ import org.gradle.internal.extensions.stdlib.toDefaultLowerCase
 import org.gradle.kotlin.dsl.getByType
 import org.gradle.kotlin.dsl.maven
 import java.io.File
+import java.nio.file.Path
 import java.util.Properties
+import kotlin.io.path.exists
 
 val Project.sc: StonecutterBuildExtension
 	get() = extensions.getByType<StonecutterBuildExtension>()
@@ -36,27 +38,52 @@ fun Project.getAccessFile(type: AccessType): File {
 	val defaultFile = rootProject.layout.projectDirectory.file("src/main/resources/aw/$modId.${type.keyword}").asFile
 
 	val targetVersion = sc.current.version
-	val awDir = rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile
-	val resolvedFile = findResolvedAccessFile(targetVersion, awDir, type)
-	return resolvedFile ?: defaultFile
+	val awDir = rootProject.layout.projectDirectory.dir("src/main/resources/aw/").asFile.toPath()
+	val selectedFile = findVersionedFile(
+		awDir,
+		modId,
+		targetVersion,
+		type.keyword
+	)
+	return selectedFile?.toFile() ?: defaultFile
 }
 
-fun findResolvedAccessFile(
-	targetVersion: AnyVersion,
-	awDir: File,
-	type: AccessType
-): File? {
-	val safeVersionQuery = Regex.escape(targetVersion)
-	val resolvedFile = awDir.listFiles()?.firstOrNull { file ->
-		if (!file.isFile || !file.name.endsWith(".${type.keyword}")) return@firstOrNull false
-		val fileVersionPart = file.name.removeSuffix(".${type.keyword}")
-		val fileMatchesQueryPattern = Regex("""\b$safeVersionQuery(\.\d+)*(-[0-9A-Za-z.-]+)?\b""")
-		val safeFileQuery = Regex.escape(fileVersionPart)
-		val queryMatchesFilePattern = Regex("""\b$safeFileQuery(\.\d+)*(-[0-9A-Za-z.-]+)?\b""")
-		fileMatchesQueryPattern.containsMatchIn(fileVersionPart) ||
-			queryMatchesFilePattern.containsMatchIn(targetVersion)
+fun findVersionedFile(
+	directory: Path,
+	baseName: String,
+	version: String,
+	extension: String = "json",
+): Path? {
+	var parts = version.split('.').map {
+		it.toIntOrNull()
+			?: throw IllegalArgumentException("Invalid version: $version")
 	}
-	return resolvedFile
+	if (parts.size == 2) {
+		parts += 0
+	}
+
+	require(parts.size == 3) {
+		"Expected a major.minor.patch version: $version"
+	}
+
+	val (major, minor, patch) = parts
+
+	val candidates = buildList {
+		// Exact version, then earlier patches.
+		for (p in patch downTo 0) {
+			add("$baseName-$major.$minor.$p.$extension")
+		}
+
+		// Major/minor, major, and default fallbacks.
+		add("$baseName-$major.$minor.$extension")
+		add("$baseName-$major.$extension")
+		add("$baseName.$extension")
+	}
+
+	return candidates
+		.asSequence()
+		.map(directory::resolve)
+		.firstOrNull { it.exists() }
 }
 
 fun RepositoryHandler.strictMaven(
