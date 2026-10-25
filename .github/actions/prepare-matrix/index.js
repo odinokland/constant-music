@@ -80,6 +80,7 @@ const main = () => {
 					java: getJavaVersion(version),
 					regex: `.*${modLoader}.*`,
 					fabricApi: "none",
+					fabricGametestApi: "none",
 				}
 				outputData.push(v)
 			}
