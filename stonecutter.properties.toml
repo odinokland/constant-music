@@ -45,7 +45,7 @@ name = "Odin Okland"
 url = "https://github.com/odinokland"
 
 [fabric]
-deps.fabric-loader = "0.19.3"
+deps.fabric-loader = "0.16.10"
 
 [fabric."1.19.2"]
 deps.minecraft = "1.19.2"
