@@ -143,6 +143,10 @@ jobs:
       - name: "Copy mod jar to run/mods"
         run: mkdir -p run/mods && find ./versions/${{ matrix.version }}-${{ matrix.modLoader }}/build/libs -type f \( -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT.jar" -o -name "${{matrix.modId}}-${{matrix.modVersion}}-${{ matrix.modloader }}+${{ matrix.version }}-SNAPSHOT-gametest.jar" \) -exec cp {} run/mods \;
 
+      - name: "Use patched gametest jars where applicable"
+        if: matrix.modLoader == 'fabric' && matrix.fabricGametestApi == 'none'
+        run: find ./.github/jars/-type f \( -name "fabric-gametest-api-v1-${{ matrix.version }}-fixed.jar" \) -exec cp {} run/mods \;
+
       - name: Configure test JVM
         run: |
           mkdir -p HeadlessMC
@@ -155,7 +159,7 @@ jobs:
           fi
           printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
       - name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
-        uses: headlesshq/mc-runtime-test@5.0.0
+        uses: ./.github/actions/mc-runtime-test
         with:
           mc: ${{ matrix.version }}
           modloader: ${{ matrix.modLoader }}

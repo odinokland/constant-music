@@ -1,0 +1,193 @@
+name: MC-Runtime-Test
+description: Runs the MC client inside your CI
+author: HeadlessHQ
+branding:
+  icon: play
+  color: green
+
+inputs:
+  mc:
+    description: Minecraft version to run
+    required: true
+  modloader:
+    description: Modloader to install (forge, neoforge, fabric)
+    required: true
+  regex:
+    description: Deprecated and ignored since HeadlessMc 3, the version is selected by modloader and mc
+    required: false
+  java:
+    description: Java version to use (8, 16, 17, 21, 25)
+    required: true
+  dummy-assets:
+    description: Use dummy assets during testing
+    default: "true"
+  mc-runtime-test:
+    description: MC-Runtime-Test jar to download (none, forge, lexforge, neoforge, fabric)
+    required: true
+  mc-runtime-test-version:
+    description: Version of the mc-runtime-test-mod release to download (latest, or a version, e.g. 4.5.2)
+    default: "latest"
+  xvfb:
+    description: Runs the game with Xvfb (if false, add the -lwjgl argument)
+    default: "true"
+  headlessmc-command:
+    description: Command-line arguments for HeadlessMC
+    default: '--jvm "-Djava.awt.headless=true"'
+  fabric-api:
+    description: Fabric API version to download (e.g. 0.97.0) or none
+    default: "none"
+  fabric-gametest-api:
+    description: Fabric GameTest API version (e.g. 1.3.5+85d85a934f) or none
+    default: "none"
+  download-hmc:
+    description: Download HeadlessMC (if false, headlessmc.jar must be in the working directory)
+    default: "true"
+  hmc-version:
+    description: HeadlessMC version
+    default: "3.0.0-RC5"
+  cache-mc:
+    description: Cache .minecraft (blacksmith, github, true (defaults to blacksmith), false)
+    default: "github"
+
+runs:
+  using: composite
+  steps:
+    - name: Bootstrap HeadlessMc (Linux)
+      if: runner.os != 'Windows'
+      run: |
+        mkdir -p HeadlessMC run/mods
+        if [ -s HeadlessMC/config.properties ] && [ -n "$(tail -c1 HeadlessMC/config.properties)" ]; then
+          echo >> HeadlessMC/config.properties
+        fi
+        cat <<EOF >> HeadlessMC/config.properties
+        hmc.java.versions=$JAVA_HOME
+        hmc.files.game=$PWD/run
+        hmc.files.game-for-each-version=false
+        hmc.files.mc=$HOME/.minecraft
+        hmc.jline.enabled=false
+        hmc.launcher.crash-report-watcher=true
+        EOF
+        echo "HMC_FILES_LOCATION=$PWD/HeadlessMC" >> "$GITHUB_ENV"
+      shell: bash
+
+    - name: Bootstrap HeadlessMc (Windows)
+      if: runner.os == 'Windows'
+      run: |
+        New-Item -ItemType Directory -Force -Path HeadlessMC, run/mods | Out-Null
+        $currentDir = (Get-Location).Path -replace '\\', '\\\\'
+        $javaHome = "$env:JAVA_HOME" -replace '\\', '\\\\'
+        $mcDir = "$HOME\.minecraft" -replace '\\', '\\\\'
+        $config = @(
+          "hmc.java.versions=$javaHome",
+          "hmc.files.game=$currentDir\\run",
+          "hmc.files.game-for-each-version=false",
+          "hmc.files.mc=$mcDir",
+          "hmc.jline.enabled=false",
+          "hmc.launcher.crash-report-watcher=true"
+        )
+        $configPath = 'HeadlessMC\config.properties'
+        if ((Test-Path $configPath) -and ($raw = Get-Content -Raw $configPath) -and -not $raw.EndsWith("`n")) {
+          Add-Content -Path $configPath -Value '' -Encoding utf8
+        }
+        $config | Add-Content -Path $configPath -Encoding utf8
+        "HMC_FILES_LOCATION=$((Get-Location).Path)\HeadlessMC" | Out-File -FilePath $env:GITHUB_ENV -Append -Encoding utf8
+      shell: pwsh
+
+    - if: inputs.dummy-assets == 'true'
+      name: Configure Dummy Assets
+      run: echo hmc.assets.dummy=true >> HeadlessMC/config.properties
+      shell: bash
+
+    - name: Remember Java
+      run: echo "MCRT_JAVA_HOME=$JAVA_HOME" >> "$GITHUB_ENV"
+      shell: bash
+
+    - id: hmc-java
+      name: Setup Java 25 for HeadlessMC
+      uses: actions/setup-java@b843ebf9b913146b38da2eaa7aeddf76074ae1ad # v6
+      with:
+        java-version: 25
+        distribution: temurin
+
+    - name: Restore Java
+      run: |
+        echo "HMC_JAVA=${{ steps.hmc-java.outputs.path }}/bin/java" >> "$GITHUB_ENV"
+        if [ -n "$MCRT_JAVA_HOME" ]; then
+          echo "JAVA_HOME=$MCRT_JAVA_HOME" >> "$GITHUB_ENV"
+          echo "$MCRT_JAVA_HOME/bin" >> "$GITHUB_PATH"
+        fi
+      shell: bash
+
+    - if: inputs.download-hmc == 'true'
+      name: Get HeadlessMC
+      uses: robinraju/release-downloader@28fc21f50d76778e7023361aa1f863e717d3d56f # v1.13
+      with:
+        repository: headlesshq/headlessmc
+        tag: ${{ inputs.hmc-version }}
+        fileName: headlessmc.jar
+
+    - if: inputs.cache-mc == 'true' || inputs.cache-mc == 'blacksmith'
+      name: Cache Minecraft
+      uses: useblacksmith/cache@71c7c918062ba3861252d84b07fe5ab2a6b467a6 # v5
+      with:
+        path: ~/.minecraft
+        key: ${{ runner.os }}-${{ inputs.mc }}-${{ inputs.modloader }}-hmc
+
+    - if: inputs.cache-mc == 'github'
+      name: Cache Minecraft
+      uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6
+      with:
+        path: ~/.minecraft
+        key: ${{ runner.os }}-${{ inputs.mc }}-${{ inputs.modloader }}-hmc
+
+    - name: Download ${{ inputs.modloader }}-${{ inputs.mc }}
+      run: |
+        "$HMC_JAVA" -jar headlessmc.jar version install ${{ inputs.modloader }} ${{ inputs.mc }}
+      shell: bash
+
+    - id: get-mcrt
+      if: inputs.mc-runtime-test != 'none'
+      name: Get mc-runtime-test
+      uses: robinraju/release-downloader@28fc21f50d76778e7023361aa1f863e717d3d56f # v1.13
+      with:
+        repository: odinokland/mc-runtime-test-mod
+        tag: '${{ inputs.mc }}-${{ inputs.mc-runtime-test-version }}'
+        fileName: "mc-runtime-test-${{ inputs.mc }}-${{ inputs.mc-runtime-test == 'lexforge' && 'forge' || inputs.mc-runtime-test }}-*.jar"
+        out-file-path: run/mods
+
+    - if: inputs.fabric-api != 'none'
+      name: Download fabric-api v${{ inputs.fabric-api }}
+      uses: robinraju/release-downloader@28fc21f50d76778e7023361aa1f863e717d3d56f # v1.13
+      with:
+        repository: FabricMC/fabric-api
+        tag: '${{ inputs.fabric-api }}+${{ inputs.mc }}'
+        fileName: 'fabric-api-${{ inputs.fabric-api }}+${{ inputs.mc }}.jar'
+        out-file-path: run/mods
+
+    - if: inputs.fabric-gametest-api != 'none'
+      name: Download fabric-gametest-api v${{ inputs.fabric-gametest-api }}
+      run: >
+        curl --create-dirs -o run/mods/fabric-gametest-api-v1-${{ inputs.fabric-gametest-api }}.jar
+        https://maven.fabricmc.net/net/fabricmc/fabric-api/fabric-gametest-api-v1/${{ inputs.fabric-gametest-api }}/fabric-gametest-api-v1-${{ inputs.fabric-gametest-api }}.jar
+      shell: bash
+
+    - name: Configure game
+      run: |
+        cat <<EOF >> run/options.txt
+        onboardAccessibility:false
+        pauseOnLostFocus:false
+        EOF
+      shell: bash
+
+    - if: inputs.xvfb == 'true'
+      name: Run game with xvfb
+      run: | # TODO: install xrandr conditionally per #22
+        sudo DEBIAN_FRONTEND=noninteractive apt-get install -y x11-xserver-utils libgl1-mesa-dri mesa-vulkan-drivers
+        xvfb-run -a -s "-screen 0 1920x1080x24 +extension GLX +render -noreset" "$HMC_JAVA" -Dhmc.xvfb.check=true -jar headlessmc.jar launch --offline ${{ inputs.headlessmc-command }} ${{ inputs.modloader }} ${{ inputs.mc }}
+      shell: bash
+
+    - if: inputs.xvfb != 'true'
+      name: Run game
+      run: |
+        "$HMC_JAVA" -jar headlessmc.jar launch -lwjgl --offline ${{ inputs.headlessmc-command }} ${{ inputs.modloader }} ${{ inputs.mc }}
+      shell: bash
