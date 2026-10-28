@@ -145,7 +145,7 @@ jobs:
 
       - name: "Use patched gametest jars where applicable"
         if: matrix.modLoader == 'fabric' && matrix.fabricGametestApi == 'none'
-        run: find ./.github/jars/-type f \( -name "fabric-gametest-api-v1-${{ matrix.version }}-fixed.jar" \) -exec cp {} run/mods \;
+        run: find ./.github/jars -type f \( -name "fabric-gametest-api-v1-${{ matrix.version }}-fixed.jar" \) -exec cp {} run/mods \;
 
       - name: Configure test JVM
         run: |
