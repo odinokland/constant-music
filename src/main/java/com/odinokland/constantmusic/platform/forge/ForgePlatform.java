@@ -47,10 +47,7 @@ public class ForgePlatform implements Platform {
 	 */
 	@Override
 	public String mcVersion() {
-		return ModList.get()
-				.getModContainerById("minecraft")
-				.map(container -> container.getModInfo().getVersion().toString())
-				.orElse("unknown");
+		return FMLLoader.versionInfo().mcVersion();
 	}
 
 	/**

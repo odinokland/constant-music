@@ -93,7 +93,7 @@ loom {
 
 fabricApi {
 //	configureDataGeneration {
-//		outputDirectory = file("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
+//		outputDirectory = file("${rootDir}/versions/datagen/${sc.current.version}/src/main/generated")
 //		client = true
 //	}
 }
@@ -130,7 +130,7 @@ dependencies {
 	if (sc.current.parsed < "26") {
 		mappings(loom.layered {
 			officialMojangMappings()
-			if (hasProperty("deps.parchment"))
+			if (sc.properties.contains("deps.parchment"))
 				parchment("org.parchmentmc.data:parchment-${prop("deps.parchment")}@zip")
 		})
 		annotationProcessor("net.fabricmc:sponge-mixin:0.17.5+mixin.0.8.7")

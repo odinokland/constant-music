@@ -97,13 +97,13 @@ class Context(
 
 	val authors: List<String> by lazy {
 		runCatching {
-			project.sc.properties.raw("mod", "authors").asList().map { it.toString() }
+			project.sc.properties.raw("mod.authors").asList().map { it.toString() }
 		}.getOrElse { error("Missing or malformed 'mod.authors' in stonecutter.properties.toml") }
 	}
 
 	val contributors: List<String> by lazy {
 		runCatching {
-			project.sc.properties.raw("mod", "contributors").asList().map { it.toString() }
+			project.sc.properties.raw("mod.contributors").asList().map { it.toString() }
 		}.getOrElse { emptyList() }
 	}
 
@@ -119,7 +119,7 @@ class Context(
 	val basicVersion: String by lazy { "$baseVersion$snapshotSuffix" }
 
 	val publishAdditionalVersions: List<String> by lazy {
-		project.sc.properties.rawOrNull("publish", "additionalVersions")?.to<List<String>>().orEmpty()
+		project.sc.properties.rawOrNull("publish.additionalVersions")?.to<List<String>>().orEmpty()
 	}
 
 	val javaVersion: JavaVersion by lazy {

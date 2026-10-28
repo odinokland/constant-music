@@ -25,7 +25,7 @@ platform {
 			forgeLikeVersionRange = "[${prop("deps.minMinecraft")},)"
 		}
 		required("forge") {
-			forgeLikeVersionRange.set("[1,)")
+			forgeLikeVersionRange.set("[${prop("deps.forge")},)")
 		}
 	}
 }
@@ -146,6 +146,14 @@ if (obfuscate) {
 
 	tasks.named("mergeMixinMappings") {
 		dependsOn("jarJar")
+	}
+}
+
+sourceSets {
+	main {
+		resources.srcDir(
+			"${rootDir}/versions/datagen/${sc.current.version}/src/main/generated"
+		)
 	}
 }
 

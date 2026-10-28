@@ -40,16 +40,15 @@ public class NeoforgePlatform implements Platform {
 		return ModLoader.NEOFORGE;
 	}
 
+	//~ if >1.21.8 'FMLLoader.' -> 'FMLLoader.getCurrent().' {
 	/^*
 	 * Get the minecraft version.
 	 * @return the minecraft version
 	 ^/
 	@Override
 	public String mcVersion() {
-		return ModList.get()
-                .getModContainerById("minecraft")
-                .map(container -> container.getModInfo().getVersion().toString())
-                .orElse("unknown");
+		//~ if >1.21.8 'versionInfo()' -> 'getVersionInfo()'
+		return FMLLoader.versionInfo().mcVersion();
 	}
 
 	/^*
@@ -58,8 +57,9 @@ public class NeoforgePlatform implements Platform {
 	 ^/
 	@Override
 	public boolean isDevelopmentEnvironment() {
-		return !FMLLoader/^? if > 1.21.8 {^//^.getCurrent()^//^?}^/.isProduction();
+		return !FMLLoader.isProduction();
 	}
+	//~}
 
 	/^*
 	 * Get the config file.

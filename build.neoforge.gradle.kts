@@ -26,7 +26,7 @@ platform {
 			forgeLikeVersionRange = "[${prop("deps.minMinecraft")},)"
 		}
 		required("neoforge") {
-			forgeLikeVersionRange.set("[1,)")
+			forgeLikeVersionRange.set("[${prop("deps.neoforge")},)")
 		}
 	}
 }
@@ -40,7 +40,7 @@ neoForge {
 	accessTransformers.from(getAccessFile(AccessType.TRANSFORMER))
 	validateAccessTransformers = true
 
-	if (hasProperty("deps.parchment")) parchment {
+	if (sc.properties.contains("deps.parchment")) parchment {
 		val (mc, ver) = prop("deps.parchment").split(':')
 		mappingsVersion = ver
 		minecraftVersion = mc
@@ -84,7 +84,7 @@ neoForge {
 			loadedMods.set(listOf(mods[prop("mod.id")], mods[prop("mod.gametest.id")]))
 		}
 	}
-	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version.split("-")[0]}/src/main/generated")
+	sourceSets["main"].resources.srcDir("${rootDir}/versions/datagen/${sc.current.version}/src/main/generated")
 }
 
 repositories {
