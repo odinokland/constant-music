@@ -50,6 +50,7 @@ neoForge {
 		val devJvmArgs = propsList("mod", "dev_jvm_args") +
 			propsList("mod", "dev_jvm_args_mixin_debug")
 		mods.create(prop("mod.id")) { sourceSet(java.sourceSets["main"]) }
+		mods.create(prop("mod.gametest.id")) { sourceSet(java.sourceSets["gametest"]) }
 		configureEach {
 			disableIdeRun()
 			systemProperty("terminal.ansi", "true")
@@ -61,9 +62,12 @@ neoForge {
 			gameDirectory = file("run/client")
 			programArgument("--username=Dev")
 			systemProperty("forge.logging.console.level", "debug")
+			systemProperty("neoforge.enableGameTest", "true")
+			systemProperty("neoforge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
 
 			sourceSet.set(java.sourceSets["main"])
-			loadedMods.set(listOf(mods[prop("mod.id")]))
+			sourceSet.set(java.sourceSets["gametest"])
+			loadedMods.set(listOf(mods[prop("mod.id")], mods[prop("mod.gametest.id")]))
 		}
 		register("server") {
 			disableIdeRun()
@@ -72,7 +76,6 @@ neoForge {
 			sourceSet.set(java.sourceSets["main"])
 			loadedMods.set(listOf(mods[prop("mod.id")]))
 		}
-		mods.create(prop("mod.gametest.id")) { sourceSet(java.sourceSets["gametest"]) }
 		register("gameTestServer") {
 			disableIdeRun()
 			type = "gameTestServer"

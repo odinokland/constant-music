@@ -27,7 +27,7 @@ sealed class Loader(val id: String) {
 		override val isFabricLike = true
 		override val modManifestPath = "fabric.mod.json"
 		override val excludedResources = listOf(
-			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/constantmusic_gametest/test_instance/*.json"
+			"META-INF/mods.toml", "META-INF/neoforge.mods.toml", "aw/*.cfg", ".cache", "pack.mcmeta", "data/*/test_instance/*.json"
 		)
 
 		override fun generateManifest(ctx: Context): String {
@@ -138,7 +138,7 @@ sealed class Loader(val id: String) {
 					forgeDeps.add(
 						ForgeDependency(
 							modId = it.modid.get(),
-							side = it.environment.get().uppercase(Locale.ROOT),
+							side = it.environment.get().uppercase(Locale.getDefault()),
 							versionRange = it.forgeLikeVersionRange.get(),
 							mandatory = type == "required",
 							type = type
@@ -192,7 +192,7 @@ sealed class Loader(val id: String) {
 					forgeDeps.add(
 						ForgeDependency(
 							modId = it.modid.get(),
-							side = it.environment.get().uppercase(Locale.ROOT),
+							side = it.environment.get().uppercase(Locale.getDefault()),
 							versionRange = it.forgeLikeVersionRange.get(),
 							mandatory = type == "required",
 							type = type
