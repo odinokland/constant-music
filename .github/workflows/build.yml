@@ -28,6 +28,7 @@ jobs:
     name: Generate build matrix
     outputs:
       matrix: ${{ steps.set_matrix.outputs.matrix }}
+      test-matrix: ${{ steps.set_matrix.outputs.test-matrix }}
     steps:
       - name: "Checkout repository"
         uses: actions/checkout@v7
@@ -116,7 +117,7 @@ jobs:
       matrix:
         include: ${{ fromJson(needs.generate-build-matrix.outputs.matrix) }}
 
-    name: Run ${{ matrix.modLoader }} ${{ matrix.version }} client
+    name: Run ${{ matrix.modLoader }} ${{ matrix.runnerMcVersion }} client
     timeout-minutes: 10
 
     steps:
@@ -158,10 +159,10 @@ jobs:
             jvm_args="-Djava.awt.headless=true -Dforge.enableGameTest=true -Dforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
           fi
           printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
-      - name: Run ${{ matrix.version }} ${{ matrix.modLoader }} client
+      - name: Run ${{ matrix.runnerMcVersion }} ${{ matrix.modLoader }} client
         uses: ./.github/actions/mc-runtime-test
         with:
-          mc: ${{ matrix.version }}
+          mc: ${{ matrix.runnerMcVersion }}
           modloader: ${{ matrix.modLoader }}
           regex: .*${{ matrix.modLoader }}.*
           mc-runtime-test: ${{ matrix.type }}

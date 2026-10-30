@@ -7,10 +7,9 @@ import semver from "semver";
 const main = () => {
   	const debug = process.env.DEBUG;
 	const workspace = process.env.GITHUB_WORKSPACE;
-	if (!workspace) {
+	if (!workspace && !debug) {
 		throw new Error("GITHUB_WORKSPACE is not defined. Ensure actions/checkout was run.");
 	}
-
 	const relativeFilePath = "stonecutter.properties.toml";
 	const filePath = path.resolve(workspace, relativeFilePath);
 
@@ -45,16 +44,19 @@ const main = () => {
 	const modId = tomlData?.mod.id;
 	const modVersion = tomlData?.mod.version;
 
-	const outputData = []
+	const buildMatrixData = []
+	const testMatrixData = []
 	Object.keys(tomlData?.fabric).forEach((key) => {
 		if (key !== "deps") {
 			const fApi = tomlData.fabric[key].deps["fabricApi"]
 			const fGApi = tomlData.fabric[key].deps["fabricGametestApi"]
 			const version = tomlData.fabric[key].deps["minecraft"]
+			const additionalVersions = tomlData.fabric[key]?.publish?.additionalVersions
 			const v = {
 				modId,
 				modVersion,
 				version,
+				runnerMcVersion: version,
 				modLoader: "fabric",
 				type: "fabric",
 				java: getJavaVersion(version),
@@ -62,7 +64,27 @@ const main = () => {
 				fabricApi: fApi,
 				fabricGametestApi: fGApi,
 			};
-			outputData.push(v)
+			buildMatrixData.push(v)
+			testMatrixData.push(v)
+			if (additionalVersions) {
+				Array.from(new Set(additionalVersions)).forEach(mcVersion => {
+					const fabricApi = tomlData.additional[mcVersion]?.deps?.fabricApi || "none"
+					const fabricGametestApi = tomlData.additional[mcVersion]?.deps?.fabricGametestApi || "none"
+					const extraVersion = {
+						modId,
+						modVersion,
+						version,
+						runnerMcVersion: mcVersion,
+						modLoader: "fabric",
+						type: "fabric",
+						java: getJavaVersion(mcVersion),
+						regex: ".*fabric.*",
+						fabricApi,
+						fabricGametestApi,
+					}
+					testMatrixData.push(extraVersion)
+				})
+			}
 		}
 	})
 	const forgeLike = ["forge", "neoforge"]
@@ -71,10 +93,13 @@ const main = () => {
 			if (key !== "deps") {
 				const version = tomlData[modLoader][key].deps["minecraft"]
 				const type = modLoader === "forge" ? "lexforge" : "neoforge"
+
+				const additionalVersions = tomlData[modLoader][key]?.publish?.additionalVersions
 				const v = {
 					modId,
 					modVersion,
 					version,
+					runnerMcVersion: version,
 					modLoader,
 					type,
 					java: getJavaVersion(version),
@@ -82,18 +107,37 @@ const main = () => {
 					fabricApi: "none",
 					fabricGametestApi: "none",
 				}
-				outputData.push(v)
+				buildMatrixData.push(v)
+				testMatrixData.push(v)
+				if (additionalVersions) {
+					Array.from(new Set(additionalVersions)).forEach(mcVersion => {
+						testMatrixData.push({
+							modId,
+							modVersion,
+							version,
+							runnerMcVersion: mcVersion,
+							modLoader,
+							type,
+							java: getJavaVersion(mcVersion),
+							regex: `.*${modLoader}.*`,
+							fabricApi: "none",
+							fabricGametestApi: "none",
+						})
+					})
+				}
 			}
 		})
 	})
 	if (debug) {
 		console.log("Matrix data:")
-		console.log(outputData)
+		console.log(buildMatrixData)
 	}
-	setOutput('matrix', JSON.stringify(outputData));
+	setOutput('matrix', JSON.stringify(buildMatrixData));
+	setOutput('test-matrix', JSON.stringify(testMatrixData));
 }
 
 (function (){
+	console.log('executing')
   try {
     main();
   } catch (error) {

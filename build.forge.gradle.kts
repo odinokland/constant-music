@@ -25,7 +25,7 @@ platform {
 			forgeLikeVersionRange = "[${prop("deps.minMinecraft")},)"
 		}
 		required("forge") {
-			forgeLikeVersionRange.set("[${prop("deps.forge")},)")
+			forgeLikeVersionRange.set("[${prop("deps.minForge")},)")
 		}
 	}
 }

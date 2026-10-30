@@ -33,7 +33,7 @@ platform {
 		}
 		required("fabric-api") {
 			slug("fabric-api")
-			fabricLikeVersionRange = ">=${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
+			fabricLikeVersionRange = ">=${prop("deps.minFabricApi")}"
 		}
 		required("fabricloader") {
 			fabricLikeVersionRange = "*"

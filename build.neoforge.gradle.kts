@@ -26,7 +26,7 @@ platform {
 			forgeLikeVersionRange = "[${prop("deps.minMinecraft")},)"
 		}
 		required("neoforge") {
-			forgeLikeVersionRange.set("[${prop("deps.neoforge")},)")
+			forgeLikeVersionRange.set("[${prop("deps.minNeoforge")},)")
 		}
 	}
 }
