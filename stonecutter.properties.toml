@@ -113,6 +113,7 @@ deps.minMinecraft = "1.21.4"
 deps.fabricApi = "0.119.4"
 deps.modmenu = "14.0.0-rc.2"
 deps.fabricGametestApi="none"
+deps.fabric-loader = "0.17.3"
 publish.additionalVersions = ["1.21.4"]
 
 [fabric."1.21.8"]
@@ -121,6 +122,7 @@ deps.minMinecraft = "1.21.6"
 deps.fabricApi = "0.129.0"
 deps.modmenu = "15.0.0"
 deps.fabricGametestApi="none"
+deps.fabric-loader = "0.17.3"
 publish.additionalVersions = ["1.21.6", "1.21.7"]
 
 [fabric."1.21.11"]
@@ -129,6 +131,7 @@ deps.minMinecraft = "1.21.9"
 deps.fabricApi = "0.139.4"
 deps.modmenu = "17.0.0"
 deps.fabricGametestApi="none"
+deps.fabric-loader = "0.18.4"
 publish.additionalVersions = ["1.21.9", "1.21.10"]
 
 [fabric."26.1.2"]
@@ -137,6 +140,7 @@ deps.minMinecraft = "26.1"
 deps.fabricApi = "0.146.1"
 deps.modmenu = "18.0.0"
 deps.fabricGametestApi="4.0.18+867b87624c"
+deps.fabric-loader = "0.18.4"
 publish.additionalVersions = ["26.1.1", "26.1"]
 
 [fabric."26.3"]
@@ -145,6 +149,7 @@ deps.minMinecraft = "26.3"
 deps.fabricApi = "0.161.0"
 deps.modmenu = "21.0.0"
 deps.fabricGametestApi="4.0.35+d432c99e04"
+deps.fabric-loader = "0.19.3"
 publish.additionalVersions = ["26.2"]
 
 [forge]

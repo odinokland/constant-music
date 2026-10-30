@@ -1,4 +1,4 @@
-package com.odinokland.constantmusic.gametest.provider;
+package com.odinokland.constantmusic.gametest.datagen;
 
 //? >= 1.21.5 && forge {
 /*import com.google.gson.JsonObject;
@@ -8,15 +8,16 @@ import net.minecraft.data.DataProvider;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import com.odinokland.constantmusic.gametest.GametestConstants;
+import net.minecraftforge.data.loading.DatagenModLoader;
 
 import java.util.Collection;
 import java.util.concurrent.CompletableFuture;
 
-public class GametestInstanceProvider implements DataProvider {
+public class GameTestInstanceProvider implements DataProvider {
 	private final PackOutput.PathProvider pathProvider;
 	private final Collection<String> testKeys;
 
-	public GametestInstanceProvider(PackOutput output, Collection<String> testKeys) {
+	public GameTestInstanceProvider(PackOutput output, Collection<String> testKeys) {
 		this.pathProvider = output.createRegistryElementsPathProvider(Registries.TEST_INSTANCE);
 		this.testKeys = testKeys;
 	}

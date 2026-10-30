@@ -36,7 +36,7 @@ platform {
 			fabricLikeVersionRange = ">=${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
 		}
 		required("fabricloader") {
-			fabricLikeVersionRange = ">=${prop("deps.fabric-loader")}"
+			fabricLikeVersionRange = "*"
 		}
 		optional("modmenu") {}
 	}
