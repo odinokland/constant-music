@@ -56,6 +56,9 @@ jobs:
           fi
           echo "✓ Tag matches version."
 
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
+
       - name: Prepare git-cliff
         run: |
           REPO_URL="https://github.com/${{ github.repository }}"
