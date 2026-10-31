@@ -1,5 +1,6 @@
 @file:Suppress("unused", "DuplicatedCode")
 
+import org.gradle.kotlin.dsl.assign
 import com.vanniktech.maven.publish.MavenPublishBaseExtension
 import me.modmuss50.mpp.ModPublishExtension
 import org.gradle.api.Project
@@ -8,7 +9,7 @@ import org.gradle.api.file.RegularFile
 import org.gradle.api.provider.Property
 import org.gradle.api.provider.Provider
 import org.gradle.api.tasks.bundling.AbstractArchiveTask
-import org.gradle.kotlin.dsl.assign
+import net.minecraftforge.renamer.gradle.RenameJar
 
 fun Project.configureMavenPublishing(ctx: Context) {
 	env("PUB_SIGNING_KEY")?.let { extensions.extraProperties["signing.key"] = it }
@@ -61,6 +62,7 @@ fun Project.configureMavenPublishing(ctx: Context) {
 private fun Task.archiveOutput(): Provider<RegularFile> =
 	when (this) {
 		is AbstractArchiveTask -> archiveFile
+		is RenameJar -> output
 		else -> project.layout.file(
 			project.provider {
 				val outputs = outputs.files

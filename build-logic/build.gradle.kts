@@ -55,6 +55,7 @@ dependencies {
 	implementation(libs.vanniktech.maven.publish)
 	implementation(libs.serialization.json)
 	implementation(libs.serialization.toml)
+	implementation(libs.forge.renamer.plugin)
 	libs.mixinextras.common.let {
 		compileOnly(it)
 		annotationProcessor(it)
