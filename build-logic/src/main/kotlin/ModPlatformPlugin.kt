@@ -64,7 +64,7 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 			is Loader.Forge -> {
 				if (project.sc.eval(project.sc.current.version, "<1.20.6")) {
 					extension.jarTask.convention("renameJarJar")
-				} else if (project.sc.eval(project.sc.current.version, "<1.20.10")) {
+				} else if (project.sc.eval(project.sc.current.version, "<1.21.10")) {
 					extension.jarTask.convention("jarJar")
 				} else {
 					extension.jarTask.convention("jar")
