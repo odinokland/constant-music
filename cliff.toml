@@ -70,6 +70,7 @@ commit_preprocessors = [
 # Assigns commits to groups.
 # Optionally sets the commit's scope and can decide to exclude commits from further processing.
 commit_parsers = [
+	{ message = ".*\\((ci|cd|dx|deps)(/.*)?\\).*", group = "Development/Tooling", skip = true },
 	{ message = "^feat", group = "Features" },
 	{ message = "^fix", group = "Fixes" },
 	{ message = "^doc", group = "Documentation", skip = true },
@@ -80,7 +81,6 @@ commit_parsers = [
 	{ message = "^test", group = "Tests", skip = true },
 	{ message = "^chore", group = "Chores", skip = true },
 	{ body = ".*security", group = "Security" },
-	{ message = ".*\\((ci|cd|dx)(/.*)?\\).*", group = "Development/Tooling", skip = true },
 
 	# Silence not structured commits
 	{ message = "^.*", skip = true },
