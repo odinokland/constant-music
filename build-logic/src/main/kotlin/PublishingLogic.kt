@@ -117,11 +117,6 @@ fun Project.configureModPublishing(ctx: Context) {
 		modrinth(ctx, ctx.publishAdditionalVersions, mrStaging, modrinthAccessToken)
 		if (!mrStaging) curseforge(ctx, ctx.publishAdditionalVersions, curseforgeAccessToken)
 	}
-	project.tasks.named("publishMods").configure {
-		val jarTask = ctx.extension.jarTask.flatMap { name -> tasks.named(name) }
-		val srcJarTask = ctx.extension.sourcesJarTask.flatMap { name -> tasks.named(name) }
-		dependsOn(jarTask, srcJarTask)
-	}
 }
 
 private fun ModPublishExtension.modrinth(
