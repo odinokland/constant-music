@@ -110,13 +110,17 @@ fun Project.configureModPublishing(ctx: Context) {
 			// execution time, so children must run after it. MPP's parent() only copies the
 			// result provider without declaring a dependency, which would race under `org.gradle.parallel`.
 			project.tasks.named("publishGithub").configure {
-				dependsOn(ctx.extension.jarTask)
 				dependsOn(rootProject.tasks.named("publishGithub"))
 			}
 		}
 
 		modrinth(ctx, ctx.publishAdditionalVersions, mrStaging, modrinthAccessToken)
 		if (!mrStaging) curseforge(ctx, ctx.publishAdditionalVersions, curseforgeAccessToken)
+	}
+	project.tasks.named("publishMods").configure {
+		val jarTask = ctx.extension.jarTask.flatMap { name -> tasks.named(name) }
+		val srcJarTask = ctx.extension.sourcesJarTask.flatMap { name -> tasks.named(name) }
+		dependsOn(jarTask, srcJarTask)
 	}
 }
 
