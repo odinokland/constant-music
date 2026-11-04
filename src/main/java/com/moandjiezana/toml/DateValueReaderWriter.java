@@ -7,9 +7,18 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type Date value reader writer.
+ */
 class DateValueReaderWriter implements ValueReader, ValueWriter {
 
+	/**
+	 * The Date value reader writer.
+	 */
 	static final DateValueReaderWriter DATE_VALUE_READER_WRITER = new DateValueReaderWriter();
+	/**
+	 * The Date parser jdk 6.
+	 */
 	static final DateValueReaderWriter DATE_PARSER_JDK_6 = new DateConverterJdk6();
 	private static final Pattern DATE_REGEX = Pattern.compile("(\\d{4}-[0-1][0-9]-[0-3][0-9]T[0-2][0-9]:[0-5][0-9]:[0-5][0-9])(\\.\\d*)?(Z|(?:[+\\-]\\d{2}:\\d{2}))(.*)");
 
@@ -118,10 +127,20 @@ class DateValueReaderWriter implements ValueReader, ValueWriter {
 		return formatter;
 	}
 
+	/**
+	 * Gets time zone format.
+	 *
+	 * @return the time zone format
+	 */
 	String getTimeZoneFormat() {
 		return "yyyy-MM-dd'T'HH:mm:ssXXX";
 	}
 
+	/**
+	 * Gets time zone and fractional seconds format.
+	 *
+	 * @return the time zone and fractional seconds format
+	 */
 	String getTimeZoneAndFractionalSecondsFormat() {
 		return "yyyy-MM-dd'T'HH:mm:ss.SSSXXX";
 	}

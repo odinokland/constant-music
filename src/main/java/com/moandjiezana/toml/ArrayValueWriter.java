@@ -7,7 +7,16 @@ import java.util.Collection;
 
 import static com.moandjiezana.toml.ValueWriters.WRITERS;
 
+/**
+ * The type Array value writer.
+ */
 abstract class ArrayValueWriter implements ValueWriter {
+	/**
+	 * Is arrayish boolean.
+	 *
+	 * @param value the value
+	 * @return the boolean
+	 */
 	static protected boolean isArrayish(Object value) {
 		return value instanceof Collection || value.getClass().isArray();
 	}
@@ -17,6 +26,12 @@ abstract class ArrayValueWriter implements ValueWriter {
 		return false;
 	}
 
+	/**
+	 * Is array of primitive boolean.
+	 *
+	 * @param array the array
+	 * @return the boolean
+	 */
 	static boolean isArrayOfPrimitive(Object array) {
 		Object first = peek(array);
 		if (first != null) {
@@ -27,6 +42,12 @@ abstract class ArrayValueWriter implements ValueWriter {
 		return true;
 	}
 
+	/**
+	 * Normalize collection.
+	 *
+	 * @param value the value
+	 * @return the collection
+	 */
 	@SuppressWarnings("unchecked")
 	protected Collection<?> normalize(Object value) {
 		Collection<Object> collection;

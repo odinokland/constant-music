@@ -44,6 +44,11 @@ public interface Platform {
 		return isDevelopmentEnvironment();
 	}
 
+	/**
+	 * Is client boolean.
+	 *
+	 * @return the boolean
+	 */
 	boolean isClient();
 
 	/**

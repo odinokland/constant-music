@@ -10,10 +10,22 @@ import static com.moandjiezana.toml.PrimitiveArrayValueWriter.PRIMITIVE_ARRAY_VA
 import static com.moandjiezana.toml.StringValueReaderWriter.STRING_VALUE_READER_WRITER;
 import static com.moandjiezana.toml.TableArrayValueWriter.TABLE_ARRAY_VALUE_WRITER;
 
+/**
+ * The type Value writers.
+ */
 class ValueWriters {
 
+	/**
+	 * The Writers.
+	 */
 	static final ValueWriters WRITERS = new ValueWriters();
 
+	/**
+	 * Find writer for value writer.
+	 *
+	 * @param value the value
+	 * @return the value writer
+	 */
 	ValueWriter findWriterFor(Object value) {
 		for (ValueWriter valueWriter : VALUE_WRITERS) {
 			if (valueWriter.canWrite(value)) {

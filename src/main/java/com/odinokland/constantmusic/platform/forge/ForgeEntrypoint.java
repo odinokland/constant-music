@@ -22,6 +22,7 @@ public class ForgeEntrypoint {
 	public FMLJavaModLoadingContext context;
 
 	//? if < 1.21.1 {
+
 	/**
 	 * Instantiates a new Forge entrypoint.
 	 */
@@ -32,6 +33,7 @@ public class ForgeEntrypoint {
 
 	/**
 	 * Default constructor for Forge entrypoint.
+	 *
 	 * @param context The FMLJavaModLoadingContext for the mod.
 	 */
 	public ForgeEntrypoint(FMLJavaModLoadingContext context) {

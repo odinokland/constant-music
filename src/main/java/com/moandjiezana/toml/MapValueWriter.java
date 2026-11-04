@@ -8,7 +8,13 @@ import static com.moandjiezana.toml.PrimitiveArrayValueWriter.PRIMITIVE_ARRAY_VA
 import static com.moandjiezana.toml.TableArrayValueWriter.TABLE_ARRAY_VALUE_WRITER;
 import static com.moandjiezana.toml.ValueWriters.WRITERS;
 
+/**
+ * The type Map value writer.
+ */
 class MapValueWriter implements ValueWriter {
+	/**
+	 * The Map value writer.
+	 */
 	static final ValueWriter MAP_VALUE_WRITER = new MapValueWriter();
 
 	private static final Pattern REQUIRED_QUOTING_PATTERN = Pattern.compile("^.*[^A-Za-z\\d_-].*$");

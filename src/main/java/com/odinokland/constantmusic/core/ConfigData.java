@@ -5,6 +5,11 @@ package com.odinokland.constantmusic.core;
  */
 public class ConfigData {
 	/**
+	 * Default constructor.
+	 */
+	ConfigData() { }
+
+	/**
 	 * The Timer.
 	 */
 	public Integer timer = 0;

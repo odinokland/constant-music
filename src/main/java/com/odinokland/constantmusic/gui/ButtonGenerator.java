@@ -17,6 +17,14 @@ public class ButtonGenerator {
 	//private static final String FREQUENCY_LABEL = "options.music_frequency";
 	//? } else {
 	private static final String FREQUENCY_LABEL = "constantmusic.options.music_frequency";
+	//? }
+
+	/**
+	 * Default constructor.
+	 */
+	ButtonGenerator() {
+
+	}
 
 	/**
 	 * Music delay slider music delay slider.
@@ -26,7 +34,6 @@ public class ButtonGenerator {
 	 * @param width the width
 	 * @return the music delay slider
 	 */
-//? }
 	public static MusicDelaySlider musicDelaySlider(int x, int y, int width) {
 		MusicDelaySlider button = new MusicDelaySlider(x, y, width, 20);
 		ConstantMusicManager.SINGLETON.initializeSlider(button);

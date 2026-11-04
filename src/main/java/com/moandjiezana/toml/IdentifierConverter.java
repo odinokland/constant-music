@@ -2,10 +2,24 @@ package com.moandjiezana.toml;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type Resource location converter.
+ */
 class ResourceLocationConverter {
 
+	/**
+	 * The ResourceLocation converter.
+	 */
 	static final ResourceLocationConverter IDENTIFIER_CONVERTER = new ResourceLocationConverter();
 
+	/**
+	 * Convert resource location.
+	 *
+	 * @param s       the s
+	 * @param index   the index
+	 * @param context the context
+	 * @return the resource location
+	 */
 	ResourceLocation convert(String s, AtomicInteger index, Context context) {
 		boolean quoted = false;
 		StringBuilder name = new StringBuilder();

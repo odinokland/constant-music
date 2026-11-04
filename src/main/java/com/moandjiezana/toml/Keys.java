@@ -3,13 +3,35 @@ package com.moandjiezana.toml;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * The type Keys.
+ */
 class Keys {
 
+	/**
+	 * The type Key.
+	 */
 	static class Key {
+		/**
+		 * The Name.
+		 */
 		final String name;
+		/**
+		 * The Index.
+		 */
 		final int index;
+		/**
+		 * The Path.
+		 */
 		final String path;
 
+		/**
+		 * Instantiates a new Key.
+		 *
+		 * @param name  the name
+		 * @param index the index
+		 * @param next  the next
+		 */
 		Key(String name, int index, Key next) {
 			this.name = name;
 			this.index = index;
@@ -21,6 +43,12 @@ class Keys {
 		}
 	}
 
+	/**
+	 * Split key [ ].
+	 *
+	 * @param key the key
+	 * @return the key [ ]
+	 */
 	static Key[] split(String key) {
 		List<Key> splitKey = new ArrayList<Key>();
 		StringBuilder current = new StringBuilder();
@@ -61,6 +89,12 @@ class Keys {
 		return splitKey.toArray(new Key[0]);
 	}
 
+	/**
+	 * Is quote boolean.
+	 *
+	 * @param c the c
+	 * @return the boolean
+	 */
 	static boolean isQuote(char c) {
 		return c == '"' || c == '\'';
 	}

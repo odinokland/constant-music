@@ -6,8 +6,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.moandjiezana.toml.ValueReaders.VALUE_READERS;
 
+/**
+ * The type Array value reader.
+ */
 class ArrayValueReader implements ValueReader {
 
+	/**
+	 * The Array value reader.
+	 */
 	static final ArrayValueReader ARRAY_VALUE_READER = new ArrayValueReader();
 
 	@Override

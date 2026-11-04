@@ -4,7 +4,13 @@ import java.util.Collection;
 
 import static com.moandjiezana.toml.ValueWriters.WRITERS;
 
+/**
+ * The type Table array value writer.
+ */
 class TableArrayValueWriter extends ArrayValueWriter {
+	/**
+	 * The Table array value writer.
+	 */
 	static final ValueWriter TABLE_ARRAY_VALUE_WRITER = new TableArrayValueWriter();
 
 	@Override

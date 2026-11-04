@@ -4,7 +4,13 @@ import java.util.Collection;
 
 import static com.moandjiezana.toml.ValueWriters.WRITERS;
 
+/**
+ * The type Primitive array value writer.
+ */
 class PrimitiveArrayValueWriter extends ArrayValueWriter {
+	/**
+	 * The Primitive array value writer.
+	 */
 	static final ValueWriter PRIMITIVE_ARRAY_VALUE_WRITER = new PrimitiveArrayValueWriter();
 
 	@Override

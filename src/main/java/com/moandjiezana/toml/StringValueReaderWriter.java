@@ -6,8 +6,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * The type String value reader writer.
+ */
 class StringValueReaderWriter implements ValueReader, ValueWriter {
 
+	/**
+	 * The String value reader writer.
+	 */
 	static final StringValueReaderWriter STRING_VALUE_READER_WRITER = new StringValueReaderWriter();
 	private static final Pattern UNICODE_REGEX = Pattern.compile("\\\\[uU](.{4})");
 
@@ -60,6 +66,12 @@ class StringValueReaderWriter implements ValueReader, ValueWriter {
 		return s;
 	}
 
+	/**
+	 * Replace unicode characters string.
+	 *
+	 * @param value the value
+	 * @return the string
+	 */
 	String replaceUnicodeCharacters(String value) {
 		Matcher unicodeMatcher = UNICODE_REGEX.matcher(value);
 
@@ -69,6 +81,12 @@ class StringValueReaderWriter implements ValueReader, ValueWriter {
 		return value;
 	}
 
+	/**
+	 * Replace special characters string.
+	 *
+	 * @param s the s
+	 * @return the string
+	 */
 	String replaceSpecialCharacters(String s) {
 		for (int i = 0; i < s.length() - 1; i++) {
 			char ch = s.charAt(i);

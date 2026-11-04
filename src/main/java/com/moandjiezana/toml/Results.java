@@ -3,12 +3,24 @@ package com.moandjiezana.toml;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type Results.
+ */
 class Results {
 
+	/**
+	 * The type Errors.
+	 */
 	static class Errors {
 
 		private final StringBuilder sb = new StringBuilder();
 
+		/**
+		 * Duplicate table.
+		 *
+		 * @param table the table
+		 * @param line  the line
+		 */
 		void duplicateTable(String table, int line) {
 			sb.append("Duplicate table definition on line ")
 					.append(line)
@@ -17,6 +29,12 @@ class Results {
 					.append("]");
 		}
 
+		/**
+		 * Table duplicates key.
+		 *
+		 * @param table the table
+		 * @param line  the line
+		 */
 		public void tableDuplicatesKey(String table, AtomicInteger line) {
 			sb.append("Key already exists for table defined on line ")
 					.append(line.get())
@@ -25,6 +43,12 @@ class Results {
 					.append("]");
 		}
 
+		/**
+		 * Key duplicates table.
+		 *
+		 * @param key  the key
+		 * @param line the line
+		 */
 		public void keyDuplicatesTable(String key, AtomicInteger line) {
 			sb.append("Table already exists for key defined on line ")
 					.append(line.get())
@@ -32,11 +56,23 @@ class Results {
 					.append(key);
 		}
 
+		/**
+		 * Empty implicit table.
+		 *
+		 * @param table the table
+		 * @param line  the line
+		 */
 		void emptyImplicitTable(String table, int line) {
 			sb.append("Invalid table definition due to empty implicit table name: ")
 					.append(table);
 		}
 
+		/**
+		 * Invalid table.
+		 *
+		 * @param table the table
+		 * @param line  the line
+		 */
 		void invalidTable(String table, int line) {
 			sb.append("Invalid table definition on line ")
 					.append(line)
@@ -45,6 +81,12 @@ class Results {
 					.append("]");
 		}
 
+		/**
+		 * Duplicate key.
+		 *
+		 * @param key  the key
+		 * @param line the line
+		 */
 		void duplicateKey(String key, int line) {
 			sb.append("Duplicate key");
 			if (line > -1) {
@@ -55,6 +97,13 @@ class Results {
 					.append(key);
 		}
 
+		/**
+		 * Invalid text after resource location.
+		 *
+		 * @param identifier the identifier
+		 * @param text       the text
+		 * @param line       the line
+		 */
 		void invalidTextAfterResourceLocation(ResourceLocation identifier, char text, int line) {
 			sb.append("Invalid text after key ")
 					.append(identifier.getName())
@@ -63,6 +112,12 @@ class Results {
 					.append(". Make sure to terminate the value or add a comment (#).");
 		}
 
+		/**
+		 * Invalid key.
+		 *
+		 * @param key  the key
+		 * @param line the line
+		 */
 		void invalidKey(String key, int line) {
 			sb.append("Invalid key on line ")
 					.append(line)
@@ -70,6 +125,12 @@ class Results {
 					.append(key);
 		}
 
+		/**
+		 * Invalid table array.
+		 *
+		 * @param tableArray the table array
+		 * @param line       the line
+		 */
 		void invalidTableArray(String tableArray, int line) {
 			sb.append("Invalid table array definition on line ")
 					.append(line)
@@ -77,6 +138,13 @@ class Results {
 					.append(tableArray);
 		}
 
+		/**
+		 * Invalid value.
+		 *
+		 * @param key   the key
+		 * @param value the value
+		 * @param line  the line
+		 */
 		void invalidValue(String key, String value, int line) {
 			sb.append("Invalid value on line ")
 					.append(line)
@@ -86,6 +154,12 @@ class Results {
 					.append(value);
 		}
 
+		/**
+		 * Unterminated key.
+		 *
+		 * @param key  the key
+		 * @param line the line
+		 */
 		void unterminatedKey(String key, int line) {
 			sb.append("Key is not followed by an equals sign on line ")
 					.append(line)
@@ -93,6 +167,13 @@ class Results {
 					.append(key);
 		}
 
+		/**
+		 * Unterminated.
+		 *
+		 * @param key   the key
+		 * @param value the value
+		 * @param line  the line
+		 */
 		void unterminated(String key, String value, int line) {
 			sb.append("Unterminated value on line ")
 					.append(line)
@@ -102,12 +183,23 @@ class Results {
 					.append(value.trim());
 		}
 
+		/**
+		 * Heterogenous.
+		 *
+		 * @param key  the key
+		 * @param line the line
+		 */
 		public void heterogenous(String key, int line) {
 			sb.append(key)
 					.append(" becomes a heterogeneous array on line ")
 					.append(line);
 		}
 
+		/**
+		 * Has errors boolean.
+		 *
+		 * @return the boolean
+		 */
 		boolean hasErrors() {
 			return sb.length() > 0;
 		}
@@ -117,19 +209,37 @@ class Results {
 			return sb.toString();
 		}
 
+		/**
+		 * Add.
+		 *
+		 * @param other the other
+		 */
 		public void add(Errors other) {
 			sb.append(other.sb);
 		}
 	}
 
+	/**
+	 * The Errors.
+	 */
 	final Errors errors = new Errors();
 	private final Set<String> tables = new HashSet<String>();
 	private final Deque<Container> stack = new ArrayDeque<Container>();
 
+	/**
+	 * Instantiates a new Results.
+	 */
 	Results() {
 		stack.push(new Container.Table(""));
 	}
 
+	/**
+	 * Add value.
+	 *
+	 * @param key   the key
+	 * @param value the value
+	 * @param line  the line
+	 */
 	void addValue(String key, Object value, AtomicInteger line) {
 		Container currentTable = stack.peek();
 
@@ -159,6 +269,12 @@ class Results {
 		}
 	}
 
+	/**
+	 * Start table array.
+	 *
+	 * @param identifier the identifier
+	 * @param line       the line
+	 */
 	void startTableArray(ResourceLocation identifier, AtomicInteger line) {
 		String tableName = identifier.getBareName();
 		while (stack.size() > 1) {
@@ -198,6 +314,12 @@ class Results {
 		}
 	}
 
+	/**
+	 * Start tables.
+	 *
+	 * @param id   the id
+	 * @param line the line
+	 */
 	void startTables(ResourceLocation id, AtomicInteger line) {
 		String tableName = id.getBareName();
 
@@ -230,6 +352,8 @@ class Results {
 
 	/**
 	 * Warning: After this method has been called, this instance is no longer usable.
+	 *
+	 * @return the map
 	 */
 	Map<String, Object> consume() {
 		Container values = stack.getLast();

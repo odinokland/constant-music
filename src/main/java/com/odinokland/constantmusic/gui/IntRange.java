@@ -15,6 +15,10 @@ import java.util.function.Consumer;
 
 /**
  * The type Int range.
+ *
+ * @param minInclusive min int range value
+ * @param maxInclusive max int range value
+ * @param applyValueImmediately whether to apply value immediately
  */
 public record IntRange(int minInclusive, int maxInclusive, boolean applyValueImmediately) implements OptionInstance.IntRangeBase {
 	/**

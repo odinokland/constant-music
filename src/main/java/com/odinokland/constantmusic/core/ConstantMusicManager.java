@@ -60,6 +60,8 @@ public class ConstantMusicManager {
 
 	/**
 	 * Init with file.
+	 *
+	 * @param file the file
 	 */
 	public void init(File file) {
 		Constants.LOG.info("Initializing ConstantMusicManager with file: {}", file.getAbsolutePath());
@@ -95,7 +97,8 @@ public class ConstantMusicManager {
 	/**
 	 * Reset manual config initialization flag for testing.
 	 *
-	 * @param defaultTimer the default timer value
+	 * @param defaultTimer     the default timer value
+	 * @param defaultFrequency the default frequency
 	 */
 	public void resetForTesting(int defaultTimer, MusicFrequency defaultFrequency) {
 		isTesting = true;

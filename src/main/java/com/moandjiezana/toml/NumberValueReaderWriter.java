@@ -2,7 +2,13 @@ package com.moandjiezana.toml;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type Number value reader writer.
+ */
 class NumberValueReaderWriter implements ValueReader, ValueWriter {
+	/**
+	 * The Number value reader writer.
+	 */
 	static final NumberValueReaderWriter NUMBER_VALUE_READER_WRITER = new NumberValueReaderWriter();
 
 	@Override

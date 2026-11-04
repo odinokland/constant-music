@@ -6,7 +6,13 @@ import java.util.*;
 
 import static com.moandjiezana.toml.MapValueWriter.MAP_VALUE_WRITER;
 
+/**
+ * The type Object value writer.
+ */
 class ObjectValueWriter implements ValueWriter {
+	/**
+	 * The Object value writer.
+	 */
 	static final ValueWriter OBJECT_VALUE_WRITER = new ObjectValueWriter();
 
 	@Override

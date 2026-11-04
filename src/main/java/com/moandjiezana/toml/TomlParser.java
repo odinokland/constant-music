@@ -4,8 +4,17 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.moandjiezana.toml.ResourceLocationConverter.IDENTIFIER_CONVERTER;
 
+/**
+ * The type Toml parser.
+ */
 class TomlParser {
 
+	/**
+	 * Run results.
+	 *
+	 * @param tomlString the toml string
+	 * @return the results
+	 */
 	static Results run(String tomlString) {
 		final Results results = new Results();
 

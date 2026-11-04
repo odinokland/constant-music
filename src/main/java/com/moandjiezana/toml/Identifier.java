@@ -1,7 +1,13 @@
 package com.moandjiezana.toml;
 
+/**
+ * The type Resource location.
+ */
 class ResourceLocation {
 
+	/**
+	 * The Invalid.
+	 */
 	static final ResourceLocation INVALID = new ResourceLocation("", null);
 
 	private static final String ALLOWED_CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890_-";
@@ -9,6 +15,13 @@ class ResourceLocation {
 	private final String name;
 	private final Type type;
 
+	/**
+	 * From resource location.
+	 *
+	 * @param name    the name
+	 * @param context the context
+	 * @return the resource location
+	 */
 	static ResourceLocation from(String name, Context context) {
 		Type type;
 		boolean valid;
@@ -36,10 +49,20 @@ class ResourceLocation {
 		this.type = type;
 	}
 
+	/**
+	 * Gets name.
+	 *
+	 * @return the name
+	 */
 	String getName() {
 		return name;
 	}
 
+	/**
+	 * Gets bare name.
+	 *
+	 * @return the bare name
+	 */
 	String getBareName() {
 		if (isKey()) {
 			return name;
@@ -52,20 +75,46 @@ class ResourceLocation {
 		return name.substring(2, name.length() - 2);
 	}
 
+	/**
+	 * Is key boolean.
+	 *
+	 * @return the boolean
+	 */
 	boolean isKey() {
 		return type == Type.KEY;
 	}
 
+	/**
+	 * Is table boolean.
+	 *
+	 * @return the boolean
+	 */
 	boolean isTable() {
 		return type == Type.TABLE;
 	}
 
+	/**
+	 * Is table array boolean.
+	 *
+	 * @return the boolean
+	 */
 	boolean isTableArray() {
 		return type == Type.TABLE_ARRAY;
 	}
 
 	private static enum Type {
-		KEY, TABLE, TABLE_ARRAY;
+		/**
+		 * Key type.
+		 */
+		KEY,
+		/**
+		 * Table type.
+		 */
+		TABLE,
+		/**
+		 * Table array type.
+		 */
+		TABLE_ARRAY;
 	}
 
 	private static String extractName(String raw) {

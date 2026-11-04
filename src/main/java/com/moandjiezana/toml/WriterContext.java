@@ -4,6 +4,9 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.Arrays;
 
+/**
+ * The type Writer context.
+ */
 class WriterContext {
 	private String arrayKey = null;
 	private boolean isArrayOfTable = false;
@@ -15,10 +18,23 @@ class WriterContext {
 	private final IndentationPolicy indentationPolicy;
 	private final DatePolicy datePolicy;
 
+	/**
+	 * Instantiates a new Writer context.
+	 *
+	 * @param indentationPolicy the indentation policy
+	 * @param datePolicy        the date policy
+	 * @param output            the output
+	 */
 	WriterContext(IndentationPolicy indentationPolicy, DatePolicy datePolicy, Writer output) {
 		this("", "", output, indentationPolicy, datePolicy);
 	}
 
+	/**
+	 * Push table writer context.
+	 *
+	 * @param newKey the new key
+	 * @return the writer context
+	 */
 	WriterContext pushTable(String newKey) {
 		String newIndent = "";
 		if (!key.isEmpty()) {
@@ -35,6 +51,11 @@ class WriterContext {
 		return subContext;
 	}
 
+	/**
+	 * Push table from array writer context.
+	 *
+	 * @return the writer context
+	 */
 	WriterContext pushTableFromArray() {
 		WriterContext subContext = new WriterContext(key, currentTableIndent, output, indentationPolicy, datePolicy);
 		if (!empty) {
@@ -45,6 +66,12 @@ class WriterContext {
 		return subContext;
 	}
 
+	/**
+	 * Write writer context.
+	 *
+	 * @param s the s
+	 * @return the writer context
+	 */
 	WriterContext write(String s) {
 		try {
 			output.write(s);
@@ -58,12 +85,23 @@ class WriterContext {
 		}
 	}
 
+	/**
+	 * Write.
+	 *
+	 * @param chars the chars
+	 */
 	void write(char[] chars) {
 		for (char c : chars) {
 			write(c);
 		}
 	}
 
+	/**
+	 * Write writer context.
+	 *
+	 * @param c the c
+	 * @return the writer context
+	 */
 	WriterContext write(char c) {
 		try {
 			output.write(c);
@@ -75,6 +113,9 @@ class WriterContext {
 		}
 	}
 
+	/**
+	 * Write key.
+	 */
 	void writeKey() {
 		if (key.isEmpty()) {
 			return;
@@ -93,32 +134,60 @@ class WriterContext {
 		}
 	}
 
+	/**
+	 * Write array delimiter padding.
+	 */
 	void writeArrayDelimiterPadding() {
 		for (int i = 0; i < indentationPolicy.getArrayDelimiterPadding(); i++) {
 			write(' ');
 		}
 	}
 
+	/**
+	 * Indent.
+	 */
 	void indent() {
 		if (!key.isEmpty()) {
 			write(currentFieldIndent);
 		}
 	}
 
+	/**
+	 * Gets date policy.
+	 *
+	 * @return the date policy
+	 */
 	DatePolicy getDatePolicy() {
 		return datePolicy;
 	}
 
+	/**
+	 * Sets is array of table.
+	 *
+	 * @param isArrayOfTable the is array of table
+	 * @return the is array of table
+	 */
 	WriterContext setIsArrayOfTable(boolean isArrayOfTable) {
 		this.isArrayOfTable = isArrayOfTable;
 		return this;
 	}
 
+	/**
+	 * Sets array key.
+	 *
+	 * @param arrayKey the array key
+	 * @return the array key
+	 */
 	WriterContext setArrayKey(String arrayKey) {
 		this.arrayKey = arrayKey;
 		return this;
 	}
 
+	/**
+	 * Gets context path.
+	 *
+	 * @return the context path
+	 */
 	String getContextPath() {
 		return key.isEmpty() ? arrayKey : key + "." + arrayKey;
 	}

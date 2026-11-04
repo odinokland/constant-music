@@ -12,10 +12,24 @@ import static com.moandjiezana.toml.MultilineStringValueReader.MULTILINE_STRING_
 import static com.moandjiezana.toml.NumberValueReaderWriter.NUMBER_VALUE_READER_WRITER;
 import static com.moandjiezana.toml.StringValueReaderWriter.STRING_VALUE_READER_WRITER;
 
+/**
+ * The type Value readers.
+ */
 class ValueReaders {
 
+	/**
+	 * The Value readers.
+	 */
 	static final ValueReaders VALUE_READERS = new ValueReaders();
 
+	/**
+	 * Convert object.
+	 *
+	 * @param value   the value
+	 * @param index   the index
+	 * @param context the context
+	 * @return the object
+	 */
 	Object convert(String value, AtomicInteger index, Context context) {
 		String substring = value.substring(index.get());
 		for (ValueReader valueParser : READERS) {

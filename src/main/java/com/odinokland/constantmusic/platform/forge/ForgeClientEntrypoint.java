@@ -23,8 +23,10 @@ public class ForgeClientEntrypoint {
 	 */
 	public ForgeClientEntrypoint() {
 	}
+
 	/**
 	 * Hook to set up config screen.
+	 *
 	 * @param event The FMLClientSetupEvent for the mod.
 	 */
 	@SubscribeEvent

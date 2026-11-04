@@ -2,8 +2,14 @@ package com.moandjiezana.toml;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
+/**
+ * The type Multiline string value reader.
+ */
 class MultilineStringValueReader implements ValueReader {
 
+	/**
+	 * The Multiline string value reader.
+	 */
 	static final MultilineStringValueReader MULTILINE_STRING_VALUE_READER = new MultilineStringValueReader();
 
 	@Override

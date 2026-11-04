@@ -5,8 +5,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 import static com.moandjiezana.toml.ValueReaders.VALUE_READERS;
 
+/**
+ * The type Inline table value reader.
+ */
 class InlineTableValueReader implements ValueReader {
 
+	/**
+	 * The Inline table value reader.
+	 */
 	static final InlineTableValueReader INLINE_TABLE_VALUE_READER = new InlineTableValueReader();
 
 	@Override

@@ -22,6 +22,7 @@ public class ForgeEventSubscriber {
 	 */
 	public ForgeEventSubscriber() {
 	}
+
 	/**
 	 * On client tick.
 	 *

@@ -44,6 +44,7 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 	/*@Shadow
 	private OptionsList list;
 	*///? }
+
 	/**
 	 * Instantiates a new Sound options screen mixin.
 	 *

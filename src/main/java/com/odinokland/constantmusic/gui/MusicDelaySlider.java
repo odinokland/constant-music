@@ -111,6 +111,11 @@ public class MusicDelaySlider extends AbstractSliderButton {
 		ConstantMusicManager.SINGLETON.setTimer(value);
 	}
 
+	/**
+	 * Gets value.
+	 *
+	 * @return the value
+	 */
 	public double getValue() {
 		return this.value;
 	}
