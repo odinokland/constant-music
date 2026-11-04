@@ -71,6 +71,8 @@ loom {
 		programArguments.addAll("--username","Dev")
 		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric Client")
+		systemProperties.put("fabric-api.gametest", "true")
+		sourceSet.set("gametest")
 	}
 	runs.named("server") {
 		server()
@@ -146,6 +148,11 @@ dependencies {
 			"${prop("deps.fabricApi")}+${prop("deps.minecraft")}"
 		)
 	)
+	testImplementation("net.fabricmc:fabric-loader-junit:${prop("deps.fabric-loader")}")
+}
+
+tasks.withType<Test>().configureEach {
+	useJUnitPlatform()
 }
 
 

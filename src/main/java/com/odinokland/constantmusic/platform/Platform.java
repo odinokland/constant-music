@@ -44,6 +44,8 @@ public interface Platform {
 		return isDevelopmentEnvironment();
 	}
 
+	boolean isClient();
+
 	/**
 	 * Gets config file.
 	 *

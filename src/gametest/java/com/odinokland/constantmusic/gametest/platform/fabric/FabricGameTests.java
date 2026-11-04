@@ -1,7 +1,8 @@
 package com.odinokland.constantmusic.gametest.platform.fabric;
 
 //? fabric {
-/*import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
+/*import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
 import com.odinokland.constantmusic.gametest.GametestConstants;
 import net.minecraft.gametest.framework.GameTestHelper;
 
@@ -27,6 +28,7 @@ public class FabricGameTests /^$ gametest_implementations ^/{
 	 ^/
 	public FabricGameTests() {
 		GametestConstants.LOGGER.info("FabricGameTests initialized");
+		ConstantMusicManager.SINGLETON.init();
 	}
 
 	/^*

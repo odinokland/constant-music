@@ -1,12 +1,14 @@
 package com.odinokland.constantmusic.platform.forge;
 
 //? forge {
-import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.gui.ConfigScreen;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+//? if < 1.21.1 {
 import net.minecraftforge.fml.ModLoadingContext;
+//? }
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 

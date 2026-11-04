@@ -1,8 +1,8 @@
 package com.odinokland.constantmusic.gametest.shared;
 
-import com.odinokland.constantmusic.ConstantMusic;
+import com.odinokland.constantmusic.core.ConstantMusicManager;
 import com.odinokland.constantmusic.gametest.GametestConstants;
-import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
+import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import net.minecraft.core.BlockPos;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.chat.Component;
@@ -96,19 +96,20 @@ public class ConstantMusicGameTests {
 	 */
 	public static void testDelaySliderOptionAndConfigScreen(GameTestHelper helper) {
 		GametestConstants.LOGGER.info("Testing Delay Slider Option and Config Screen");
-		ConstantMusic.resetForTesting(60);
-		if (ConstantMusic.getTimer() != 60) {
+		ConstantMusicManager manager = ConstantMusicManager.SINGLETON;
+		manager.resetForTesting(60);
+		if (manager.getTimer() != 60) {
 			failTest(helper, "Config timer value mismatch", new BlockPos(1, 1, 1));
 			return;
 		}
 
-		ConstantMusic.setTimer(120);
-		if (ConstantMusic.getTimer() != 120) {
+		manager.setTimer(120);
+		if (manager.getTimer() != 120) {
 			failTest(helper, "Config timer update mismatch", new BlockPos(1, 1, 1));
 			return;
 		}
 
-		var text = ConstantMusic.timeDisplayText(60);
+		var text = ConstantMusicManager.timeDisplayText(60);
 		if (text == null) {
 			failTest(helper, "Time display text should not be null", new BlockPos(1, 1, 1));
 			return;
@@ -154,7 +155,7 @@ public class ConstantMusicGameTests {
 	 * @param condition Condition to assert
 	 * @param message   Failure message
 	 */
-	void assertTrue(GameTestHelper helper, boolean condition, String message) {
+	static void assertTrue(GameTestHelper helper, boolean condition, String message) {
 
 		//? if >=1.21.5 {
 		/*try {
@@ -183,7 +184,7 @@ public class ConstantMusicGameTests {
 	 * @throws InvocationTargetException When there is an error invoking the method
 	 * @throws IllegalAccessException When there is an error accessing the method
 	 */
-	void runAssert(GameTestHelper helper, Class<?> messageType, boolean condition, String message) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+	static void runAssert(GameTestHelper helper, Class<?> messageType, boolean condition, String message) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
 		var assertMessage = (messageType == MutableComponent.class) ? Component.literal(message) : message;
 		var method = GameTestHelper.class.getMethod("assertTrue", boolean.class, messageType);
 		method.invoke(helper, condition, assertMessage);

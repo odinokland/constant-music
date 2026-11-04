@@ -1,6 +1,5 @@
-package com.odinokland.constantmusic.util;
+package com.odinokland.constantmusic.core;
 
-import com.odinokland.constantmusic.Constants;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.client.Minecraft;

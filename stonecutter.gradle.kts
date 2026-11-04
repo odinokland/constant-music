@@ -56,6 +56,10 @@ stonecutter {
 			eval(current.version, ">1.19.4") -> "GuiGraphics guiGraphics,"
 			else -> "PoseStack guiGraphics,"
 		}
+		swaps["option_implementation"] = when {
+			current.parsed >= "1.19.2" -> "{"
+			else -> "implements TooltipAccessor {"
+		}
 
 		constants["release"] = properties.get("mod.id") != "modtemplate"
 
@@ -94,7 +98,14 @@ stonecutter {
 			string(current.parsed >= "26.1", "forge_update") {
 				replace("ModList.get()", "ModList")
 			}
-
+			regex(current.parsed > "1.21.5","option_translations") {
+				replace(
+					"\"constantmusic\\.options\\.music_frequency\\.((?!fixed\\b)\\w+)\"",
+					"\"options.music_frequency.$1\"",
+					"\"options\\.music_frequency\\.((?!fixed\\b)\\w+)\"",
+					"\"constantmusic.options.music_frequency.$1\""
+				)
+			}
 		}
 	}
 }

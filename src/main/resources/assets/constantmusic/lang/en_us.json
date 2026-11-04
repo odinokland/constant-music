@@ -3,5 +3,12 @@
   "constantmusic.option.timer": "Set the time delay music tracks.",
   "constantmusic.option": "Music Delay",
   "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between tracks",
-  "constantmusic.option.seconds": "%s seconds between tracks"
+  "constantmusic.option.seconds": "%s seconds between tracks",
+
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.fixed": "Delay",
+  "constantmusic.options.music_frequency.constant": "Constant"
 }

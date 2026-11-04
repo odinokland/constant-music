@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.mixin;
 
 //? < 1.20 {
-import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.util.Constants;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.sounds.MusicManager;
 import org.spongepowered.asm.mixin.Debug;
@@ -19,6 +19,7 @@ public interface MusicManagerAccessor {
 
 	/**
 	 * Timer for next song.
+	 *
 	 * @return the timer for next song
 	 */
 	@Accessor("nextSongDelay")
@@ -26,6 +27,7 @@ public interface MusicManagerAccessor {
 
 	/**
 	 * Current music.
+	 *
 	 * @return the current music
 	 */
 	@Accessor("currentMusic")

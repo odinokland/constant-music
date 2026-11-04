@@ -2,11 +2,12 @@ package com.odinokland.constantmusic.platform.forge;
 
 //? forge {
 
-import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.platform.Platform;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.loading.FMLPaths;
+import net.minecraftforge.api.distmarker.Dist;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -57,6 +58,15 @@ public class ForgePlatform implements Platform {
 	@Override
 	public boolean isDevelopmentEnvironment() {
 		return !FMLLoader.isProduction();
+	}
+
+	/**
+	 * Is client environment.
+	 * @return if the environment is client
+	 */
+	@Override
+	public boolean isClient() {
+		return FMLLoader.getDist() == Dist.CLIENT;
 	}
 
 	/**

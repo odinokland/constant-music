@@ -1,15 +1,20 @@
 package com.odinokland.constantmusic.mixin;
 
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
-import com.odinokland.constantmusic.ConstantMusic;
-import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
+import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.MusicManager;
+import net.minecraft.util.RandomSource;
 import org.spongepowered.asm.mixin.Debug;
+import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
+import net.minecraft.sounds.Music;
 //? if <= 1.21.3 || > 1.21.8 {
 import net.minecraft.sounds.Music;
 //? } else {
@@ -23,12 +28,31 @@ import net.minecraft.sounds.Music;
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 @Mixin(MusicManager.class)
 public class MusicManagerMixin {
+	@Shadow @Final
+	private Minecraft minecraft;
+	@Shadow @Final
+	private RandomSource random;
+
 	private MusicManagerMixin() {
+	}
+
+	/**
+	 *
+	 * @return
+	 */
+	@Unique
+	private Music constant_music$getSituationalMusic() {
+		//? > 1.21.3 && < 1.21.11 {
+		//return minecraft.getSituationalMusic().music();
+		//? } else {
+		return minecraft.getSituationalMusic();
+		//? }
 	}
 
 	@Redirect(method = "tick", at = @At(value = "INVOKE", target = "Ljava/lang/Math;min(II)I", ordinal = 1))
 	private int constantmusic_removeMusicDelay(int nextSongDelay, int maxDelay) {
-		return Math.min(nextSongDelay, ConstantMusic.getTimer() * 20);
+		Music music = this.constant_music$getSituationalMusic();
+		return Math.min(nextSongDelay, ConstantMusicManager.SINGLETON.getFrequency().getNextSongDelay(music, this.random));
 	}
 
 

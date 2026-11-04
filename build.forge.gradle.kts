@@ -47,6 +47,9 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 }
 
 minecraft {
+	useDefaultAccessTransformer()
+	logger.lifecycle("AT file: ${getAccessFile(AccessType.TRANSFORMER).toPath()}")
+	accessTransformers = files(getAccessFile(AccessType.TRANSFORMER).toPath())
 	if (stonecutter.eval(stonecutter.current.version, "<=1.21.11")) {
 		mappings("official", prop("deps.minecraft"))
 	}

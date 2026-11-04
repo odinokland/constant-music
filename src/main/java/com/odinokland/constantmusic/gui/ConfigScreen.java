@@ -1,19 +1,26 @@
 package com.odinokland.constantmusic.gui;
 
+import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.util.Constants;
+import com.odinokland.constantmusic.core.MusicFrequency;
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.odinokland.constantmusic.ConstantMusic;
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
+
+import java.util.Arrays;
+import java.util.function.Supplier;
 
 /**
  * Constant music config screen.
  */
 public class ConfigScreen extends Screen {
 	private final Screen parent;
+
 	/**
 	 * Instantiates a new Constant music config screen.
 	 *
@@ -29,17 +36,20 @@ public class ConfigScreen extends Screen {
 	 */
 	@Override
 	protected void init() {
-		addRenderableWidget(this.addRenderableWidget(new MusicDelaySlider(
-				this.minecraft,
+		addRenderableWidget(ButtonGenerator.musicFrequencyButton(
 				width / 2 - 100,
 				height / 2 - 24,
-				200,
-				20
-		)));
+				200
+		));
+		addRenderableWidget(ButtonGenerator.musicDelaySlider(
+				width / 2 - 100,
+				height / 2,
+				200
+		));
 		//? if >=1.19.3 {
 		//addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).bounds(width / 2 - 100, height - 27, 200, 20).build());
 		//?} else {
-		addRenderableWidget(new Button(width / 2 - 100, height / 2 + 4, 200, 20,
+		addRenderableWidget(new Button(width / 2 - 100, height / 2 + 24, 200, 20,
 				CommonComponents.GUI_DONE, button -> onClose()));
 		//?}
 
@@ -84,19 +94,7 @@ public class ConfigScreen extends Screen {
 		//?} else {
 		minecraft.setScreen(parent);
 		//?}
+		ConstantMusicManager.SINGLETON.clearSlider();
 	}
 
-
-	/**
-	 * Gets a config option.
-	 *
-	 * @return the config option
-	 */
-	public static OptionInstance<Integer> getConfigOption() {
-		return new OptionInstance<Integer>("constantmusic.option", OptionInstance.noTooltip(), (component, integer) -> {
-			return integer.equals(0) ? Component.translatable("options.generic_value", new Object[]{component, CommonComponents.OPTION_OFF}) : ConstantMusic.timeDisplayText(integer);
-		}, new OptionInstance.IntRange(0, 600), ConstantMusic.getTimer(), (integer) -> {
-			ConstantMusic.setTimer(Integer.parseInt(integer.toString()));
-		});
-	}
 }

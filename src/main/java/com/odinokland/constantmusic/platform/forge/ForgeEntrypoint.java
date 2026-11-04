@@ -2,8 +2,8 @@ package com.odinokland.constantmusic.platform.forge;
 
 //? forge {
 
-import com.odinokland.constantmusic.ConstantMusic;
-import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.util.Constants;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
@@ -38,7 +38,7 @@ public class ForgeEntrypoint {
 		Constants.LOG.info("Entrypoint hit with context");
 		INSTANCE = this;
 		this.context = context;
-		ConstantMusic.init();
+		ConstantMusicManager.SINGLETON.init();
 	}
 }
 //?}

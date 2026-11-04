@@ -4,6 +4,7 @@
 [![Release](https://img.shields.io/github/v/release/odinokland/constant-music?include_prereleases&label=latest)](https://github.com/odinokland/constant-music/releases)
 [![GitHub issues](https://img.shields.io/github/issues/odinokland/constant-music)](https://github.com/odinokland/constant-music/issues)
 [![GitHub license](https://img.shields.io/github/license/odinokland/constant-music?color=0690ff)](https://github.com/odinokland/constant-music/blob/main/LICENSE.md)
+[![Build](https://github.com/odinokland/constant-music/actions/workflows/build.yml/badge.svg)](https://github.com/odinokland/constant-music/actions/workflows/build.yml)
 ![GitHub Actions Workflow Status](https://img.shields.io/github/actions/workflow/status/odinokland/constant-music/build.yml)
 
 [![Modrinth Downloads](https://img.shields.io/modrinth/dt/tvuSEM6E?label=modrinth&logo=modrinth&color=00af5c)](https://modrinth.com/mod/constant-music)

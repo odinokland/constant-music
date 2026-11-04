@@ -4,8 +4,8 @@ package com.odinokland.constantmusic.platform.neoforge;
 /*import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import com.odinokland.constantmusic.ConstantMusic;
-import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.util.Constants;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 
 /^*
@@ -22,7 +22,7 @@ public class NeoforgeEntrypoint {
 	 ^/
 	public NeoforgeEntrypoint(IEventBus modEventBus, ModContainer modContainer) {
 		modContainerContext = modContainer;
-		ConstantMusic.init();
+		ConstantMusicManager.SINGLETON.init();
 		modEventBus.addListener(NeoforgeEntrypoint::onClientSetup);
 	}
 

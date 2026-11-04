@@ -2,7 +2,7 @@ package com.odinokland.constantmusic.gametest;
 
 //? forge || neoforge {
 //? < 1.21.5 {
-import com.odinokland.constantmusic.Constants;
+import com.odinokland.constantmusic.util.Constants;
 //import com.odinokland.constantmusic.gametest.platform.GameTests;
 //? forge {
 import net.minecraftforge.event.RegisterGameTestsEvent;

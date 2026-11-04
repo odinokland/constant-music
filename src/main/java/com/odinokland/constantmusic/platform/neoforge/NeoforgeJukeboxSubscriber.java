@@ -1,8 +1,8 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
-/*import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
+/*import com.odinokland.constantmusic.util.Constants;
+import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
 import net.neoforged.bus.api.SubscribeEvent;
 //? if >= 1.20.6 {

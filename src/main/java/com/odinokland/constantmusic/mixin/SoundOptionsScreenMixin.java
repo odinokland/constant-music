@@ -1,96 +1,155 @@
 package com.odinokland.constantmusic.mixin;
 
-
-import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.gui.ConfigScreen;
+import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.gui.ButtonGenerator;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 //? < 1.19.3 {
-import com.odinokland.constantmusic.gui.MusicDelaySlider;
 import com.llamalad7.mixinextras.sugar.Local;
-import net.minecraft.sounds.SoundSource;
+import net.minecraft.client.gui.components.AbstractWidget;
+import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
+import java.util.function.BiFunction;
+//? } else {
+//import net.minecraft.client.OptionInstance;
 //? }
-import net.minecraft.client.OptionInstance;
+import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
+//? >= 1.21.1 {
+//import net.minecraft.client.gui.screens.options.OptionsSubScreen;
+//? } else {
+import net.minecraft.client.gui.screens.OptionsSubScreen;
+//? }
 import net.minecraft.client.gui.screens.SoundOptionsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+//? > 1.21.5 {
+/*import org.spongepowered.asm.mixin.injection.ModifyArgs;
+import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
+*///? } else {
+import net.minecraft.client.gui.components.OptionsList;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import org.spongepowered.asm.mixin.Shadow;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+//? }
 
 /**
  * The type Sound options screen mixin.
  */
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 @Mixin(SoundOptionsScreen.class)
-public class SoundOptionsScreenMixin extends Screen {
-
+public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
+	//? > 1.19.2 && < 1.21.1 {
+	/*@Shadow
+	private OptionsList list;
+	*///? }
 	/**
 	 * Instantiates a new Sound options screen mixin.
 	 *
-	 * @param title the title
+	 * @param lastScreen the last screen
+	 * @param options    the options
+	 * @param title      the title
 	 */
-	protected SoundOptionsScreenMixin(Component title) {
-		super(title);
+	protected SoundOptionsScreenMixin(Screen lastScreen, Options options, Component title) {
+		super(lastScreen, options, title);
 	}
 
-	//? if >=1.19.3 {
+	//? if > 1.21.5 {
+	/*@ModifyArgs(
+			method = "addOptions",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/gui/components/OptionsList;addSmall([Lnet/minecraft/client/OptionInstance;)V"
+			)
+	)
+	private void modifyAddSmallArgs(Args args) {
+		OptionInstance<?>[] originalOptions = args.get(0);
 
-	/*/^*
-	 * On get all options.
-	 *
-	 * @param cir the cir
-	 ^/
-	@Inject(method = "getAllSoundOptionsExceptMaster", at = @At("RETURN"), cancellable = true)
-	protected void onGetAllOptions(CallbackInfoReturnable<OptionInstance<?>[]> cir) {
-		OptionInstance<?>[] defaultOptions = cir.getReturnValue();
+		if (originalOptions != null && originalOptions.length == 2) {
+			OptionInstance<?> secondOption = originalOptions[1];
+			//? >= 1.21.11 {
+			//boolean checkSecondOption = secondOption == this.options.musicToast();
+			//? } else {
+			boolean checkSecondOption = secondOption == this.options.showNowPlayingToast();
+			//? }
+			if (checkSecondOption) {
+				OptionInstance<?>[] customRows = new OptionInstance<?>[] {
+						ButtonGenerator.musicFrequencyOptionInstance(),
+						ButtonGenerator.musicDelaySliderOptionInstance(),
+						secondOption, // musicToast
+						null
+				};
 
-		OptionInstance<Integer> seconds = ConfigScreen.getConfigOption();
+				// Replace the original 2-element array with our new 4-element array
+				args.set(0, customRows);
+			}
+		}
+	}
 
-		OptionInstance<?>[] updatedOptions = new OptionInstance<?>[defaultOptions.length + 1];
+	*///? } else if >=1.19.3 {
 
-		System.arraycopy(defaultOptions, 0, updatedOptions, 0, defaultOptions.length);
-
-		updatedOptions[updatedOptions.length - 1] = seconds;
-
-		cir.setReturnValue(updatedOptions);
+	/*@Inject(
+			//~ if >= 1.21.1 'init' -> 'addOptions'
+			method = "init",
+			at = @At(
+					value = "INVOKE",
+					target = "Lnet/minecraft/client/gui/components/OptionsList;addSmall([Lnet/minecraft/client/OptionInstance;)V",
+					ordinal = 0,
+					shift = At.Shift.AFTER
+			)
+	)
+	private void addNewOptions(CallbackInfo ci) {
+		OptionInstance<?>[] newOptions = {
+				ButtonGenerator.musicFrequencyOptionInstance(),
+				ButtonGenerator.musicDelaySliderOptionInstance()
+		};
+		assert this.list != null;
+		this.list.addSmall(newOptions);
 	}
 	*///?} else {
-
-	/**
-	 * In 1.19.2, SoundOptionsScreen#init loops over SoundSource.values().
-	 * We can intercept that array and swap it out for an array that has
-	 * our custom size, OR we can capture the local loop counter.
-	 */
 	@Inject(
 			method = "init",
 			at = @At(
 					value = "INVOKE",
-					// This is the call inside the loop where it instantiates each VolumeSlider
-					target = "Lnet/minecraft/client/gui/components/VolumeSlider;<init>(Lnet/minecraft/client/Minecraft;IILnet/minecraft/sounds/SoundSource;I)V",
-					shift = At.Shift.AFTER
+					target = "Lnet/minecraft/client/Options;soundDevice()Lnet/minecraft/client/OptionInstance;",
+					shift = At.Shift.BEFORE
 			),
-			expect = 1, // Enforces that this MUST find exactly 1 match
-			require = 1  // Breaks compilation/game loading if it fails to apply
+			require = 1
 	)
-	private void addCustomSliderAfterLoop(CallbackInfo ci, @Local(ordinal = 2) int loopCounter) {
-		int totalVanillaSources = SoundSource.values().length - 1; // 9 elements
+	private void mymod$addCustomOptions(
+			CallbackInfo ci,
+			@Local(name = "i") int i,
+			@Local(index = 3) LocalIntRef k
+	) {
+		int internalK = k.get();
 
-		if (loopCounter == totalVanillaSources - 1) {
-			// Calculate the next slot in the grid perfectly
-			int nextIndex = loopCounter + 3;
-			int xPos = this.width / 2 - 155 + (nextIndex % 2) * 160;
-			int yPos = (this.height / 6 - 12) + 22 * (nextIndex >> 1);
-			// Add your custom slider into the native layout flow
-			this.addRenderableWidget(new MusicDelaySlider(
-					this.minecraft,
-					xPos,
-					yPos,
-					150,
-					20
-			));
-		}
+		constantmusic$addWidgets(
+				i,
+				internalK,
+				(xPos, yPos) -> ButtonGenerator.musicFrequencyButton(xPos, yPos, 150)
+		);
+		constantmusic$addWidgets(
+				i,
+				++internalK,
+				(xPos, yPos) -> ButtonGenerator.musicDelaySlider(xPos, yPos, 150)
+		);
+
+		// Reserve one full row for the custom widget.
+		k.set(k.get() + 2);
+	}
+
+	@Unique
+	private void constantmusic$addWidgets(int i, int k, BiFunction<Integer, Integer, AbstractWidget> widget) {
+		int x = this.width / 2 - 155 + k % 2 * 160;
+		int y = i + 22 * (k >> 1);
+		this.addRenderableWidget(widget.apply(x, y));
 	}
 	//?}
+
+	@Override
+	public void onClose() {
+		super.onClose();
+		ConstantMusicManager.SINGLETON.clearSlider();
+	}
 }

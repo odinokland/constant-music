@@ -2,11 +2,12 @@ package com.odinokland.constantmusic.platform.neoforge;
 
 //? neoforge {
 
-/*import com.odinokland.constantmusic.Constants;
+/*import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.platform.Platform;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.fml.loading.FMLPaths;
+import net.neoforged.api.distmarker.Dist;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -60,6 +61,19 @@ public class NeoforgePlatform implements Platform {
 		return !FMLLoader.isProduction();
 	}
 	//~}
+
+	/^*
+	 * Is client environment.
+	 * @return if the environment is client
+	 ^/
+	@Override
+	public boolean isClient() {
+		//? >= 1.21.11 {
+		//return FMLLoader.getCurrent().getDist() == Dist.CLIENT;
+		//? } else {
+		return FMLLoader.getDist() == Dist.CLIENT;
+		//? }
+	}
 
 	/^*
 	 * Get the config file.

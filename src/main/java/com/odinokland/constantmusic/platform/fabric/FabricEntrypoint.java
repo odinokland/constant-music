@@ -2,8 +2,8 @@ package com.odinokland.constantmusic.platform.fabric;
 
 //? fabric {
 
-/*import com.odinokland.constantmusic.ConstantMusic;
-import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
+/*import com.odinokland.constantmusic.core.ConstantMusicManager;
+import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.fabric.Entrypoint;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.api.ModInitializer;
@@ -33,7 +33,7 @@ public class FabricEntrypoint implements ModInitializer, ClientModInitializer {
 	 ^/
 	@Override
 	public void onInitialize() {
-
+		ConstantMusicManager.SINGLETON.init();
 	}
 
 	/^*
@@ -41,7 +41,7 @@ public class FabricEntrypoint implements ModInitializer, ClientModInitializer {
 	 ^/
 	@Override
 	public void onInitializeClient() {
-		ConstantMusic.init();
+		ConstantMusicManager.SINGLETON.init();
 		//? if >= 26.1 {
 		//ClientLevelEvents.AFTER_CLIENT_LEVEL_CHANGE.register((client, world) -> JukeboxTrackerUtility.clearJukeboxes());
 		//? } else {

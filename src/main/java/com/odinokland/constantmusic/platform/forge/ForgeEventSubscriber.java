@@ -2,8 +2,8 @@ package com.odinokland.constantmusic.platform.forge;
 
 //? forge {
 
-import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
+import com.odinokland.constantmusic.util.Constants;
+import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;

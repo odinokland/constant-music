@@ -2,8 +2,7 @@ package com.odinokland.constantmusic.mixin;
 
 import com.llamalad7.mixinextras.injector.wrapmethod.WrapMethod;
 import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.odinokland.constantmusic.Constants;
-import com.odinokland.constantmusic.util.JukeboxTrackerUtility;
+import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.Minecraft;
 //~ level_renderer

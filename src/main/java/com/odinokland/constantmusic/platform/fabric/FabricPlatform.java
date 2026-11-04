@@ -2,8 +2,9 @@ package com.odinokland.constantmusic.platform.fabric;
 
 //? fabric {
 
-/*import com.odinokland.constantmusic.Constants;
+/*import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.platform.Platform;
+import net.fabricmc.api.EnvType;
 import net.fabricmc.loader.api.FabricLoader;
 
 import java.nio.file.Path;
@@ -71,6 +72,15 @@ public class FabricPlatform implements Platform {
 	@Override
 	public Path getConfigFile() {
 		return Paths.get(FabricLoader.getInstance().getConfigDir().toString(), Constants.MOD_ID + ".toml");
+	}
+
+	/^*
+	 * Is client environment.
+	 * @return if the environment is client
+	 ^/
+	@Override
+	public boolean isClient() {
+		return FabricLoader.getInstance().getEnvironmentType() == EnvType.CLIENT;
 	}
 }
 *///?}
