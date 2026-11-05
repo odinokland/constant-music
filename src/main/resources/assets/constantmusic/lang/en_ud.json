@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "ƃᴉɟuoƆ ɔᴉsnW ʇuɐʇsuoƆ",
   "constantmusic.option.timer": "˙sʞɔɐɹʇ ɔᴉsnɯ uǝǝʍʇǝq ʎɐlǝp ǝɯᴉʇ ǝɥʇ ʇǝS",
-  "constantmusic.option": "ʎɐlǝp ɔᴉsnW",
+  "constantmusic.option": "ʎɐlǝᗡ ɔᴉsnW",
   "constantmusic.option.minutes_and_seconds": "sʞɔɐɹʇ uǝǝʍʇǝq ˙ɔǝs %s ˙uᴉɯ %s",
-  "constantmusic.option.seconds": "sʞɔɐɹʇ uǝǝʍʇǝq spuoɔǝs %s"
+  "constantmusic.option.seconds": "sʞɔɐɹʇ uǝǝʍʇǝq spuoɔǝs %s",
+  "constantmusic.options.music_frequency": "ʎɔuǝnbǝɹℲ ɔᴉsnW",
+  "constantmusic.options.music_frequency.constant": "ʇuɐʇsuoƆ",
+  "constantmusic.options.music_frequency.default": "ʇꞁnɐɟǝᗡ",
+  "constantmusic.options.music_frequency.frequent": "ʇuǝnbǝɹℲ",
+  "constantmusic.options.music_frequency.tooltip": "˙pꞁɹoʍ ǝɯɐᵷ ɐ uᴉ ǝꞁᴉɥʍ sʎɐꞁd ɔᴉsnɯ ʎꞁʇuǝnbǝɹɟ ʍoɥ sǝᵷuɐɥƆ",
+  "constantmusic.options.music_frequency.fixed": "ʎɐꞁǝᗡ"
 }

@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Ajustes de Música Continua",
   "constantmusic.option.timer": "Establece el tiempo de retardo entre canciones.",
-  "constantmusic.option": "Retraso de música",
+  "constantmusic.option": "Retraço de música",
   "constantmusic.option.minutes_and_seconds": "%s minutos %s segundos entre canciones",
-  "constantmusic.option.seconds": "%s segundos entre canciones"
+  "constantmusic.option.seconds": "%s segundos entre canciones",
+  "constantmusic.options.music_frequency": "Frecuençia de la múçica",
+  "constantmusic.options.music_frequency.constant": "Côttante",
+  "constantmusic.options.music_frequency.default": "Por defêtto",
+  "constantmusic.options.music_frequency.frequent": "Frecuente",
+  "constantmusic.options.music_frequency.tooltip": "Cambia la frecuençia con la que çe reproduçe múçica durante una partía.",
+  "constantmusic.options.music_frequency.fixed": "Retraço"
 }

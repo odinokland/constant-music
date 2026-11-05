@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "ກໍານົດເວລາຊັກຊ້າລະຫວ່າງເພງ.",
   "constantmusic.option": "ດົນຕີຊັກຊ້າ",
   "constantmusic.option.minutes_and_seconds": "%s ນາທີ %s ວິນາທີລະຫວ່າງເພງ",
-  "constantmusic.option.seconds": "%s ວິນາທີລະຫວ່າງເພງ"
+  "constantmusic.option.seconds": "%s ວິນາທີລະຫວ່າງເພງ",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "ຊ້າ"
 }

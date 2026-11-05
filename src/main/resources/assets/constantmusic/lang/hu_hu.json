@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Állítsa be a zeneszámok közötti késleltetést.",
   "constantmusic.option": "Zenei késleltetés",
   "constantmusic.option.minutes_and_seconds": "%s perc %s másodperc a dalok között",
-  "constantmusic.option.seconds": "%s másodperc a dalok között"
+  "constantmusic.option.seconds": "%s másodperc a dalok között",
+  "constantmusic.options.music_frequency": "Zene gyakorisága",
+  "constantmusic.options.music_frequency.constant": "Folyamatos",
+  "constantmusic.options.music_frequency.default": "Alapértelmezett",
+  "constantmusic.options.music_frequency.frequent": "Gyakori",
+  "constantmusic.options.music_frequency.tooltip": "Azt szabályozza, milyen gyakran induljon el háttérzene, amíg egy világban tartózkodsz.",
+  "constantmusic.options.music_frequency.fixed": "Késleltetés"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Nastavte časovou prodlevu mezi skladbami.",
   "constantmusic.option": "Zpoždění hudby",
   "constantmusic.option.minutes_and_seconds": "%s minut %s sekund mezi skladbami",
-  "constantmusic.option.seconds": "%s sekund mezi skladbami"
+  "constantmusic.option.seconds": "%s sekund mezi skladbami",
+  "constantmusic.options.music_frequency": "Přehrávání hudby",
+  "constantmusic.options.music_frequency.constant": "Stále",
+  "constantmusic.options.music_frequency.default": "Výchozí",
+  "constantmusic.options.music_frequency.frequent": "Často",
+  "constantmusic.options.music_frequency.tooltip": "Určuje, jak často bude v herním světě hrát hudba.",
+  "constantmusic.options.music_frequency.fixed": "Prodleva"
 }

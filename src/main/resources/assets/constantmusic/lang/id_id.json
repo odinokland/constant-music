@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Mengatur waktu tunda antar lagu.",
   "constantmusic.option": "Penundaan Musik",
   "constantmusic.option.minutes_and_seconds": "%s menit %s detik di antara lagu",
-  "constantmusic.option.seconds": "%s detik antar lagu"
+  "constantmusic.option.seconds": "%s detik antar lagu",
+  "constantmusic.options.music_frequency": "Kekerapan Musik",
+  "constantmusic.options.music_frequency.constant": "Selalu",
+  "constantmusic.options.music_frequency.default": "Jarang",
+  "constantmusic.options.music_frequency.frequent": "Sering",
+  "constantmusic.options.music_frequency.tooltip": "Mengubah seberapa sering musik dimainkan ketika di dalam dunia permainan.",
+  "constantmusic.options.music_frequency.fixed": "Tunda"
 }

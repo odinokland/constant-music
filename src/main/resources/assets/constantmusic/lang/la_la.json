@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Inter carmina pone morae tempus.",
   "constantmusic.option": "Musica Mora",
   "constantmusic.option.minutes_and_seconds": "%s minutis %s seconds inter carmina",
-  "constantmusic.option.seconds": "%s seconds inter carmina"
+  "constantmusic.option.seconds": "%s seconds inter carmina",
+  "constantmusic.options.music_frequency": "Frequentatio musicae",
+  "constantmusic.options.music_frequency.constant": "Constans",
+  "constantmusic.options.music_frequency.default": "Normalis",
+  "constantmusic.options.music_frequency.frequent": "Frequens",
+  "constantmusic.options.music_frequency.tooltip": "Quam frequenter musica canat mutat dum in mundo ludi.",
+  "constantmusic.options.music_frequency.fixed": "Mora"
 }

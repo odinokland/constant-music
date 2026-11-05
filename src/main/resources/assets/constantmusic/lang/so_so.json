@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Samee wakhtiga dib u dhaca inta u dhaxaysa heesaha.",
   "constantmusic.option": "Dib u dhigista Muusiga",
   "constantmusic.option.minutes_and_seconds": "%s daqiiqo %s ilbiriqsi ee heesaha dhexdooda",
-  "constantmusic.option.seconds": "%s ilbiriqsiyo u dhexeeya heesaha"
+  "constantmusic.option.seconds": "%s ilbiriqsiyo u dhexeeya heesaha",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "Delay"
 }

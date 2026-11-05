@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Kontinuierliche Musikeinstellungen",
   "constantmusic.option.timer": "Legen Sie die Zeitverzögerung zwischen Musiktiteln fest.",
-  "constantmusic.option": "Musikverzögerung",
+  "constantmusic.option": "Musikverzögerig",
   "constantmusic.option.minutes_and_seconds": "%s Minuten %s Sekunden zwischen Tracks",
-  "constantmusic.option.seconds": "%s Sekunden zwischen Tracks"
+  "constantmusic.option.seconds": "%s Sekunden zwischen Tracks",
+  "constantmusic.options.music_frequency": "Musikhüüfigkeit",
+  "constantmusic.options.music_frequency.constant": "Durchgängig",
+  "constantmusic.options.music_frequency.default": "Standard",
+  "constantmusic.options.music_frequency.frequent": "Hüüfig",
+  "constantmusic.options.music_frequency.tooltip": "Stüüret, wie hüüfig Musik bim Spieler i enere Welt wiederge wird.",
+  "constantmusic.options.music_frequency.fixed": "Verzögerig"
 }

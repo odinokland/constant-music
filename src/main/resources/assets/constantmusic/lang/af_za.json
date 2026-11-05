@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Stel die tydsvertraging tussen liedjies.",
   "constantmusic.option": "Musiek Vertraging",
   "constantmusic.option.minutes_and_seconds": "%s minute %s sekondes tussen liedjies",
-  "constantmusic.option.seconds": "%s sekondes tussen liedjies"
+  "constantmusic.option.seconds": "%s sekondes tussen liedjies",
+  "constantmusic.options.music_frequency": "Musiekfrekwensie",
+  "constantmusic.options.music_frequency.constant": "Konstant",
+  "constantmusic.options.music_frequency.default": "Verstek",
+  "constantmusic.options.music_frequency.frequent": "Gereeld",
+  "constantmusic.options.music_frequency.tooltip": "Verander hoe gereeld musiek speel terwyl jy in die spelwêreld is.",
+  "constantmusic.options.music_frequency.fixed": "Vertraging"
 }

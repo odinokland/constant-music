@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Issettja d-dewmien tal-ħin bejn il-kanzunetti.",
   "constantmusic.option": "Dewmien tal-Mużika",
   "constantmusic.option.minutes_and_seconds": "%s minuti %s sekondi bejn il-kanzunetti",
-  "constantmusic.option.seconds": "%s sekondi bejn il-kanzunetti"
+  "constantmusic.option.seconds": "%s sekondi bejn il-kanzunetti",
+  "constantmusic.options.music_frequency": "Frekwenza tal-Mużika",
+  "constantmusic.options.music_frequency.constant": "Kontinwu",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Spiss",
+  "constantmusic.options.music_frequency.tooltip": "Tbiddel il-frekwenza tad-daqq tal-mużika f'dinja.",
+  "constantmusic.options.music_frequency.fixed": "Dewmien"
 }

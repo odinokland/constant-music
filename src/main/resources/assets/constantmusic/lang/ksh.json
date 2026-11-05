@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Stellen Sie die Zeitverzögerung zwischen den Songs ein.",
   "constantmusic.option": "Musikverzögerung",
   "constantmusic.option.minutes_and_seconds": "%s Minuten %s Sekunden zwischen den Liedern",
-  "constantmusic.option.seconds": "%s Sekunden zwischen den Liedern"
+  "constantmusic.option.seconds": "%s Sekunden zwischen den Liedern",
+  "constantmusic.options.music_frequency": "Musikhäufigkeit",
+  "constantmusic.options.music_frequency.constant": "Durchgängig",
+  "constantmusic.options.music_frequency.default": "Standard",
+  "constantmusic.options.music_frequency.frequent": "Häufig",
+  "constantmusic.options.music_frequency.tooltip": "Steuert, wie häufig Musik beim Spielen in einer Welt wiedergegeben wird.",
+  "constantmusic.options.music_frequency.fixed": "Verzögerung"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "E hoʻopaʻa i ka manawa lohi ma waena o nā mele.",
   "constantmusic.option": "Hoʻopaneʻe mele",
   "constantmusic.option.minutes_and_seconds": "%s minuke %s kekona ma waena o nā mele",
-  "constantmusic.option.seconds": "%s kekona ma waena o nā mele"
+  "constantmusic.option.seconds": "%s kekona ma waena o nā mele",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Paʻamau",
+  "constantmusic.options.music_frequency.frequent": "Pinepine",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "Delay"
 }

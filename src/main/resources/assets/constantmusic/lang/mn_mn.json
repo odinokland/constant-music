@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Дуу хоорондын саатлыг тохируулна уу.",
   "constantmusic.option": "Хөгжмийн саатал",
   "constantmusic.option.minutes_and_seconds": "Дуу хоорондын %s минут %s секунд",
-  "constantmusic.option.seconds": "Дуу хоорондын %s секунд"
+  "constantmusic.option.seconds": "Дуу хоорондын %s секунд",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "хүлээлт"
 }

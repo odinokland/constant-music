@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Stilltu tímann á milli laga.",
   "constantmusic.option": "Töf á tónlist",
   "constantmusic.option.minutes_and_seconds": "%s mínútur %s sekúndur á milli laga",
-  "constantmusic.option.seconds": "%s sekúndur á milli laga"
+  "constantmusic.option.seconds": "%s sekúndur á milli laga",
+  "constantmusic.options.music_frequency": "Tíðni tónlistar",
+  "constantmusic.options.music_frequency.constant": "Stöðug",
+  "constantmusic.options.music_frequency.default": "Sjálfgefið",
+  "constantmusic.options.music_frequency.frequent": "Oft",
+  "constantmusic.options.music_frequency.tooltip": "Breytir því hve oft tónlist spilast í leikveröld.",
+  "constantmusic.options.music_frequency.fixed": "Seinkun"
 }

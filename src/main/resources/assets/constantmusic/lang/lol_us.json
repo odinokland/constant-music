@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Conztant Musik Opshuns",
   "constantmusic.option.timer": "Set teh tiem delay tween songz.",
-  "constantmusic.option": "Musik Delay",
+  "constantmusic.option": "Musik Delayyyyy",
   "constantmusic.option.minutes_and_seconds": "%s minutz %s secundz tween songs",
-  "constantmusic.option.seconds": "%s secundz tween songs"
+  "constantmusic.option.seconds": "%s secundz tween songs",
+  "constantmusic.options.music_frequency": "How offn kat muzik plae",
+  "constantmusic.options.music_frequency.constant": "Al ze tiem",
+  "constantmusic.options.music_frequency.default": "Nermal",
+  "constantmusic.options.music_frequency.frequent": "Offn",
+  "constantmusic.options.music_frequency.tooltip": "changz how oftn kat muzik plaez whiel in game wurld.",
+  "constantmusic.options.music_frequency.fixed": "Delayyyyy"
 }

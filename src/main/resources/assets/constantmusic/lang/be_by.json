@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Усталюйце затрымку паміж песнямі.",
   "constantmusic.option": "Музычная затрымка",
   "constantmusic.option.minutes_and_seconds": "%s хвілін %s секунд паміж песнямі",
-  "constantmusic.option.seconds": "%s секунд паміж песнямі"
+  "constantmusic.option.seconds": "%s секунд паміж песнямі",
+  "constantmusic.options.music_frequency": "Перыядычнасць музыкі",
+  "constantmusic.options.music_frequency.constant": "Пастаянна",
+  "constantmusic.options.music_frequency.default": "Па змаўчанні",
+  "constantmusic.options.music_frequency.frequent": "Часта",
+  "constantmusic.options.music_frequency.tooltip": "Змяняе частату прайгравання музыкі ў свеце.",
+  "constantmusic.options.music_frequency.fixed": "Затрымка"
 }

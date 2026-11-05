@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "დააყენეთ დროის შეფერხება სიმღერებს შორის.",
   "constantmusic.option": "მუსიკის შეფერხება",
   "constantmusic.option.minutes_and_seconds": "%s წუთი %s წამი სიმღერებს შორის",
-  "constantmusic.option.seconds": "%s წამი სიმღერებს შორის"
+  "constantmusic.option.seconds": "%s წამი სიმღერებს შორის",
+  "constantmusic.options.music_frequency": "მუსიკის დაკვრის სიხშირე",
+  "constantmusic.options.music_frequency.constant": "მუდმივი",
+  "constantmusic.options.music_frequency.default": "ნაგულისხმევი",
+  "constantmusic.options.music_frequency.frequent": "ხშირი",
+  "constantmusic.options.music_frequency.tooltip": "ცვლის მუსიკის დაკვრის სიხშირეს თამაშის სამყაროში ყოფნისას.",
+  "constantmusic.options.music_frequency.fixed": "შეფერხება"
 }

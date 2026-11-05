@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Ciągłe ustawienia muzyki",
   "constantmusic.option.timer": "Ustaw opóźnienie czasowe między utworami.",
-  "constantmusic.option": "Opóźnienie muzyki",
+  "constantmusic.option": "Ôpōźniynie muzyki",
   "constantmusic.option.minutes_and_seconds": "%s minut %s sekund między utworami",
-  "constantmusic.option.seconds": "%s sekund między utworami"
+  "constantmusic.option.seconds": "%s sekund między utworami",
+  "constantmusic.options.music_frequency": "Czynstość muzyki",
+  "constantmusic.options.music_frequency.constant": "Stoło",
+  "constantmusic.options.music_frequency.default": "Normalno",
+  "constantmusic.options.music_frequency.frequent": "Czynsto",
+  "constantmusic.options.music_frequency.tooltip": "Kōntroluje, jak czynsto muzyka bydzie grano we świecie.",
+  "constantmusic.options.music_frequency.fixed": "Ôpōźniynie"
 }

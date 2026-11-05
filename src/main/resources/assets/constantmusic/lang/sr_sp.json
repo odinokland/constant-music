@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Подесите временско одлагање између песама.",
   "constantmusic.option": "Мусиц Делаи",
   "constantmusic.option.minutes_and_seconds": "%s минута %s ~ секунди између песама",
-  "constantmusic.option.seconds": "%s секунди између песама"
+  "constantmusic.option.seconds": "%s секунди између песама",
+  "constantmusic.options.music_frequency": "Учесталост музике",
+  "constantmusic.options.music_frequency.constant": "Стална",
+  "constantmusic.options.music_frequency.default": "Стандардна",
+  "constantmusic.options.music_frequency.frequent": "Честа",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "Одлагање"
 }

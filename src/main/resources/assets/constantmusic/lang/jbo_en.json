@@ -1,7 +1,13 @@
 {
-  "constantmusic.title": "Continuous Music Settings",
-  "constantmusic.option.timer": "Set the time delay between songs.",
-  "constantmusic.option": "Music Delay",
-  "constantmusic.option.minutes_and_seconds": "%s minutes %s seconds between songs",
-  "constantmusic.option.seconds": "%s seconds between songs"
+  "constantmusic.title": "lo na sisti zgike te ciksi",
+  "constantmusic.option.timer": "ko setca lo temci be lo nu zgike cu se cmima",
+  "constantmusic.option": "lo zgike temci",
+  "constantmusic.option.minutes_and_seconds": "lo zgike cu se cmima lo temci be li %s lo mentu joi lo temci be li %s lo snidu",
+  "constantmusic.option.seconds": "lo zgike cu se cmima lo temci be li %s lo snidu",
+  "constantmusic.options.music_frequency": "lo zgike rapli",
+  "constantmusic.options.music_frequency.constant": "stodi",
+  "constantmusic.options.music_frequency.default": "fadni",
+  "constantmusic.options.music_frequency.frequent": "so'eroi",
+  "constantmusic.options.music_frequency.tooltip": "lo zgike rapli cu galfi lo du'u lo zgike cu ze'a zgike ca lo nu do zvati lo selsa'a kelci",
+  "constantmusic.options.music_frequency.fixed": "lo temci"
 }

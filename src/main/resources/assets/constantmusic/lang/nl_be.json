@@ -3,5 +3,13 @@
   "constantmusic.option.timer": "Stel de vertraging tussen nummers in.",
   "constantmusic.option": "Muziek Vertraging",
   "constantmusic.option.minutes_and_seconds": "%s minuten %s seconden tussen nummers",
-  "constantmusic.option.seconds": "%s seconden tussen nummers"
+  "constantmusic.option.seconds": "%s seconden tussen nummers",
+  "constantmusic.options.chat.delay": "Chatvertraging: %s seconden",
+  "constantmusic.options.chat.delay_none": "Chatvertraging: geen",
+  "constantmusic.options.music_frequency": "Muziekfrequentie",
+  "constantmusic.options.music_frequency.constant": "constant",
+  "constantmusic.options.music_frequency.default": "Standaard",
+  "constantmusic.options.music_frequency.frequent": "frequent",
+  "constantmusic.options.music_frequency.tooltip": "Bepaalt hoe vaak muziek speelt wanneer je in een wereld bent.",
+  "constantmusic.options.music_frequency.fixed": "Vertraging"
 }

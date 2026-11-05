@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Postavite vremensku odgodu između pjesama.",
   "constantmusic.option": "Kašnjenje glazbe",
   "constantmusic.option.minutes_and_seconds": "%s minuta %s sekundi između pjesama",
-  "constantmusic.option.seconds": "%s sekundi između pjesama"
+  "constantmusic.option.seconds": "%s sekundi između pjesama",
+  "constantmusic.options.music_frequency": "Učestalost glazbe",
+  "constantmusic.options.music_frequency.constant": "Neprekidna",
+  "constantmusic.options.music_frequency.default": "Uobičajena",
+  "constantmusic.options.music_frequency.frequent": "Česta",
+  "constantmusic.options.music_frequency.tooltip": "Određuje koliko često glazba svira za vrijeme igranja u svijetu.",
+  "constantmusic.options.music_frequency.fixed": "Kašnjenje"
 }

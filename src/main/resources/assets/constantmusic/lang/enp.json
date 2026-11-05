@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Unbroken Music Settings",
   "constantmusic.option.timer": "Set the time lag between songs.",
-  "constantmusic.option": "Music Stall",
+  "constantmusic.option": "Music Bide",
   "constantmusic.option.minutes_and_seconds": "%s minutes %s seconds between songs",
-  "constantmusic.option.seconds": "%s seconds between songs"
+  "constantmusic.option.seconds": "%s seconds between songs",
+  "constantmusic.options.music_frequency": "Soon Oftenness",
+  "constantmusic.options.music_frequency.constant": "Unyielding",
+  "constantmusic.options.music_frequency.default": "Stock",
+  "constantmusic.options.music_frequency.frequent": "Often",
+  "constantmusic.options.music_frequency.tooltip": "Wends how often soon plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "Bide"
 }

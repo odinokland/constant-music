@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Ezarri abestien arteko denbora atzerapena.",
   "constantmusic.option": "Musika Atzerapena",
   "constantmusic.option.minutes_and_seconds": "%s minutu %s segundo abestien artean",
-  "constantmusic.option.seconds": "Abestien artean %s segundo"
+  "constantmusic.option.seconds": "Abestien artean %s segundo",
+  "constantmusic.options.music_frequency": "Frekuenzia musikala",
+  "constantmusic.options.music_frequency.constant": "Etengabe",
+  "constantmusic.options.music_frequency.default": "Lehenetsia",
+  "constantmusic.options.music_frequency.frequent": "Maiz",
+  "constantmusic.options.music_frequency.tooltip": "Joko mundu batean musika zein maiztasunarekin jotzen den aldatzen du.",
+  "constantmusic.options.music_frequency.fixed": "Atzerapena"
 }

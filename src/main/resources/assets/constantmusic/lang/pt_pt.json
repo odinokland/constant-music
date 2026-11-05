@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Defina o tempo de atraso entre as músicas.",
   "constantmusic.option": "Atraso da música",
   "constantmusic.option.minutes_and_seconds": "%s minutos %s segundos entre as músicas",
-  "constantmusic.option.seconds": "%s segundos entre as músicas"
+  "constantmusic.option.seconds": "%s segundos entre as músicas",
+  "constantmusic.options.music_frequency": "Frequência de músicas",
+  "constantmusic.options.music_frequency.constant": "Constante",
+  "constantmusic.options.music_frequency.default": "Predefinido",
+  "constantmusic.options.music_frequency.frequent": "Frequente",
+  "constantmusic.options.music_frequency.tooltip": "Altera com que frequência as músicas são tocadas num mundo.",
+  "constantmusic.options.music_frequency.fixed": "Atraso"
 }

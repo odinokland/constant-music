@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Estableix el temps de retard entre cançons.",
   "constantmusic.option": "Retard de música",
   "constantmusic.option.minutes_and_seconds": "%s minuts %s segons entre cançons",
-  "constantmusic.option.seconds": "%s segons entre cançons"
+  "constantmusic.option.seconds": "%s segons entre cançons",
+  "constantmusic.options.music_frequency": "Freqüència de la música",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Per defecte",
+  "constantmusic.options.music_frequency.tooltip": "Canvia la freqüència amb què sona la música mentre es juga en un món.",
+  "constantmusic.options.music_frequency.fixed": "Retard",
+  "constantmusic.options.music_frequency.frequent": "Frequent"
 }

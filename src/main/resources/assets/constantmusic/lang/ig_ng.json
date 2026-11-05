@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Tọọ oge igbu oge n'etiti egwu.",
   "constantmusic.option": "Egwu egbu oge",
   "constantmusic.option.minutes_and_seconds": "%s nkeji %s sekọnd n'etiti egwu",
-  "constantmusic.option.seconds": "%s sekọnd n'etiti egwu"
+  "constantmusic.option.seconds": "%s sekọnd n'etiti egwu",
+  "constantmusic.options.music_frequency": "Ugboro Egwu",
+  "constantmusic.options.music_frequency.constant": "Mgbe Niile",
+  "constantmusic.options.music_frequency.default": "Ndabara",
+  "constantmusic.options.music_frequency.frequent": "Ugboro Ugboro",
+  "constantmusic.options.music_frequency.tooltip": "Na-agbanwe ugboro ole egwu na-aga n’ihu mgbe n’ụwa egwuregwu.",
+  "constantmusic.options.music_frequency.fixed": "Oge"
 }

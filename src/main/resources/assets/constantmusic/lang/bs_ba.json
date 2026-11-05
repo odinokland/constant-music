@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Kontinuirana podešavanja muzike",
   "constantmusic.option.timer": "Podesite vremensko odlaganje između pesama.",
-  "constantmusic.option": "Music Delay",
+  "constantmusic.option": "Kašnjenje  Muzike",
   "constantmusic.option.minutes_and_seconds": "%s minuta %s sekundi između pjesama",
-  "constantmusic.option.seconds": "%s sekundi između pjesama"
+  "constantmusic.option.seconds": "%s sekundi između pjesama",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "Kašnjenje"
 }

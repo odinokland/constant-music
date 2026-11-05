@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Trochrinnende muzykynstellingen",
   "constantmusic.option.timer": "Stel de tiidfertraging tusken ferskes yn.",
-  "constantmusic.option": "Muzyk Delay",
+  "constantmusic.option": "MuzykFertraging",
   "constantmusic.option.minutes_and_seconds": "%s minuten %s sekonden tusken ferskes",
-  "constantmusic.option.seconds": "%s sekonden tusken ferskes"
+  "constantmusic.option.seconds": "%s sekonden tusken ferskes",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Standert",
+  "constantmusic.options.music_frequency.frequent": "Faak",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "Fertraging"
 }

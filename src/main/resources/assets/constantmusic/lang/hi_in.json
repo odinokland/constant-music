@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "गानों के बीच विलंब समय निर्धारित करें.",
   "constantmusic.option": "संगीत विलंब",
   "constantmusic.option.minutes_and_seconds": "गानों के बीच %s मिनट %s सेकंड",
-  "constantmusic.option.seconds": "गानों के बीच %s सेकंड"
+  "constantmusic.option.seconds": "गानों के बीच %s सेकंड",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "विलंब"
 }

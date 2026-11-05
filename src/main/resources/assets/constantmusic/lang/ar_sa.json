@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "ضبط فترة التأخير بين الأغاني.",
   "constantmusic.option": "تأخير الموسيقى",
   "constantmusic.option.minutes_and_seconds": "%s دقيقة %s ثانية بين الأغاني",
-  "constantmusic.option.seconds": "%s ثانية بين الأغاني"
+  "constantmusic.option.seconds": "%s ثانية بين الأغاني",
+  "constantmusic.options.music_frequency": "تكرار الموسيقى",
+  "constantmusic.options.music_frequency.constant": "دائم",
+  "constantmusic.options.music_frequency.default": "افتراضي",
+  "constantmusic.options.music_frequency.frequent": "متكرر",
+  "constantmusic.options.music_frequency.tooltip": "يغير عدد مرات تشغيل الموسيقى داخل عالم اللعبة.",
+  "constantmusic.options.music_frequency.fixed": "تأخير"
 }

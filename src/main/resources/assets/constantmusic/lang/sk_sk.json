@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Nastavte časové oneskorenie medzi skladbami.",
   "constantmusic.option": "Oneskorenie hudby",
   "constantmusic.option.minutes_and_seconds": "%s minút %s sekúnd medzi skladbami",
-  "constantmusic.option.seconds": "%s sekúnd medzi skladbami"
+  "constantmusic.option.seconds": "%s sekúnd medzi skladbami",
+  "constantmusic.options.music_frequency": "Prehrávanie hudby",
+  "constantmusic.options.music_frequency.constant": "Stále",
+  "constantmusic.options.music_frequency.default": "Štandardné",
+  "constantmusic.options.music_frequency.frequent": "Časté",
+  "constantmusic.options.music_frequency.tooltip": "Určuje, ako často bude hrať hudba v hernom svete.",
+  "constantmusic.options.music_frequency.fixed": "Oneskorenie"
 }

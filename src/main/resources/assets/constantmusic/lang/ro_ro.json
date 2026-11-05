@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Setați intervalul de timp dintre melodii.",
   "constantmusic.option": "Întârziere muzică",
   "constantmusic.option.minutes_and_seconds": "%s minute %s secunde între melodii",
-  "constantmusic.option.seconds": "%s secunde între melodii"
+  "constantmusic.option.seconds": "%s secunde între melodii",
+  "constantmusic.options.music_frequency": "Frecvența muzicii",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Implicit",
+  "constantmusic.options.music_frequency.frequent": "Frecvent",
+  "constantmusic.options.music_frequency.tooltip": "Modifică frecvența cu care se redă muzica într-o lume de joc.",
+  "constantmusic.options.music_frequency.fixed": "Întârziere"
 }

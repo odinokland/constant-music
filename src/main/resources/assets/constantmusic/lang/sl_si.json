@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Nastavite časovni zamik med pesmimi.",
   "constantmusic.option": "Zakasnitev glasbe",
   "constantmusic.option.minutes_and_seconds": "%s minut %s sekund med pesmimi",
-  "constantmusic.option.seconds": "%s sekund med skladbami"
+  "constantmusic.option.seconds": "%s sekund med skladbami",
+  "constantmusic.options.music_frequency": "Frekvenca zvoka",
+  "constantmusic.options.music_frequency.constant": "Konstantno",
+  "constantmusic.options.music_frequency.default": "Privzeto",
+  "constantmusic.options.music_frequency.frequent": "Pogosto",
+  "constantmusic.options.music_frequency.tooltip": "Spremeni se kako pogosto se predvaja glasba v svetu.",
+  "constantmusic.options.music_frequency.fixed": "Zadržan"
 }

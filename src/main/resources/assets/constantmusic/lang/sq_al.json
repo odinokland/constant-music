@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Vendosni vonesën kohore midis këngëve.",
   "constantmusic.option": "Vonesa e muzikës",
   "constantmusic.option.minutes_and_seconds": "%s minuta %s sekonda ndërmjet këngëve",
-  "constantmusic.option.seconds": "%s sekonda ndërmjet këngëve"
+  "constantmusic.option.seconds": "%s sekonda ndërmjet këngëve",
+  "constantmusic.options.music_frequency": "Frekuenca e muzikës",
+  "constantmusic.options.music_frequency.constant": "E vazhdueshme",
+  "constantmusic.options.music_frequency.default": "E parazgjedhur",
+  "constantmusic.options.music_frequency.frequent": "E shpeshtë",
+  "constantmusic.options.music_frequency.tooltip": "Ndryshon shpeshtësinë e lurjes së muzikës në një botë.",
+  "constantmusic.options.music_frequency.fixed": "Vonesa"
 }

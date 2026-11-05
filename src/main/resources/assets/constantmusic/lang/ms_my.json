@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Tetapkan kelewatan masa antara lagu.",
   "constantmusic.option": "Kelewatan Muzik",
   "constantmusic.option.minutes_and_seconds": "%s minit %s saat antara lagu",
-  "constantmusic.option.seconds": "%s saat antara lagu"
+  "constantmusic.option.seconds": "%s saat antara lagu",
+  "constantmusic.options.music_frequency": "Kekerapan Muzik",
+  "constantmusic.options.music_frequency.constant": "Berterusan",
+  "constantmusic.options.music_frequency.default": "Jarang",
+  "constantmusic.options.music_frequency.frequent": "Kerap",
+  "constantmusic.options.music_frequency.tooltip": "Mengubah seberapa kerap muzik dimainkan semasa berada di dalam dunia permainan.",
+  "constantmusic.options.music_frequency.fixed": "Kelewatan"
 }

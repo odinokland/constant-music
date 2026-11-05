@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Әндер арасындағы уақыт кешігуін орнатыңыз.",
   "constantmusic.option": "Музыкалық кешігу",
   "constantmusic.option.minutes_and_seconds": "Әндер арасындағы %s минут %s секунд",
-  "constantmusic.option.seconds": "Әндер арасындағы %s секунд"
+  "constantmusic.option.seconds": "Әндер арасындағы %s секунд",
+  "constantmusic.options.music_frequency": "Әуен жиілігі",
+  "constantmusic.options.music_frequency.constant": "Тұрақты мән",
+  "constantmusic.options.music_frequency.default": "Әдепкі",
+  "constantmusic.options.music_frequency.frequent": "Жиі",
+  "constantmusic.options.music_frequency.tooltip": "Әлемдегі әуен жиілігін өзгертеді.",
+  "constantmusic.options.music_frequency.fixed": "кідірісі"
 }

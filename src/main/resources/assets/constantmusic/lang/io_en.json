@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Continuous Music Settings",
   "constantmusic.option.timer": "Set the time delay between songs.",
-  "constantmusic.option": "Music Delay",
+  "constantmusic.option": "Muzika Prokrasto",
   "constantmusic.option.minutes_and_seconds": "%s minutes %s seconds between songs",
-  "constantmusic.option.seconds": "%s seconds between songs"
+  "constantmusic.option.seconds": "%s seconds between songs",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Originala\n",
+  "constantmusic.options.music_frequency.frequent": "Frequa",
+  "constantmusic.options.music_frequency.tooltip": "Chanjez la frequa de muziko en la mondo",
+  "constantmusic.options.music_frequency.fixed": "Prokrasto"
 }

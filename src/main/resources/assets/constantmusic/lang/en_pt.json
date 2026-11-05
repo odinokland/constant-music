@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Set th' time delay between th' shanties.",
   "constantmusic.option": "Shanty Delay",
   "constantmusic.option.minutes_and_seconds": "%s min. %s sec. between th' tunes",
-  "constantmusic.option.seconds": "%s seconds between th' tunes"
+  "constantmusic.option.seconds": "%s seconds between th' tunes",
+  "constantmusic.options.music_frequency": "Shanty frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Standard",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently yer crew plays shanties while sailin'.",
+  "constantmusic.options.music_frequency.fixed": "Delay"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "שטעלן די צייט פאַרהאַלטן צווישן לידער.",
   "constantmusic.option": "מוזיק פאַרהאַלטן",
   "constantmusic.option.minutes_and_seconds": "%s מינוט %s סעקונדעס צווישן לידער",
-  "constantmusic.option.seconds": "%s סעקונדעס צווישן לידער"
+  "constantmusic.option.seconds": "%s סעקונדעס צווישן לידער",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "פאַרהאַלטן"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "設定歌曲之間的時間延遲。",
   "constantmusic.option": "音樂延遲",
   "constantmusic.option.minutes_and_seconds": "歌曲之間 %s 分鐘 %s 秒",
-  "constantmusic.option.seconds": "歌曲之間 %s 秒"
+  "constantmusic.option.seconds": "歌曲之間 %s 秒",
+  "constantmusic.options.music_frequency": "音樂頻率",
+  "constantmusic.options.music_frequency.constant": "持續",
+  "constantmusic.options.music_frequency.default": "預設",
+  "constantmusic.options.music_frequency.frequent": "頻繁",
+  "constantmusic.options.music_frequency.tooltip": "調整遊戲世界中音樂播放的頻率。",
+  "constantmusic.options.music_frequency.fixed": "延遲"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "曲間の遅延時間を設定します。",
   "constantmusic.option": "音楽の遅延",
   "constantmusic.option.minutes_and_seconds": "曲間の間隔は %s 分 %s 秒",
-  "constantmusic.option.seconds": "曲間の間隔は %s 秒"
+  "constantmusic.option.seconds": "曲間の間隔は %s 秒",
+  "constantmusic.options.music_frequency": "BGMの頻度",
+  "constantmusic.options.music_frequency.constant": "常時",
+  "constantmusic.options.music_frequency.default": "デフォルト",
+  "constantmusic.options.music_frequency.frequent": "頻繁",
+  "constantmusic.options.music_frequency.tooltip": "ゲームワールド内でBGMが再生される頻度を変更します。",
+  "constantmusic.options.music_frequency.fixed": "遅延間隔"
 }

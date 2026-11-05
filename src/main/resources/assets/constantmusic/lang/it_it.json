@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Imposta il ritardo tra i brani.",
   "constantmusic.option": "Ritardo Musicale",
   "constantmusic.option.minutes_and_seconds": "%s minuti %s secondi tra le canzoni",
-  "constantmusic.option.seconds": "%s secondi tra le canzoni"
+  "constantmusic.option.seconds": "%s secondi tra le canzoni",
+  "constantmusic.options.music_frequency": "Musica",
+  "constantmusic.options.music_frequency.constant": "Costantemente",
+  "constantmusic.options.music_frequency.default": "Occasionalmente",
+  "constantmusic.options.music_frequency.frequent": "Frequentemente",
+  "constantmusic.options.music_frequency.tooltip": "Modifica la frequenza di riproduzione della musica nel mondo di gioco.",
+  "constantmusic.options.music_frequency.fixed": "Ritardo"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Iestatiet laika aizkavi starp dziesmām.",
   "constantmusic.option": "Mūzikas aizkave",
   "constantmusic.option.minutes_and_seconds": "%s minūtes %s sekundes starp dziesmām",
-  "constantmusic.option.seconds": "%s sekundes starp dziesmām"
+  "constantmusic.option.seconds": "%s sekundes starp dziesmām",
+  "constantmusic.options.music_frequency": "Mūzikas Frekvence",
+  "constantmusic.options.music_frequency.constant": "Konstanta",
+  "constantmusic.options.music_frequency.default": "Noklusējums",
+  "constantmusic.options.music_frequency.frequent": "Bieža",
+  "constantmusic.options.music_frequency.tooltip": "Maina mūzikas atskaņošanas biežumu spēles pasaulē.",
+  "constantmusic.options.music_frequency.fixed": "Aizkave"
 }

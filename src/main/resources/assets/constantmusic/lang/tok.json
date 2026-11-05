@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Continuous Music Settings",
   "constantmusic.option.timer": "Set the time delay between songs.",
-  "constantmusic.option": "Music Delay",
+  "constantmusic.option": "tenpo awen pi kalama musi",
   "constantmusic.option.minutes_and_seconds": "%s minutes %s seconds between songs",
-  "constantmusic.option.seconds": "%s seconds between songs"
+  "constantmusic.option.seconds": "%s seconds between songs",
+  "constantmusic.options.music_frequency": "kalama sin o lon tenpo pi mute seme",
+  "constantmusic.options.music_frequency.constant": "tenpo ale",
+  "constantmusic.options.music_frequency.default": "nasin pi ante ala",
+  "constantmusic.options.music_frequency.frequent": "tenpo mute",
+  "constantmusic.options.music_frequency.tooltip": "mi ante e mute pi tenpo ni: kalama sin li kama lon.",
+  "constantmusic.options.music_frequency.fixed": "tenpo awen"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Ställ in tidsfördröjningen mellan låtarna.",
   "constantmusic.option": "Musik Fördröjning",
   "constantmusic.option.minutes_and_seconds": "%s minuter %s sekunder mellan låtarna",
-  "constantmusic.option.seconds": "%s sekunder mellan låtarna"
+  "constantmusic.option.seconds": "%s sekunder mellan låtarna",
+  "constantmusic.options.music_frequency": "Musikuppspelning",
+  "constantmusic.options.music_frequency.constant": "Hela tiden",
+  "constantmusic.options.music_frequency.default": "Standard",
+  "constantmusic.options.music_frequency.frequent": "Ofta",
+  "constantmusic.options.music_frequency.tooltip": "Ändrar hur ofta musik spelas i en spelvärld.",
+  "constantmusic.options.music_frequency.fixed": "Fördröjning"
 }

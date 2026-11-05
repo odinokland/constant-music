@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Встановіть часову затримку між піснями.",
   "constantmusic.option": "Затримка музики",
   "constantmusic.option.minutes_and_seconds": "%s хвилин %s секунд між піснями",
-  "constantmusic.option.seconds": "%s секунд між піснями"
+  "constantmusic.option.seconds": "%s секунд між піснями",
+  "constantmusic.options.music_frequency": "Частота музики",
+  "constantmusic.options.music_frequency.constant": "Постійна",
+  "constantmusic.options.music_frequency.default": "Усталена",
+  "constantmusic.options.music_frequency.frequent": "Часта",
+  "constantmusic.options.music_frequency.tooltip": "Змінює, як часто музика відтворюється в ігровому світі.",
+  "constantmusic.options.music_frequency.fixed": "Затримка"
 }

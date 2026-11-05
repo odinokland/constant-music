@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Ρυθμίστε τη χρονική καθυστέρηση μεταξύ των τραγουδιών.",
   "constantmusic.option": "Καθυστέρηση Μουσικής",
   "constantmusic.option.minutes_and_seconds": "%s λεπτά %s δευτερόλεπτα μεταξύ των τραγουδιών",
-  "constantmusic.option.seconds": "%s δευτερόλεπτα μεταξύ των τραγουδιών"
+  "constantmusic.option.seconds": "%s δευτερόλεπτα μεταξύ των τραγουδιών",
+  "constantmusic.options.music_frequency": "Συχνότητα Μουσικής",
+  "constantmusic.options.music_frequency.constant": "Σταθερή",
+  "constantmusic.options.music_frequency.default": "Προεπιλεγμένη",
+  "constantmusic.options.music_frequency.frequent": "Συχνή",
+  "constantmusic.options.music_frequency.tooltip": "Αλλάζει πόσο συχνά παίζει μουσική σε έναν κόσμο παιχνιδιού.",
+  "constantmusic.options.music_frequency.fixed": "Καθυστέρηση"
 }

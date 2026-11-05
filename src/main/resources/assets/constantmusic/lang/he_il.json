@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "הגדר את השהיית הזמן בין השירים.",
   "constantmusic.option": "עיכוב מוזיקה",
   "constantmusic.option.minutes_and_seconds": "%s דקות %s שניות בין שירים",
-  "constantmusic.option.seconds": "%s שניות בין שירים"
+  "constantmusic.option.seconds": "%s שניות בין שירים",
+  "constantmusic.options.music_frequency": "תדירות מוזיקה",
+  "constantmusic.options.music_frequency.constant": "תמידית",
+  "constantmusic.options.music_frequency.default": "ברירת מחדל",
+  "constantmusic.options.music_frequency.frequent": "גבוהה",
+  "constantmusic.options.music_frequency.tooltip": "קובע את תדירות ניגון המוזיקה בזמן משחק בעולם.",
+  "constantmusic.options.music_frequency.fixed": "עיכוב"
 }

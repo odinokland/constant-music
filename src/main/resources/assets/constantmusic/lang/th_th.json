@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "ตั้งค่าระยะเวลาหน่วงระหว่างเพลง",
   "constantmusic.option": "ดีเลย์เพลง",
   "constantmusic.option.minutes_and_seconds": "%s นาที %s วินาทีระหว่างเพลง",
-  "constantmusic.option.seconds": "%s วินาทีระหว่างเพลง"
+  "constantmusic.option.seconds": "%s วินาทีระหว่างเพลง",
+  "constantmusic.options.music_frequency": "ความถี่ในการเล่นเพลง",
+  "constantmusic.options.music_frequency.constant": "ต่อเนื่อง",
+  "constantmusic.options.music_frequency.default": "ค่าเริ่มต้น",
+  "constantmusic.options.music_frequency.frequent": "บ่อยครั้ง",
+  "constantmusic.options.music_frequency.tooltip": "เปลี่ยนว่าจะให้เพลงเล่นบ่อยแค่ไหนขณะที่อยู่ในโลกเกม",
+  "constantmusic.options.music_frequency.fixed": "ล่าช้า"
 }

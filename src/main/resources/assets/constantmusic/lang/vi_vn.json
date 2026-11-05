@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Thiết lập thời gian trễ giữa các bài hát.",
   "constantmusic.option": "Độ trễ âm nhạc",
   "constantmusic.option.minutes_and_seconds": "%s phút %s giây giữa các bài hát",
-  "constantmusic.option.seconds": "%s giây giữa các bài hát"
+  "constantmusic.option.seconds": "%s giây giữa các bài hát",
+  "constantmusic.options.music_frequency": "Tần suất âm nhạc",
+  "constantmusic.options.music_frequency.constant": "Liên tục",
+  "constantmusic.options.music_frequency.default": "Mặc định",
+  "constantmusic.options.music_frequency.frequent": "Th.xuyên",
+  "constantmusic.options.music_frequency.tooltip": "Thay đổi tần suất phát nhạc khi ở trong một thế giới.",
+  "constantmusic.options.music_frequency.fixed": "Độ trễ"
 }

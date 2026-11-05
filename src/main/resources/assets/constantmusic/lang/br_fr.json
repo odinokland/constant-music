@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Lakaat an dale amzer etre ar c'hanaouennoù.",
   "constantmusic.option": "Dale sonerezh",
   "constantmusic.option.minutes_and_seconds": "%s munutenn %s eilenn etre kanaouennoù",
-  "constantmusic.option.seconds": "%s eilenn etre kanaouennoù"
+  "constantmusic.option.seconds": "%s eilenn etre kanaouennoù",
+  "constantmusic.options.music_frequency": "Aliested ar sonerezh",
+  "constantmusic.options.music_frequency.constant": "Dalc'hmat",
+  "constantmusic.options.music_frequency.default": "Dre ziouer",
+  "constantmusic.options.music_frequency.frequent": "Alies",
+  "constantmusic.options.music_frequency.tooltip": "Cheñch a ra pegen alies e vez klevet sonerezh er c'hoari.",
+  "constantmusic.options.music_frequency.fixed": "Dale"
 }

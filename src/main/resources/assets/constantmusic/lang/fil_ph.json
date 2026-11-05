@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Itakda ang pagkaantala ng oras sa pagitan ng mga kanta.",
   "constantmusic.option": "Pagkaantala ng Musika",
   "constantmusic.option.minutes_and_seconds": "%s minuto %s segundo sa pagitan ng mga kanta",
-  "constantmusic.option.seconds": "%s segundo sa pagitan ng mga kanta"
+  "constantmusic.option.seconds": "%s segundo sa pagitan ng mga kanta",
+  "constantmusic.options.music_frequency": "Dalas ng Musika",
+  "constantmusic.options.music_frequency.constant": "Tuloy-tuloy",
+  "constantmusic.options.music_frequency.default": "Panimula",
+  "constantmusic.options.music_frequency.frequent": "Madalas",
+  "constantmusic.options.music_frequency.tooltip": "Binabago kung gaanong kadalas tumugtog ang musika habang nasa mundo ng laro.",
+  "constantmusic.options.music_frequency.fixed": "Antala"
 }

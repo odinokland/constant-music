@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Indstil tidsforsinkelsen mellem sange.",
   "constantmusic.option": "Forsinkelse Af Musik",
   "constantmusic.option.minutes_and_seconds": "%s minutter %s sekunder mellem sangene",
-  "constantmusic.option.seconds": "%s sekunder mellem sangene"
+  "constantmusic.option.seconds": "%s sekunder mellem sangene",
+  "constantmusic.options.music_frequency": "Musikhyppighed",
+  "constantmusic.options.music_frequency.constant": "Konstant",
+  "constantmusic.options.music_frequency.default": "Standard",
+  "constantmusic.options.music_frequency.frequent": "Ofte",
+  "constantmusic.options.music_frequency.tooltip": "Ændrer, hvor ofte musik afspilles i en spilverden.",
+  "constantmusic.options.music_frequency.fixed": "Forsinkelse"
 }

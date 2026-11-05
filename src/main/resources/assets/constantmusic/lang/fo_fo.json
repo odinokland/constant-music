@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Set tíðarseinkunina millum sangirnar.",
   "constantmusic.option": "Tónleikur seinking",
   "constantmusic.option.minutes_and_seconds": "%s minuttir %s sekund millum sangir",
-  "constantmusic.option.seconds": "%s sekund millum sangir"
+  "constantmusic.option.seconds": "%s sekund millum sangir",
+  "constantmusic.options.music_frequency": "Tónleikatíðni",
+  "constantmusic.options.music_frequency.constant": "Støðugt",
+  "constantmusic.options.music_frequency.default": "Vanligt",
+  "constantmusic.options.music_frequency.frequent": "Ofta",
+  "constantmusic.options.music_frequency.tooltip": "Broytir, hvussu ofta tónleikur spælir í einum spælheimi.",
+  "constantmusic.options.music_frequency.fixed": "Seinking"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Agordu la tempoprokraston inter kantoj.",
   "constantmusic.option": "Muzika Prokrasto",
   "constantmusic.option.minutes_and_seconds": "%s minutoj %s sekundoj inter kantoj",
-  "constantmusic.option.seconds": "%s sekundoj inter kantoj"
+  "constantmusic.option.seconds": "%s sekundoj inter kantoj",
+  "constantmusic.options.music_frequency": "Ofto de muziko",
+  "constantmusic.options.music_frequency.constant": "Senĉesa",
+  "constantmusic.options.music_frequency.default": "Defaŭlta",
+  "constantmusic.options.music_frequency.frequent": "Ofta",
+  "constantmusic.options.music_frequency.tooltip": "Tio ŝanĝas la ofton de muziko en la mondo.",
+  "constantmusic.options.music_frequency.fixed": "Prokrasto"
 }

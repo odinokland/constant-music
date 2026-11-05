@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Set the time delay between songs.",
   "constantmusic.option": "Music Delay",
   "constantmusic.option.minutes_and_seconds": "%s minutes %s seconds between songs",
-  "constantmusic.option.seconds": "%s seconds between songs"
+  "constantmusic.option.seconds": "%s seconds between songs",
+  "constantmusic.options.music_frequency": "Частота музикы",
+  "constantmusic.options.music_frequency.constant": "Фурт",
+  "constantmusic.options.music_frequency.default": "Стандардно",
+  "constantmusic.options.music_frequency.frequent": "Часто",
+  "constantmusic.options.music_frequency.tooltip": "Становить, як часто пуд час бавкы буде бавити музика.",
+  "constantmusic.options.music_frequency.fixed": "Задержка"
 }

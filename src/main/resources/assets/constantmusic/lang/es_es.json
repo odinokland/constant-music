@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Establezca el retraso de tiempo entre canciones.",
   "constantmusic.option": "Retraso de música",
   "constantmusic.option.minutes_and_seconds": "%s minutos %s segundos entre canciones",
-  "constantmusic.option.seconds": "%s segundos entre canciones"
+  "constantmusic.option.seconds": "%s segundos entre canciones",
+  "constantmusic.options.music_frequency": "Música",
+  "constantmusic.options.music_frequency.constant": "Constante",
+  "constantmusic.options.music_frequency.default": "Por defecto",
+  "constantmusic.options.music_frequency.frequent": "Frecuente",
+  "constantmusic.options.music_frequency.tooltip": "Cambia la frecuencia con la que se reproduce música durante una partida.",
+  "constantmusic.options.music_frequency.fixed": "Ralentizar"
 }

@@ -3,5 +3,14 @@
   "constantmusic.option.timer": "Nustatykite laiko delsą tarp dainų.",
   "constantmusic.option": "Muzikos uždelsimas",
   "constantmusic.option.minutes_and_seconds": "%s minučių %s sekundės tarp dainų",
-  "constantmusic.option.seconds": "%s sekundžių tarp dainų"
+  "constantmusic.option.seconds": "%s sekundžių tarp dainų",
+  "constantmusic.options.chat.delay": "Pokalbio delsa: %s sekundžių",
+  "constantmusic.options.chat.delay_none": "Pokalbio delsa: jokios",
+  "constantmusic.options.music_frequency": "Muzikos dažnumas",
+  "constantmusic.options.music_frequency.constant": "nuolatinis",
+  "constantmusic.options.music_frequency.default": "numatytasis",
+  "constantmusic.options.music_frequency.frequent": "dažnas",
+  "constantmusic.options.music_frequency.tooltip": "Keičia kaip dažnai žaidime skamba muzika.",
+  "constantmusic.options.music_frequency.fixed": "Delsa"
+
 }

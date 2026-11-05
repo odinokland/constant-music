@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Set the time delay between songs.",
   "constantmusic.option": "Music Delay",
   "constantmusic.option.minutes_and_seconds": "%s minutes %s seconds between songs",
-  "constantmusic.option.seconds": "%s seconds between songs"
+  "constantmusic.option.seconds": "%s seconds between songs",
+  "constantmusic.options.music_frequency": "Freqüència de la música",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Per defecte",
+  "constantmusic.options.music_frequency.frequent": "Freqüent",
+  "constantmusic.options.music_frequency.tooltip": "Canvia la freqüència amb què sona la música mentre es juga en un món.",
+  "constantmusic.options.music_frequency.fixed": "Retard"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "muSHa'ghach chu' 'op",
   "constantmusic.option": "Qom",
   "constantmusic.option.minutes_and_seconds": "%s tup %s bom",
-  "constantmusic.option.seconds": "%s bom"
+  "constantmusic.option.seconds": "%s bom",
+  "constantmusic.options.music_frequency": "QoQ SubmaH",
+  "constantmusic.options.music_frequency.constant": "reH much",
+  "constantmusic.options.music_frequency.default": "motlh",
+  "constantmusic.options.music_frequency.frequent": "pIj much",
+  "constantmusic.options.music_frequency.tooltip": "Quj QoQ wanI' SubmaH choH.",
+  "constantmusic.options.music_frequency.fixed": "mIm"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Gosodwch yr oedi rhwng caneuon.",
   "constantmusic.option": "Oedi Cerdd",
   "constantmusic.option.minutes_and_seconds": "%s munud %s eiliad rhwng caneuon",
-  "constantmusic.option.seconds": "%s eiliad rhwng caneuon"
+  "constantmusic.option.seconds": "%s eiliad rhwng caneuon",
+  "constantmusic.options.music_frequency": "Amlder Cerddoriaeth",
+  "constantmusic.options.music_frequency.constant": "Cyson",
+  "constantmusic.options.music_frequency.default": "Diofyn",
+  "constantmusic.options.music_frequency.frequent": "Aml",
+  "constantmusic.options.music_frequency.tooltip": "Yn newid pa mor aml mae'r gerddoriaeth yn chwarae tra mewn byd gêm.",
+  "constantmusic.options.music_frequency.fixed": "Oedi"
 }

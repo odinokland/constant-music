@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "تأخیر زمانی بین آهنگ ها را تنظیم کنید.",
   "constantmusic.option": "تاخیر موسیقی",
   "constantmusic.option.minutes_and_seconds": "%s دقیقه %s ثانیه بین آهنگ ها",
-  "constantmusic.option.seconds": "%s ثانیه بین آهنگ ها"
+  "constantmusic.option.seconds": "%s ثانیه بین آهنگ ها",
+  "constantmusic.options.music_frequency": "تکرر موسيقی",
+  "constantmusic.options.music_frequency.constant": "مداوم",
+  "constantmusic.options.music_frequency.default": "پيشفرض",
+  "constantmusic.options.music_frequency.frequent": "مکرر",
+  "constantmusic.options.music_frequency.tooltip": "تناوب پخش موسيقی را در دنيای بازی تغيير میدهد.",
+  "constantmusic.options.music_frequency.fixed": "تاخیر"
 }

@@ -1,7 +1,13 @@
 {
   "constantmusic.title": "Даими музыка көйләнмәләре",
   "constantmusic.option.timer": "Songsырлар арасында вакытны тоткарлагыз.",
-  "constantmusic.option": "Музыка тоткарлануы",
+  "constantmusic.option": "Музыка тоткарлагычы",
   "constantmusic.option.minutes_and_seconds": "Треклар арасында %s минут %s секунд",
-  "constantmusic.option.seconds": "Треклар арасында %s секунд"
+  "constantmusic.option.seconds": "Треклар арасында %s секунд",
+  "constantmusic.options.music_frequency": "Моң ешлыгы",
+  "constantmusic.options.music_frequency.constant": "Даими",
+  "constantmusic.options.music_frequency.default": "Беренчел",
+  "constantmusic.options.music_frequency.frequent": "Еш",
+  "constantmusic.options.music_frequency.tooltip": "Уен дөньясында моң уйнау ешлыгын үзгәртә.",
+  "constantmusic.options.music_frequency.fixed": "тоткарлагычы"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Määrake lugude vaheline viivitus.",
   "constantmusic.option": "Muusika viivitus",
   "constantmusic.option.minutes_and_seconds": "%s minutit %s sekundit lugude vahel",
-  "constantmusic.option.seconds": "%s sekundit lugude vahel"
+  "constantmusic.option.seconds": "%s sekundit lugude vahel",
+  "constantmusic.options.music_frequency": "Muusika sagedus",
+  "constantmusic.options.music_frequency.constant": "pidev",
+  "constantmusic.options.music_frequency.default": "vaikimisi",
+  "constantmusic.options.music_frequency.frequent": "tihe",
+  "constantmusic.options.music_frequency.tooltip": "Määrab, kui tihti mängumaailmas olles muusikat esitatakse.",
+  "constantmusic.options.music_frequency.fixed": "Viide"
 }

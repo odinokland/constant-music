@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Ustaw opóźnienie czasowe między utworami.",
   "constantmusic.option": "Opóźnienie muzyki",
   "constantmusic.option.minutes_and_seconds": "%s minut %s sekund między utworami",
-  "constantmusic.option.seconds": "%s sekund między utworami"
+  "constantmusic.option.seconds": "%s sekund między utworami",
+  "constantmusic.options.music_frequency": "Częstość muzyki",
+  "constantmusic.options.music_frequency.constant": "Stała",
+  "constantmusic.options.music_frequency.default": "Domyślna",
+  "constantmusic.options.music_frequency.frequent": "Wysoka",
+  "constantmusic.options.music_frequency.tooltip": "Zmienia częstotliwość odtwarzania muzyki w świecie gry.",
+  "constantmusic.options.music_frequency.fixed": "Opóźnienie"
 }

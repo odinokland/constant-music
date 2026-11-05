@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "设置音乐之间的间隔时间。",
   "constantmusic.option": "音乐间隔",
   "constantmusic.option.minutes_and_seconds": "歌曲间间隔 %s 分钟 %s 秒 播放",
-  "constantmusic.option.seconds": "歌曲间间隔 %s 秒播放"
+  "constantmusic.option.seconds": "歌曲间间隔 %s 秒播放",
+  "constantmusic.options.music_frequency": "音乐播放频率",
+  "constantmusic.options.music_frequency.constant": "持续",
+  "constantmusic.options.music_frequency.default": "默认",
+  "constantmusic.options.music_frequency.frequent": "频繁",
+  "constantmusic.options.music_frequency.tooltip": "调整游戏世界中音乐播放的频率。",
+  "constantmusic.options.music_frequency.fixed": "延迟"
 }

@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Задайте забавяне между песните.",
   "constantmusic.option": "Забавяне на музиката",
   "constantmusic.option.minutes_and_seconds": "%s минути %s секунди между песните",
-  "constantmusic.option.seconds": "%s секунди между песните"
+  "constantmusic.option.seconds": "%s секунди между песните",
+  "constantmusic.options.music_frequency": "Честота на музиката",
+  "constantmusic.options.music_frequency.constant": "Постоянно",
+  "constantmusic.options.music_frequency.default": "По подразбиране",
+  "constantmusic.options.music_frequency.frequent": "Често",
+  "constantmusic.options.music_frequency.tooltip": "Променя честотата на възпроизвеждане на музика, докато сте в игровия свят.",
+  "constantmusic.options.music_frequency.fixed": "Закъснение"
 }

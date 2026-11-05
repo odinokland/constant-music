@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "பாடல்களுக்கு இடையில் நேர தாமதத்தை அமைக்கவும்.",
   "constantmusic.option": "இசை தாமதம்",
   "constantmusic.option.minutes_and_seconds": "பாடல்களுக்கு இடையே %s நிமிடங்கள் %s வினாடிகள்",
-  "constantmusic.option.seconds": "பாடல்களுக்கு இடையே %s வினாடிகள்"
+  "constantmusic.option.seconds": "பாடல்களுக்கு இடையே %s வினாடிகள்",
+  "constantmusic.options.music_frequency": "Music Frequency",
+  "constantmusic.options.music_frequency.constant": "Constant",
+  "constantmusic.options.music_frequency.default": "Default",
+  "constantmusic.options.music_frequency.frequent": "Frequent",
+  "constantmusic.options.music_frequency.tooltip": "Changes how frequently music plays while in a game world.",
+  "constantmusic.options.music_frequency.fixed": "தாமதம்"
 }

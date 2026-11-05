@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "노래 사이의 시간 지연을 설정합니다.",
   "constantmusic.option": "음악 지연",
   "constantmusic.option.minutes_and_seconds": "노래 사이 간격 %s 분 %s 초",
-  "constantmusic.option.seconds": "노래 사이 간격 %s 초"
+  "constantmusic.option.seconds": "노래 사이 간격 %s 초",
+  "constantmusic.options.music_frequency": "음악 빈도",
+  "constantmusic.options.music_frequency.constant": "항상",
+  "constantmusic.options.music_frequency.default": "기본",
+  "constantmusic.options.music_frequency.frequent": "자주",
+  "constantmusic.options.music_frequency.tooltip": "게임 세계 안에서 음악이 재생되는 빈도를 바꿉니다.",
+  "constantmusic.options.music_frequency.fixed": "지연"
 }

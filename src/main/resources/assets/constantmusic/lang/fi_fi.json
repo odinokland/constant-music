@@ -3,5 +3,11 @@
   "constantmusic.option.timer": "Aseta viive kappaleiden välillä.",
   "constantmusic.option": "Musiikin Viive",
   "constantmusic.option.minutes_and_seconds": "%s minuuttia %s sekuntia kappaleiden välillä",
-  "constantmusic.option.seconds": "%s sekuntia kappaleiden välillä"
+  "constantmusic.option.seconds": "%s sekuntia kappaleiden välillä",
+  "constantmusic.options.music_frequency": "Musiikin esiintymistiheys",
+  "constantmusic.options.music_frequency.constant": "Jatkuva",
+  "constantmusic.options.music_frequency.default": "Oletus",
+  "constantmusic.options.music_frequency.frequent": "Tiheä",
+  "constantmusic.options.music_frequency.tooltip": "Muuttaa sitä, kuinka usein musiikkia soi pelimaailmassa.",
+  "constantmusic.options.music_frequency.fixed": "Viive"
 }
