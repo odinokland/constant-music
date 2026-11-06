@@ -35,9 +35,10 @@ sourceSets {
 	maybeCreate("gametest")
 }
 
+val neoforgeAccessTransformer = getAccessFile(AccessType.TRANSFORMER)
 neoForge {
 	version = prop("deps.neoforge")
-	accessTransformers.from(getAccessFile(AccessType.TRANSFORMER))
+	accessTransformers.from(neoforgeAccessTransformer)
 	validateAccessTransformers = true
 
 	if (sc.properties.contains("deps.parchment")) parchment {
@@ -97,6 +98,13 @@ repositories {
 
 dependencies {
 	implementation(jarJar(libs.mixinextras.neoforge.get()) as Any)
+}
+
+tasks.named<ProcessResources>("processResources") {
+	from(neoforgeAccessTransformer) {
+		into("META-INF")
+		rename { "accesstransformer.cfg" }
+	}
 }
 
 tasks.named("createMinecraftArtifacts") {

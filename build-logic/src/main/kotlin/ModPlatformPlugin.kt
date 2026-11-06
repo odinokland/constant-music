@@ -264,14 +264,8 @@ abstract class ModPlatformPlugin @Inject constructor() : Plugin<Project> {
 
 			}
 			exclude(ctx.loader.excludedResourcesFor(ctx))
+
 			if (ctx.loader is Loader.ForgeLike) {
-				val accessFileName = ctx.resolvedAccessFile()
-				into("META-INF") {
-					from("src/main/resources/aw") {
-						include(accessFileName)
-					}
-					rename { "accesstransformer.cfg" }
-				}
 				exclude("aw/**")
 				// Forge's ModListScreen reads logoFile as a root resource, so move
 				// the shared icon to the archive root (Fabric keeps the assets path).

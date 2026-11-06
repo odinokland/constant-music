@@ -46,10 +46,11 @@ if (stonecutter.eval(stonecutter.current.version, "<1.21.10")) {
 	}
 }
 
+
+val forgeAccessTransformer = getAccessFile(AccessType.TRANSFORMER)
 minecraft {
 	useDefaultAccessTransformer()
-	logger.lifecycle("AT file: ${getAccessFile(AccessType.TRANSFORMER).toPath()}")
-	accessTransformers = files(getAccessFile(AccessType.TRANSFORMER).toPath())
+	accessTransformers = files(forgeAccessTransformer)
 	if (stonecutter.eval(stonecutter.current.version, "<=1.21.11")) {
 		mappings("official", prop("deps.minecraft"))
 	}
@@ -157,6 +158,13 @@ sourceSets {
 		resources.srcDir(
 			"${rootDir}/versions/datagen/${sc.current.version}/src/main/generated"
 		)
+	}
+}
+
+tasks.named<ProcessResources>("processResources") {
+	from(forgeAccessTransformer) {
+		into("META-INF")
+		rename { "accesstransformer.cfg" }
 	}
 }
 
