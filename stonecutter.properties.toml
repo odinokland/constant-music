@@ -2,7 +2,7 @@
 id = "constantmusic"
 name = "Constant Music"
 group = "com.odinokland"
-version = "1.1.1"
+version = "1.1.2"
 channel_tag = ""
 description = "Control the silence between music."
 authors = ["Odin Okland"]
