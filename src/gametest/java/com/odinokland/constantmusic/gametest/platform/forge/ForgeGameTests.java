@@ -5,7 +5,7 @@ import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
 import com.odinokland.constantmusic.gametest.GametestConstants;
 import net.minecraft.gametest.framework.GameTestHelper;
 import net.minecraftforge.gametest.GameTestHolder;
-//? if < 1.20.1 {
+//? if <= 1.20.1 {
 import net.minecraftforge.gametest.PrefixGameTestTemplate;
 //? } else {
 //import net.minecraftforge.gametest.GameTestDontPrefix;
@@ -16,7 +16,7 @@ import net.minecraft.gametest.framework.GameTest;
 //import net.minecraftforge.gametest.GameTest;
 //?}
 
-//? <1.20.1 {
+//? <=1.20.1 {
 @PrefixGameTestTemplate(false)
 //?} else if >=1.21.5 {
 //@GameTestDontPrefix

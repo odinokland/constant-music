@@ -70,8 +70,10 @@ public class ConfigScreen extends Screen {
 			int mouseY,
 			float partialTick
 	) {
-		//? if <= 1.20.1 {
+		//? if < 1.19.4 {
 		renderBackground(guiGraphics);
+		//? } else if <= 1.20.2 {
+		//renderDirtBackground(guiGraphics);
 		//? }
 		//? < 26 {
 		drawCenteredString(guiGraphics, font, title, width / 2, height / 2 - 60, 0xFFFFFF);
