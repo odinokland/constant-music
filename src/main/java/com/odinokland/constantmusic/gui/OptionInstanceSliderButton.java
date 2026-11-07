@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.gui;
 
-//? <= 1.19.2 {
+//? >= 1.19.0 && <= 1.19.2 {
 import net.minecraft.client.OptionInstance;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.AbstractOptionSliderButton;

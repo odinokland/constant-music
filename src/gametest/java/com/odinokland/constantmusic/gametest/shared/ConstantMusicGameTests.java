@@ -148,45 +148,45 @@ public class ConstantMusicGameTests {
 		//?}
 	}
 
-	/**
-	 * Assert that a condition is true
-	 *
-	 * @param helper    GameTestHelper
-	 * @param condition Condition to assert
-	 * @param message   Failure message
-	 */
-	static void assertTrue(GameTestHelper helper, boolean condition, String message) {
-
-		//? if >=1.21.5 {
-		/*try {
-			runAssert(helper, MutableComponent.class, condition, message);
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			helper.fail(Component.literal("Failed to run assertTrue"));
-		}
-		*///?} else {
-		try {
-			runAssert(helper, String.class, condition, message);
-		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
-			helper.fail("Failed to run assertTrue");
-		}
-		//?}
-		//"Failed to run assertTrue"
-	}
-
-	/**
-	 * An assertion method that checks if a condition is true
-	 *
-	 * @param helper    Minecraft game test helper
-	 * @param messageType Type of message to assert
-	 * @param condition   Condition to assert
-	 * @param message     Failure message
-	 * @throws NoSuchMethodException When method doesn't exist on the game test helper
-	 * @throws InvocationTargetException When there is an error invoking the method
-	 * @throws IllegalAccessException When there is an error accessing the method
-	 */
-	static void runAssert(GameTestHelper helper, Class<?> messageType, boolean condition, String message) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
-		var assertMessage = (messageType == MutableComponent.class) ? Component.literal(message) : message;
-		var method = GameTestHelper.class.getMethod("assertTrue", boolean.class, messageType);
-		method.invoke(helper, condition, assertMessage);
-	}
+//	/**
+//	 * Assert that a condition is true
+//	 *
+//	 * @param helper    GameTestHelper
+//	 * @param condition Condition to assert
+//	 * @param message   Failure message
+//	 */
+//	static void assertTrue(GameTestHelper helper, boolean condition, String message) {
+//
+//		//? if >=1.21.5 {
+//		/*try {
+//			runAssert(helper, MutableComponent.class, condition, message);
+//		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//			helper.fail(Component.literal("Failed to run assertTrue"));
+//		}
+//		*///?} else {
+//		try {
+//			runAssert(helper, String.class, condition, message);
+//		} catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e) {
+//			helper.fail("Failed to run assertTrue");
+//		}
+//		//?}
+//		//"Failed to run assertTrue"
+//	}
+//
+//	/**
+//	 * An assertion method that checks if a condition is true
+//	 *
+//	 * @param helper    Minecraft game test helper
+//	 * @param messageType Type of message to assert
+//	 * @param condition   Condition to assert
+//	 * @param message     Failure message
+//	 * @throws NoSuchMethodException When method doesn't exist on the game test helper
+//	 * @throws InvocationTargetException When there is an error invoking the method
+//	 * @throws IllegalAccessException When there is an error accessing the method
+//	 */
+//	static void runAssert(GameTestHelper helper, Class<?> messageType, boolean condition, String message) throws NoSuchMethodException, InvocationTargetException, IllegalAccessException {
+//		var assertMessage = (messageType == MutableComponent.class) ? Component.literal(message) : message;
+//		var method = GameTestHelper.class.getMethod("assertTrue", boolean.class, messageType);
+//		method.invoke(helper, condition, assertMessage);
+//	}
 }

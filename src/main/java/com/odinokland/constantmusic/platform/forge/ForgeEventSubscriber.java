@@ -4,12 +4,17 @@ package com.odinokland.constantmusic.platform.forge;
 
 import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
+import com.odinokland.constantmusic.util.DevTools;
 import net.minecraft.client.Minecraft;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.event.TickEvent;
-import net.minecraftforge.event.level.LevelEvent;
+//? >= 1.19.0 {
+import net.minecraftforge.event.level.LevelEvent.Unload;
+//? } else {
+//import net.minecraftforge.event.world.WorldEvent.Unload;
+//? }
 
 /**
  * The type Client handler.
@@ -40,7 +45,7 @@ public class ForgeEventSubscriber {
 	 * @param event the event
 	 */
 	@SubscribeEvent
-	public static void onLevelUnload(LevelEvent.Unload event) {
+	public static void onLevelUnload(Unload event) {
 		JukeboxTrackerUtility.clearJukeboxes();
 	}
 }

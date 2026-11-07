@@ -72,6 +72,7 @@ loom {
 		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric Client")
 		systemProperties.put("fabric-api.gametest", "true")
+		systemProperties.put("constantmusic.logger", "true")
 		sourceSet.set("gametest")
 	}
 	runs.named("server") {
@@ -80,6 +81,7 @@ loom {
 		runDirectory.set(layout.projectDirectory.dir("run/server"))
 		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric Server")
+		systemProperties.put("constantmusic.logger", "true")
 	}
 	runs.register("gameTestServer") {
 		server()
@@ -89,6 +91,7 @@ loom {
 		jvmArguments.addAll(devJvmArgs)
 		displayName.set("Fabric GameTest Server")
 		systemProperties.put("fabric-api.gametest", "true")
+		systemProperties.put("constantmusic.logger", "true")
 		systemProperties.put("fabric-api.gametest.report-file", layout.buildDirectory.file("gametest-report.xml").get().asFile.absolutePath)
 	}
 }

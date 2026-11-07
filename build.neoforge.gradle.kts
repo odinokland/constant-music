@@ -55,6 +55,7 @@ neoForge {
 		configureEach {
 			disableIdeRun()
 			systemProperty("terminal.ansi", "true")
+			systemProperty("constantmusic.logger", "true")
 			jvmArguments.addAll(devJvmArgs)
 		}
 		register("client") {

@@ -12,7 +12,9 @@ import com.odinokland.constantmusic.platform.forge.ForgePlatform;
 //? }
 import com.odinokland.constantmusic.server.ServerProxy;
 import com.odinokland.constantmusic.util.Constants;
+import com.odinokland.constantmusic.util.DevTools;
 import com.odinokland.constantmusic.util.IModProxy;
+import com.odinokland.constantmusic.util.TranslatableComponentHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.components.AbstractWidget;
@@ -45,7 +47,7 @@ public class ConstantMusicManager {
 	 * Default constructor for ConstantMusicManager.
 	 */
 	private ConstantMusicManager() {
-		Constants.LOG.info("Creating ConstantMusicManager");
+		DevTools.LOG.info("Creating ConstantMusicManager");
 	}
 
 
@@ -53,9 +55,7 @@ public class ConstantMusicManager {
 	 * Init.
 	 */
 	public void init() {
-		Constants.LOG.info("Initializing ConfigManager");
-		fileHandler = new ConfigManager(getDefaultConfigFile());
-		fileHandler.load();
+		this.init(getDefaultConfigFile());
 	}
 
 	/**
@@ -64,7 +64,7 @@ public class ConstantMusicManager {
 	 * @param file the file
 	 */
 	public void init(File file) {
-		Constants.LOG.info("Initializing ConstantMusicManager with file: {}", file.getAbsolutePath());
+		DevTools.LOG.setLogEnabled(Boolean.parseBoolean(System.getProperty("constantmusic.logger", "false")));
 		fileHandler = new ConfigManager(file);
 		fileHandler.load();
 	}
@@ -178,9 +178,9 @@ public class ConstantMusicManager {
 		int minutes = seconds / 60;
 		int remainingSeconds = seconds % 60;
 		if (minutes > 0) {
-			return Component.translatable("constantmusic.option.minutes_and_seconds", new Object[]{minutes, remainingSeconds});
+			return TranslatableComponentHelper.translatable("constantmusic.option.minutes_and_seconds", new Object[]{minutes, remainingSeconds});
 		}
-		return Component.translatable("constantmusic.option.seconds", new Object[]{seconds});
+		return TranslatableComponentHelper.translatable("constantmusic.option.seconds", new Object[]{seconds});
 
 	}
 

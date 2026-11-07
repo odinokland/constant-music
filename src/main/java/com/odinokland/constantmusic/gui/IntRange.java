@@ -1,5 +1,6 @@
 package com.odinokland.constantmusic.gui;
 
+//? >= 1.19.0 {
 import com.mojang.serialization.Codec;
 import com.odinokland.constantmusic.core.ConstantMusicManager;
 import net.minecraft.client.OptionInstance;
@@ -97,3 +98,4 @@ public record IntRange(int minInclusive, int maxInclusive, boolean applyValueImm
 		return this.maxInclusive;
 	}
 }
+//? }

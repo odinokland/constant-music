@@ -2,12 +2,20 @@ package com.odinokland.constantmusic.core;
 
 import com.mojang.serialization.Codec;
 import com.odinokland.constantmusic.util.Constants;
-import net.minecraft.network.chat.Component;
+import com.odinokland.constantmusic.util.TranslatableComponentHelper;
 import net.minecraft.sounds.Music;
 import net.minecraft.util.Mth;
-import net.minecraft.util.RandomSource;
 import net.minecraft.util.StringRepresentable;
 import org.jetbrains.annotations.NotNull;
+import net.minecraft.network.chat.Component;
+//? >= 1.19.0 {
+import net.minecraft.util.RandomSource;
+//? } else {
+/*import java.util.Arrays;
+import java.util.Map;
+import java.util.Random;
+import java.util.stream.Collectors;
+*///? }
 
 /**
  * The enum Music frequency.
@@ -33,7 +41,13 @@ public enum MusicFrequency implements StringRepresentable {
 	/**
 	 * The constant CODEC.
 	 */
+	//? >= 1.19.0 {
 	public static final Codec<MusicFrequency> CODEC = StringRepresentable.fromEnum(MusicFrequency::values);
+	//? } else {
+	/*public static final Codec<MusicFrequency> CODEC = StringRepresentable.fromEnum(MusicFrequency::values, MusicFrequency::byName);
+	private static final Map<String, MusicFrequency> BY_NAME = (Map<String, MusicFrequency>) Arrays.stream(values())
+			.collect(Collectors.toMap(MusicFrequency::getSerializedName, musicFrequency -> musicFrequency));
+	*///? }
 	private final String name;
 	private final int maxFrequency;
 	private final Component caption;
@@ -47,7 +61,11 @@ public enum MusicFrequency implements StringRepresentable {
 	MusicFrequency(final String name, final String translationKey, final int maxFrequencyMinutes) {
 		this.name = name;
 		this.maxFrequency = maxFrequencyMinutes * 1200;
+		//? >= 1.19.0 {
 		this.caption = Component.translatable(translationKey);
+		//? } else {
+		//this.caption = TranslatableComponentHelper.translatable(translationKey);
+		//? }
 	}
 
 	private int getMaxFrequency() {
@@ -64,7 +82,7 @@ public enum MusicFrequency implements StringRepresentable {
 	 * @param random the random
 	 * @return the next song delay
 	 */
-	public int getNextSongDelay(final Music music, final RandomSource random) {
+	public int getNextSongDelay(final Music music, final /*? >= 1.19.0 {*/RandomSource/*?} else {*/ /*Random *//*?}*/ random) {
 		int maxAllowed = this.getMaxFrequency();
 		if (music == null) {
 			return maxAllowed;
@@ -89,9 +107,22 @@ public enum MusicFrequency implements StringRepresentable {
 	 *
 	 * @return the component
 	 */
+	//? >= 1.19.0 {
 	public Component caption() {
 		return this.caption;
 	}
+	//? } else {
+	/*public Component caption() { return this.caption; }
+
+	/^*
+	 * Get by name
+	 * @param name name to query
+	 * @return MusicFrequency enum
+	 ^/
+	public static MusicFrequency byName(String name) {
+		return (MusicFrequency)BY_NAME.get(name);
+	}
+	*///? }
 
 	/**
 	 * Gets enum name.

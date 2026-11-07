@@ -66,6 +66,7 @@ sealed class Loader(val id: String) {
 				accessWidener = widenerPath,
 				entrypoints = mapOf(
 					"main" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricEntrypoint"),
+					"client" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricEntrypoint"),
 					"preLaunch" to listOf("com.llamalad7.mixinextras.MixinExtrasBootstrap::init"),
 					"modmenu" to listOf("${ctx.modGroup}.${ctx.modId}.platform.fabric.FabricModMenuIntegration"),
 				),

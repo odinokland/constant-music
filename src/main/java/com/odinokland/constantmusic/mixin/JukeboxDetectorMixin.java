@@ -24,6 +24,9 @@ import net.minecraft.core.Holder;
 import net.minecraft.sounds.SoundEvent;
 //? forge || neoforge {
 import net.minecraft.world.item.RecordItem;
+import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Inject;
+import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 //? }
 //? }
 
@@ -78,6 +81,7 @@ public class JukeboxDetectorMixin {
 		}
 	}
 	*///?} else {
+	//? >= 1.19.0 {
 	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
@@ -89,18 +93,18 @@ public class JukeboxDetectorMixin {
 			JukeboxTrackerUtility.onJukeboxStop(pos);
 		}
 	}
+	//? }
 
-//	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V")
-//	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, @Nullable RecordItem musicDiscItem, Operation<Void> original) {
-//		original.call(soundEvent, pos, musicDiscItem);
-//		if (soundEvent != null) {
-//			if (level != null) {
-//				JukeboxTrackerUtility.onJukeboxPlay(minecraft, pos);
-//			}
-//		} else {
-//			JukeboxTrackerUtility.onJukeboxStop(pos);
-//		}
-//	}
+	@Inject(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;Lnet/minecraft/world/item/RecordItem;)V", at = @At("TAIL"), remap = false)
+	private void onPlayStreamingMusic(SoundEvent soundEvent, BlockPos pos, RecordItem musicDiscItem, CallbackInfo ci) {
+		if (soundEvent != null) {
+			if (level != null) {
+				JukeboxTrackerUtility.onJukeboxPlay(minecraft, pos);
+			}
+		} else {
+			JukeboxTrackerUtility.onJukeboxStop(pos);
+		}
+	}
 	//?}
 	//?}
 }

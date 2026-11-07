@@ -2,10 +2,13 @@ package com.odinokland.constantmusic.gui;
 
 import com.odinokland.constantmusic.core.ConstantMusicManager;
 import com.odinokland.constantmusic.core.MusicFrequency;
-import net.minecraft.client.OptionInstance;
+import com.odinokland.constantmusic.util.TranslatableComponentHelper;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
+//? >= 1.19.0 {
+import net.minecraft.client.OptionInstance;
+//? }
 
 import java.util.Arrays;
 
@@ -59,11 +62,11 @@ public class ButtonGenerator {
 				//.displayOnlyValue()
 				.create(
 						x, y, width, 20,
-						Component.translatable(FREQUENCY_LABEL),
+						TranslatableComponentHelper.translatable(FREQUENCY_LABEL),
 						(button, value) -> ConstantMusicManager.SINGLETON.setFrequency(value)
 				);
 	}
-
+	//? >= 1.19.0 {
 	/**
 	 * Gets a config option.
 	 *
@@ -101,4 +104,5 @@ public class ButtonGenerator {
 				ConstantMusicManager.SINGLETON::setFrequency
 		);
 	}
+	//? }
 }

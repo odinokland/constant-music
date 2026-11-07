@@ -4,10 +4,14 @@ package com.odinokland.constantmusic.platform.forge;
 import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.gui.ConfigScreen;
 import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.client.ConfigScreenHandler;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 //? if < 1.21.1 {
 import net.minecraftforge.fml.ModLoadingContext;
+//? }
+//? if >=1.19.0 {
+import net.minecraftforge.client.ConfigScreenHandler;
+//? } else {
+//import net.minecraftforge.client.ConfigGuiHandler;
 //? }
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -32,7 +36,11 @@ public class ForgeClientEntrypoint {
 	@SubscribeEvent
 	public static void onClientSetup(FMLClientSetupEvent event) {
 		event.enqueueWork(() -> {
-			//? if < 1.21.1 {
+			//? if < 1.19.0 {
+			/*ModLoadingContext.get().registerExtensionPoint(ConfigGuiHandler.ConfigGuiFactory.class,
+					() -> new ConfigGuiHandler.ConfigGuiFactory(
+							(client, parent) -> new ConfigScreen(parent)));
+			*///? } else if < 1.21.1 {
 			// Register the config screen
 			ModLoadingContext.get().registerExtensionPoint(ConfigScreenHandler.ConfigScreenFactory.class,
 					() -> new ConfigScreenHandler.ConfigScreenFactory(

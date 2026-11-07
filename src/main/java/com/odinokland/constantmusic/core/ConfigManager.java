@@ -3,6 +3,7 @@ package com.odinokland.constantmusic.core;
 import com.moandjiezana.toml.Toml;
 import com.moandjiezana.toml.TomlWriter;
 import com.odinokland.constantmusic.util.Constants;
+import com.odinokland.constantmusic.util.DevTools;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,7 +22,7 @@ public class ConfigManager {
 	 * @param file the file
 	 */
 	public ConfigManager(File file) {
-		Constants.LOG.info("Creating ConfigManager with file: {}", file.getAbsolutePath());
+		DevTools.LOG.info("Creating ConfigManager with file: {}", file.getAbsolutePath());
 		this.file = file;
 		this.writer = new TomlWriter();
 		this.data = new ConfigData(); // Default values

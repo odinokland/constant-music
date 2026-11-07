@@ -1,16 +1,19 @@
 package com.odinokland.constantmusic.gui;
 
 import com.odinokland.constantmusic.core.ConstantMusicManager;
-import com.odinokland.constantmusic.util.Constants;
-import com.odinokland.constantmusic.core.MusicFrequency;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.OptionInstance;
+import com.odinokland.constantmusic.util.TranslatableComponentHelper;
 import net.minecraft.client.gui.components.Button;
-import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
-import net.minecraft.network.chat.Component;
 import org.jetbrains.annotations.NotNull;
+//? >= 1.19.0 {
+import com.odinokland.constantmusic.util.Constants;
+import com.odinokland.constantmusic.core.MusicFrequency;
+import net.minecraft.client.gui.components.CycleButton;
+import net.minecraft.network.chat.Component;
+import net.minecraft.client.OptionInstance;
+//? }
 
 import java.util.Arrays;
 import java.util.function.Supplier;
@@ -27,7 +30,7 @@ public class ConfigScreen extends Screen {
 	 * @param parent the parent
 	 */
 	public ConfigScreen(final Screen parent) {
-		super(Component.translatable("constantmusic.title"));
+		super(TranslatableComponentHelper.translatable("constantmusic.title"));
 		this.parent = parent;
 	}
 

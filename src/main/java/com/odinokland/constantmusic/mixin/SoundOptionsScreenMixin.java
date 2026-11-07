@@ -3,7 +3,13 @@ package com.odinokland.constantmusic.mixin;
 import com.odinokland.constantmusic.core.ConstantMusicManager;
 import com.odinokland.constantmusic.gui.ButtonGenerator;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
-//? < 1.19.3 {
+//? < 1.19.0 {
+/*import net.minecraft.client.Option;
+import net.minecraft.client.gui.components.Button;
+import net.minecraft.client.gui.components.VolumeSlider;
+import net.minecraft.network.chat.CommonComponents;
+import net.minecraft.sounds.SoundSource;
+*///? } else if < 1.19.3 {
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.components.AbstractWidget;
 import org.spongepowered.asm.mixin.Unique;
@@ -108,7 +114,7 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 		assert this.list != null;
 		this.list.addSmall(newOptions);
 	}
-	*///?} else {
+	*///?} else if >= 1.19.0 {
 	@Inject(
 			method = "init",
 			at = @At(
@@ -146,7 +152,39 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 		int y = i + 22 * (k >> 1);
 		this.addRenderableWidget(widget.apply(x, y));
 	}
-	//?}
+	//?} else {
+	/*@Override
+	/^? fabric { ^//^public^//^? } else { ^/protected/^? }^/ void init() {
+		int i = this.height / 6 - 12;
+		int j = 22;
+		int k = 0;
+		this.addRenderableWidget(new VolumeSlider(this.minecraft, this.width / 2 - 155 + k % 2 * 160, i + 22 * (k >> 1), SoundSource.MASTER, 310));
+		k += 2;
+
+		for(SoundSource soundsource : SoundSource.values()) {
+			if (soundsource != SoundSource.MASTER) {
+				this.addRenderableWidget(new VolumeSlider(this.minecraft, this.width / 2 - 155 + k % 2 * 160, i + 22 * (k >> 1), soundsource, 150));
+				++k;
+			}
+		}
+
+		if (k % 2 == 1) {
+			++k;
+		}
+		this.addRenderableWidget(ButtonGenerator.musicFrequencyButton(this.width / 2 - 155 + k % 2 * 160,i + 22 * (k >> 1), 150));
+		++k;
+		this.addRenderableWidget(ButtonGenerator.musicDelaySlider(this.width / 2 - 155 + k % 2 * 160,i + 22 * (k >> 1), 150));
+		++k;
+
+		this.addRenderableWidget(Option.AUDIO_DEVICE.createButton(this.options, this.width / 2 - 155, i + 22 * (k >> 1), 310));
+		k += 2;
+		this.addRenderableWidget(Option.SHOW_SUBTITLES.createButton(this.options, this.width / 2 - 75, i + 22 * (k >> 1), 150));
+		k += 2;
+		this.addRenderableWidget(new Button(this.width / 2 - 100, i + 22 * (k >> 1), 200, 20, CommonComponents.GUI_DONE, (p_96713_) -> {
+			this.minecraft.setScreen(this.lastScreen);
+		}));
+	}
+	*///? }
 
 	@Override
 	public void onClose() {

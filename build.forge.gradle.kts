@@ -1,3 +1,5 @@
+import org.gradle.kotlin.dsl.systemProperties
+
 plugins {
 	id("mod-platform")
 	id("net.minecraftforge.gradle")
@@ -63,6 +65,7 @@ minecraft {
 			}
 			workingDir.convention(layout.projectDirectory.dir("run"))
 
+			systemProperty("constantmusic.logger", true)
 			systemProperty("forge.enableGameTest", true)
 			systemProperty("eventbus.api.strictRuntimeChecks", true)
 			systemProperty("forge.enabledGameTestNamespaces", "${prop("mod.id")},${prop("mod.gametest.id")}")
@@ -76,9 +79,13 @@ minecraft {
 				}
 			}
 			jvmArgs.addAll(devJvmArgs)
-//			if (stonecutter.eval(stonecutter.current.version, ">=1.17") && stonecutter.eval(stonecutter.current.version, "<=1.18")) {
-//				jvmArgs("--add-opens=java.base/java.lang.invoke=ALL-UNNAMED")
-//			}
+			if (stonecutter.eval(stonecutter.current.version, ">=1.17") && stonecutter.eval(stonecutter.current.version, "<=1.18")) {
+				jvmArgs("--add-opens=java.base/java.lang.invoke=ALL-UNNAMED")
+			}
+			if (stonecutter.eval(stonecutter.current.version, "<=1.18.2")) {
+				jvmArgs("--add-opens=java.base/java.lang.reflect=ALL-UNNAMED")
+				jvmArgs("--add-exports=cpw.mods.bootstraplauncher/cpw.mods.bootstraplauncher=ALL-UNNAMED")
+			}
 		}
 		register("client") {
 			workingDir.convention(layout.projectDirectory.dir("run/client"))

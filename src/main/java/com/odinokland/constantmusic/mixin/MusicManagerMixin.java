@@ -6,7 +6,6 @@ import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.sounds.MusicManager;
-import net.minecraft.util.RandomSource;
 import org.spongepowered.asm.mixin.Debug;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -20,6 +19,11 @@ import net.minecraft.sounds.Music;
 //? } else {
 //import net.minecraft.client.sounds.MusicInfo;
 //? }
+//? >= 1.19.0 {
+import net.minecraft.util.RandomSource;
+//? } else {
+//import java.util.Random;
+//? }
 
 /**
  * The type Music manager mixin.
@@ -30,8 +34,13 @@ import net.minecraft.sounds.Music;
 public class MusicManagerMixin {
 	@Shadow @Final
 	private Minecraft minecraft;
+	//? >= 1.19.0 {
 	@Shadow @Final
 	private RandomSource random;
+	//? } else {
+	/*@Shadow @Final
+	private Random random;
+	*///? }
 
 	private MusicManagerMixin() {
 	}
