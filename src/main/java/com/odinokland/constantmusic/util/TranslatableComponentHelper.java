@@ -6,7 +6,16 @@ import net.minecraft.network.chat.MutableComponent;
 //import net.minecraft.network.chat.TranslatableComponent;
 //? }
 
+/**
+ * The type Translatable component helper.
+ */
 public class TranslatableComponentHelper {
+	/**
+	 * Translatable mutable component.
+	 *
+	 * @param key the key
+	 * @return the mutable component
+	 */
 	public static MutableComponent translatable(String key) {
 		//? >= 1.19.0 {
 		return Component.translatable(key);
@@ -15,6 +24,13 @@ public class TranslatableComponentHelper {
 		//? }
 	}
 
+	/**
+	 * Translatable mutable component.
+	 *
+	 * @param key    the key
+	 * @param params the params
+	 * @return the mutable component
+	 */
 	public static MutableComponent translatable(String key, Object...params) {
 		//? >= 1.19.0 {
 		return Component.translatable(key, params);
