@@ -2,5 +2,14 @@
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": ["(^|/)gradle\\.properties$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[\\w-]+) depName=(?<depName>[^\\s]+)(?: versioning=(?<versioning>[\\w-]+))?\\s+(?<registryUrl>.*?)\\s*\\w+Version=(?<currentValue>.+)"
+      ]
+    }
   ]
 }
