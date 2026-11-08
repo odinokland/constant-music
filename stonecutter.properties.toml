@@ -51,7 +51,7 @@ deps.minMinecraft = "1.18"
 deps.fabricApi = "0.77.0"
 deps.minFabricApi = "0.43.1+1.18"
 deps.modmenu = "3.0.1"
-deps.fabricGametestApi="1.1.8+4d0d570390"
+deps.fabricGametestApi="1.0.11+d882b915bc"
 publish.additionalVersions = ["1.18", "1.18.1"]
 
 [fabric."1.19.2"]
