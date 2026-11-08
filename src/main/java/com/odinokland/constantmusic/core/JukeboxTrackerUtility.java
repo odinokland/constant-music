@@ -2,6 +2,7 @@ package com.odinokland.constantmusic.core;
 
 import com.odinokland.constantmusic.util.DevTools;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import it.unimi.dsi.fastutil.objects.Object2BooleanMaps;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.client.Minecraft;
 import net.minecraft.core.BlockPos;
@@ -14,9 +15,9 @@ public class JukeboxTrackerUtility {
 	}
 
 	/**
-	 * The constant jukeboxes.
+	 * The constant jukeboxes wrapper.
 	 */
-	public static Object2BooleanOpenHashMap<BlockPos> jukeboxes = new Object2BooleanOpenHashMap<>();
+	public static final Object2BooleanMap<BlockPos> jukeboxes = Object2BooleanMaps.synchronize(new Object2BooleanOpenHashMap<>());
 
 	/**
 	 * The maximum squared distance for jukebox range (64 blocks squared = 4096).
@@ -51,7 +52,9 @@ public class JukeboxTrackerUtility {
 	 * @return the boolean
 	 */
 	public static boolean noJukeboxesInRange() {
-		return jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
+		synchronized (jukeboxes) {
+			return jukeboxes.object2BooleanEntrySet().stream().noneMatch(Object2BooleanMap.Entry::getBooleanValue);
+		}
 	}
 
 	/**
@@ -89,16 +92,19 @@ public class JukeboxTrackerUtility {
 	 */
 	public static void updatePlayerPosition(double playerX, double playerY, double playerZ, Runnable onJukeboxInRange) {
 		boolean hasAnyInRange = false;
-		for (Object2BooleanMap.Entry<BlockPos> jukebox : jukeboxes.object2BooleanEntrySet()) {
-			BlockPos pos = jukebox.getKey();
-			double distSqr = distanceToSqr(playerX, playerY, playerZ, pos.getX(), pos.getY(), pos.getZ());
-			if (distSqr > MAX_DISTANCE_SQR) {
-				jukebox.setValue(false);
-			} else {
-				jukebox.setValue(true);
-				hasAnyInRange = true;
+		synchronized (jukeboxes) {
+			for (Object2BooleanMap.Entry<BlockPos> jukebox : jukeboxes.object2BooleanEntrySet()) {
+				BlockPos pos = jukebox.getKey();
+				double distSqr = distanceToSqr(playerX, playerY, playerZ, pos.getX(), pos.getY(), pos.getZ());
+				if (distSqr > MAX_DISTANCE_SQR) {
+					jukebox.setValue(false);
+				} else {
+					jukebox.setValue(true);
+					hasAnyInRange = true;
+				}
 			}
 		}
+
 		if (hasAnyInRange && onJukeboxInRange != null) {
 			onJukeboxInRange.run();
 		}
