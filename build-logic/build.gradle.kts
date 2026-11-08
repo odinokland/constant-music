@@ -1,5 +1,3 @@
-import java.util.Properties
-
 plugins {
 	`kotlin-dsl`
 	kotlin("plugin.serialization") version embeddedKotlinVersion
@@ -47,18 +45,8 @@ repositories {
 	}
 }
 
-val rootPropertiesFile = layout.projectDirectory.file("../gradle.properties").asFile
-
-val rootProperties = Properties().apply {
-	if (rootPropertiesFile.exists()) {
-		rootPropertiesFile.inputStream().use { load(it) }
-	}
-}
-
-val stonecutterVersion = rootProperties.getProperty("stonecutter.version")
-
 dependencies {
-	implementation("dev.kikugie:stonecutter:${stonecutterVersion}")
+	implementation(libs.kikugie.stonecutter)
 	implementation(libs.kikugie.postprocess)
 	implementation(libs.kikugie.loomx)
 	implementation(libs.mod.publish.plugin)

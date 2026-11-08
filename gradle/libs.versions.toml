@@ -1,4 +1,5 @@
 [versions]
+stonecutter = { prefer = "stonecutter.version"}
 stonecutter-postprocess = "2.1-beta.8"
 mod-publish = "2.2.1"
 loomx = "0.4.3"
@@ -24,6 +25,7 @@ assertj = "3.27.7"
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junit" }
 junit-platform-launcher = { module = "org.junit.platform:junit-platform-launcher", version.ref = "junit-platform" }
 assertj-core = { module = "org.assertj:assertj-core", version.ref = "assertj" }
+kikugie-stonecutter = { module = "dev.kikugie:stonecutter", version.ref = "stonecutter" }
 kikugie-postprocess = { module = "dev.kikugie:postprocess", version.ref = "stonecutter-postprocess" }
 mod-publish-plugin = { module = "me.modmuss50:mod-publish-plugin", version.ref = "mod-publish" }
 kikugie-loomx = { module = "dev.kikugie:loomx", version.ref = "loomx" }
@@ -40,6 +42,7 @@ mixinextras-neoforge = { module = "io.github.llamalad7:mixinextras-neoforge", ve
 forge-renamer-plugin = { group = "net.minecraftforge.renamer", name = "net.minecraftforge.renamer.gradle.plugin", version.ref = "renamer" }
 
 [plugins]
+stonecutter = { id = "dev.kikugie.stonecutter", version.ref = "stonecutter" }
 loom-back-compat = { id = "dev.kikugie.loom-back-compat", version.ref = "loomx" }
 neoforged-moddev = { id = "net.neoforged.moddev", version.ref = "neoforge-moddev" }
 jsonlang-postprocess = { id = "dev.kikugie.postprocess.jsonlang", version.ref = "stonecutter-postprocess" }
