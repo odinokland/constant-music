@@ -44,10 +44,14 @@ pluginManagement {
 	}
 	includeBuild("build-logic")
 
+	val foojayVersion = providers.gradleProperty("foojay.version").get()
+	val stonecutterVersion = providers.gradleProperty("stonecutter.version").get()
+	val loomxVersion = providers.gradleProperty("loomx.version").get()
+
 	plugins {
-		id("org.gradle.toolchains.foojay-resolver-convention") version providers.gradleProperty("foojay.version").get()
-		id("dev.kikugie.stonecutter") version providers.gradleProperty("stonecutter.version").get()
-		id("dev.kikugie.loom-back-compat") version providers.gradleProperty("loomx.version").get()
+		id("org.gradle.toolchains.foojay-resolver-convention") version foojayVersion
+		id("dev.kikugie.stonecutter") version stonecutterVersion
+		id("dev.kikugie.loom-back-compat") version loomxVersion
 	}
 }
 
