@@ -20,9 +20,9 @@ import org.jetbrains.annotations.Nullable;
 /*import net.minecraft.world.item.JukeboxSong;
 import net.minecraft.core.Holder;
 *///?}
-//? < 1.21 {
+//? if < 1.21 {
 import net.minecraft.sounds.SoundEvent;
-//? forge || neoforge {
+//? if forge || neoforge {
 import net.minecraft.world.item.RecordItem;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -36,7 +36,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @Mixin(LevelRenderer.class)
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 public class JukeboxDetectorMixin {
-	//? if >=1.21.2 {
+	//? if >= 1.21.2 {
 	/*//~ level_name
 	@Shadow @Final private ClientLevel level;
 	 *///?} else {
@@ -52,7 +52,7 @@ public class JukeboxDetectorMixin {
 	private JukeboxDetectorMixin() {
 	}
 
-	//? if >=1.21 {
+	//? if >= 1.21 {
 	/*@WrapMethod(method = "playJukeboxSong")
 	private void onJukeboxPlay(Holder<JukeboxSong> song, BlockPos pos, Operation<Void> original) {
 		original.call(song, pos);
@@ -68,7 +68,7 @@ public class JukeboxDetectorMixin {
 	}
 	*///?} else {
 
-	//? fabric {
+	//? if fabric {
 	/*@WrapMethod(method="playStreamingMusic")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);
@@ -81,7 +81,7 @@ public class JukeboxDetectorMixin {
 		}
 	}
 	*///?} else {
-	//? >= 1.19.0 {
+	//? if >= 1.19.0 {
 	@WrapMethod(method = "playStreamingMusic(Lnet/minecraft/sounds/SoundEvent;Lnet/minecraft/core/BlockPos;)V")
 	private void onPlayStreamingMusic(@Nullable SoundEvent soundEvent, BlockPos pos, Operation<Void> original) {
 		original.call(soundEvent, pos);

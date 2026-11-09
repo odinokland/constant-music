@@ -3,13 +3,13 @@ package com.odinokland.constantmusic.mixin;
 import com.odinokland.constantmusic.core.ConstantMusicManager;
 import com.odinokland.constantmusic.gui.ButtonGenerator;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
-//? < 1.19.0 {
+//? if < 1.19.0 {
 /*import net.minecraft.client.Option;
 import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.components.VolumeSlider;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.sounds.SoundSource;
-*///? } else if < 1.19.3 {
+*///? } elif < 1.19.3 {
 import com.llamalad7.mixinextras.sugar.Local;
 import net.minecraft.client.gui.components.AbstractWidget;
 import org.spongepowered.asm.mixin.Unique;
@@ -17,20 +17,20 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import com.llamalad7.mixinextras.sugar.ref.LocalIntRef;
 import java.util.function.BiFunction;
 //? } else {
-//import net.minecraft.client.OptionInstance;
-//? }
+/*import net.minecraft.client.OptionInstance;
+*///? }
 import net.minecraft.client.Options;
 import net.minecraft.client.gui.screens.Screen;
-//? >= 1.21.1 {
-//import net.minecraft.client.gui.screens.options.OptionsSubScreen;
-//? } else {
+//? if >= 1.21.1 {
+/*import net.minecraft.client.gui.screens.options.OptionsSubScreen;
+*///? } else {
 import net.minecraft.client.gui.screens.OptionsSubScreen;
 //? }
 import net.minecraft.client.gui.screens.SoundOptionsScreen;
 import net.minecraft.network.chat.Component;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-//? > 1.21.5 {
+//? if > 1.21.5 {
 /*import org.spongepowered.asm.mixin.injection.ModifyArgs;
 import org.spongepowered.asm.mixin.injection.invoke.arg.Args;
 *///? } else {
@@ -46,7 +46,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 @MixinEnvironment(type = MixinEnvironment.Env.CLIENT)
 @Mixin(SoundOptionsScreen.class)
 public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
-	//? > 1.19.2 && < 1.21.1 {
+	//? if > 1.19.2 && < 1.21.1 {
 	/*@Shadow
 	private OptionsList list;
 	*///? }
@@ -75,9 +75,9 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 
 		if (originalOptions != null && originalOptions.length == 2) {
 			OptionInstance<?> secondOption = originalOptions[1];
-			//? >= 1.21.11 {
-			//boolean checkSecondOption = secondOption == this.options.musicToast();
-			//? } else {
+			//? if >= 1.21.11 {
+			/^boolean checkSecondOption = secondOption == this.options.musicToast();
+			^///? } else {
 			boolean checkSecondOption = secondOption == this.options.showNowPlayingToast();
 			//? }
 			if (checkSecondOption) {
@@ -94,7 +94,7 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 		}
 	}
 
-	*///? } else if >=1.19.3 {
+	*///? } elif >=1.19.3 {
 
 	/*@Inject(
 			//~ if >= 1.21.1 'init' -> 'addOptions'
@@ -154,7 +154,7 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 	}
 	//?} else {
 	/*@Override
-	/^? fabric { ^//^public^//^? } else { ^/protected/^? }^/ void init() {
+	/^? if fabric { ^//^public^//^? } else { ^/protected/^? }^/ void init() {
 		int i = this.height / 6 - 12;
 		int j = 22;
 		int k = 0;

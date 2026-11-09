@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
-//? neoforge {
+//? if neoforge {
 
 /*import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.platform.Platform;
@@ -68,9 +68,9 @@ public class NeoforgePlatform implements Platform {
 	 ^/
 	@Override
 	public boolean isClient() {
-		//? >= 1.21.11 {
-		//return FMLLoader.getCurrent().getDist() == Dist.CLIENT;
-		//? } else {
+		//? if >= 1.21.11 {
+		/^return FMLLoader.getCurrent().getDist() == Dist.CLIENT;
+		^///? } else {
 		return FMLLoader.getDist() == Dist.CLIENT;
 		//? }
 	}

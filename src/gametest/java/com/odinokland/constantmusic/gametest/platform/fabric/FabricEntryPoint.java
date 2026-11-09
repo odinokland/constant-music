@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.gametest.platform.fabric;
 
-//? fabric {
+//? if fabric {
 /*import com.odinokland.constantmusic.gametest.GametestConstants;
 import net.fabricmc.api.ModInitializer;
 

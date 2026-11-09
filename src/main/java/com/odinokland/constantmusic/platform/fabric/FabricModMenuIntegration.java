@@ -1,12 +1,7 @@
 package com.odinokland.constantmusic.platform.fabric;
 
-//? fabric {
-
-/*//? fabric {
-
-/^//? fabric {
-
-/^import com.odinokland.constantmusic.gui.ConfigScreen;
+//? if fabric {
+/*import com.odinokland.constantmusic.gui.ConfigScreen;
 import com.terraformersmc.modmenu.api.ConfigScreenFactory;
 import com.terraformersmc.modmenu.api.ModMenuApi;
 import net.fabricmc.api.EnvType;
@@ -32,6 +27,4 @@ public class FabricModMenuIntegration implements ModMenuApi {
 		return ConfigScreen::new;
 	}
 }
-^///?}
-^///?}
 *///?}

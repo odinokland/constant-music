@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
-//? neoforge {
+//? if neoforge {
 /*import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.core.JukeboxTrackerUtility;
 import net.minecraft.client.Minecraft;
@@ -41,7 +41,7 @@ public class NeoforgeJukeboxSubscriber {
 	 * @param event the event
 	 ^/
 	@SubscribeEvent
-	public static void onClientTick(/^? >= 1.20.6 {^/ /^ClientTickEvent.Post ^//^?} else {^/ TickEvent.ClientTickEvent /^?}^/ event) {
+	public static void onClientTick(/^? if >= 1.20.6 {^/ /^ClientTickEvent.Post ^//^?} else {^/ TickEvent.ClientTickEvent /^?}^/ event) {
 		Minecraft client = Minecraft.getInstance();
 		JukeboxTrackerUtility.checkJukeboxesInRange(client);
 	}

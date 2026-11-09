@@ -1,37 +1,37 @@
 package com.odinokland.constantmusic.gametest;
 
-//? forge || neoforge {
-//? < 1.21.5 {
+//? if forge || neoforge {
+//? if < 1.21.5 {
 import com.odinokland.constantmusic.util.Constants;
 //import com.odinokland.constantmusic.gametest.platform.GameTests;
-//? forge {
+//? if forge {
 import net.minecraftforge.event.RegisterGameTestsEvent;
 //? }
 //? }
-//? forge {
+//? if forge {
 import net.minecraftforge.fml.common.Mod;
 //? }
-//? neoforge {
-//import net.neoforged.fml.common.Mod;
-//?}
-//? >= 1.21.5 {
+//? if neoforge {
+/*import net.neoforged.fml.common.Mod;
+*///?}
+//? if >= 1.21.5 {
 /*import net.minecraft.gametest.framework.GameTestHelper;
 import java.util.function.Consumer;
 import java.util.List;
 import net.minecraft.core.registries.Registries;
-//? forge {
+//? if forge {
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.registries.DeferredRegister;
 import com.odinokland.constantmusic.gametest.datagen.GameTestInstanceProvider;
 import net.minecraft.data.DataProvider;
-//? >= 1.21.6 {
-//import net.minecraftforge.eventbus.api.bus.BusGroup;
-//? } else {
+//? if >= 1.21.6 {
+/^import net.minecraftforge.eventbus.api.bus.BusGroup;
+^///? } else {
 import net.minecraftforge.eventbus.api.IEventBus;
 //? }
 //? }
-//? neoforge {
+//? if neoforge {
 /^import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 ^///? }
@@ -39,16 +39,16 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 @Mod(GametestConstants.MOD_ID)
 public class GametestMod {
-	//? < 1.21.5 {
+	//? if < 1.21.5 {
 	public GametestMod() {
 
 	}
 
 	//? }
-	//? >= 1.21.5 {
+	//? if >= 1.21.5 {
 	/*public static final DeferredRegister<Consumer<GameTestHelper>> GAME_TESTS = DeferredRegister.create(Registries.TEST_FUNCTION, GametestConstants.MOD_ID);
 
-	//? forge {
+	//? if forge {
 	public GametestMod(FMLJavaModLoadingContext context) {
 		GametestConstants.LOGGER.info("Loading Gametest Mod");
 		//? if >= 1.21.6 {
@@ -68,7 +68,7 @@ public class GametestMod {
 		event.getGenerator().addProvider(true, (DataProvider.Factory<GameTestInstanceProvider>) output -> new GameTestInstanceProvider(output, testNames));
 	}
 	//? }
-	//? neoforge {
+	//? if neoforge {
 	/^public GametestMod(IEventBus eventBus) {
 		GAME_TESTS.register(eventBus);
 		configureTests();

@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.platform.fabric;
 
-//? fabric {
+//? if fabric {
 
 /*import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.platform.Platform;

@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.platform.fabric.client.event;
 
-//? fabric {
+//? if fabric {
 /*import net.fabricmc.fabric.api.event.Event;
 import net.fabricmc.fabric.api.event.EventFactory;
 import net.minecraft.client.Minecraft;

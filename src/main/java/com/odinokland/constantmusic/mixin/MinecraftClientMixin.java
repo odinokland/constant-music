@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.mixin;
 
-//? if <1.21.6 && fabric {
+//? if < 1.21.6 && fabric {
 /*import com.odinokland.constantmusic.platform.fabric.client.event.ClientWorldEvents;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.Minecraft;

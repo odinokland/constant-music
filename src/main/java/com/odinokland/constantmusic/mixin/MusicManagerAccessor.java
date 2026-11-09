@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.mixin;
 
-//? < 1.20 {
+//? if < 1.20 {
 import com.odinokland.constantmusic.util.Constants;
 import dev.kikugie.fletching_table.annotation.MixinEnvironment;
 import net.minecraft.client.sounds.MusicManager;

@@ -1,12 +1,12 @@
 package com.odinokland.constantmusic.gametest.platform.fabric;
 
-//? fabric {
+//? if fabric {
 /*import com.odinokland.constantmusic.core.ConstantMusicManager;
 import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
 import com.odinokland.constantmusic.gametest.GametestConstants;
 import net.minecraft.gametest.framework.GameTestHelper;
 
-//? >= 1.21.5 {
+//? if >= 1.21.5 {
 /^import net.fabricmc.fabric.api.gametest.v1.CustomTestMethodInvoker;
 import net.fabricmc.fabric.api.gametest.v1.GameTest;
 import java.lang.reflect.Method;
@@ -19,8 +19,8 @@ public class FabricGameTests /^$ gametest_implementations ^/{
 	//? if <1.20.1 {
 	private static final String TEMPLATE_NAME = "empty";
 	//?} else {
-	//private static final String TEMPLATE_NAME = GametestConstants.MOD_ID + ":" + "empty";
-	//?}
+	/^private static final String TEMPLATE_NAME = GametestConstants.MOD_ID + ":" + "empty";
+	^///?}
 	private static final String ENVIRONMENT_NAME = GametestConstants.MOD_ID + ":" + "default";
 
 	/^*
@@ -61,7 +61,7 @@ public class FabricGameTests /^$ gametest_implementations ^/{
 		ConstantMusicGameTests.testJukeboxMusicSuppressionAndResumption(helper);
 	}
 
-	//? >= 1.21.5 {
+	//? if >= 1.21.5 {
 
 	/^/^*
 	 * Invoke test method.

@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.gametest.datagen;
 
-//? >= 1.21.5 && forge {
+//? if >= 1.21.5 && forge {
 /*import com.google.gson.JsonObject;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.CachedOutput;

@@ -2,11 +2,11 @@ package com.odinokland.constantmusic.gametest;
 
 import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
 import net.minecraft.gametest.framework.GameTestHelper;
-//? forge && >= 1.2.5 {
+//? if forge && >= 1.2.5 {
 import net.minecraftforge.registries.DeferredRegister;
-//? } else if neoforge && >= 1.2.5 {
-//import net.neoforged.neoforge.registries.DeferredRegister;
-//? }
+//? } elif neoforge && >= 1.2.5 {
+/*import net.neoforged.neoforge.registries.DeferredRegister;
+*///? }
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +29,7 @@ public class GametestConstants {
 
 	}
 
-	//? >= 1.21.5 && !fabric {
+	//? if >= 1.21.5 && !fabric {
 	/*public static void initializeTest(DeferredRegister<Consumer<GameTestHelper>> testFunctionRegistry) {
 		TESTS.forEach((key, value) -> testFunctionRegistry.register(key, () ->value));
 	}

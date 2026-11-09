@@ -1,7 +1,7 @@
 package com.odinokland.constantmusic.gametest.platform.neoforge;
 
-//? neoforge {
-/*//? < 1.21.5 {
+//? if neoforge {
+/*//? if < 1.21.5 {
 import com.odinokland.constantmusic.gametest.shared.ConstantMusicGameTests;
 import com.odinokland.constantmusic.gametest.GametestConstants;
 import net.minecraft.gametest.framework.GameTestHelper;
@@ -45,7 +45,7 @@ public class NeoforgeGameTests {
 		ConstantMusicGameTests.testJukeboxMusicSuppressionAndResumption(helper);
 	}
 
-	//? fabric && >= 1.21.5 {
+	//? if fabric && >= 1.21.5 {
 
 	/^/^*
 	 * Invoke test method.

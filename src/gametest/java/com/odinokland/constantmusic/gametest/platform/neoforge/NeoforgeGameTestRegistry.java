@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.gametest.platform.neoforge;
 
-//? >= 1.21.5 && neoforge {
+//? if >= 1.21.5 && neoforge {
 /*import com.odinokland.constantmusic.gametest.GametestConstants;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.gametest.framework.GameTestHelper;

@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.gametest.platform;
 
-//? fabric {
+//? if fabric {
 /*import net.fabricmc.api.ModInitializer;
 /^*
  * The type Fabric entrypoint.

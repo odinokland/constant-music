@@ -6,7 +6,7 @@ import com.odinokland.constantmusic.util.TranslatableComponentHelper;
 import net.minecraft.client.gui.components.CycleButton;
 import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
-//? >= 1.19.0 {
+//? if >= 1.19.0 {
 import net.minecraft.client.OptionInstance;
 //? }
 
@@ -16,9 +16,9 @@ import java.util.Arrays;
  * The type Button generator.
  */
 public class ButtonGenerator {
-	//? > 1.21.5 {
-	//private static final String FREQUENCY_LABEL = "options.music_frequency";
-	//? } else {
+	//? if > 1.21.5 {
+	/*private static final String FREQUENCY_LABEL = "options.music_frequency";
+	*///? } else {
 	private static final String FREQUENCY_LABEL = "constantmusic.options.music_frequency";
 	//? }
 
@@ -52,9 +52,9 @@ public class ButtonGenerator {
 	 * @return the cycle button
 	 */
 	public static CycleButton<MusicFrequency> musicFrequencyButton(int x, int y, int width) {
-		//? >= 1.21.11 {
-		//return CycleButton.builder(MusicFrequency::caption, ConstantMusicManager.SINGLETON.getFrequency())
-		//? } else {
+		//? if >= 1.21.11 {
+		/*return CycleButton.builder(MusicFrequency::caption, ConstantMusicManager.SINGLETON.getFrequency())
+		*///? } else {
 		return CycleButton.builder(MusicFrequency::caption)
 				.withInitialValue(ConstantMusicManager.SINGLETON.getFrequency())
 		//? }
@@ -66,7 +66,7 @@ public class ButtonGenerator {
 						(button, value) -> ConstantMusicManager.SINGLETON.setFrequency(value)
 				);
 	}
-	//? >= 1.19.0 {
+	//? if >= 1.19.0 {
 	/**
 	 * Gets a config option.
 	 *

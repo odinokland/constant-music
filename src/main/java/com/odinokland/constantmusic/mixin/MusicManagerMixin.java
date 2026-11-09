@@ -17,13 +17,13 @@ import net.minecraft.sounds.Music;
 //? if <= 1.21.3 || > 1.21.8 {
 import net.minecraft.sounds.Music;
 //? } else {
-//import net.minecraft.client.sounds.MusicInfo;
-//? }
-//? >= 1.19.0 {
+/*import net.minecraft.client.sounds.MusicInfo;
+*///? }
+//? if >= 1.19.0 {
 import net.minecraft.util.RandomSource;
 //? } else {
-//import java.util.Random;
-//? }
+/*import java.util.Random;
+*///? }
 
 /**
  * The type Music manager mixin.
@@ -34,7 +34,7 @@ import net.minecraft.util.RandomSource;
 public class MusicManagerMixin {
 	@Shadow @Final
 	private Minecraft minecraft;
-	//? >= 1.19.0 {
+	//? if >= 1.19.0 {
 	@Shadow @Final
 	private RandomSource random;
 	//? } else {
@@ -51,9 +51,9 @@ public class MusicManagerMixin {
 	 */
 	@Unique
 	private Music constant_music$getSituationalMusic() {
-		//? > 1.21.3 && < 1.21.11 {
-		//return minecraft.getSituationalMusic().music();
-		//? } else {
+		//? if > 1.21.3 && < 1.21.11 {
+		/*return minecraft.getSituationalMusic().music();
+		*///? } else {
 		return minecraft.getSituationalMusic();
 		//? }
 	}
@@ -65,7 +65,7 @@ public class MusicManagerMixin {
 	}
 
 
-	//? if <=1.21.3 || >1.21.8 {
+	//? if <= 1.21.3 || >1.21.8 {
 	@WrapWithCondition(
 			method = "tick",
 			at = @At(

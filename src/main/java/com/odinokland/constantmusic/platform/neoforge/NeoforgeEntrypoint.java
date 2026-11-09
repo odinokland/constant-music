@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.platform.neoforge;
 
-//? neoforge {
+//? if neoforge {
 /*import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;

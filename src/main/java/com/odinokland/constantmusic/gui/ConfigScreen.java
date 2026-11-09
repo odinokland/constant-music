@@ -7,7 +7,7 @@ import net.minecraft.client.gui.components.Button;
 import net.minecraft.client.gui.screens.Screen;
 import net.minecraft.network.chat.CommonComponents;
 import org.jetbrains.annotations.NotNull;
-//? >= 1.19.0 {
+//? if >= 1.19.0 {
 import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.core.MusicFrequency;
 import net.minecraft.client.gui.components.CycleButton;
@@ -49,9 +49,9 @@ public class ConfigScreen extends Screen {
 				height / 2,
 				200
 		));
-		//? if >=1.19.3 {
-		//addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).bounds(width / 2 - 100, height - 27, 200, 20).build());
-		//?} else {
+		//? if >= 1.19.3 {
+		/*addRenderableWidget(Button.builder(CommonComponents.GUI_DONE, button -> onClose()).bounds(width / 2 - 100, height - 27, 200, 20).build());
+		*///?} else {
 		addRenderableWidget(new Button(width / 2 - 100, height / 2 + 24, 200, 20,
 				CommonComponents.GUI_DONE, button -> onClose()));
 		//?}
@@ -75,14 +75,14 @@ public class ConfigScreen extends Screen {
 	) {
 		//? if < 1.19.4 {
 		renderBackground(guiGraphics);
-		//? } else if <= 1.20.2 {
-		//renderDirtBackground(guiGraphics);
-		//? }
-		//? < 26 {
+		//? } elif <= 1.20.2 {
+		/*renderDirtBackground(guiGraphics);
+		*///? }
+		//? if < 26 {
 		drawCenteredString(guiGraphics, font, title, width / 2, height / 2 - 60, 0xFFFFFF);
 		//? }
 		super.render(guiGraphics, mouseX, mouseY, partialTick);
-		//? >= 26 {
+		//? if >= 26 {
 		/*int titleWidth = font.width(title);
 		guiGraphics.text(font, title, (width - titleWidth) / 2, height / 2 - 60, 0xFFFFFFFF);
 		*///? }
@@ -95,8 +95,8 @@ public class ConfigScreen extends Screen {
 	public void onClose() {
 		assert minecraft != null;
 		//? if >= 26.2 {
-		//minecraft.setScreenAndShow(parent);
-		//?} else {
+		/*minecraft.setScreenAndShow(parent);
+		*///?} else {
 		minecraft.setScreen(parent);
 		//?}
 		ConstantMusicManager.SINGLETON.clearSlider();

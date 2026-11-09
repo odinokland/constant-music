@@ -3,13 +3,13 @@ package com.odinokland.constantmusic.core;
 import com.odinokland.constantmusic.client.ClientProxy;
 import com.odinokland.constantmusic.gui.ConfigScreen;
 import com.odinokland.constantmusic.platform.Platform;
-//? fabric {
-//import com.odinokland.constantmusic.platform.fabric.FabricPlatform;
-//? } forge {
+//? if fabric {
+/*import com.odinokland.constantmusic.platform.fabric.FabricPlatform;
+*///? } elif forge {
 import com.odinokland.constantmusic.platform.forge.ForgePlatform;
-//? } neoforge {
-//import com.odinokland.constantmusic.platform.neoforge.NeoforgePlatform;
-//? }
+//? } elif neoforge {
+/*import com.odinokland.constantmusic.platform.neoforge.NeoforgePlatform;
+*///? }
 import com.odinokland.constantmusic.server.ServerProxy;
 import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.util.DevTools;
@@ -150,7 +150,7 @@ public class ConstantMusicManager {
 	 * Set the base minecraft music frequency option
 	 */
 	private void updateMinecraftOptions() {
-		//? > 1.21.5 {
+		//? if > 1.21.5 {
 		/*MusicFrequency frequency = getFrequency();
 		if (frequency == MusicFrequency.FIXED) {
 			if (getTimer() == 0) {
@@ -200,11 +200,11 @@ public class ConstantMusicManager {
 	 * @return the platform
 	 */
 	private Platform createPlatformInstance() {
-		//? fabric {
-		//return new FabricPlatform();
-		//?} neoforge {
-		//return new NeoforgePlatform();
-		//?} forge {
+		//? if fabric {
+		/*return new FabricPlatform();
+		*///?} else if neoforge {
+		/*return new NeoforgePlatform();
+		*///?} else if forge {
 		return new ForgePlatform();
 		//?}
 	}

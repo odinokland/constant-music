@@ -127,8 +127,8 @@ public class ConstantMusicGameTests {
 	 */
 	private static void failTest(GameTestHelper helper, String message, BlockPos pos) {
 		//? >=1.21.5 {
-		//helper.fail(Component.literal(message), pos);
-		//?} else {
+		/*helper.fail(Component.literal(message), pos);
+		*///?} else {
 		helper.fail(message, pos);
 		//?}
 	}
@@ -142,8 +142,8 @@ public class ConstantMusicGameTests {
 	 */
 	private static void failTest(GameTestHelper helper, String message, Entity entity) {
 		//? >=1.21.5 {
-		//helper.fail(Component.literal(message), entity);
-		//?} else {
+		/*helper.fail(Component.literal(message), entity);
+		*///?} else {
 		helper.fail(message, entity);
 		//?}
 	}

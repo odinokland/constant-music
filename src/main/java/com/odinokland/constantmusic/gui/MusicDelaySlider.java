@@ -6,9 +6,9 @@ import net.minecraft.network.chat.CommonComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.util.Mth;
 import org.spongepowered.asm.mixin.Unique;
-//? < 1.19.0 {
-//import net.minecraft.network.chat.TranslatableComponent;
-//? }
+//? if < 1.19.0 {
+/*import net.minecraft.network.chat.TranslatableComponent;
+*///? }
 
 /**
  * Music delay slider.
@@ -86,11 +86,11 @@ public class MusicDelaySlider extends AbstractSliderButton {
 		Integer value = ConstantMusicManager.SINGLETON.getTimer();
 		return value.equals(0)
 				?
-				//? >= 1.19.0 {
+				//? if >= 1.19.0 {
 				Component.translatable("constantmusic.option")
 				//? } else {
-				//new TranslatableComponent("constantmusic.option")
-				//? }
+				/*new TranslatableComponent("constantmusic.option")
+				*///? }
 						.append(": ")
 						.append(CommonComponents.OPTION_OFF)
 				: ConstantMusicManager.timeDisplayText(value);

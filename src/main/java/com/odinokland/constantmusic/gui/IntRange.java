@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.gui;
 
-//? >= 1.19.0 {
+//? if >= 1.19.0 {
 import com.mojang.serialization.Codec;
 import com.odinokland.constantmusic.core.ConstantMusicManager;
 import net.minecraft.client.OptionInstance;
@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 
 import java.util.Optional;
 import java.util.function.Function;
-//? < 26.3 {
+//? if < 26.3 {
 import java.util.function.Consumer;
 //? }
 
@@ -31,10 +31,10 @@ public record IntRange(int minInclusive, int maxInclusive, boolean applyValueImm
 	public IntRange(final int minInclusive, final int maxInclusive) {
 		this(minInclusive, maxInclusive, true);
 	}
-	//? > 1.19.2 {
-	/*//? >= 26.3 {
-	//public Function<OptionInstance<Integer>, AbstractWidget> createButton(OptionInstance.TooltipSupplier<Integer> tooltip, Options options, int x, int y, int width, final OptionInstance.ValueUpdateListener<? super Integer> onValueChanged) {
-	//? } else {
+	//? if > 1.19.2 {
+	/*//? if >= 26.3 {
+	/^public Function<OptionInstance<Integer>, AbstractWidget> createButton(OptionInstance.TooltipSupplier<Integer> tooltip, Options options, int x, int y, int width, final OptionInstance.ValueUpdateListener<? super Integer> onValueChanged) {
+	^///? } else {
 	@Override
 	public Function<OptionInstance<Integer>, AbstractWidget> createButton(OptionInstance.TooltipSupplier<Integer> tooltip, Options options, int x, int y, int width, Consumer<Integer> onValueChanged) {
 	//? }
@@ -48,7 +48,7 @@ public record IntRange(int minInclusive, int maxInclusive, boolean applyValueImm
 					instance,
 					this,
 					tooltip,
-					//? >= 1.20.6 {
+					//? if >= 1.20.6 {
 					/^onValueChanged,
 					this.applyValueImmediately()
 					^///? } else {

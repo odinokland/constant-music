@@ -1,6 +1,6 @@
 package com.odinokland.constantmusic.platform.forge;
 
-//? forge {
+//? if forge {
 
 import com.odinokland.constantmusic.util.Constants;
 import com.odinokland.constantmusic.platform.Platform;
