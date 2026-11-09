@@ -69,6 +69,7 @@ jobs:
         with:
           args: --latest --strip header --output CHANGELOG.md
           version: 'v2.13.1'
+          GITHUB_REPO: ${{ github.repository }}
 
       - name: Setup JDK
         uses: actions/setup-java@v6
@@ -99,3 +100,13 @@ jobs:
           PUB_MAVEN_CENTRAL_USERNAME: ${{ secrets.PUB_MAVEN_CENTRAL_USERNAME }}
           PUB_MAVEN_CENTRAL_PASSWORD: ${{ secrets.PUB_MAVEN_CENTRAL_PASSWORD }}
         run: ./gradlew publishMods --stacktrace --no-daemon --max-workers=2 --console=plain
+
+      - name: Commit Changelog
+        run: |
+          git checkout <branch>
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@users.noreply.github.com'
+          set +e
+          git add CHANGELOG.md
+          git commit -m "Update changelog"
+          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git main
