@@ -1,9 +1,7 @@
 name: Publish Releases
 
 on:
-  push:
-    tags:
-      - '*'
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -22,11 +20,9 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Validate tag matches version
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Read version from stonecutter.properties.toml
+        id: version
         run: |
-          TAG="${GITHUB_REF_NAME#v}"
           read -r VERSION CHANNEL_TAG < <(python3 -c '
           import tomllib
 
@@ -42,34 +38,51 @@ jobs:
             exit 1
           fi
 
-          echo "Validating tag '$TAG' against version '$FULL_VERSION'..."
-          if [[ "$TAG" != "$FULL_VERSION" ]]; then
-            echo "::error::Tag '$TAG' does not match version '$FULL_VERSION' in stonecutter.properties.toml."
+          TAG_NAME="v${FULL_VERSION}"
+          echo "tag_name=${TAG_NAME}" >> "$GITHUB_OUTPUT"
+          echo "Resolved release tag: ${TAG_NAME}"
 
-            if gh release view "$GITHUB_REF_NAME" &>/dev/null; then
-              echo "Deleting GitHub release for $GITHUB_REF_NAME..."
-              gh release delete "$GITHUB_REF_NAME" -y
-            fi
-
-            git push origin ":refs/tags/$GITHUB_REF_NAME"
+      - name: Verify tag does not already exist
+        run: |
+          if git rev-parse "${{ steps.version.outputs.tag_name }}" >/dev/null 2>&1; then
+            echo "::error::Tag ${{ steps.version.outputs.tag_name }} already exists."
             exit 1
           fi
-          echo "✓ Tag matches version."
-
-      - name: Free Disk Space (Ubuntu)
-        uses: jlumbroso/free-disk-space@main
 
       - name: Prepare git-cliff
         run: |
-          REPO_URL="https://github.com/${{ github.repository }}"
+          REPO_URL="https://github.com{{ github.repository }}"
           sed -i "s|%%%repo_url%%%|${REPO_URL}|g" cliff.toml
 
       - name: Generate changelog with git-cliff
         uses: orhun/git-cliff-action@v4
         with:
-          args: --latest --strip header --output CHANGELOG.md
+          args: --unreleased --tag "${{ steps.version.outputs.tag_name }}" --strip header --output CHANGELOG.md
           version: 'v2.13.1'
           GITHUB_REPO: ${{ github.repository }}
+
+      - name: Restore cliff.toml
+        run: git checkout -- cliff.toml
+
+      - name: Commit and Push Changelog
+        id: changelog_commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email 'github-actions[bot]@://github.com'
+
+          git add CHANGELOG.md
+          if ! git diff --cached --quiet; then
+            git commit -m "chore(ci): Update changelog for ${{ steps.version.outputs.tag_name }} [skip ci]"
+            git push origin HEAD:${{ github.ref_name }}
+            echo "committed=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "committed=false" >> "$GITHUB_OUTPUT"
+          fi
+
+          echo "sha=$(git rev-parse HEAD)" >> "$GITHUB_OUTPUT"
+
+      - name: Free Disk Space (Ubuntu)
+        uses: jlumbroso/free-disk-space@main
 
       - name: Setup JDK
         uses: actions/setup-java@v6
@@ -82,7 +95,8 @@ jobs:
 
       - name: Build and publish
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_SHA: ${{ steps.changelog_commit.outputs.sha }}
+          GITHUB_REF_NAME: ${{ steps.version.outputs.tag_name }}
           PUB_GITHUB_ENABLE: ${{ vars.PUB_GITHUB_ENABLE }}
           PUB_DRY_RUN: ${{ vars.PUB_DRY_RUN }}
           PUB_MODS_ENABLE: ${{ vars.PUB_MODS_ENABLE }}
@@ -101,12 +115,14 @@ jobs:
           PUB_MAVEN_CENTRAL_PASSWORD: ${{ secrets.PUB_MAVEN_CENTRAL_PASSWORD }}
         run: ./gradlew publishMods --stacktrace --no-daemon --max-workers=2 --console=plain
 
-      - name: Commit Changelog
+      - name: Revert Changelog Commit on Failure
+        if: failure() && steps.changelog_commit.outputs.committed == 'true'
         run: |
-          git checkout main
-          git config user.name 'github-actions[bot]'
-          git config user.email 'github-actions[bot]@users.noreply.github.com'
-          set +e
-          git add CHANGELOG.md
-          git commit -m "Update changelog"
-          git push https://${{ secrets.GITHUB_TOKEN }}@github.com/${GITHUB_REPOSITORY}.git main
+          git revert --no-edit HEAD
+          git push origin HEAD:${{ github.ref_name }}
+
+      - name: Create annotated tag (if not created by publishMods)
+        if: !failure() && vars.PUB_GITHUB_ENABLE != 'true'
+        run: |
+          git tag -a "${{ steps.version.outputs.tag_name }}" -m "Release ${{ steps.version.outputs.tag_name }}"
+          git push origin "${{ steps.version.outputs.tag_name }}"
