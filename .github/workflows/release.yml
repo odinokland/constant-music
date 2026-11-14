@@ -97,6 +97,7 @@ jobs:
         env:
           GITHUB_SHA: ${{ steps.changelog_commit.outputs.sha }}
           GITHUB_REF_NAME: ${{ steps.version.outputs.tag_name }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           PUB_GITHUB_ENABLE: ${{ vars.PUB_GITHUB_ENABLE }}
           PUB_DRY_RUN: ${{ vars.PUB_DRY_RUN }}
           PUB_MODS_ENABLE: ${{ vars.PUB_MODS_ENABLE }}
