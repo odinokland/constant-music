@@ -124,9 +124,9 @@ public abstract class SoundOptionsScreenMixin extends OptionsSubScreen {
 			),
 			require = 1
 	)
-	private void mymod$addCustomOptions(
+	private void constantmusic$addCustomOptions(
 			CallbackInfo ci,
-			@Local(name = "i") int i,
+			@Local(index = 1) int i,
 			@Local(index = 3) LocalIntRef k
 	) {
 		int internalK = k.get();
