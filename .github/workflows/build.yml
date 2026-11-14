@@ -159,6 +159,18 @@ jobs:
             jvm_args="-Djava.awt.headless=true -Dforge.enableGameTest=true -Dforge.enabledGameTestNamespaces=${{matrix.modId}},${{matrix.modId}}_gametest"
           fi
           printf 'hmc.jvmargs=%s\n' "$jvm_args" >> HeadlessMC/config.properties
+      - name: Disable NeoForge 1.21.8 early loading window
+        if: matrix.modLoader == 'neoforge' && matrix.runnerMcVersion == '1.21.8'
+        shell: bash
+        run: |
+          mkdir -p run/config
+          config=run/config/fml.toml
+          touch "$config"
+          if grep -qE '^[[:space:]]*earlyWindowControl[[:space:]]*=' "$config"; then
+            sed -i -E 's/^[[:space:]]*earlyWindowControl[[:space:]]*=.*/earlyWindowControl = false/' "$config"
+          else
+            printf '\nearlyWindowControl = false\n' >> "$config"
+          fi
       - name: Run ${{ matrix.runnerMcVersion }} ${{ matrix.modLoader }} client
         uses: ./.github/actions/mc-runtime-test
         with:
